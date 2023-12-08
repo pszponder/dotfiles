@@ -1,0 +1,149 @@
+#!/usr/bin/env bash
+
+# =============
+# SHELL ALIASES
+# =============
+
+# +----------------+
+# | SYSTEM RELATED |
+# +----------------+
+alias sudo='sudo ' # Allow aliases to be sudo'ed
+
+# +------------+
+# | NAVIGATION |
+# +------------+
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias ........="cd ../../../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
+
+# +-----------+
+# | SHORTCUTS |
+# +-----------+
+alias dl="cd ~/Downloads"
+alias dt="cd ~/Desktop"
+alias dc="cd ~/Documents"
+alias dev="cd ~/Development"
+alias scratch="cd ~/Development/scratch"
+alias repos="cd ~/Development/github.com/pszponder"
+alias dot="cd ~/.config"
+alias zdot="cd ~/.config/zsh"
+
+# +---------------------+
+# | source config files |
+# +---------------------+
+alias sourcez="source ~/.config/zsh/.zshrc"
+
+# +-----------------+
+# | clearing screen |
+# +-----------------+
+alias cl="clear"
+
+# +----------------------+
+# | lsd (ls alternative) |
+# +----------------------+
+alias ls='lsd'
+alias l='ls -l'
+alias la='ls -A'
+alias lla='ls -lA'
+
+# Specialty views
+alias lS='ls -1' # one column, just names
+alias lt='ls --tree --depth' # User must specify depth (ex. "lt 2" for 2 levels deep)
+
+# +------+
+# | wget |
+# +------+
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+
+# +--------------------+
+# | copy, move, remove |
+# +--------------------+
+alias cp='cp -iv'
+alias mv='mv -iv'
+alias rm='rm -iv'
+
+# +-----+
+# | bat |
+# +-----+
+alias cat='bat --paging=never'
+
+# +------+
+# | grep |
+# +------+
+alias rg='rg --hidden --smart-case --follow --color=always'
+alias grep='rg'
+
+alias rgf='rg --files-with-matches --no-messages'  # List files that match
+alias rgl='rg --files-without-match --no-messages' # List files that don't match
+alias rgg='rg --glob'                              # Search only files matching glob
+alias rgi='rg --ignore-case'                       # Case insensitive
+alias rgv='rg --invert-match'                      # Invert match
+alias rgc='rg --count'                             # Count number of matches
+alias rgA='rg --after-context'                     # Shows x number of lines after the match, ex. rgA 2
+alias rgB='rg --before-context'                    # Shows x number of lines before the match, ex. rgB 2
+alias rgC='rg --context'                           # Shows x number of lines around the match, ex. rgC 2
+alias rgw='rg --word-regexp'                       # Only match whole words
+alias rgp='rg --pretty'                            # Show results in a more readable format
+alias rgs='rg --sort-files'                        # Sort files by name before searching
+
+# +-------+
+# | xclip |
+# +-------+
+alias clipf='xclip -sel clip <' # ex. clipf someFile.txt
+alias clip='xclip -selection clipboard' # ex. pwd | clip
+
+# +------+
+# | vim |
+# +------+
+alias v="nvim"
+alias vi="nvim"
+alias vim="nvim"
+
+# +-----+
+# | Git |
+# +-----+
+alias g='git'
+alias gs='git status'
+alias gss='git status -s'
+alias ga='git add'
+alias gap='git add -p' # Stage specified file(s) and select hunks to stage
+alias gp='git push'
+alias gpraise='git blame'
+alias gpo='git push origin'
+alias gpt='git push --tag'
+alias gtd='git tag --delete'
+alias gtdr='git tag --delete origin'
+alias grb='git branch -r'                                                                           # display remote branch
+alias gplo='git pull origin'
+alias gb='git branch '
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gd='git diff'
+alias gds='git diff --cached' # View changes to staged files compared against previous commit
+alias gco='git checkout '
+# alias gl='git log --pretty=oneline'
+alias gl1="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
+alias gl2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+alias gl="gl2"
+alias glol='git log --graph --abbrev-commit --oneline --decorate'
+alias gr='git remote'
+alias grs='git remote show'
+alias gclean="git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d" # Delete local branch merged with master
+alias gblog="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:red)%(refname:short)%(color:reset) - %(color:yellow)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:blue)%(committerdate:relative)%(color:reset))'"                                                             # git log for each branches
+alias gsub="git submodule update --remote"                                                        # pull submodules
+alias gj="git-jump"                                                                               # Open in vim quickfix list files of interest (git diff, merged...)
+alias dif="git diff --no-index"                                                                   # Diff two files even if not in git repo! Can add -w (don't diff whitespaces)
+
+# +---------+
+# | lazygit |
+# +---------+
+alias lg="lazygit"
+
+# +------+
+# | MISC |
+# +------+

@@ -1,0 +1,79 @@
+[user]
+	name = Your Name
+	email = your.email@example.com
+
+[core]
+	editor = nvim
+	autocrlf = input # convert CRLF to LF on commit
+	pager = delta --dark # use delta for paging
+	# pager = less
+
+[color]
+	ui = true # colorize output
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	frag = magenta bold
+	meta = yellow bold
+	new = green bold
+	old = red bold
+	whitespace = red reverse
+
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[help]
+	# autoCorrect = immediate # autocorrect typos immediately
+	autoCorrect = prompt # prompt before autocorrecting typos
+
+[pager]
+	status = true # use less for paging
+
+[diff]
+	colorMoved = default
+	# tool = default-difftool # use 'git difftool' to see changes
+
+[interactive]
+	diffFilter = delta --color-only # use delta for interactive staging
+
+[merge]
+	conflictStyle = zdiff3
+	# tool = default-mergetool # use 'git mergetool' to resolve conflicts
+
+[delta]
+	hyperlinks = true # enable hyperlinks
+	syntax-theme = Dracula
+	line-numbers = true # show line numbers
+	side-by-side = true # show diffs side-by-side
+	zero-width-emphasys = true # highlight changed words only
+	navigate = true # allow navigating between hunks
+	decorate-auto = true # decorate commit messages
+
+[push]
+	default = simple # or 'scurrent' for current branch only
+
+[credential]
+	helper = cache --timeout=3600 # stores password for 1 hour
+
+[init]
+	defaultBranch = main
+
+[alias]
+	git = !git # allow running 'git git' to run the native git command
+
+	# stage updates to tracked files (either globally or for a specific path(s)/regex) and show status
+	# git u <file1> <file2>... to stage a file and see status
+	# Ex. git u '*.py' to stage all changes to python files
+	# Ex. git u 'src/**/*.py' to stage all changes to python files in the src directory
+	# Ex. git u '*.py' '*.md' to stage all changes to python and markdown files
+	u = "!f() { git add --update \"$@\" && git status; }; f"
+
+	# Add a main alias for master to legacy repsoitories
+	# Usage: git master-as-main
+	alias-master-as-main = !git symbolic-ref refs/heads/main refs/heads/master && git symbolic-ref refs/remotes/origin/main refs/remotes/origin/master && git switch main

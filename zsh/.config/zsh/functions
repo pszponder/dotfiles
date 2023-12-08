@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+# =============
+# ZSH FUNCTIONS
+# =============
+
+# Ripgrep + pretty print
+# Usage: rg <search term>
+function rg { command rg --json $@ | delta; }

@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+# =========================
+# ZSH CONFIGURATION / SETUP
+# =========================
+
+# +-----------------+
+# | STARSHIP PROMPT |
+# +-----------------+
+eval "$(starship init zsh)"

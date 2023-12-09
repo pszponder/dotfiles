@@ -335,7 +335,7 @@
   "go.toolsManagement.autoUpdate": true,
 
   "[markdown]": {
-    // "editor.tabSize": 4,
+    "editor.tabSize": 4,
     "editor.unicodeHighlight.ambiguousCharacters": false,
     "editor.unicodeHighlight.invisibleCharacters": false,
     "diffEditor.ignoreTrimWhitespace": false,
@@ -345,7 +345,7 @@
       "strings": "off",
       "other": "off"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
   },
 
   // =============================================

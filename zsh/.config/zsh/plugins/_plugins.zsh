@@ -45,3 +45,8 @@ compinit
 # | RTX POLYGLOT RUNTIME MANAGER |
 # +------------------------------+
 eval "$(rtx activate zsh)"
+
+# +----------------+
+# | CUSTOM PLUGINS |
+# +----------------+
+source $ZDOTDIR/plugins/git/plugin_git.zsh

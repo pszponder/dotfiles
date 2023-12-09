@@ -26,6 +26,7 @@ brew install \
 	tealdeer \
 	grex \
 	zoxide \
+	tmux \
 	lazygit \
 	lazydocker \
 	git-delta \

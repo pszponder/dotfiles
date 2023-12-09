@@ -10,7 +10,6 @@ function edzsh() {
 	${EDITOR:-nvim} $HOME/zsh/.zshrc
 }
 
-
 # Ripgrep + pretty print
 # Usage: rg <search term>
 function rg { command rg --json $@ | delta; }

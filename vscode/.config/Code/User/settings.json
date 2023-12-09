@@ -345,6 +345,7 @@
       "strings": "off",
       "other": "off"
     },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
 
   // =============================================

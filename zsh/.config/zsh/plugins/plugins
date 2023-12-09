@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
+
 # ======================
 # ZSH PLUGINS / PACKAGES
 # ======================
@@ -26,6 +28,7 @@ plug "zsh-users/zsh-history-substring-search"
 plug "Aloxaf/fzf-tab"
 plug "kutsan/zsh-system-clipboard"
 plug "MichaelAquilina/zsh-you-should-use"
+
 
 # Load and initialise completion system
 autoload -Uz compinit

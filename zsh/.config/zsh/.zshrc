@@ -4,6 +4,6 @@
 # | SOURCE FILES |
 # +--------------+
 source $ZDOTDIR/config
-source $ZDOTDIR/plugins
+source $ZDOTDIR/plugins/plugins
 source ~/.config/aliases
 source $ZDOTDIR/functions

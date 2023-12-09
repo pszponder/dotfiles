@@ -2,11 +2,21 @@
 	name = Your Name
 	email = your.email@example.com
 
+[init]
+	defaultBranch = main
+
 [core]
 	editor = nvim
 	autocrlf = input # convert CRLF to LF on commit
 	pager = delta --dark # use delta for paging
 	# pager = less
+
+[commit]
+	verbose = 1 # show diff in commit message editor
+	cleanup = scissors # remove everything after scissors line in commit message editor
+
+[stash]
+	showPatch = true # show diff when applying stash
 
 [color]
 	ui = true # colorize output
@@ -37,13 +47,25 @@
 
 [diff]
 	colorMoved = default
+	algorithm = histogram
+	interHunkContext = 3
+	# noprefix = true
 	# tool = default-difftool # use 'git difftool' to see changes
 
 [interactive]
 	diffFilter = delta --color-only # use delta for interactive staging
+	singleKey = true # allow staging/unstaging a file with a single key press
+
+[rebase]
+	autoStash = true # auto stash before rebase
+	abbreviateCommands = true # abbreviate rebase commands
+	updateRef = true # update branch ref after rebase
+	autoSquash = true # auto squash commits
+	# tool = default-mergetool # use 'git mergetool' to resolve conflicts
 
 [merge]
 	conflictStyle = zdiff3
+	autoStash = true # auto stash before merge
 	# tool = default-mergetool # use 'git mergetool' to resolve conflicts
 
 [delta]
@@ -57,12 +79,29 @@
 
 [push]
 	default = simple # or 'scurrent' for current branch only
+	autoSetupRemote = true # automatically setup remote tracking when pushing a new branch
+
+[pull]
+	# rebase = interactive # rebase instead of merge when pulling (and allow interactive rebase)
+	rebase = true # rebase instead of merge when pulling
 
 [credential]
 	helper = cache --timeout=3600 # stores password for 1 hour
 
-[init]
-	defaultBranch = main
+[status]
+	# # To show long status, run 'git status --long'
+	# short = true # show short status
+	# branch = true # show branch name
+	# showUntrackedFiles = all # show untracked files
+
+[log]
+	follow = true # follow renames
+
+[rerere]
+	enabled = true # enable rerere
+
+[gc]
+	rerereResolved = 365 # remove resolved conflicts from rerere cache
 
 [alias]
 	git = !git # allow running 'git git' to run the native git command
@@ -77,3 +116,6 @@
 	# Add a main alias for master to legacy repsoitories
 	# Usage: git master-as-main
 	alias-master-as-main = !git symbolic-ref refs/heads/main refs/heads/master && git symbolic-ref refs/remotes/origin/main refs/remotes/origin/master && git switch main
+
+	# Select and switch branches w/ fzf
+	switch-recent = !git branch --sort=-committerdate --format='%(refname:short) ' | fzf --preview='git log --date=relative --color main..{}' | xargs git switch

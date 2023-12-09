@@ -8,6 +8,6 @@ for dir in */ ; do
 	# Check if the directory is not .git
 	if [[ "$dir" != ".git/" ]]; then
 		# Stow the directory
-		stow -v --target="$TARGET_DIR" "$dir"
+		stow -v --restow --target="$TARGET_DIR" "$dir"
 	fi
 done

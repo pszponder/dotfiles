@@ -6,19 +6,13 @@ My dotfile configuration
 
 See [Prerequisites](./README.md#prerequisites) section before using.
 
-1. `cd` into the repository
-2. Run `stow` to symlink the whole repo or just a specific directory
-3. **OPTIONAL:** Add any items you want stow to ignore (not create symlinks for) in the `.stow-local-ignore` file
-
 ```bash
+# symlink everything from dotfiles repo (except .git folder)
+./stow_all.sh
+
 # add -n option simulates what will happen
-stow -vn -t ~ /
-
-# symlink everything from dotfiles repo
-stow -v -t ~ /
-
-# symlink specific directory (zsh dir in this case)
-stow -v -t ~ zsh # just symlink the zsh config (or any other directory)
+# To run the actual command, remove the -n option
+stow -vn --target=$HOME zsh # just symlink zsh config (or any other directory)
 ```
 
 Options:

@@ -118,6 +118,9 @@ printf "%b" "${smoke_tests}"
 
 ## Optional
 
+### Desktop Wallpaper
+- [wallpaperflare.com - Vector Forest](https://www.wallpaperflare.com/mikael-gustafsson-river-trees-forest-landscape-artwork-wallpaper-ujodq/download)
+
 ### Color Themes
 
 - [Catppuccin Theme](https://github.com/catppuccin)

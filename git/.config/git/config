@@ -1,6 +1,6 @@
 [user]
-	name = Your Name
-	email = your.email@example.com
+	name = Change My Name
+	email = change.my.email@changeme.com
 
 [init]
 	defaultBranch = main
@@ -119,3 +119,8 @@
 
 	# Select and switch branches w/ fzf
 	switch-recent = !git branch --sort=-committerdate --format='%(refname:short) ' | fzf --preview='git log --date=relative --color main..{}' | xargs git switch
+
+# NOTE: Execute setup_config-personal.sh to create the config-personal file
+[includeIf "gitdir:~/Development/github.com/pszponder/"]
+	# If working in the github.com/pszponder directory, use the config file at ~/.config/git/config-personal to override global settings
+	path = ~/.config/git/config-personal

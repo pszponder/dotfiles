@@ -24,8 +24,8 @@
   "editor.minimap.autohide": true,
   "editor.mouseWheelZoom": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.sortImports": true
+    "source.fixAll": "explicit",
+    "source.sortImports": "explicit"
   },
   "editor.bracketPairColorization.enabled": true,
   "editor.lineHeight": 25,
@@ -67,8 +67,8 @@
   "workbench.colorTheme": "Catppuccin Mocha",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.editor.titleScrollbarSizing": "large",
-//   "workbench.statusBar.visible": false,
-//   "workbench.activityBar.visible": false,
+  //   "workbench.statusBar.visible": false,
+  //   "workbench.activityBar.visible": false,
 
   // =============================================
   // ================ EXPLORER ===================
@@ -99,7 +99,7 @@
   "vim.handleKeys": {
     // Enable / Disable specific VIM Bindings in VSCode
     // "<C-w>": false, // Disable VIM binding for "Close Window"
-    "<C-f>": false, // Disable VIM binding for "Find in File"
+    "<C-f>": false // Disable VIM binding for "Find in File"
   },
 
   "vim.leader": "<Space>",
@@ -194,7 +194,7 @@
     { "before": ["leader", "f"], "commands": ["workbench.action.quickOpen"] },
 
     // Format the whole document
-    { "before": ["leader", "p"], "commands": ["editor.action.formatDocument"] },
+    { "before": ["leader", "p"], "commands": ["editor.action.formatDocument"] }
   ],
 
   "vim.normalModeKeyBindings": [
@@ -258,7 +258,7 @@
     {
       "before": ["<leader>", "e"],
       "commands": ["workbench.view.explorer"]
-    },
+    }
   ],
 
   "vim.visualModeKeyBindings": [
@@ -279,7 +279,7 @@
     {
       "before": ["<leader>", "d"],
       "commands": ["editor.action.addSelectionToNextFindMatch"]
-    },
+    }
   ],
 
   // VIM PLUGINS
@@ -317,7 +317,7 @@
   },
 
   "[csharp]": {
-    "editor.defaultFormatter": "ms-dotnettools.csharp",
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
     // "editor.tabSize": 4
   },
 
@@ -345,7 +345,7 @@
       "strings": "off",
       "other": "off"
     },
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
 
   // =============================================
@@ -556,5 +556,5 @@
     "vitest",
     "vsplit"
   ],
-  "workbench.sideBar.location": "right",
+  "workbench.sideBar.location": "right"
 }

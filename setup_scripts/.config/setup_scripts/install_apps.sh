@@ -13,15 +13,16 @@ sudo apt install brave-browser
 # Install VS Code (https://code.visualstudio.com/docs/setup/linux)
 # ================================================================
 echo "Installing VS Code..."
-sudo apt-get install wget gpg
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-rm -f packages.microsoft.gpg
-sudo apt install apt-transport-https
-sudo apt update
-sudo apt install code # or code-insiders
-# snap install code --classic
+# Define the URL of the VSCode .deb package.
+VS_CODE_URL="https://go.microsoft.com/fwlink/?LinkID=760868"
+# Define the name of the downloaded file.
+DEB_FILE="vscode.deb"
+# Download the VSCode .deb package.
+wget -O $DEB_FILE $VS_CODE_URL
+# Add the downloaded .deb package to the APT repository and install.
+sudo apt install ./$DEB_FILE
+# Clean up the downloaded .deb file.
+rm $DEB_FILE
 
 # ================================================================
 # Install Kitty Terminal (https://sw.kovidgoyal.net/kitty/binary/)

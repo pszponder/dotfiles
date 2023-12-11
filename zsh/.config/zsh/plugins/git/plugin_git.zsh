@@ -337,8 +337,6 @@ compdef _git gccd=git-clone
 # +---------+
 # | ALIASES |
 # +---------+
-alias g='git'
-
 # Navigate (cd) to the root of the current git repository
 alias grt='cd "$(git rev-parse --show-toplevel || echo .)"'
 
@@ -346,8 +344,8 @@ alias grt='cd "$(git rev-parse --show-toplevel || echo .)"'
 # STATUS
 # ======
 alias gst='git status'
-alias gss='git status --short'
-alias gssb='git status --short --branch'
+alias gsts='git status --short'
+alias gstsb='git status --short --branch'
 
 # ============
 # ADDING FILES
@@ -366,8 +364,8 @@ alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commi
 # | Listing Branches |
 # +------------------+
 alias gb='git branch' # List all branches (local), or create a new branch (by passing a new branch name)
-alias gbr='gb --remote' # List all branches (remote)
-alias gba='gb --all' # List all branches (local and remote)
+alias gbr='git branch --remote' # List all branches (remote)
+alias gba='git branch --all' # List all branches (local and remote)
 alias gblnr='LANG=C git branch -vv | grep ": gone\]"' # List local branches that have been deleted on the remote repository
 alias gbnm='git branch --no-merged' # list branches that have not been merged into the current branch
 
@@ -375,26 +373,27 @@ alias gbnm='git branch --no-merged' # list branches that have not been merged in
 # | Creating / Switching Branches |
 # +-------------------------------+
 alias gbs='git switch' # Switch to a branch
-alias gbsc='gbs -c' # Create a new branch and switch to it
+alias gbsc='git switch --create' # Create a new branch and switch to it
 alias gbsd='git switch $(git_develop_branch)' # Switch to the default development branch (e.g., 'develop' or 'main')
+alias gbsm='git switch $(git_main_branch)' # Switch to the default main branch (e.g., 'develop' or 'main')
 alias gbco='git checkout' # Checkout a Git branch
 alias gbcor='git checkout --recurse-submodules' # Checkout a branch and its submodules
 alias gbcod='git checkout $(git_develop_branch)' # Checkout the default development branch (e.g., 'develop' or 'main')
-# alias gsw='git switch'
-# alias gswc='git switch --create'
-# alias gswd='git switch $(git_develop_branch)'
-# alias gswm='git switch $(git_main_branch)'
+alias gsw='git switch'
+alias gswc='git switch --create'
+alias gswd='git switch $(git_develop_branch)'
+alias gswm='git switch $(git_main_branch)'
 
 # +----------------------------+
 # | Moving / Renaming Branches |
 # +----------------------------+
-alias gbm='gb --move' # Move / rename git branch (pass in current and new branch names)
+alias gbm='git branch --move' # Move / rename git branch (pass in current and new branch names)
 
 # +-------------------+
 # | Deleting Branches |
 # +-------------------+
-alias gbld='gb --delete' # Delete a local branch
-alias gblD='gb --delete --force' # Force delete a local branch
+alias gbld='git branch --delete' # Delete a local branch
+alias gblD='git branch --delete --force' # Force delete a local branch
 alias gblnrd='LANG=C git branch --no-color -vv | grep ": gone\]" | awk '"'"'{print $1}'"'"' | xargs git branch -d' # Delete local branches that are no longer available on the remote repository
 alias gblnrD='LANG=C git branch --no-color -vv | grep ": gone\]" | awk '"'"'{print $1}'"'"' | xargs git branch -D' # Forcefully delete local branches that are no longer available on the remote repository
 
@@ -410,14 +409,14 @@ alias gbclean='git clean --interactive -d' # Interactively clean untracked files
 # ==========
 # NOTE: aliases ending w/ ! will overwrite the previous commit (amend)
 alias gc="git commit -v" # Commit with verbose messaging
-alias gca="gc --all" # Commit all staged/unstaged changes
-alias "gca!"="gca --amend" # Amend previous commit w/ all staged/unstaged changes
-alias gcm="gc --message" # Commit with commit message
-alias "gcm!"="gc --amend --message" # Amend previous commit w/ new commit message
-alias gcam="gca --message" # Commit all staged/unstaged changes with commit message
-alias "gcam!"=" gca --amend --message" # Amend previous commit w/ new commit message
-alias "gcn!"="gc --no-edit" # Amend previous commit w/ same commit message
-alias "gcan!"="gca --no-edit" # Amend previous commit w/ same commit message and all staged/unstaged changes
+alias gca="git commit --all" # Commit all staged/unstaged changes
+alias "gca!"="git commit --all --amend" # Amend previous commit w/ all staged/unstaged changes
+alias gcm="git commit --message" # Commit with commit message
+alias "gcm!"="git commit --all --message" # Amend previous commit w/ new commit message
+alias gcam="git commit --all --message" # Commit all staged/unstaged changes with commit message
+alias "gcam!"=" git commit --all --amend --message" # Amend previous commit w/ new commit message
+alias "gcn!"="git commit --no-edit" # Amend previous commit w/ same commit message
+alias "gcan!"="git commit --all --no-edit" # Amend previous commit w/ same commit message and all staged/unstaged changes
 
 # +------------------------+
 # | Cherry Picking Commits |
@@ -453,143 +452,400 @@ compdef _git gdnolock=git-diff
 # =========
 # RESETTING
 # =========
-# alias grh='git reset'
-# alias gru='git reset --'
-# alias grhh='git reset --hard'
-# alias grhk='git reset --keep'
-# alias grhs='git reset --soft'
-# alias gpristine='git reset --hard && git clean --force -dfx'
-# alias groh='git reset origin/$(git_current_branch) --hard'
+# Resetting is the act of moving the current branch pointer to a different commit, effectively changes the current state of your working directory and staging area
+alias grh='git reset' # Reset the current HEAD to the specified state
+alias gru='git reset --' # Reset the current HEAD to the specified state, but keep the changes in the staging area
+alias grhh='git reset --hard' # Reset the current HEAD to the specified state, and discard all changes in the working directory and staging area
+alias grhk='git reset --keep' # Reset the current HEAD to the specified state, and keep the changes in the working directory but discard all changes in the staging area
+alias grhs='git reset --soft' # Reset the current HEAD to the specified state, and keep all changes in the working directory and staging area
+alias gpristine='git reset --hard && git clean --force -dfx' # Reset the current HEAD to the specified state, and discard all changes in the working directory and staging area, and remove all untracked files and directories
+alias groh='git reset origin/$(git_current_branch) --hard' # Reset the current HEAD to the state of the remote origin branch (discarding all changes)
 
-# ===========
-# PULL / PUSH
-# ===========
-# alias gl='git pull'
-# alias ggpull='git pull origin "$(git_current_branch)"'
+# ===================
+# PULL / PUSH / FETCH
+# ===================
 
-# alias gluc='git pull upstream $(git_current_branch)'
-# alias glum='git pull upstream $(git_main_branch)'
-# alias gp='git push'
-# alias gpd='git push --dry-run'
+# +-----------------+
+# | Fetching / Sync |
+# +-----------------+
 
-# function ggf() {
-# 	[[ "$#" != 1 ]] && local b="$(git_current_branch)"
-# 	git push --force origin "${b:=$1}"
-# }
-# compdef _git ggf=git-checkout
+# +---------+
+# | Pulling |
+# +---------+
+# NOTE: Pull fetches the remote branch and merges it into the current branch
 
-# alias gpf!='git push --force'
-# is-at-least 2.30 "$git_version" \
-# 	&& alias gpf='git push --force-with-lease --force-if-includes' \
-# 	|| alias gpf='git push --force-with-lease'
+# Git Pull
+# Pull changes from the 'origin' remote for the current branch
+# Merge pulled changes from the 'origin' remote into the current branch
+# OPTIONAL: Specify a remote branch name to pull from instead of the current branch
+alias gpull='git pull'
 
-# function ggfl() {
-# 	[[ "$#" != 1 ]] && local b="$(git_current_branch)"
-# 	git push --force-with-lease origin "${b:=$1}"
-# }
-# compdef _git ggfl=git-checkout
+# Git Pull Verbose
+# Pull changes from 'origin' remote for the current branch with verbose output
+alias gpullv='git pull -v'
 
-# alias gpsup='git push --set-upstream origin $(git_current_branch)'
-# is-at-least 2.30 "$git_version" \
-# 	&& alias gpsupf='git push --set-upstream origin $(git_current_branch) --force-with-lease --force-if-includes' \
-# 	|| alias gpsupf='git push --set-upstream origin $(git_current_branch) --force-with-lease'
-# alias gpv='git push --verbose'
-# alias gpoat='git push origin --all && git push origin --tags'
-# alias gpod='git push origin --delete'
-# alias ggpush='git push origin "$(git_current_branch)"'
+# Git Pull Origin
+# Pull changes from the 'origin' remote for the current branch
+# Merge pulled changes from the 'origin' remote into the current branch
+# OPTIONAL: Specify a remote branch name to pull from instead of the current branch
+alias gpullo='git pull origin'
 
-# alias gpu='git push upstream'
+# Git Pull Origin Current Branch
+# Pull changes from the 'origin' remote for the current local branch
+# Merge pulled changes from the 'origin' remote into the current local branch
+alias gpulloc='git pull origin "$(git_current_branch)"'
 
-# alias gpr='git pull --rebase'
-# alias gprv='git pull --rebase -v'
-# alias gpra='git pull --rebase --autostash'
-# alias gprav='git pull --rebase --autostash -v'
+# Git Pull Origin Main Branch
+# Pull changes from the 'origin' remote for the default main branch
+# Merge pulled changes from the 'origin' remote into the default main branch
+alias gpullom='git pull origin $(git_main_branch)'
 
-# function ggu() {
-# 	[[ "$#" != 1 ]] && local b="$(git_current_branch)"
-# 	git pull --rebase origin "${b:=$1}"
-# }
-# compdef _git ggu=git-checkout
+# Git Pull Upstream
+# Pull changes from the 'origin' remote for the current branch
+# Merge pulled changes from the 'origin' remote into the current branch
+# OPTIONAL: Specify a remote branch name to pull from instead of the current local branch
+# NOTE: "upstream" refers to orignally forked repository
+alias gpullu='git pull upstream'
 
-# alias gprom='git pull --rebase origin $(git_main_branch)'
-# alias gpromi='git pull --rebase=interactive origin $(git_main_branch)'
+# Git Pull Upstream Current Branch
+# Pull changes from the 'upstream' remote for the current branch
+# Merge pulled changes from the 'upstream' remote into the current branch
+# NOTE: "upstream" refers to orignally forked repository
+alias gpulluc='git pull upstream $(git_current_branch)'
+
+# Git Pull Upstream Main Branch
+# Pull changes from the 'upstream' remote for the default main branch
+# Merge pulled changes from the 'upstream' remote into the default main branch
+# NOTE: "upstream" refers to orignally forked repository
+alias gpullum='git pull upstream $(git_main_branch)'
+
+# Git Pull Rebase
+# Perform a 'git pull' with rebasing instead of merging.
+alias gpullr='git pull --rebase'
+
+# Git Pull Rebase Verbose
+# Perform a 'git pull' with rebasing and display verbose output.
+alias gpullrv='git pull --rebase -v'
+
+# Git Pull Rebae Auto Stash
+# Perform a 'git pull' with rebasing, and automatically stash changes if needed.
+alias gpullra='git pull --rebase --autostash'
+
+# Git Pull Rebase Auto Stash Verbose
+# Perform a 'git pull' with rebasing, display verbose output, and automatically stash changes if needed.
+alias gpullrav='git pull --rebase --autostash -v'
+
+# Function 'gpullro':
+# Interactively pull changes from remote 'origin' branch w/ rebasing.
+# Usage: Call this function with an optional branch name as an argument to specify the branch to pull.
+# If no argument is provided, it will default to the current branch.
+function gpullro() {
+    [[ "$#" != 1 ]] && local b="$(git_current_branch)"
+    git pull --rebase origin "${b:=$1}"
+}
+compdef _git gpullro=git-checkout
+
+# Function 'gpullroi':
+# Pull changes from the remote 'origin' branch with rebasing.
+# Usage: Call this function with an optional branch name as an argument to specify the branch to pull.
+# If no argument is provided, it will default to the current branch.
+function gpullroi() {
+    [[ "$#" != 1 ]] && local b="$(git_current_branch)"
+    git pull --rebase=interactive origin "${b:=$1}"
+}
+compdef _git gpullroi=git-checkout
+
+# +---------+
+# | Pushing |
+# +---------+
+# Git Push
+# Push changes to the 'origin' remote for the current branch
+alias gp='git push'
+
+# Git Push Verbose
+# Push changes to the remote 'origin' with verbose output.
+alias gpv='git push --verbose'
+
+# Function `gpf` (Git Force Push):
+# This function is used to forcefully push changes to a remote branch in Git.
+# If you provide a branch name as an argument, it will push the current branch (or the one specified) with a force push to the remote repository using the --force-with-lease option.
+# If no argument is provided, it will use the current branch by default.
+# Usage:
+# To use this function, simply call it with an optional branch name as an argument.
+# Example 1: Force push the current branch
+#   gpf
+# Example 2: Force push a specific branch
+#   gpf feature-branch
+function gpf() {
+  # Check if an argument (branch name) is provided, if not, use the current branch
+  [[ "$#" != 1 ]] && local b="$(git_current_branch)"
+
+  # Use `git push` with the `--force-with-lease` option to forcefully update the remote branch safely
+  git push --force-with-lease origin "${b:=$1}"
+}
+compdef _git gpf=git-checkout
+
+# Git Push Set Upstream
+# Push current branch to remote 'origin' and set it as upstream
+alias gpsup='git push --set-upstream origin $(git_current_branch)'
+
+# Git Push Set Upstream Force
+# Forcefully push current branch to remote 'origin' and set it as upstream
+alias gpsupf='git push --set-upstream origin $(git_current_branch) --force-with-lease'
+
+# Git Push Origin All and Tags
+# Push all branches & tags to the remote 'origin.'
+alias gpoat='git push origin --all && git push origin --tags'
+
+# Git Push Origin Delete
+# Delete a branch on the remote 'origin.'
+alias gpod='git push origin --delete'
+
+# Git Push to Origin
+# Push current branch to the remote 'origin' w/ same branch name.
+# NOTE: Same as gpoc
+# OPTIONAL: Add a branch name as an argument to push a different branch
+alias gpo='git push origin'
+
+# Git Push to Origin (Current Branch)
+# Push current branch to the remote 'origin' w/ same branch name.
+# NOTE: Same as gpo
+alias gpoc='git push origin "$(git_current_branch)"'
+
+# Git Push Upstream
+# Pushes the current branch to the remote 'upstream.'
+# OPTIONAL: Specify a branch name to push instead of the current branch
+alias gpu='git push upstream'
 
 # =====
 # FETCH
 # =====
 alias gf='git fetch' # Fetch from remote repository
-alias gfa='gf --all --prune --jobs=10' # Fetch from all remotes and prune stale branches
-alias gfo='gf origin' # Fetch from origin remote
+alias gfa='git fetch --all --prune --jobs=10' # Fetch from all remotes and prune stale branches
+alias gfo='git fetch origin' # Fetch from origin remote
 
 # =======
 # MERGING
 # =======
-# alias gm='git merge'
-# alias gma='git merge --abort'
-# alias gms="git merge --squash"
-# alias gmom='git merge origin/$(git_main_branch)'
-# alias gmum='git merge upstream/$(git_main_branch)'
-# alias gmtl='git mergetool --no-prompt'
-# alias gmtlvim='git mergetool --no-prompt --tool=vimdiff'
+# Git Merge
+# Perform a standard Git merge.
+# USAGE: gm <branch_name_to_merge_into_current>
+alias gm='git merge' # Specify a branch name to merge into the current branch
+
+# Git Merge Abort
+# Abort the current Git merge in progress.
+alias gma='git merge --abort'
+
+# Git Merge Squash
+# Perform a Git merge while squashing all changes into a single commit.
+# USAGE: gms <branch_name_to_merge_into_current>
+alias gms="git merge --squash" # Specify a branch name to merge into the current branch
+
+# Git Merge Origin (Remote Merge -- Origin Current Branch)
+# Merge changes from the 'origin' remote into the current branch.
+# USAGE: gmo
+# Same as gpulloc git pull origin $(git_current_branch)
+alias gmo='git merge origin' # Merge changes from the 'origin' main branch into the current branch
+
+# Git Merge Origin (Remote Merge -- Origin Main Branch)
+# Merge changes from the 'origin' main branch into the current branch.
+# USAGE: gmo
+alias gmom='git merge origin/$(git_main_branch)'
+
+# Git Merge Upstream (Remote Merge -- Upstream Main Branch)
+# Merge changes from the 'upstream' main branch into the current branch.
+alias gmum='git merge upstream/$(git_main_branch)'
+
+# Git Mergetool
+# Launch the Git mergetool to resolve merge conflicts without prompting.
+alias gmtl='git mergetool --no-prompt'
+
+# Git Mergetool with vimdiff
+# Launch the Git mergetool with the 'vimdiff' tool to resolve merge conflicts without prompting.
+alias gmtlvim='git mergetool --no-prompt --tool=vimdiff'
 
 # ========
 # REBASING
 # ========
-# alias grb='git rebase'
-# alias grba='git rebase --abort'
-# alias grbc='git rebase --continue'
-# alias grbi='git rebase --interactive'
-# alias grbo='git rebase --onto'
-# alias grbs='git rebase --skip'
-# alias grbd='git rebase $(git_develop_branch)'
-# alias grbm='git rebase $(git_main_branch)'
-# alias grbom='git rebase origin/$(git_main_branch)'
+# Git Rebase
+# Perform a standard Git rebase. (Apply commits from your current branch on top of another branch)
+# USAGE: grb <branch_name_to_rebase_onto>
+alias grb='git rebase' # Specify a branch name to rebase the current branch onto
+
+# Git Rebase Abort
+# Abort the current Git rebase in progress.
+alias grba='git rebase --abort'
+
+# Git Rebase Continue
+# Continue a paused Git rebase.
+alias grbc='git rebase --continue'
+
+# Git Rebase Interactive
+# Start an interactive Git rebase, allowing you to squash, edit, or reorder commits.
+alias grbi='git rebase --interactive'
+
+# Git Rebase Skip
+# Skip the current commit during an interactive rebase.
+alias grbs='git rebase --skip'
+
+# Git Rebase Onto
+# Rebase the current branch onto a different base commit or branch.
+# USAGE: grbo <branch_name_to_rebase_onto> <branch_name_to_rebase>
+alias grbo='git rebase --onto'
+
+# Git Rebase Develop
+# Rebase the current branch onto the develop branch.
+alias grbd='git rebase $(git_develop_branch)'
+
+# Git Rebase Main
+# Rebase the current branch onto the main branch.
+alias grbm='git rebase $(git_main_branch)'
+
+# Git Rebase Origin/Main
+# Rebase the current branch onto the main branch of the 'origin' remote repository.
+alias grbom='git rebase origin/$(git_main_branch)'
 
 # =======
 # LOGGING
 # =======
-# alias glg='git log --graph'
-# alias glga='git log --graph --decorate --all'
-# alias glgm='git log --graph --max-count=10'
-# alias glods='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset" --date=short'
-# alias glod='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset"'
-# alias glola='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --all'
-# alias glols='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --stat'
-# alias glol='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset"'
-# alias glo='git log --oneline --decorate'
-# alias glog='git log --oneline --decorate --graph'
-# alias gloga='git log --oneline --decorate --graph --all'
 
-# # Pretty log messages
-# function _git_log_prettily(){
-# 	if ! [ -z $1 ]; then
-# 		git log --pretty=$1
-# 	fi
-# }
-# compdef _git _git_log_prettily=git-log
+# alias gl='git log --graph --abbrev-commit --oneline --decorate'
 
-# alias glp='_git_log_prettily'
-# alias glg='git log --stat'
-# alias glgp='git log --stat --patch'
+# Git Log One Line Custom
+alias gl1="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
+alias gl2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+alias gl=gl1
+
+# Git Log Graph
+# Show a graphical representation of the commit history.
+alias glg='git log --graph'
+
+# Git Log Graph Decorate All
+# Show a graphical representation of the complete commit history with decorations.
+alias glga='git log --graph --decorate --all'
+
+# Git Log Graph Last 10
+# Show a graphical representation of the last 10 commits in the commit history.
+alias glgm='git log --graph --max-count=10'
+
+# Show a simplified one-line view of the commit history with decorations.
+alias glgo='git log --oneline --decorate'
+
+# Show a simplified one-line view of the commit history with decorations and a graph.
+alias glgog='git log --oneline --decorate --graph'
+
+# Show a simplified one-line view of the complete commit history with decorations and a graph.
+alias glgoga='git log --oneline --decorate --graph --all'
+
+# Git Log Stats
+# Display summarized git log w/ file change statistics.
+alias glgst='git log --stat'
+
+# Git Log Stats Patch
+# Display summarized git log w/ file change stats & patch details.
+alias glgstp='git log --stat --patch'
+
+# Git Log Graph Date Short
+# Show a graphical representation of the commit history with a custom pretty format and short date.
+alias glgds='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset" --date=short'
+
+# Show a graphical representation of the commit history with a custom pretty format.
+alias glgod='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset"'
+
+# Show a graphical representation of the complete commit history with a custom pretty format and relative dates.
+alias glgla='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --all'
+
+# Show a graphical representation of the commit history with a custom pretty format and file statistics.
+alias glgls='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --stat'
+
+# Show a graphical representation of the commit history with a custom pretty format and relative dates.
+alias glgl='git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset"'
 
 # ========
 # STASHING
 # ========
-# alias gstall='git stash --all'
-# alias gstaa='git stash apply'
-# alias gstc='git stash clear'
-# alias gstd='git stash drop'
-# alias gstl='git stash list'
-# alias gstp='git stash pop'
-# # use the default stash push on git 2.13 and newer
-# is-at-least 2.13 "$git_version" \
-# 	&& alias gsta='git stash push' \
-# 	|| alias gsta='git stash save'
-# alias gsts='git stash show --patch'
+
+# Git Stash (Stash Changes -- Tracked)
+# Stash changes in the working directory
+alias gst='git stash'
+
+# Git Stash All (Stash Changes -- Tracked & Untracked)
+# Stashes all changes in the working directory, including untracked files.
+alias gstall='git stash --all'
+
+# Git Stash List
+# List all stashes in the repository.
+alias gstl='git stash list'
+
+# Git Stash Apply
+# Apply the most recent stash to the working directory
+alias gsta='git stash apply'
+
+# Git Stash Pop
+# Apply the most recent stash & remove it from the stash list
+alias gstp='git stash pop'
+
+# Git Stash Clear (Clear All Stashes)
+# Clears all stashes, removing them from the stash list.
+alias gstc='git stash clear'
+
+# Git Stash Drop
+# Drop most recent stash, permanently removing it from the stash list.
+alias gstd='git stash drop'
+
+# Git Stash Save
+# Stash changes in the working directory with a custom message.
+# Usage: gsta "Your custom stash message"
+alias gsta='git stash save'
+
+# Git Stash Show Patch
+# Shows the changes in the most recent stash as a patch.
+alias gsts='git stash show --patch'
+
+# =======
+# TAGGING
+# =======
+# Git Tag
+# List all tags, or create a new tag (by passing a new tag name)
+# Usage: gt            # List all tags
+# Usage: gt <tag-name> # Create a new tag
+# NOTE: Git does not automatically push tags to remote repository.
+alias gt='git tag'
+
+# Git Tag Annotate
+# Create an annotated tag in Git with additional annotation/comment.
+# Usage: gta <tag-name> -m "Annotation message"
+alias gta='git tag --annotate'
+
+
+# Git Tag Push
+# Push all tags to remote repository.
+# NOTE: Git does not automatically push tags to remote repository.
+alias gtp='git push --tags'
+
+# Git Tag Delete
+# Delete a tag in Git.
+# Usage: gtd <tag-name>
+alias gtd='git tag --delete'
+
+# Git Tag View
+# List all Git tags in a sorted version order.
+alias gtv='git tag | sort -V'
+
+# Git Checkout Tag
+# Checkout a Git tag.
+# USAGE: gtco <tag-name>
+alias gtco='git checkout'
+
+# Git Checkout Tag Latest
+# Checkout the latest Git tag.
+alias gtcol='git checkout $(git describe --tags $(git rev-list --tags --max-count=1))'
 
 # ====
 # MISC
 # ====
+# List Git Conifg
+# Lists all git config settings
 alias gcf='git config --list'
 
 # ============================================================
@@ -623,9 +879,6 @@ alias gcf='git config --list'
 # alias gsd='git svn dcommit'
 # alias git-svn-dcommit-push='git svn dcommit && git push github $(git_main_branch):svntrunk'
 # alias gsr='git svn rebase'
-# alias gta='git tag --annotate'
-# alias gts='git tag --sign'
-# alias gtv='git tag | sort -V'
 # alias gignore='git update-index --assume-unchanged'
 # alias gunignore='git update-index --no-assume-unchanged'
 # alias gwch='git whatchanged -p --abbrev-commit --pretty=medium'
@@ -656,11 +909,6 @@ alias gcf='git config --list'
 # alias gd='git diff'
 # alias gds='git diff --cached' # View changes to staged files compared against previous commit
 # alias gco='git checkout '
-# # alias gl='git log --pretty=oneline'
-# alias gl1="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
-# alias gl2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
-# alias gl="gl2"
-# alias glol='git log --graph --abbrev-commit --oneline --decorate'
 # alias gr='git remote'
 # alias grs='git remote show'
 # alias gclean="git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 git branch -d" # Delete local branch merged with master

@@ -6,6 +6,54 @@
 # | FUNCTIONS |
 # +-----------+
 
+# Create a new GitHub repository from the command line
+# NOTE: Requires the GitHub CLI (gh) to be installed and authenticated
+function gcreate {
+	# Prompt for the new repository name
+	read -p "Enter the new repository name: " repo_name
+
+	# Create a new directory with the repository name
+	mkdir "$repo_name"
+	cd "$repo_name"
+
+	# Initialize a local Git repository
+	git init
+
+	# Create a sample file (e.g., README.md)
+	touch README.md
+
+	# Add and commit the initial file
+	git add .
+	git commit -m "Initial commit"
+
+	# Prompt for repository visibility (public or private)
+	read -p "Make the new repository public? (y/n): " is_public
+
+	if [[ "$is_public" == "y" || "$is_public" == "Y" ]]; then
+		visibility="--public"
+	else
+		visibility="--private"
+	fi
+
+	# Authenticate with GitHub using gh CLI (ensure you're logged in)
+	gh auth status
+
+	# Create a GitHub repository with the specified visibility
+	gh repo create "$repo_name" $visibility
+
+	# Set the remote repository URL
+	remote_url=$(gh repo view "$repo_name" --json=html_url --jq=".html_url" -q ".html_url")
+
+	# Add the remote and push to GitHub
+	git remote add origin "$remote_url"
+	git branch -M main  # Use 'main' or 'master' based on your default branch name
+	git push -u origin main
+
+	# Open the GitHub repository in the default web browser
+	gh repo view "$repo_name" --web
+}
+
+
 # Abort current changes and reset to HEAD
 # Cancel any rebase in progress
 # USAGE: gnah
@@ -41,7 +89,7 @@ function grename() {
 # Example:
 #   branch_name=$(current_branch)
 function current_branch() {
-  git_current_branch
+	git_current_branch
 }
 
 # Function `git_develop_branch`:
@@ -52,17 +100,17 @@ function current_branch() {
 # Example:
 #   develop_branch=$(git_develop_branch)
 function git_develop_branch() {
-  command git rev-parse --git-dir &>/dev/null || return
-  local branch
-  for branch in dev devel develop development; do
-    if command git show-ref -q --verify refs/heads/$branch; then
-      echo $branch
-      return 0
-    fi
-  done
+	command git rev-parse --git-dir &>/dev/null || return
+	local branch
+	for branch in dev devel develop development; do
+		if command git show-ref -q --verify refs/heads/$branch; then
+			echo $branch
+			return 0
+		fi
+	done
 
-  echo develop
-  return 1
+	echo develop
+	return 1
 }
 
 # Function `git_main_branch`:
@@ -73,18 +121,18 @@ function git_develop_branch() {
 # Example:
 #   main_branch=$(git_main_branch)
 function git_main_branch() {
-  command git rev-parse --git-dir &>/dev/null || return
-  local ref
-  for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk,mainline,default,master}; do
-    if command git show-ref -q --verify $ref; then
-      echo ${ref:t}
-      return 0
-    fi
-  done
+	command git rev-parse --git-dir &>/dev/null || return
+	local ref
+	for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk,mainline,default,master}; do
+		if command git show-ref -q --verify $ref; then
+			echo ${ref:t}
+			return 0
+		fi
+	done
 
-  # If no main branch was found, fall back to master but return error
-  echo master
-  return 1
+	# If no main branch was found, fall back to master but return error
+	echo master
+	return 1
 }
 
 # Function `ggpnp`:
@@ -98,13 +146,13 @@ function git_main_branch() {
 #    ggpnp <branch_name>
 #    ggpnp <branch_name_a> <branch_name_b> <branch_name_c> ...
 function ggpnp() {
-    if [[ "$#" == 0 ]]; then
-        # If no arguments are provided, perform both pull and push for the current branch.
-        ggl && ggp
-    else
-        # If one or more arguments are provided, perform pull and push for the specified branch(s).
-        ggl "${*}" && ggp "${*}"
-    fi
+		if [[ "$#" == 0 ]]; then
+				# If no arguments are provided, perform both pull and push for the current branch.
+				ggl && ggp
+		else
+				# If one or more arguments are provided, perform pull and push for the specified branch(s).
+				ggl "${*}" && ggp "${*}"
+		fi
 }
 compdef _git ggpnp=git-checkout
 
@@ -117,15 +165,15 @@ compdef _git ggpnp=git-checkout
 # 2. Pull changes for a specific branch:
 #    ggl <branch_name>
 function ggl() {
-    if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
-        # If one or more arguments are provided, pull changes for the specified branch(s).
-        git pull origin "${*}"
-    else
-        # If no arguments are provided, attempt to pull changes for the current branch.
-        # If the current branch is not found, it uses the argument as the branch name.
-        [[ "$#" == 0 ]] && local b="$(git_current_branch)"
-        git pull origin "${b:=$1}"
-    fi
+		if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
+				# If one or more arguments are provided, pull changes for the specified branch(s).
+				git pull origin "${*}"
+		else
+				# If no arguments are provided, attempt to pull changes for the current branch.
+				# If the current branch is not found, it uses the argument as the branch name.
+				[[ "$#" == 0 ]] && local b="$(git_current_branch)"
+				git pull origin "${b:=$1}"
+		fi
 }
 compdef _git ggl=git-checkout
 
@@ -138,15 +186,15 @@ compdef _git ggl=git-checkout
 # 2. Push changes for a specific branch:
 #    ggp <branch_name>
 function ggp() {
-    if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
-        # If one or more arguments are provided, push changes for the specified branch(s).
-        git push origin "${*}"
-    else
-        # If no arguments are provided, attempt to push changes for the current branch.
-        # If the current branch is not found, it uses the argument as the branch name.
-        [[ "$#" == 0 ]] && local b="$(git_current_branch)"
-        git push origin "${b:=$1}"
-    fi
+		if [[ "$#" != 0 ]] && [[ "$#" != 1 ]]; then
+				# If one or more arguments are provided, push changes for the specified branch(s).
+				git push origin "${*}"
+		else
+				# If no arguments are provided, attempt to push changes for the current branch.
+				# If the current branch is not found, it uses the argument as the branch name.
+				[[ "$#" == 0 ]] && local b="$(git_current_branch)"
+				git push origin "${b:=$1}"
+		fi
 }
 compdef _git ggp=git-checkout
 
@@ -160,11 +208,11 @@ compdef _git ggp=git-checkout
 # 2. Pull and rebase changes for a specific branch:
 #    ggu branch_name
 function ggu() {
-    # Check the number of arguments provided. If not equal to 1, assume the current branch.
-    [[ "$#" != 1 ]] && local b="$(git_current_branch)"
+		# Check the number of arguments provided. If not equal to 1, assume the current branch.
+		[[ "$#" != 1 ]] && local b="$(git_current_branch)"
 
-    # Perform a pull with rebase from the specified branch or the current branch.
-    git pull --rebase origin "${b:=$1}"
+		# Perform a pull with rebase from the specified branch or the current branch.
+		git pull --rebase origin "${b:=$1}"
 }
 compdef _git ggu=git-checkout
 
@@ -176,16 +224,16 @@ compdef _git ggu=git-checkout
 # Example:
 #   work_in_progress
 function work_in_progress() {
-  # Run a Git command to retrieve the latest commit message from the current branch.
-  # The '-c log.showSignature=false' option is used to hide GPG signatures if present.
-  # The '-n 1' option fetches only the latest commit.
-  # Redirect any error messages to /dev/null.
-  command git -c log.showSignature=false log -n 1 2>/dev/null |
-    # Use `grep` to search for "--wip--" in the commit message.
-    # The '-q' option makes `grep` quiet, so it doesn't output matching lines.
-    grep -q -- "--wip--" &&
-    # If "--wip--" is found, echo a warning message indicating that it's a WIP branch.
-    echo "WIP!!"
+	# Run a Git command to retrieve the latest commit message from the current branch.
+	# The '-c log.showSignature=false' option is used to hide GPG signatures if present.
+	# The '-n 1' option fetches only the latest commit.
+	# Redirect any error messages to /dev/null.
+	command git -c log.showSignature=false log -n 1 2>/dev/null |
+		# Use `grep` to search for "--wip--" in the commit message.
+		# The '-q' option makes `grep` quiet, so it doesn't output matching lines.
+		grep -q -- "--wip--" &&
+		# If "--wip--" is found, echo a warning message indicating that it's a WIP branch.
+		echo "WIP!!"
 }
 
 # Function `gunwip`:
@@ -195,29 +243,29 @@ function work_in_progress() {
 # Example:
 #   gunwip  # Prompt to remove "--wip--" and perform a force push if desired
 function gunwip() {
-  # Check if the last commit message contains "--wip--"
-  if git log -1 --pretty=%B | grep -q -- "--wip--"; then
-    echo "The last commit message contains '--wip--'."
-    read -p "Do you want to remove it (y/N)? " remove_wip
+	# Check if the last commit message contains "--wip--"
+	if git log -1 --pretty=%B | grep -q -- "--wip--"; then
+		echo "The last commit message contains '--wip--'."
+		read -p "Do you want to remove it (y/N)? " remove_wip
 
-    if [[ "$remove_wip" == "y" || "$remove_wip" == "Y" ]]; then
-      # Replace "--wip--" with an empty string in the last commit message
-      git commit --amend -m "$(git log -1 --pretty=%B | sed 's/--wip--//g')"
+		if [[ "$remove_wip" == "y" || "$remove_wip" == "Y" ]]; then
+			# Replace "--wip--" with an empty string in the last commit message
+			git commit --amend -m "$(git log -1 --pretty=%B | sed 's/--wip--//g')"
 
-      read -p "Do you want to perform a force push (y/N)? " force_push
-      if [[ "$force_push" == "y" || "$force_push" == "Y" ]]; then
-        # Forcefully push the changes to the remote repository
-        git push --force-with-lease
-        echo "The '--wip--' marker has been removed from the last commit, and changes have been pushed forcefully."
-      else
-        echo "The '--wip--' marker has been removed from the last commit. To push the changes forcefully, run 'git push --force-with-lease'."
-      fi
-    else
-      echo "No changes were made."
-    fi
-  else
-    echo "The last commit message does not contain '--wip--'."
-  fi
+			read -p "Do you want to perform a force push (y/N)? " force_push
+			if [[ "$force_push" == "y" || "$force_push" == "Y" ]]; then
+				# Forcefully push the changes to the remote repository
+				git push --force-with-lease
+				echo "The '--wip--' marker has been removed from the last commit, and changes have been pushed forcefully."
+			else
+				echo "The '--wip--' marker has been removed from the last commit. To push the changes forcefully, run 'git push --force-with-lease'."
+			fi
+		else
+			echo "No changes were made."
+		fi
+	else
+		echo "The last commit message does not contain '--wip--'."
+	fi
 }
 
 # Function `gunwipall`:
@@ -228,37 +276,37 @@ function gunwip() {
 # Example:
 #   gunwipall
 function gunwipall() {
-  # Check if there are any commits with "--wip--" in their messages
-  if git log --grep="^--wip--" | grep -q "^commit"; then
-    # Prompt the user to confirm the removal of "--wip--" messages
-    read -p "There are commits with '--wip--' messages. Do you want to remove them (y/N)? " remove_wip
+	# Check if there are any commits with "--wip--" in their messages
+	if git log --grep="^--wip--" | grep -q "^commit"; then
+		# Prompt the user to confirm the removal of "--wip--" messages
+		read -p "There are commits with '--wip--' messages. Do you want to remove them (y/N)? " remove_wip
 
-    if [[ "$remove_wip" != "y" && "$remove_wip" != "Y" ]]; then
-      echo "No changes have been made."
-      return
-    fi
-  fi
+		if [[ "$remove_wip" != "y" && "$remove_wip" != "Y" ]]; then
+			echo "No changes have been made."
+			return
+		fi
+	fi
 
-  # Use `git log` to find the last commit without "--wip--" in its message
-  last_non_wip_commit=$(git log --reverse --format="%H" --grep="^--wip--" | tail -n 1)
+	# Use `git log` to find the last commit without "--wip--" in its message
+	last_non_wip_commit=$(git log --reverse --format="%H" --grep="^--wip--" | tail -n 1)
 
-  # Use `git filter-branch` to rewrite commit messages up to the last non-wip commit
-  if [ -n "$last_non_wip_commit" ]; then
-    git filter-branch --msg-filter 'sed "s/--wip--//g"' --tag-name-filter cat -- $last_non_wip_commit^..HEAD
-  else
-    echo "No commit without '--wip--' found in the history."
-  fi
+	# Use `git filter-branch` to rewrite commit messages up to the last non-wip commit
+	if [ -n "$last_non_wip_commit" ]; then
+		git filter-branch --msg-filter 'sed "s/--wip--//g"' --tag-name-filter cat -- $last_non_wip_commit^..HEAD
+	else
+		echo "No commit without '--wip--' found in the history."
+	fi
 
-  # Prompt the user for a force push
-  read -p "Do you want to force push the changes to the remote repository (y/N)? " force_push
+	# Prompt the user for a force push
+	read -p "Do you want to force push the changes to the remote repository (y/N)? " force_push
 
-  if [[ "$force_push" == "y" || "$force_push" == "Y" ]]; then
-    # Forcefully push the changes to the remote repository
-    git push --force-with-lease
-    echo "Changes have been pushed forcefully."
-  else
-    echo "Changes have been rewritten. To push the changes forcefully, run 'git push --force-with-lease'."
-  fi
+	if [[ "$force_push" == "y" || "$force_push" == "Y" ]]; then
+		# Forcefully push the changes to the remote repository
+		git push --force-with-lease
+		echo "Changes have been pushed forcefully."
+	else
+		echo "Changes have been rewritten. To push the changes forcefully, run 'git push --force-with-lease'."
+	fi
 }
 
 # Function `gbda`:
@@ -268,11 +316,11 @@ function gunwipall() {
 # Call this function to remove merged branches:
 #   gbda
 function gbda() {
-  # List all local branches that are merged into the current branch,
-  # excluding the main and develop branches.
-  git branch --no-color --merged | \
-    command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" | \
-    command xargs git branch --delete 2>/dev/null
+	# List all local branches that are merged into the current branch,
+	# excluding the main and develop branches.
+	git branch --no-color --merged | \
+		command grep -vE "^([+*]|\s*($(git_main_branch)|$(git_develop_branch))\s*$)" | \
+		command xargs git branch --delete 2>/dev/null
 }
 
 # Function `gbds`:
@@ -284,21 +332,21 @@ function gbda() {
 # Example:
 #   gbds  # Remove merged branches based on the default branch
 function gbds() {
-  # Determine the default branch, either main or develop, and set it as the reference for branch comparisons.
-  local default_branch=$(git_main_branch)
-  (( ! $? )) || default_branch=$(git_develop_branch)
+	# Determine the default branch, either main or develop, and set it as the reference for branch comparisons.
+	local default_branch=$(git_main_branch)
+	(( ! $? )) || default_branch=$(git_develop_branch)
 
-  # Iterate through all local branches and check if they have been merged into the default branch.
-  # If a branch has been merged, delete it to clean up the repository.
-  git for-each-ref refs/heads/ "--format=%(refname:short)" | \
-    while read branch; do
-      local merge_base=$(git merge-base $default_branch $branch)
+	# Iterate through all local branches and check if they have been merged into the default branch.
+	# If a branch has been merged, delete it to clean up the repository.
+	git for-each-ref refs/heads/ "--format=%(refname:short)" | \
+		while read branch; do
+			local merge_base=$(git merge-base $default_branch $branch)
 
-      # Use `git cherry` to check if a branch has been merged.
-      if [[ $(git cherry $default_branch $(git commit-tree $(git rev-parse $branch\^{tree}) -p $merge_base -m _)) = -* ]]; then
-        git branch -D $branch
-      fi
-    done
+			# Use `git cherry` to check if a branch has been merged.
+			if [[ $(git cherry $default_branch $(git commit-tree $(git rev-parse $branch\^{tree}) -p $merge_base -m _)) = -* ]]; then
+				git branch -D $branch
+			fi
+		done
 }
 
 # Function `gccd`:
@@ -312,25 +360,25 @@ function gbds() {
 #   gccd https://github.com/username/repo.git  # Clone a Git repository
 #   gccd git@github.com/username/repo.git  # Clone a Git repository
 function gccd() {
-  # Enable local options and extended globbing for parsing the repository URL.
-  setopt localoptions extendedglob
+	# Enable local options and extended globbing for parsing the repository URL.
+	setopt localoptions extendedglob
 
-  # Extract the repository URL from the arguments based on valid formats.
-  # The regular expression used here supports common Git repository URL formats.
-  local repo="${${@[(r)(ssh://*|git://*|ftp(s)#://*|http(s)#://*|*@*)(.git/#)#]}:-$_}"
+	# Extract the repository URL from the arguments based on valid formats.
+	# The regular expression used here supports common Git repository URL formats.
+	local repo="${${@[(r)(ssh://*|git://*|ftp(s)#://*|http(s)#://*|*@*)(.git/#)#]}:-$_}"
 
-  # Clone the Git repository and its submodules, if present.
-  # Exit if the cloning process fails.
-  command git clone --recurse-submodules "$@" || return
+	# Clone the Git repository and its submodules, if present.
+	# Exit if the cloning process fails.
+	command git clone --recurse-submodules "$@" || return
 
-  # Determine the target directory for the cloned repository.
-  # If the last argument passed was a directory, that's where the repo was cloned.
-  # Otherwise, parse the repo URL and use the last part as the directory.
-  if [[ -d "$_" ]]; then
-    cd "$_"
-  else
-    cd "${${repo:t}%.git/#}"
-  fi
+	# Determine the target directory for the cloned repository.
+	# If the last argument passed was a directory, that's where the repo was cloned.
+	# Otherwise, parse the repo URL and use the last part as the directory.
+	if [[ -d "$_" ]]; then
+		cd "$_"
+	else
+		cd "${${repo:t}%.git/#}"
+	fi
 }
 compdef _git gccd=git-clone
 
@@ -352,7 +400,7 @@ alias gstsb='git status --short --branch'
 # ============
 alias ga='git add'
 alias gaa='git add --all' # Add all files
-alias gap='git add --patch' # Add file interactively
+alias gap='git add --patch' # Add file(s) interactively & select hunks to stage
 alias gau='git add --update' # Only add changes made to already tracked files
 alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign --message "--wip--"' # Add all unstaged files and commit with "--wip--"
 
@@ -439,13 +487,13 @@ alias gdt='git diff-tree --no-commit-id --name-only -r' # Alias to view Git diff
 
 # Function to view Git diff with word-level granularity
 gdv() {
-  git diff -w "$@" | view -
+	git diff -w "$@" | view -
 }
 compdef _git gdv=git-diff
 
 # Function to view Git diff excluding specific files
 gdnolock() {
-  git diff "$@" ":(exclude)package-lock.json" ":(exclude)*.lock"
+	git diff "$@" ":(exclude)package-lock.json" ":(exclude)*.lock"
 }
 compdef _git gdnolock=git-diff
 
@@ -540,8 +588,8 @@ alias gpullrav='git pull --rebase --autostash -v'
 # Usage: Call this function with an optional branch name as an argument to specify the branch to pull.
 # If no argument is provided, it will default to the current branch.
 function gpullro() {
-    [[ "$#" != 1 ]] && local b="$(git_current_branch)"
-    git pull --rebase origin "${b:=$1}"
+		[[ "$#" != 1 ]] && local b="$(git_current_branch)"
+		git pull --rebase origin "${b:=$1}"
 }
 compdef _git gpullro=git-checkout
 
@@ -550,8 +598,8 @@ compdef _git gpullro=git-checkout
 # Usage: Call this function with an optional branch name as an argument to specify the branch to pull.
 # If no argument is provided, it will default to the current branch.
 function gpullroi() {
-    [[ "$#" != 1 ]] && local b="$(git_current_branch)"
-    git pull --rebase=interactive origin "${b:=$1}"
+		[[ "$#" != 1 ]] && local b="$(git_current_branch)"
+		git pull --rebase=interactive origin "${b:=$1}"
 }
 compdef _git gpullroi=git-checkout
 
@@ -577,11 +625,11 @@ alias gpv='git push --verbose'
 # Example 2: Force push a specific branch
 #   gpf feature-branch
 function gpf() {
-  # Check if an argument (branch name) is provided, if not, use the current branch
-  [[ "$#" != 1 ]] && local b="$(git_current_branch)"
+	# Check if an argument (branch name) is provided, if not, use the current branch
+	[[ "$#" != 1 ]] && local b="$(git_current_branch)"
 
-  # Use `git push` with the `--force-with-lease` option to forcefully update the remote branch safely
-  git push --force-with-lease origin "${b:=$1}"
+	# Use `git push` with the `--force-with-lease` option to forcefully update the remote branch safely
+	git push --force-with-lease origin "${b:=$1}"
 }
 compdef _git gpf=git-checkout
 
@@ -893,15 +941,9 @@ alias gcf='git config --list'
 # alias gke='\gitk --all $(git log --walk-reflogs --pretty=%h) &!'
 
 #============================================================================
-# alias ga='git add'
-# alias gap='git add -p' # Stage specified file(s) and select hunks to stage
 # alias gp='git push'
 # alias gpraise='git blame'
 # alias gpo='git push origin'
-# alias gpt='git push --tag'
-# alias gtd='git tag --delete'
-# alias gtdr='git tag --delete origin'
-# alias grb='git branch -r'                                                                           # display remote branch
 # alias gplo='git pull origin'
 # alias gb='git branch '
 # alias gc='git commit'

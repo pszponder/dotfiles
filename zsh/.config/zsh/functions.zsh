@@ -134,3 +134,12 @@ function rmnode() {
 		echo "Deletion cancelled."
 	fi
 }
+
+# Create a new directory and navigate into it
+function mkcd {
+	if [ $# -eq 0 ]; then
+		echo "Usage: mkcd <directory_name>"
+	else
+		mkdir -p "$1" && cd "$1"
+	fi
+}

@@ -6,6 +6,7 @@
   "zenMode.hideLineNumbers": false,
   "files.trimTrailingWhitespace": true,
   "security.workspace.trust.untrustedFiles": "open",
+  "workbench.sideBar.location": "right",
 
   // =============================================
   // ================ EDITOR =====================

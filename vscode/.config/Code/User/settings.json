@@ -47,7 +47,7 @@
   "terminal.integrated.fontSize": 16,
   "terminal.integrated.shellIntegration.enabled": true,
   "terminal.integrated.enableMultiLinePasteWarning": false,
-  "terminal.integrated.scrollback": 1000, // Amount of lines to keep in terminal
+  "terminal.integrated.scrollback": 10000, // Amount of lines to keep in terminal
   "terminal.integrated.smoothScrolling": true,
   "terminal.integrated.profiles.linux": {
     "bash": {

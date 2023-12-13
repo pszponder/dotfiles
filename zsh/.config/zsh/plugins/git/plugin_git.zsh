@@ -24,7 +24,7 @@ function gcreate {
 
 	# Add and commit the initial file
 	git add .
-	git commit -m "Initial commit"
+	git commit -m "first commit"
 
 	# Prompt for repository visibility (public or private)
 	read -p "Make the new repository public? (y/n): " is_public

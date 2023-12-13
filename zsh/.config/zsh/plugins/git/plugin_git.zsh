@@ -391,9 +391,9 @@ alias grt='cd "$(git rev-parse --show-toplevel || echo .)"'
 # ======
 # STATUS
 # ======
-alias gst='git status'
-alias gsts='git status --short'
-alias gstsb='git status --short --branch'
+alias gs='git status'
+alias gss='git status --short'
+alias gssb='git status --short --branch'
 
 # ============
 # ADDING FILES

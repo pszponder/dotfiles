@@ -27,7 +27,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.sortImports": "explicit",
-    "source.organizeImports": true,
+    "source.organizeImports": "explicit"
   },
   "editor.bracketPairColorization.enabled": true,
   "editor.lineHeight": 25,
@@ -215,13 +215,14 @@
     // Go to Definition
     {
       "before": ["g", "d"],
-      "commands": ["editor.action.goToDeclaration"]
+      "commands": ["editor.action.revealDefinition"],
+      "when": "editorHasDefinitionProvider && editorTextFocus && !isInEmbeddedEditor"
     },
-
     // Peek Definition
     {
       "before": ["g", "p", "d"],
-      "commands": ["editor.action.peekDefinition"]
+      "commands": ["editor.action.peekDefinition"],
+      "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
     },
 
     // Show Hover
@@ -233,13 +234,13 @@
     // Go to Implementations
     {
       "before": ["g", "i"],
-      "commands": ["editor.action.goToImplementation"]
+      "commands": ["editor.action.revealDeclaration"]
     },
 
     // Peek Implementations
     {
       "before": ["g", "p", "i"],
-      "commands": ["editor.action.peekImplementation"]
+      "commands": ["editor.action.peekDeclaration"],
     },
 
     // Quick Fix (open the code action lightbulb menu)
@@ -525,6 +526,7 @@
     "gensalt",
     "goroutines",
     "hashpw",
+    "hashset",
     "highlightedyank",
     "hlsearch",
     "IIFE",

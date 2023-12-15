@@ -1,5 +1,4 @@
-https://github.com/github/gitignore/tree/main/Global
-
+# https://github.com/github/gitignore/tree/main/Global
 # =========
 # LANGUAGES
 # =========
@@ -7,6 +6,7 @@ https://github.com/github/gitignore/tree/main/Global
 *.pyc
 .tox
 .venv
+__pycache__/
 
 # =======
 # EDITORS

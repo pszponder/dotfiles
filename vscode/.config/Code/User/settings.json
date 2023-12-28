@@ -240,7 +240,7 @@
     // Peek Implementations
     {
       "before": ["g", "p", "i"],
-      "commands": ["editor.action.peekDeclaration"],
+      "commands": ["editor.action.peekDeclaration"]
     },
 
     // Quick Fix (open the code action lightbulb menu)
@@ -333,12 +333,13 @@
     "editor.defaultFormatter": "ms-dotnettools.csharp"
     // "editor.tabSize": 4
   },
+  "omnisharp.sdkPath": "/usr/bin/dotnet",
 
   "[python]": {
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.formatOnType": true,
-    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.defaultFormatter": "ms-python.black-formatter"
   },
   "python.analysis.typeCheckingMode": "strict",
 
@@ -347,6 +348,8 @@
     "editor.insertSpaces": false
   },
   "go.toolsManagement.autoUpdate": true,
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": ["--fast"],
 
   "[markdown]": {
     "editor.tabSize": 4,
@@ -501,9 +504,11 @@
     "autohide",
     "bnext",
     "bprevious",
+    "bubbletea",
     "calt",
     "Caskaydia",
     "Catppuccin",
+    "ccwc",
     "chezmoi",
     "conint",
     "conlist",
@@ -519,14 +524,19 @@
     "Drizzt",
     "Drow",
     "dtos",
+    "elif",
     "esbenp",
     "fastapi",
     "fastify",
     "fontconfig",
     "gensalt",
+    "golangci",
     "goroutines",
     "hashpw",
     "hashset",
+    "heappop",
+    "heappush",
+    "heapq",
     "highlightedyank",
     "hlsearch",
     "IIFE",
@@ -535,21 +545,26 @@
     "leetcode",
     "LENET",
     "liga",
+    "Linearithmic",
     "lintstagedrc",
     "MERN",
     "middlewares",
     "Monaspace",
+    "nagaram",
     "nestjs",
     "nodenext",
     "nums",
     "nunchucks",
+    "omnisharp",
     "openapi",
     "outdent",
     "pino",
     "Powerline",
     "prettierc",
+    "pszponder",
     "pydantic",
     "REDOC",
+    "rptr",
     "scrollback",
     "sessionmaker",
     "signin",
@@ -571,6 +586,10 @@
     "uvicorn",
     "venv",
     "vitest",
-    "vsplit"
+    "vsplit",
+    "yzhang"
   ],
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

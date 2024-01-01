@@ -128,17 +128,17 @@
     {
       "before": ["j", "j"],
       "after": ["<Esc>"]
-    },
-    // "jk" in Insert Mode => Go to Normal Mode
-    {
-      "before": ["j", "k"],
-      "after": ["<Esc>"]
-    },
-    // "kj" in Insert Mode => Go to Normal Mode
-    {
-      "before": ["k", "j"],
-      "after": ["<Esc>"]
     }
+    // // "jk" in Insert Mode => Go to Normal Mode
+    // {
+    //   "before": ["j", "k"],
+    //   "after": ["<Esc>"]
+    // },
+    // // "kj" in Insert Mode => Go to Normal Mode
+    // {
+    //   "before": ["k", "j"],
+    //   "after": ["<Esc>"]
+    // }
   ],
 
   "vim.normalModeKeyBindingsNonRecursive": [
@@ -513,6 +513,7 @@
     "conint",
     "conlist",
     "Crafters",
+    "curr",
     "DBNAME",
     "deno",
     "dlig",
@@ -558,6 +559,7 @@
     "omnisharp",
     "openapi",
     "outdent",
+    "PAREN",
     "pino",
     "Powerline",
     "prettierc",

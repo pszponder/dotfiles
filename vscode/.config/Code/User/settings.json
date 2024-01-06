@@ -25,9 +25,9 @@
   "editor.minimap.autohide": true,
   "editor.mouseWheelZoom": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
-    "source.sortImports": "explicit",
-    "source.organizeImports": "explicit"
+    // "source.fixAll": "explicit",
+    // "source.sortImports": "explicit",
+    // "source.organizeImports": "explicit"
   },
   "editor.bracketPairColorization.enabled": true,
   "editor.lineHeight": 25,
@@ -548,6 +548,7 @@
     "liga",
     "Linearithmic",
     "lintstagedrc",
+    "lptr",
     "MERN",
     "middlewares",
     "Monaspace",

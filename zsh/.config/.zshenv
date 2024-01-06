@@ -9,9 +9,6 @@
 # | ZSH |
 # +-----+
 export ZDOTDIR="$HOME/.config/zsh"      # Where to find dot-files related to zsh
-export PATH="$PATH:$HOME/.local/bin"    # Needed for ZSH
-export PATH="$PATH:$HOME/.config/bin"   # Source bin directory in .config
-export PATH="$PATH:$HOME/bin"           # Source bin directory in home
 
 export HISTFILE="$ZDOTDIR/.zhistory"    # History filepath
 export HISTSIZE=10000                   # Maximum events for internal history

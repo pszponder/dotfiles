@@ -118,6 +118,10 @@ printf "%b" "${smoke_tests}"
 
 ## Optional
 
+### Neovim Version Manager
+
+- [bob](https://github.com/MordechaiHadad/bob)
+
 ### Desktop Wallpaper
 - [wallpaperflare.com - Vector Forest](https://www.wallpaperflare.com/mikael-gustafsson-river-trees-forest-landscape-artwork-wallpaper-ujodq/download)
 

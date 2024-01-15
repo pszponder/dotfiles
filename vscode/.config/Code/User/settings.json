@@ -94,6 +94,10 @@
   // =============================================
   "notebook.formatOnSave.enabled": true,
   "notebook.output.wordWrap": true,
+  "notebook.codeActionsOnSave": {
+    "notebook.source.fixAll": true,
+    "notebook.source.organizeImports": true
+  },
 
   // =============================================
   // ============= GITHUB COPILOT ================
@@ -339,7 +343,11 @@
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
     "editor.formatOnType": true,
-    "editor.defaultFormatter": "charliermarsh.ruff"
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+      "source.organizeImports": true
+    }
   },
   "python.analysis.typeCheckingMode": "strict",
   "python.analysis.autoImportCompletions": true,
@@ -503,6 +511,7 @@
     "apispec",
     "autofetch",
     "autohide",
+    "Benthur",
     "bnext",
     "bprevious",
     "bubbletea",
@@ -552,6 +561,7 @@
     "Linearithmic",
     "lintstagedrc",
     "lptr",
+    "Makefiles",
     "MERN",
     "middlewares",
     "Monaspace",

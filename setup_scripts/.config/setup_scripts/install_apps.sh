@@ -112,6 +112,9 @@ sudo usermod -aG docker $USER
 # Install Neovim
 # https://github.com/neovim/neovim/wiki/Installing-Neovim
 # =======================================================
+
+# NOTE: Take a look at bob https://github.com/MordechaiHadad/bob as an alternative to the below
+
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt-get update
 sudo apt-get install neovim

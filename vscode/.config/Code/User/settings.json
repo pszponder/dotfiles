@@ -351,6 +351,7 @@
   },
   "python.analysis.typeCheckingMode": "strict",
   "python.analysis.autoImportCompletions": true,
+  "python.defaultInterpreterPath": ".pixi/env/bin/python",
 
   "[go]": {
     "editor.tabSize": 4,
@@ -554,6 +555,7 @@
     "hlsearch",
     "IIFE",
     "inmem",
+    "isready",
     "johndoe",
     "leetcode",
     "LENET",
@@ -597,6 +599,7 @@
     "transpiles",
     "Traversy",
     "treeshake",
+    "trunc",
     "tsup",
     "typeorm",
     "unbuffered",

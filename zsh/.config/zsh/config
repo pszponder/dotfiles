@@ -8,3 +8,8 @@
 # | STARSHIP PROMPT |
 # +-----------------+
 eval "$(starship init zsh)"
+
+# +--------------------+
+# | PIXI Auto-Complete |
+# +--------------------+
+eval "$(pixi completion --shell zsh)"

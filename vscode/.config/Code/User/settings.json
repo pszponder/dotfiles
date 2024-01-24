@@ -351,7 +351,7 @@
   },
   "python.analysis.typeCheckingMode": "strict",
   "python.analysis.autoImportCompletions": true,
-  "python.defaultInterpreterPath": ".pixi/env/bin/python",
+  "python.defaultInterpreterPath": "/home/piotr/.pixi/bin/python",
 
   "[go]": {
     "editor.tabSize": 4,

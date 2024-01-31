@@ -6,12 +6,13 @@
 ## Resources to Review
 
 VIM / NVIM / LAZYVIM
+- [typecraft - Neovim for Newbs](https://www.youtube.com/playlist?list=PLsz00TDipIffreIaUNk64KxTIkQaGguqn)
+- [Andrew Courter - The Most Requested Neovim Config](https://www.youtube.com/watch?v=upM6FOtdLeU)
+- [typecraft - Neovim and Git: SOLVED](https://www.youtube.com/watch?v=zOQMwWqdp9w)
 - [VIM Adventures](https://vim-adventures.com/)
 - [Boost Your Coding Fu w/ VSCode and Vim](https://www.barbarianmeetscoding.com/boost-your-coding-fu-with-vscode-and-vim)
-- [typecraft - From 0 to IDE in NEOVIM from Scratch](https://www.youtube.com/watch?v=zHTeCSVAFNY)
-- [typecraft - Neovim for Newbs](https://www.youtube.com/playlist?list=PLsz00TDipIffreIaUNk64KxTIkQaGguqn)
-- [Andrew Courter - Intro to Customizing LazyVim](https://www.youtube.com/watch?app=desktop&v=jBzmpArdjlE)
 - [Elijah Manor - Zero to IDE w/ LazyVim](https://www.youtube.com/watch?v=N93cTbtLCIM)
+- [Andrew Courter - Intro to Customizing LazyVim](https://www.youtube.com/watch?app=desktop&v=jBzmpArdjlE)
 - [LazyVim - Keymaps](https://www.lazyvim.org/keymaps)
 - [LazyVim - Keymaps.lua](https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua)
 - [mini.comment](https://github.com/echasnovski/mini.comment)
@@ -47,6 +48,7 @@ DOTFILES
 TOOLS
 - [Rio Terminal](https://raphamorim.io/rio/)
 - [Wave Terminal](https://www.waveterm.dev/)
+- [typecraft - LazyGit](https://www.youtube.com/watch?v=TLNdwvIFoCg)
 
 MISC
 - [Terminal Productivity](https://www.youtube.com/playlist?list=PLmcTCfaoOo_huhLl9_i6IOjiqURVDgEFB)

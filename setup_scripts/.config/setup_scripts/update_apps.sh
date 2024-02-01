@@ -12,6 +12,6 @@ flatpak update
 echo "Updating Snap Packages..."
 snap refresh
 
-# Updating Programming Languages (via rtx)
+# Updating Programming Languages (via mise)
 echo "Updating Programming Languages..."
-rtx upgrade
+mise upgrade

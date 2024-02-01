@@ -9,11 +9,6 @@ export PATH="$PATH:$HOME/.local/bin"    # Needed for ZSH
 export PATH="$PATH:$HOME/.config/bin"   # Source bin directory in .config
 export PATH="$PATH:$HOME/bin"           # Source bin directory in home
 
-# +----------+
-# | RTX PATH |
-# +----------+
-export PATH="$HOME/.local/share/rtx/shims:$PATH" # For Intellij, VSCode and other IDEs
-
 # +----------------------+
 # | GLOBAL VISUAL EDITOR |
 # +----------------------+

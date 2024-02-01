@@ -334,10 +334,29 @@
   },
 
   "[csharp]": {
-    "editor.defaultFormatter": "ms-dotnettools.csharp"
+    // "editor.defaultFormatter": "ms-dotnettools.csharp"
     // "editor.tabSize": 4
   },
-  "omnisharp.sdkPath": "/usr/bin/dotnet",
+  // "omnisharp.sdkPath": "/home/piotr/.local/share/mise/installs/dotnet/latest/./dotnet",
+  "dotnetAcquisitionExtension.existingDotnetPath": [
+    // "/home/piotr/.local/share/mise/installs/dotnet/latest/./dotnet"
+    {
+      "extensionId": "ms-dotnettools.csdevkit",
+      "path": "/home/piotr/.local/share/mise/installs/dotnet/latest/./dotnet"
+    },
+    {
+      "extensionId": "ms-dotnettools.csharp",
+      "path": "/home/piotr/.local/share/mise/installs/dotnet/latest/./dotnet"
+    },
+    {
+      "extensionId": "ms-dotnettools.vscodeintellicode-csharp",
+      "path": "/home/piotr/.local/share/mise/installs/dotnet/latest/./dotnet"
+    },
+    {
+      "extensionId": "ms-dotnettools.vscode-dotnet-runtime",
+      "path": "/home/piotr/.local/share/mise/installs/dotnet/latest/./dotnet"
+    }
+  ],
 
   "[python]": {
     "editor.tabSize": 4,

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# TODO: Update rtx to mise
+
 # Check if rtx is installed by brew, if not install it
 if test ! $(which rtx); then
 	echo "Installing rtx..."

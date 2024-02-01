@@ -28,11 +28,12 @@ echo "Installing Package Managers..."
 echo "Installing Applications..."
 ./scripts/install_apps.sh
 
-# =================================================================
-# Install Programming Languages w/ RTX (https://github.com/jdx/rtx)
-# =================================================================
-echo "Installing Programming Languages..."
-./scripts/install_languages.sh
+# TODO: Replace w/ mise
+# # =================================================================
+# # Install Programming Languages w/ RTX (https://github.com/jdx/rtx)
+# # =================================================================
+# echo "Installing Programming Languages..."
+# ./scripts/install_languages.sh
 
 # ==============
 # Setup Dotfiles

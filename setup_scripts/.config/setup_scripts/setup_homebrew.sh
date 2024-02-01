@@ -38,7 +38,7 @@ brew install \
 	starship \
 	httpie \
 	yazi \
-	rtx \
+	mise \
 	stow \
 	chezmoi \
 	gum \

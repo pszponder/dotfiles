@@ -41,10 +41,11 @@ compinit
 # 	. '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 # fi
 
-# +------------------------------+
-# | RTX POLYGLOT RUNTIME MANAGER |
-# +------------------------------+
-eval "$(rtx activate zsh)"
+# +-------------------------------+
+# | MISE POLYGLOT RUNTIME MANAGER |
+# +-------------------------------+
+# https://mise.jdx.dev/
+eval "$(~/.local/bin/mise activate zsh)"
 
 # +----------------+
 # | CUSTOM PLUGINS |

@@ -21,7 +21,6 @@
 # https://github.com/Canop/broot
 # https://github.com/lotabout/skim
 # https://github.com/XAMPPRocky/tokei
-# https://github.com/jdx/rtx
 # https://github.com/Wilfred/difftastic
 # https://jqlang.github.io/jq/
 

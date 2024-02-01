@@ -8,14 +8,3 @@
 # | STARSHIP PROMPT |
 # +-----------------+
 eval "$(starship init zsh)"
-
-# # +--------------------+
-# # | PIXI Auto-Complete |
-# # +--------------------+
-# eval "$(pixi completion --shell zsh)"
-
-# +------------------------+
-# | MISE (Runtime manager) |
-# +------------------------+
-# https://mise.jdx.dev/
-eval "$(~/.local/bin/mise activate zsh)"

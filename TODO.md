@@ -5,6 +5,9 @@
 
 ## Resources to Review
 
+TOOLS
+- [just (alternative to make for running commands)](https://github.com/casey/just)
+
 VIM / NVIM / LAZYVIM
 - [typecraft - Neovim for Newbs](https://www.youtube.com/playlist?list=PLsz00TDipIffreIaUNk64KxTIkQaGguqn)
 - [Andrew Courter - The Most Requested Neovim Config](https://www.youtube.com/watch?v=upM6FOtdLeU)

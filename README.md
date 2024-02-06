@@ -143,6 +143,7 @@ Run `./scripts/install_rtx-polyglot.sh` to setup [rtx](https://github.com/jdx/rt
 ## Resources / References
 
 Managing Dotfiles w/ GNU Stow:
+- [Dreams of Autonomy - Stow has forever changed the way I manage my dotfiles](https://www.youtube.com/watch?v=y6XCebnB9gs)
 - [chris@machine - Manage your dotfiles across multiple machines with GNU Stow and Git](https://www.youtube.com/watch?v=90xMTKml9O0)
 - [Manage Your Dotfiles Like a Superhero](https://www.jakewiesler.com/blog/managing-dotfiles)
 - [System Crafters - Managing Your Dotfiles](https://www.youtube.com/playlist?list=PLEoMzSkcN8oNB7Xm3RNKMy_vygbDlj666)

@@ -43,6 +43,7 @@ brew install \
 	chezmoi \
 	gum \
 	gh \
+	just \
 
 # Install Brew GUI Packages (if on macOS)
 case $(uname -ms) in

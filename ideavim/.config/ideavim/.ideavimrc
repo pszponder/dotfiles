@@ -1,0 +1,72 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=10
+
+" Do incremental searching.
+set incsearch
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+
+" --- Enable IdeaVim extension
+set surround    " Surround text with quotes, brackets, etc. -- https://github.com/tpope/vim-surround
+set commentary    " Comment code -- https://github.com/tpope/vim-commentary/blob/master/doc/commentary.txt
+set easymotion
+set multiple-cursors
+set acejump
+set ReplaceWithRegister
+set highlightedyank
+let g:highlightedyank_highlight_duration = "250" " Highlight duration in milliseconds
+let g:highlightedyank_highlight_color = "#a9dc7660"
+
+"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
+"" Map \r to the Reformat Code action
+"map \r <Action>(ReformatCode)
+
+"" Map <leader>d to start debug
+"map <leader>d <Action>(Debug)
+
+"" Map \b to toggle the breakpoint on the current line
+"map \b <Action>(ToggleLineBreakpoint)
+
+" --- Basic settings
+set number        " Show line numbers
+set relativenumber " Show relative line numbers
+set incsearch     " Incremental search
+set ignorecase    " Ignore case in search
+set smartcase     " Override ignorecase if search contains upper case
+set hlsearch      " Highlight search results
+
+" --- Indentation and tabs
+set tabstop=4     " Number of spaces tabs count for
+set shiftwidth=4  " Number of spaces to use for each step of (auto)indent
+"set expandtab     " Convert tabs to spaces
+
+" --- Enable mouse support
+set mouse=a       " Enable mouse for all modes
+
+" --- Set leader key
+let mapleader=" " " Set space as the leader key
+
+" -- Custom mappings
+nnoremap <leader>w :w<CR>   " Save file with leader key + w
+nnoremap <leader>q :q<CR>   " Quit with leader key + q
+nnoremap <leader>c :Commentary<CR> " Comment code with leader key + c
+nnoremap <leader>u :UndoTreeToggle<CR> " Open undo tree with leader key + u
+nnoremap <leader>h :set hlsearch!<CR> " Toggle search highlighting with leader key + h
+
+vmap <S-J> <Action>(MoveLineDown)
+vmap <S-K> <Action>(MoveLineUp)
+" Use system clipboard
+set clipboard+=unnamedplus  " Use system clipboard

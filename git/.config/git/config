@@ -122,5 +122,6 @@
 
 # NOTE: Execute setup_config-personal.sh to create the config-personal file
 [includeIf "gitdir:~/Development/github.com/pszponder/"]
-	# If working in the github.com/pszponder directory, use the config file at ~/.config/git/config-personal to override global settings
+	# If working in the github.com/pszponder directory,
+	# use the config file at ~/.config/git/config-personal to override global settings
 	path = ~/.config/git/config-personal

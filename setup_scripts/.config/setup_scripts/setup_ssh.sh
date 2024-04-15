@@ -25,7 +25,7 @@ create_and_add_key() {
     mkdir -p "$SSH_DIR/$key_dir"
 
     # Generate the SSH key
-    ssh-keygen -t rsa -b 4096 -C "$key_comment" -f "$key_dir/$key_name"
+    ssh-keygen -t rsa -b 4096 -C "$key_comment" -f "$SSH_DIR/$key_dir/$key_name"
 
     # Add the key to the ssh-agent
     ssh-add "$SSH_DIR/$key_dir/$key_name"

@@ -6,4 +6,4 @@
 source $ZDOTDIR/config
 source $ZDOTDIR/plugins/_plugins.zsh
 source $HOME/.config/aliases
-source $ZDOTDIR/functions.zsh
+source $ZDOTDIR/functions.zsh. "/home/piotr/.local/share/mise/installs/rust/1.76.0/env"

@@ -165,6 +165,8 @@ abbr gpullrav 'git pull --rebase --autostash -v'
 # Push changes to the 'origin' remote for the current branch
 abbr gp 'git push'
 
+abbr gpf "git push --force"
+
 # Git Push Verbose
 # Push changes to the remote 'origin' with verbose output.
 abbr gpv 'git push --verbose'

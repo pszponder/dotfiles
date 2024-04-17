@@ -7,7 +7,8 @@ set -x DOTFILES "$HOME/.config"
 # Fish shell specific settings
 # ============================
 # Disable fish greeting message
-set -U fish_greeting
+set -U fish_user_paths $fish_user_paths $HOME/.local/bin/
+set fish_greeting
 
 # =================================================================
 # Load linuxbrew (packages) and mise (programming language manager)

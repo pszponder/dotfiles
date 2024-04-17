@@ -89,3 +89,8 @@ abbr lg "lazygit"
 # | Git |
 # +-----+
 # Refer to ./aliases_git
+
+# +--------+
+# | podman |
+# +--------+
+abbr docker podman

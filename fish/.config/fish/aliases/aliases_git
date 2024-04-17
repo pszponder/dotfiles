@@ -289,7 +289,7 @@ abbr glgo 'git log --oneline --decorate'
 abbr glgog 'git log --oneline --decorate --graph'
 
 # Show a simplified one-line view of the complete commit history with decorations and a graph.
-abbr glgoga='git log --oneline --decorate --graph --all'
+abbr glgoga 'git log --oneline --decorate --graph --all'
 
 # Git Log Stats
 # Display summarized git log w/ file change statistics.

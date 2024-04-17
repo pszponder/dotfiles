@@ -1,0 +1,403 @@
+# +---------+
+# | ALIASES |
+# +---------+
+
+# Navigate (cd) to the root of the current git repository
+abbr grt 'cd "$(git rev-parse --show-toplevel || echo .)"'
+
+# ======
+# STATUS
+# ======
+abbr gs 'git status'
+abbr gss 'git status --short'
+abbr gssb 'git status --short --branch'
+
+# ============
+# ADDING FILES
+# ============
+abbr ga 'git add'
+abbr gaa 'git add --all' # Add all files
+abbr gap 'git add --patch' # Add file(s) interactively & select hunks to stage
+abbr gau 'git add --update' # Only add changes made to already tracked files
+abbr gwip 'git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify --no-gpg-sign --message "--wip--"' # Add all unstaged files and commit with "--wip--"
+
+# ========
+# BRANCHES
+# ========
+
+# +------------------+
+# | Listing Branches |
+# +------------------+
+abbr gb 'git branch' # List all branches (local), or create a new branch (by passing a new branch name)
+abbr gbr 'git branch --remote' # List all branches (remote)
+abbr gba 'git branch --all' # List all branches (local and remote)
+abbr gblnr 'LANG=C git branch -vv | grep ": gone\]"' # List local branches that have been deleted on the remote repository
+abbr gbnm 'git branch --no-merged' # list branches that have not been merged into the current branch
+
+# +-------------------------------+
+# | Creating / Switching Branches |
+# +-------------------------------+
+abbr gbs 'git switch' # Switch to a branch
+abbr gbsc 'git switch --create' # Create a new branch and switch to it
+abbr gbco 'git checkout' # Checkout a Git branch
+abbr gbcor 'git checkout --recurse-submodules' # Checkout a branch and its submodules
+abbr gsw 'git switch'
+abbr gswc 'git switch --create'
+
+# +----------------------------+
+# | Moving / Renaming Branches |
+# +----------------------------+
+abbr gbm 'git branch --move' # Move / rename git branch (pass in current and new branch names)
+
+# +-------------------+
+# | Deleting Branches |
+# +-------------------+
+abbr gbld 'git branch --delete' # Delete a local branch
+abbr gblD 'git branch --delete --force' # Force delete a local branch
+abbr gblnrd 'LANG=C git branch --no-color -vv | grep ": gone\]" | awk '"'"'{print $1}'"'"' | xargs git branch -d' # Delete local branches that are no longer available on the remote repository
+abbr gblnrD 'LANG=C git branch --no-color -vv | grep ": gone\]" | awk '"'"'{print $1}'"'"' | xargs git branch -D' # Forcefully delete local branches that are no longer available on the remote repository
+
+# +------------------------+
+# | Misc Branch Operations |
+# +------------------------+
+abbr gbclean 'git clean --interactive -d' # Interactively clean untracked files and directories from the working directory
+
+# ==========
+# COMMITTING
+# ==========
+# NOTE: abbres ending w/ ! will overwrite the previous commit (amend)
+abbr gc "git commit -v" # Commit with verbose messaging
+abbr gca "git commit --all" # Commit all staged/unstaged changes
+abbr "gca!" "git commit --all --amend" # Amend previous commit w/ all staged/unstaged changes
+abbr gcm "git commit --message" # Commit with commit message
+abbr "gcm!" "git commit --all --message" # Amend previous commit w/ new commit message
+abbr gcam "git commit --all --message" # Commit all staged/unstaged changes with commit message
+abbr "gcam!" " git commit --all --amend --message" # Amend previous commit w/ new commit message
+abbr "gcn!" "git commit --no-edit" # Amend previous commit w/ same commit message
+abbr "gcan!" "git commit --all --no-edit" # Amend previous commit w/ same commit message and all staged/unstaged changes
+
+# +------------------------+
+# | Cherry Picking Commits |
+# +------------------------+
+abbr gcp 'git cherry-pick' # Cherry-pick a commit onto the current branch
+abbr gcpa 'git cherry-pick --abort' # Abort a cherry-pick operation
+# Continue a cherry-pick operation after resolving conflicts
+abbr gcpc 'git cherry-pick --continue' # Continue a cherry-pick operation after resolving conflicts
+
+# ====
+# DIFF
+# ====
+abbr gd 'git diff' # Show unstaged changes between your index and working directory
+abbr gdca 'git diff --cached' # Show changes between commits, commit and working tree, etc
+abbr gdcw 'git diff --cached --word-diff' # Show changes between commits, commit and working tree, etc with word-level granularity
+abbr gds 'git diff --staged' # Show changes between the index and the HEAD(which is the last commit on this branch)
+abbr gdw 'git diff --word-diff' # Show changes between the index and the HEAD(which is the last commit on this branch) with word-level granularity
+abbr gdup 'git diff @{upstream}' # abbr to view Git diff with the upstream branch
+abbr gdt 'git diff-tree --no-commit-id --name-only -r' # abbr to view Git diff-tree
+
+# =========
+# RESETTING
+# =========
+# Resetting is the act of moving the current branch pointer to a different commit, effectively changes the current state of your working directory and staging area
+abbr grh 'git reset' # Reset the current HEAD to the specified state
+abbr gru 'git reset --' # Reset the current HEAD to the specified state, but keep the changes in the staging area
+abbr grhh 'git reset --hard' # Reset the current HEAD to the specified state, and discard all changes in the working directory and staging area
+abbr grhk 'git reset --keep' # Reset the current HEAD to the specified state, and keep the changes in the working directory but discard all changes in the staging area
+abbr grhs 'git reset --soft' # Reset the current HEAD to the specified state, and keep all changes in the working directory and staging area
+abbr gpristine 'git reset --hard && git clean --force -dfx' # Reset the current HEAD to the specified state, and discard all changes in the working directory and staging area, and remove all untracked files and directories
+
+# ===================
+# PULL / PUSH / FETCH
+# ===================
+
+# +-----------------+
+# | Fetching / Sync |
+# +-----------------+
+
+# +---------+
+# | Pulling |
+# +---------+
+# NOTE: Pull fetches the remote branch and merges it into the current branch
+
+# Git Pull
+# Pull changes from the 'origin' remote for the current branch
+# Merge pulled changes from the 'origin' remote into the current branch
+# OPTIONAL: Specify a remote branch name to pull from instead of the current branch
+abbr gpull 'git pull'
+
+# Git Pull Verbose
+# Pull changes from 'origin' remote for the current branch with verbose output
+abbr gpullv 'git pull -v'
+
+# Git Pull Origin
+# Pull changes from the 'origin' remote for the current branch
+# Merge pulled changes from the 'origin' remote into the current branch
+# OPTIONAL: Specify a remote branch name to pull from instead of the current branch
+abbr gpullo 'git pull origin'
+
+# Git Pull Upstream
+# Pull changes from the 'origin' remote for the current branch
+# Merge pulled changes from the 'origin' remote into the current branch
+# OPTIONAL: Specify a remote branch name to pull from instead of the current local branch
+# NOTE: "upstream" refers to orignally forked repository
+abbr gpullu 'git pull upstream'
+
+# Git Pull Rebase
+# Perform a 'git pull' with rebasing instead of merging.
+abbr gpullr 'git pull --rebase'
+
+# Git Pull Rebase Verbose
+# Perform a 'git pull' with rebasing and display verbose output.
+abbr gpullrv 'git pull --rebase -v'
+
+# Git Pull Rebae Auto Stash
+# Perform a 'git pull' with rebasing, and automatically stash changes if needed.
+abbr gpullra 'git pull --rebase --autostash'
+
+# Git Pull Rebase Auto Stash Verbose
+# Perform a 'git pull' with rebasing, display verbose output, and automatically stash changes if needed.
+abbr gpullrav 'git pull --rebase --autostash -v'
+
+# +---------+
+# | Pushing |
+# +---------+
+# Git Push
+# Push changes to the 'origin' remote for the current branch
+abbr gp 'git push'
+
+# Git Push Verbose
+# Push changes to the remote 'origin' with verbose output.
+abbr gpv 'git push --verbose'
+
+# Git Push Origin All and Tags
+# Push all branches & tags to the remote 'origin.'
+abbr gpoat 'git push origin --all && git push origin --tags'
+
+# Git Push Origin Delete
+# Delete a branch on the remote 'origin.'
+abbr gpod 'git push origin --delete'
+
+# Git Push to Origin
+# Push current branch to the remote 'origin' w/ same branch name.
+# NOTE: Same as gpoc
+# OPTIONAL: Add a branch name as an argument to push a different branch
+abbr gpo 'git push origin'
+
+# Git Push to Origin (Current Branch)
+# Push current branch to the remote 'origin' w/ same branch name.
+# NOTE: Same as gpo
+abbr gpoc 'git push origin "$(git_current_branch)"'
+
+# Git Push Upstream
+# Pushes the current branch to the remote 'upstream.'
+# OPTIONAL: Specify a branch name to push instead of the current branch
+abbr gpu 'git push upstream'
+
+# =====
+# FETCH
+# =====
+abbr gf 'git fetch' # Fetch from remote repository
+abbr gfa 'git fetch --all --prune --jobs=10' # Fetch from all remotes and prune stale branches
+abbr gfo 'git fetch origin' # Fetch from origin remote
+
+# =======
+# MERGING
+# =======
+# Git Merge
+# Perform a standard Git merge.
+# USAGE: gm <branch_name_to_merge_into_current>
+abbr gm 'git merge' # Specify a branch name to merge into the current branch
+
+# Git Merge Abort
+# Abort the current Git merge in progress.
+abbr gma 'git merge --abort'
+
+# Git Merge Squash
+# Perform a Git merge while squashing all changes into a single commit.
+# USAGE: gms <branch_name_to_merge_into_current>
+abbr gms "git merge --squash" # Specify a branch name to merge into the current branch
+
+# Git Merge Origin (Remote Merge -- Origin Current Branch)
+# Merge changes from the 'origin' remote into the current branch.
+# USAGE: gmo
+# Same as gpulloc git pull origin $(git_current_branch)
+abbr gmo 'git merge origin' # Merge changes from the 'origin' main branch into the current branch
+
+# Git Mergetool
+# Launch the Git mergetool to resolve merge conflicts without prompting.
+abbr gmtl 'git mergetool --no-prompt'
+
+# Git Mergetool with vimdiff
+# Launch the Git mergetool with the 'vimdiff' tool to resolve merge conflicts without prompting.
+abbr gmtlvim 'git mergetool --no-prompt --tool=vimdiff'
+
+# ========
+# REBASING
+# ========
+# Git Rebase
+# Perform a standard Git rebase. (Apply commits from your current branch on top of another branch)
+# USAGE: grb <branch_name_to_rebase_onto>
+abbr grb 'git rebase' # Specify a branch name to rebase the current branch onto
+
+# Git Rebase Abort
+# Abort the current Git rebase in progress.
+abbr grba 'git rebase --abort'
+
+# Git Rebase Continue
+# Continue a paused Git rebase.
+abbr grbc 'git rebase --continue'
+
+# Git Rebase Interactive
+# Start an interactive Git rebase, allowing you to squash, edit, or reorder commits.
+abbr grbi 'git rebase --interactive'
+
+# Git Rebase Skip
+# Skip the current commit during an interactive rebase.
+abbr grbs 'git rebase --skip'
+
+# Git Rebase Onto
+# Rebase the current branch onto a different base commit or branch.
+# USAGE: grbo <branch_name_to_rebase_onto> <branch_name_to_rebase>
+abbr grbo 'git rebase --onto'
+
+# =======
+# LOGGING
+# =======
+
+# abbr gl='git log --graph --abbrev-commit --oneline --decorate'
+
+# Git Log One Line Custom
+abbr gl "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all"
+abbr gl2 "git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'"
+
+# Git Log Graph
+# Show a graphical representation of the commit history.
+abbr glg 'git log --graph'
+
+# Git Log Graph Decorate All
+# Show a graphical representation of the complete commit history with decorations.
+abbr glga 'git log --graph --decorate --all'
+
+# Git Log Graph Last 10
+# Show a graphical representation of the last 10 commits in the commit history.
+abbr glgm 'git log --graph --max-count=10'
+
+# Show a simplified one-line view of the commit history with decorations.
+abbr glgo 'git log --oneline --decorate'
+
+# Show a simplified one-line view of the commit history with decorations and a graph.
+abbr glgog 'git log --oneline --decorate --graph'
+
+# Show a simplified one-line view of the complete commit history with decorations and a graph.
+abbr glgoga='git log --oneline --decorate --graph --all'
+
+# Git Log Stats
+# Display summarized git log w/ file change statistics.
+abbr glgst 'git log --stat'
+
+# Git Log Stats Patch
+# Display summarized git log w/ file change stats & patch details.
+abbr glgstp 'git log --stat --patch'
+
+# Git Log Graph Date Short
+# Show a graphical representation of the commit history with a custom pretty format and short date.
+abbr glgds 'git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset" --date=short'
+
+# Show a graphical representation of the commit history with a custom pretty format.
+abbr glgod 'git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset"'
+
+# Show a graphical representation of the complete commit history with a custom pretty format and relative dates.
+abbr glgla 'git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --all'
+
+# Show a graphical representation of the commit history with a custom pretty format and file statistics.
+abbr glgls 'git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --stat'
+
+# Show a graphical representation of the commit history with a custom pretty format and relative dates.
+abbr glgl 'git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset"'
+
+# ========
+# STASHING
+# ========
+
+# Git Stash (Stash Changes -- Tracked)
+# Stash changes in the working directory
+abbr gst 'git stash'
+
+# Git Stash All (Stash Changes -- Tracked & Untracked)
+# Stashes all changes in the working directory, including untracked files.
+abbr gstall 'git stash --all'
+
+# Git Stash List
+# List all stashes in the repository.
+abbr gstl 'git stash list'
+
+# Git Stash Apply
+# Apply the most recent stash to the working directory
+abbr gsta 'git stash apply'
+
+# Git Stash Pop
+# Apply the most recent stash & remove it from the stash list
+abbr gstp 'git stash pop'
+
+# Git Stash Clear (Clear All Stashes)
+# Clears all stashes, removing them from the stash list.
+abbr gstc 'git stash clear'
+
+# Git Stash Drop
+# Drop most recent stash, permanently removing it from the stash list.
+abbr gstd 'git stash drop'
+
+# Git Stash Save
+# Stash changes in the working directory with a custom message.
+# Usage: gsta "Your custom stash message"
+abbr gsta 'git stash save'
+
+# Git Stash Show Patch
+# Shows the changes in the most recent stash as a patch.
+abbr gsts 'git stash show --patch'
+
+# =======
+# TAGGING
+# =======
+# Git Tag
+# List all tags, or create a new tag (by passing a new tag name)
+# Usage: gt            # List all tags
+# Usage: gt <tag-name> # Create a new tag
+# NOTE: Git does not automatically push tags to remote repository.
+abbr gt 'git tag'
+
+# Git Tag Annotate
+# Create an annotated tag in Git with additional annotation/comment.
+# Usage: gta <tag-name> -m "Annotation message"
+abbr gta 'git tag --annotate'
+
+
+# Git Tag Push
+# Push all tags to remote repository.
+# NOTE: Git does not automatically push tags to remote repository.
+abbr gtp 'git push --tags'
+
+# Git Tag Delete
+# Delete a tag in Git.
+# Usage: gtd <tag-name>
+abbr gtd 'git tag --delete'
+
+# Git Tag View
+# List all Git tags in a sorted version order.
+abbr gtv 'git tag | sort -V'
+
+# Git Checkout Tag
+# Checkout a Git tag.
+# USAGE: gtco <tag-name>
+abbr gtco 'git checkout'
+
+# Git Checkout Tag Latest
+# Checkout the latest Git tag.
+abbr gtcol 'git checkout $(git describe --tags $(git rev-list --tags --max-count=1))'
+
+# ====
+# MISC
+# ====
+# List Git Conifg
+# Lists all git config settings
+abbr gcf 'git config --list'

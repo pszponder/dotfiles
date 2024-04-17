@@ -58,7 +58,7 @@ alias lt='ls --tree --depth' # User must specify depth (ex. "lt 2" for 2 levels 
 # +------+
 # | wget |
 # +------+
-alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 
 # +--------------------+
 # | copy, move, remove |

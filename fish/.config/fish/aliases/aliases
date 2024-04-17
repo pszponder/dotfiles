@@ -1,0 +1,91 @@
+# +------------+
+# | NAVIGATION |
+# +------------+
+abbr .. "cd .."
+abbr ... "cd ../.."
+abbr .... "cd ../../.."
+abbr ..... "cd ../../../.."
+abbr ...... "cd ../../../../.."
+abbr ........ "cd ../../../../../.."
+abbr - "cd -"
+
+# +-----------+
+# | SHORTCUTS |
+# +-----------+
+abbr dl "cd ~/Downloads"
+abbr dt "cd ~/Desktop"
+abbr dc "cd ~/Documents"
+abbr dev "cd ~/Development"
+abbr repos "cd ~/Development/github.com/pszponder"
+abbr dot "cd ~/.config"
+abbr zdot "cd ~/.config/zsh"
+abbr fdot "cd ~/.config/fish"
+
+# +-----------------+
+# | clearing screen |
+# +-----------------+
+abbr cl "clear"
+
+# +----------------------+
+# | lsd (ls alternative) |
+# +----------------------+
+abbr ls "lsd"
+abbr l "lsd -l"
+abbr la "lsd -A"
+abbr lla "lsd -lA"
+
+# Specialty views
+abbr lS "lsd -1" # one column, just names
+abbr lt "lsd --tree --depth" # User must specify depth (ex. "lt 2" for 2 levels deep)
+
+# +--------------------+
+# | copy, move, remove |
+# +--------------------+
+abbr cp "cp -iv"
+abbr mv "mv -iv"
+abbr rm "rm -iv"
+
+# +-----+
+# | bat |
+# +-----+
+abbr cat "bat --paging=never"
+
+# +------+
+# | grep |
+# +------+
+abbr grep "rg --hidden --smart-case --follow --color=always"
+abbr rgf "rg --files-with-matches --no-messages"  # List files that match
+abbr rgl "rg --files-without-match --no-messages" # List files that don't match
+abbr rgg "rg --glob"                              # Search only files matching glob
+abbr rgi "rg --ignore-case"                       # Case insensitive
+abbr rgv "rg --invert-match"                      # Invert match
+abbr rgc "rg --count"                             # Count number of matches
+abbr rgA "rg --after-context"                     # Shows x number of lines after the match, ex. rgA 2
+abbr rgB "rg --before-context"                    # Shows x number of lines before the match, ex. rgB 2
+abbr rgC "rg --context"                           # Shows x number of lines around the match, ex. rgC 2
+abbr rgw "rg --word-regexp"                       # Only match whole words
+abbr rgp "rg --pretty"                            # Show results in a more readable format
+abbr rgs "rg --sort-files"                        # Sort files by name before searching
+
+# +-------+
+# | xclip |
+# +-------+
+abbr clipf "xclip -sel clip <" # ex. clipf someFile.txt
+abbr clip "xclip -selection clipboard" # ex. pwd | clip
+
+# +------+
+# | vim |
+# +------+
+abbr v "nvim"
+abbr vi "nvim"
+abbr vim "nvim"
+
+# +---------+
+# | lazygit |
+# +---------+
+abbr lg "lazygit"
+
+# +-----+
+# | Git |
+# +-----+
+# Refer to ./aliases_git

@@ -130,6 +130,7 @@ printf "%b" "${smoke_tests}"
 - [Catppuccin Theme](https://github.com/catppuccin)
 - [Catppuccin Theme - Gnome Terminal](https://github.com/catppuccin/gnome-terminal)
 - [Catppuccin Theme - NeoVim](https://github.com/catppuccin/nvim)
+- [Catppuccin Theme - Fish Shell](https://github.com/catppuccin/fish)
 
 ### GUI Apps
 

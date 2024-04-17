@@ -119,3 +119,5 @@ fi
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # eval "$(starship init bash)"
 . "/home/piotr/.local/share/mise/installs/rust/1.77.2/env"
+
+eval "$(zoxide init bash)"

@@ -6,7 +6,7 @@ TARGET_DIR="$HOME"
 # Loop through each directory in the dotfiles directory
 for dir in */ ; do
 	# Check if the directory is not .git
-	if [[ "$dir" != ".git/" ]]; then
+	if [[ "$dir" != ".git/" || "$dir" != "scratch/" ]]; then
 		# Stow the directory
 		stow -v --restow --adopt --target="$TARGET_DIR" "$dir"
 	fi

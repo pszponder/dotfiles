@@ -1,2 +1,5 @@
 lazy-lock.json
 **/git/config-*
+.zcompdump
+.zsh_history
+.zhistory

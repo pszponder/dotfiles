@@ -6,48 +6,28 @@
 # ZSH PLUGINS / PACKAGES
 # ======================
 
-# +--------------------------+
-# | HOMEBREW PACKAGE MANAGER |
-# +--------------------------+
-# https://brew.sh/
-
-# eval "$(/opt/homebrew/bin/brew shellenv)" # macOS (ARM) specific Homebrew path
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # Linux specific Homebrew path
-
-# +----------------------+
-# | ZAP (PLUGIN MANAGER) |
-# +----------------------+
-# https://www.zapzsh.org/
-
-[ -f "${XDG_DATA_HOME:-$HOME/.local/share}/zap/zap.zsh" ] && source "${XDG_DATA_HOME:-$HOME/
-.local/share}/zap/zap.zsh"
-plug "zsh-users/zsh-autosuggestions"
-plug "zap-zsh/supercharge"
-plug "zsh-users/zsh-syntax-highlighting"
-plug "zsh-users/zsh-history-substring-search"
-plug "Aloxaf/fzf-tab"
-plug "kutsan/zsh-system-clipboard"
-plug "MichaelAquilina/zsh-you-should-use"
-
-
-# Load and initialise completion system
+# FZF Tab
 autoload -Uz compinit
 compinit
+source $ZDOTDIR/plugins/fzf-tab/fzf-tab.plugin.zsh
 
-# # +---------------------+
-# # | NIX PACKAGE MANAGER |
-# # +---------------------+
-# if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-# 	. '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-# fi
+# Autosuggestions
+source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# +-------------------------------+
-# | MISE POLYGLOT RUNTIME MANAGER |
-# +-------------------------------+
-# https://mise.jdx.dev/
-eval "$(~/.local/bin/mise activate zsh)"
+# # Syntax Highlighting
+# source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# +----------------+
-# | CUSTOM PLUGINS |
-# +----------------+
+# fast-syntax-highlighting
+source $ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+
+# Zsh History Substring Search
+source $ZDOTDIR/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+# Zsh System Clipboard
+source $ZDOTDIR/plugins/zsh-system-clipboard/zsh-system-clipboard.zsh
+
+# Zsh You Should Use (Reminds you of your existing aliases)
+source $ZDOTDIR/plugins/zsh-you-should-use/you-should-use.plugin.zsh
+
+# Git
 source $ZDOTDIR/plugins/git/plugin_git.zsh

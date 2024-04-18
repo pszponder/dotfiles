@@ -8,8 +8,7 @@
 # +-----+
 # | ZSH |
 # +-----+
-export ZDOTDIR="$HOME/.config/zsh"      # Where to find dot-files related to zsh
-
+# export ZDOTDIR="$HOME/.config/zsh"      # Where to find dot-files related to zsh (already in /etc/zsh/zshenv)
 export HISTFILE="$ZDOTDIR/.zhistory"    # History filepath
 export HISTSIZE=10000                   # Maximum events for internal history
 export SAVEHIST=10000                   # Maximum events in history file
@@ -66,3 +65,17 @@ export LESS='--chop-long-lines --HILITE-UNREAD --ignore-case --incsearch --jump-
 # | RIPGREP OPTIONS |
 # +-----------------+
 export RIPGREP_CONFIG_PATH="$DOTFILES/ripgrep/ripgreprc"
+
+# +---------------------+
+# | FZF catppucin theme |
+# +---------------------+
+# https://github.com/catppuccin/fzf
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+
+# +------------+
+# | LINUX BREW |
+# +------------+
+export PATH="$HOME/.linuxbrew/bin:$PATH"

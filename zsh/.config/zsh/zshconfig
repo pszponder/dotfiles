@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+
+# =========================
+# ZSH CONFIGURATION / SETUP
+# =========================
+
+# +--------------------------+
+# | HOMEBREW PACKAGE MANAGER |
+# +--------------------------+
+# https://brew.sh/
+
+# eval "$(/opt/homebrew/bin/brew shellenv)" # macOS (ARM) specific Homebrew path
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # Linux specific Homebrew path
+
+# +-------------------------------+
+# | MISE POLYGLOT RUNTIME MANAGER |
+# +-------------------------------+
+# https://mise.jdx.dev/
+# eval "$(~/.local/bin/mise activate zsh)"
+eval "$(mise activate)"
+
+# +-----------------+
+# | STARSHIP PROMPT |
+# +-----------------+
+eval "$(starship init zsh)"
+
+# # +------------------------+
+# # | ADVANCED TAB COMPLETION
+# # +------------------------+
+# # NOTE: This is replaced by Fzf-tab
+# autoload -Uz compinit && setopt PROMPT_SUBST && compinit && zstyle ':completion:*' menu select
+
+# +--------+
+# | AUTOCD |
+# +--------+
+# Enable autocd, autopushd, and pushdignoredups options
+setopt autocd autopushd pushdignoredups
+
+# +----------+
+# | VIM MODE |
+# +----------+
+bindkey -v

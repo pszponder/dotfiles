@@ -1,7 +1,6 @@
 # .zprofile is sourced only once at every login.
 # https://www.zerotohero.dev/zshell-startup-files/
 
-
 # +-------+
 # | PATHS |
 # +-------+

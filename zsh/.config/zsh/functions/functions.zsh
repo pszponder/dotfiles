@@ -4,6 +4,14 @@
 # ZSH FUNCTIONS
 # =============
 
+# Update Everything
+# Updates System and Packages
+update() {
+	sudo apt update && sudo apt upgrade -y
+	brew update && brew upgrade
+	mise upgrade
+}
+
 # Ripgrep + pretty print
 # Usage: rg <search term>
 function rg { command rg --json $@ | delta; }

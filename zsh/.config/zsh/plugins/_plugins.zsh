@@ -31,3 +31,8 @@ source $ZDOTDIR/plugins/zsh-you-should-use/you-should-use.plugin.zsh
 
 # Git
 source $ZDOTDIR/plugins/git/plugin_git.zsh
+
+# FZF-git
+# https://www.josean.com/posts/7-amazing-cli-tools
+# https://github.com/junegunn/fzf
+source $ZDOTDIR/plugins/fzf-git.sh/fzf-git.sh

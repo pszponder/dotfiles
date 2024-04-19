@@ -46,14 +46,15 @@ alias cl="clear"
 # +----------------------+
 # | lsd (ls alternative) |
 # +----------------------+
-alias ls='lsd'
-alias ll='ls -l'
-alias la='ls -A'
-alias lla='ls -lA'
+alias ls='eza --color=always --git --no-filesize --icons=always --no-time --no-user --no-permissions -G'
+alias ll='eza --color=always --long --git --icons=always'
+alias la='ls -a'
+alias lla='ll -a'
 
 # Specialty views
 alias lS='ls -1' # one column, just names
-alias lt='ls --tree --depth' # User must specify depth (ex. "lt 2" for 2 levels deep)
+alias lt='ls --tree'
+alias ltd='ls --tree --level' # User must specify depth (ex. "lt 2" for 2 levels deep)
 
 # +------+
 # | wget |

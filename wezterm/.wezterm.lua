@@ -8,6 +8,9 @@ local config = wezterm.config_builder()
 --                START CONFIG                 --
 -------------------------------------------------
 
+-- config.window_decorations = "RESIZE" -- Get rid of Title bar (also gets rid of window controls)
+-- config.window_background_opacity = 0.99
+
 config.color_scheme = 'Catppuccin Mocha'
 
 config.font = wezterm.font_with_fallback {
@@ -24,7 +27,6 @@ config.window_padding = {
 	bottom = '0.05cell',
 }
 
--- config.window_background_opacity = 0.99
 
 -------------------------------------------------
 --                 END CONFIG                  --

@@ -337,8 +337,6 @@
     // "editor.defaultFormatter": "ms-dotnettools.csharp"
     // "editor.tabSize": 4
   },
-  "omnisharp.sdkPath": "/home/piotr/.local/share/mise/installs/dotnet/latest/sdk",
-  "dotnet.dotnetPath": "/home/piotr/.local/share/mise/installs/dotnet/latest/",
 
   "[python]": {
     "editor.tabSize": 4,
@@ -617,5 +615,6 @@
   ],
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "dotnet.dotnetPath": "/home/piotr/.local/share/mise/installs/dotnet/latest/"
 }

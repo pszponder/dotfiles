@@ -13,3 +13,9 @@ export PATH="$PATH:$HOME/bin"           # Source bin directory in home
 # +----------------------+
 export EDITOR="nvim"
 # export EDITOR='code --wait'
+
+# +-------------------------------+
+# | MISE POLYGLOT RUNTIME MANAGER |
+# +-------------------------------+
+# https://mise.jdx.dev/
+export PATH="$HOME/.local/share/mise/shims:$PATH"'

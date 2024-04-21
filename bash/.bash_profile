@@ -1,2 +1,11 @@
+# +--------------------------+
+# | HOMEBREW PACKAGE MANAGER |
+# +--------------------------+
+# https://brew.sh/
 export PATH="$HOME/.linuxbrew/bin:$PATH"
-mise activate
+
+# +-------------------------------+
+# | MISE POLYGLOT RUNTIME MANAGER |
+# +-------------------------------+
+# https://mise.jdx.dev/
+export PATH="$HOME/.local/share/mise/shims:$PATH"

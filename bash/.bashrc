@@ -116,8 +116,18 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# +--------------------------+
+# | HOMEBREW PACKAGE MANAGER |
+# +--------------------------+
+# https://brew.sh/
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # eval "$(starship init bash)"
 . "/home/piotr/.local/share/mise/installs/rust/1.77.2/env"
 
 eval "$(zoxide init bash)"
+
+# +-------------------------------+
+# | MISE POLYGLOT RUNTIME MANAGER |
+# +-------------------------------+
+# https://mise.jdx.dev/
+eval "$(~/.local/bin/mise activate bash)"

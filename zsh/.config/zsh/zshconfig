@@ -17,7 +17,8 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # Linux specific Homebrew
 # +-------------------------------+
 # https://mise.jdx.dev/
 # eval "$(~/.local/bin/mise activate zsh)"
-eval "$(mise activate)"
+# eval "$(mise activate)"
+eval "$(/$HOME/.local/bin/mise activate zsh)"
 
 # +-----------------+
 # | STARSHIP PROMPT |

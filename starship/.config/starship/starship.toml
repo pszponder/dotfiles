@@ -125,7 +125,7 @@ number_threshold = 1
 format = "[$symbol]($style)"
 
 [time]
-disabled = false
+disabled = true
 style = "bold white"
 format = ' 🕙[ $time]($style)'
 # format = '[ $time ]($style)'

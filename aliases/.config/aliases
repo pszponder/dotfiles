@@ -52,9 +52,9 @@ alias la='ls -a'
 alias lla='ll -a'
 
 # Specialty views
-alias lS='ls -1' # one column, just names
-alias lt='ls --tree'
-alias ltd='ls --tree --level' # User must specify depth (ex. "lt 2" for 2 levels deep)
+alias lS='la -1' # one column, just names
+alias lt='la --tree'
+alias ltd='la --tree --level' # User must specify depth (ex. "lt 2" for 2 levels deep)
 
 # +------+
 # | wget |

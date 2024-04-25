@@ -22,6 +22,3 @@
 [submodule "zsh/.config/zsh/plugins/zsh-you-should-use"]
 	path = zsh/.config/zsh/plugins/zsh-you-should-use
 	url = https://github.com/MichaelAquilina/zsh-you-should-use
-[submodule "nvim/.config/nvim"]
-	path = nvim/.config/nvim
-	url = https://github.com/LazyVim/starter

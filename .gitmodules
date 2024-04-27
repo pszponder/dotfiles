@@ -25,3 +25,6 @@
 [submodule "neovim/.config/nvim"]
 	path = neovim/.config/nvim
 	url = git@github.com:pszponder/kickstart.nvim.git
+[submodule "neovim-lazy/.config/nvim-lazyvim"]
+	path = neovim-lazy/.config/nvim-lazyvim
+	url = git@github.com:pszponder/LazyVim.git

@@ -115,7 +115,7 @@
   },
   {
     "key": "ctrl+e",
-    "command": "workbench.action.toggleSidebarVisibility",
+    "command": "workbench.action.toggleSidebarVisibility"
   },
   {
     "key": "space e",

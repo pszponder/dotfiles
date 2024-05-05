@@ -156,6 +156,8 @@
     // { "before": ["leader", "s"], "commands": [":split"] },
     { "before": ["leader", "\\"], "commands": [":vsplit"] },
     { "before": ["leader", "-"], "commands": [":split"] },
+    { "before": ["leader", "w", "v"], "commands": [":vsplit"] },
+    { "before": ["leader", "w", "h"], "commands": [":split"] },
 
     // panes / window navigation
     {
@@ -177,6 +179,12 @@
       // "before": ["leader", "l"],
       "before": ["<C-l>"],
       "commands": ["workbench.action.focusRightGroup"]
+    },
+
+    // Close active editor
+    {
+      "before": ["<leader>", "w", "c"],
+      "commands": ["workbench.action.closeActiveEditor"]
     },
 
     // Save file
@@ -337,14 +345,6 @@
     // "editor.defaultFormatter": "ms-dotnettools.csharp"
     // "editor.tabSize": 4
   },
-  // "dotnet.dotnetPath": "/home/piotr/.local/share/mise/installs/dotnet/latest/",
-  // "dotnetAcquisitionExtension.existingDotnetPath": [
-  //   {
-  //     "extensionId": "msazuretools.azurerm-vscode-tools",
-  //     "path": "/home/piotr/.local/share/mise/installs/dotnet/8.0.204/sdk/8.0.204/"
-  //     // "path": "/home/piotr/.local/share/mise/installs/dotnet/latest/"
-  //   }
-  // ],
 
   "[python]": {
     "editor.tabSize": 4,

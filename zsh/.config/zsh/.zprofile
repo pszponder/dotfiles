@@ -19,3 +19,4 @@ export EDITOR="nvim"
 # +-------------------------------+
 # https://mise.jdx.dev/
 export PATH="$HOME/.local/share/mise/shims:$PATH"
+export DOTNET_ROOT="$(dirname $(which dotnet))"

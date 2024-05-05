@@ -131,3 +131,5 @@ eval "$(zoxide init bash)"
 # +-------------------------------+
 # https://mise.jdx.dev/
 eval "$(~/.local/bin/mise activate bash)"
+# eval "$(mise activate zsh)"
+# eval "$(mise hook-env -s zsh)"

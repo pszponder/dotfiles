@@ -183,7 +183,7 @@
 
     // Close active editor
     {
-      "before": ["<leader>", "w", "c"],
+      "before": ["<leader>", "w", "d"],
       "commands": ["workbench.action.closeActiveEditor"]
     },
 

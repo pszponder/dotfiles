@@ -8,7 +8,6 @@
 # | HOMEBREW PACKAGE MANAGER |
 # +--------------------------+
 # https://brew.sh/
-
 # eval "$(/opt/homebrew/bin/brew shellenv)" # macOS (ARM) specific Homebrew path
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # Linux specific Homebrew path
 
@@ -16,11 +15,14 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # Linux specific Homebrew
 # | MISE POLYGLOT RUNTIME MANAGER |
 # +-------------------------------+
 # https://mise.jdx.dev/
-# eval "$(~/.local/bin/mise activate zsh)"
-# eval "$(mise activate)"
 eval "$(/$HOME/.local/bin/mise activate zsh)"
-# eval "$(mise activate zsh)"
 eval "$(mise hook-env -s zsh)"
+
+# +----------------------+
+# | PIXI PACKAGE MANAGER |
+# +----------------------+
+# https://prefix.dev/
+export PATH=$PATH:/$HOME/.pixi/bin
 
 # +-----------------+
 # | STARSHIP PROMPT |

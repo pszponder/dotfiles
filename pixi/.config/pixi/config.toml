@@ -1,0 +1,47 @@
+# # The default channels to select when running `pixi init` or `pixi global install`.
+# # This defaults to only conda-forge.
+# default-channels = ["conda-forge"]
+
+# # When set to false, the `(pixi)` prefix in the shell prompt is removed.
+# # This applies to the `pixi shell` subcommand.
+# # You can override this from the CLI with `--change-ps1`.
+# change-ps1 = true
+
+# # When set to true, the TLS certificates are not verified. Note that this is a
+# # security risk and should only be used for testing purposes or internal networks.
+# # You can override this from the CLI with `--tls-no-verify`.
+# tls-no-verify = false
+
+# # Override from where the authentication information is loaded.
+# # Usually we try to use the keyring to load authentication data from, and only use a JSON
+# # file as fallback. This option allows you to force the use of a JSON file.
+# # Read more in the authentication section.
+# authentication-override-file = "/path/to/your/override.json"
+
+# # configuration for conda channel-mirrors
+# [mirrors]
+# # redirect all requests for conda-forge to the prefix.dev mirror
+# "https://conda.anaconda.org/conda-forge" = ["https://prefix.dev/conda-forge"]
+
+# # redirect all requests for bioconda to one of the three listed mirrors
+# # Note: for repodata we try the first mirror first.
+# "https://conda.anaconda.org/bioconda" = [
+# 	"https://conda.anaconda.org/bioconda",
+# 	# OCI registries are also supported
+# 	"oci://ghcr.io/channel-mirrors/bioconda",
+# 	"https://prefix.dev/bioconda",
+# ]
+
+# [repodata-config]
+# # disable fetching of jlap, bz2 or zstd repodata files.
+# # This should only be used for specific old versions of artifactory and other non-compliant
+# # servers.
+# disable-jlap = true  # don't try to download repodata.jlap
+# disable-bzip2 = true # don't try to download repodata.json.bz2
+# disable-zstd = true  # don't try to download repodata.json.zst
+
+# [pypi-config]
+# # These are sections specifically related to the PyPI configuration.
+# index-url = "https://pypi.org/simple"
+# extra-index-urls = ["https://pypi.org/simple2"]
+# keyring-provider = "subprocess"

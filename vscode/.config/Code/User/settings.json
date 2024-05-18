@@ -12,7 +12,7 @@
   // ================ EDITOR =====================
   // =============================================
   "editor.fontSize": 16,
-  "editor.fontFamily": "'Liga ComicCode Nerd Font', 'CaskaydiaCove Nerd Font', 'Comic Code Ligatures', SymbolsNerdFont",
+  "editor.fontFamily": "'Cascadia Code NF', 'Liga ComicCode Nerd Font', 'Comic Code Ligatures', SymbolsNerdFont",
   "editor.fontLigatures": "'ss01', 'ss02', 'ss03', 'ss04', 'ss05', 'ss06', 'ss07', 'ss08', 'calt', 'dlig', 'liga'",
   "editor.lineNumbers": "relative",
   "editor.renderWhitespace": "boundary",

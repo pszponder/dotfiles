@@ -28,6 +28,10 @@
     "command": "workbench.action.navigateForward",
     "when": "editorTextFocus"
   },
+  {
+    "key": "ctrl+k",
+    "command": "workbench.action.terminal.runSelectedText"
+  },
 
   // ========================
   // ====== TERMINAL ========

@@ -31,6 +31,18 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # Linux specific Homebrew
 # +-----------------+
 eval "$(starship init zsh)"
 
+# Set the window title
+function set_win_title(){
+	echo -ne "\033]0; $(basename "$PWD") \007"
+}
+precmd_functions+=(set_win_title)
+starship_precmd_user_func="set_win_title"
+
+# # +-------------------+
+# # | OH-MY-POSH PROMPT |
+# # +-------------------+
+# eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/themes/custom.omp.json)"
+
 # +-------------------------------+
 # | MISE POLYGLOT RUNTIME MANAGER |
 # +-------------------------------+

@@ -5,6 +5,9 @@
 
 ## Resources to Review
 
+ZSH
+- [Dreams of Autonomy - This Zsh config is perhaps my favorite one yet](https://www.youtube.com/watch?v=ud7YxC33Z3w)
+
 TOOLS
 - [just (alternative to make for running commands)](https://github.com/casey/just)
 

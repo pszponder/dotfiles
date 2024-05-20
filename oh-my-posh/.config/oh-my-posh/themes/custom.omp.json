@@ -48,32 +48,32 @@
 					"foreground": "p:blue",
 					"properties": {
 						"folder_icon": "..\ue5fe..",
-						"home_icon": "~",
+						"home_icon": "<b>~</b>",
 						"style": "agnoster_short",
 						"max_width": 80,
-						"max_depth": 5
+						"max_depth": 3
 					},
 					"style": "plain",
-					"template": "{{ .Path }} ",
+					"template": "\n{{ .Path }} ",
 					"type": "path"
 				},
 				{
+					"type": "git",
+					"style": "plain",
 					"foreground": "p:lavender",
+					"template": "{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
 					"properties": {
+						"fetch_status": true,
+						"fetch_upstream_icon": true,
 						"branch_icon": "\ue725 ",
 						"cherry_pick_icon": "\ue29b ",
 						"commit_icon": "\uf417 ",
-						"fetch_status": true,
-						"fetch_upstream_icon": true,
 						"merge_icon": "\ue727 ",
 						"no_commits_icon": "\uf0c3 ",
 						"rebase_icon": "\ue728 ",
 						"revert_icon": "\uf0e2 ",
 						"tag_icon": "\uf412 "
-					},
-					"template": "<#ffffff>on</> {{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
-					"style": "plain",
-					"type": "git"
+					}
 				}
 			]
 		},
@@ -82,22 +82,98 @@
 			"alignment": "right",
 			"segments": [
 				{
-					"type": "node",
-					"foreground": "#98C379",
-					"properties": {
-						"fetch_version": true
-					},
+					"type": "executiontime",
 					"style": "plain",
-					"template": "<#ffffff>via</> \ue781 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} "
+					"foreground": "p:lavender",
+					"template": " <#fefefe></> {{ .FormattedMs }} ",
+					"properties": {
+						"threshold": 500,
+						"style": "austin",
+						"always_enabled": true
+					}
+				},
+				{
+					"type": "deno",
+					"style": "plain",
+					"foreground": "#3C82F6",
+					"template": "  {{ .Full }} "
+				},
+				{
+					"type": "docker",
+					"style": "plain",
+					"foreground": "#0B59E7",
+					"template": "  {{ .Context }} "
+				},
+				{
+					"type": "dotnet",
+					"style": "plain",
+					"foreground": "#00ffff",
+					"template": "  {{ .Full }} "
+				},
+				{
+					"type": "elixir",
+					"style": "plain",
+					"foreground": "#422251",
+					"template": "  {{ .Full }} "
+				},
+				{
+					"type": "go",
+					"style": "plain",
+					"foreground": "#7FD5EA",
+					"template": "  {{ .Full }} "
+				},
+				{
+					"type": "lua",
+					"style": "plain",
+					"foreground": "p:blue",
+					"template": "  {{ .Full }} "
+				},
+				{
+					"type": "node",
+					"style": "plain",
+					"foreground": "#6CA35E",
+					"template": "  {{ .Full }} "
 				},
 				{
 					"type": "python",
-					"foreground": "#98C379",
-					"properties": {
-						"fetch_version": true
-					},
 					"style": "plain",
-					"template": "<#ffffff>via</>  {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} "
+					"foreground": "p:green",
+					"template": " {{ .Full}}",
+					"properties": {
+						"display_mode": "files"
+					}
+				},
+				{
+					"type": "react",
+					"style": "plain",
+					"foreground": "#81a1c1",
+					"template": "  {{ .Full }} "
+				},
+				{
+					"type": "ruby",
+					"style": "plain",
+					"foreground": "#4063D8",
+					"template": "  {{ .Full }}"
+				},
+				{
+					"type": "rust",
+					"style": "plain",
+					"foreground": "#99908a",
+					"template": "  {{ .Full }} "
+				},
+				{
+					"type": "terraform",
+					"style": "plain",
+					"foreground": "#ebcc34",
+					"template": "{{.WorkspaceName}}"
+				},
+				{
+					"type": "unity",
+					"style": "plain",
+					"foreground": "p:black",
+					"properties": {
+						"http_timeout": 2000
+					}
 				}
 			]
 		},
@@ -108,22 +184,23 @@
 			"segments": [
 				{
 					"type": "status",
-					"foreground": "p:red",
 					"style": "plain",
-					"template": "❌ ",
-					"properties": {
-						"always_enabled": false
-					}
-				},
-				{
 					"foreground": "p:green",
-					"style": "plain",
-					"template": "\u279c ",
-					"type": "text"
+					"foreground_templates": [
+						"{{ if .Error }}#f38ba8{{ end }}"
+					],
+					"template": "<b>{{ if .Error }}❌{{ else }}❯{{ end }}</b> ",
+					"properties": {
+						"always_enabled": true
+					}
 				}
 			]
 		}
 	],
-	"final_space": false,
+	"transient_prompt": {
+		"background": "transparent",
+		"foreground": "p:white",
+		"template": "❯ "
+	},
 	"version": 2
 }

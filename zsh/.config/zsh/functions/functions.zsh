@@ -7,8 +7,17 @@
 # Update Everything
 # Updates System and Packages
 update() {
+	echo "\n==========================\nUPDATING SYSTEM...\n=========================="
 	sudo apt update && sudo apt upgrade -y
+
+	echo "\n==========================\nUPDATING BREW...\n=========================="
 	brew update && brew upgrade
+
+	echo "\n==========================\nUPDATING ZSH PLUGINS...\n=========================="
+	zinit self-update
+	zinit update --parallel
+
+	echo "\n==========================\nUPDATING MISE LANGUAGES...\n=========================="
 	mise upgrade
 }
 

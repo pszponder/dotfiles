@@ -4,12 +4,17 @@
 # ZSH CONFIGURATION / SETUP
 # =========================
 
+
+
 # +--------------------------+
 # | HOMEBREW PACKAGE MANAGER |
 # +--------------------------+
 # https://brew.sh/
-# eval "$(/opt/homebrew/bin/brew shellenv)" # macOS (ARM) specific Homebrew path
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # Linux specific Homebrew path
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)" # macOS (ARM) specific Homebrew path
+elif [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # Linux specific Homebrew path
+fi
 
 # # +-------------------------------+
 # # | POWERLEVEL10K ZSH POMPT THEME |
@@ -29,19 +34,19 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" # Linux specific Homebrew
 # +-----------------+
 # | STARSHIP PROMPT |
 # +-----------------+
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 
-# Set the window title
-function set_win_title(){
-	echo -ne "\033]0; $(basename "$PWD") \007"
-}
-precmd_functions+=(set_win_title)
-starship_precmd_user_func="set_win_title"
+# # Set the window title
+# function set_win_title(){
+# 	echo -ne "\033]0; $(basename "$PWD") \007"
+# }
+# precmd_functions+=(set_win_title)
+# starship_precmd_user_func="set_win_title"
 
-# # +-------------------+
-# # | OH-MY-POSH PROMPT |
-# # +-------------------+
-# eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/themes/custom.omp.json)"
+# +-------------------+
+# | OH-MY-POSH PROMPT |
+# +-------------------+
+eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/themes/custom.omp.json)"
 
 # +-------------------------------+
 # | MISE POLYGLOT RUNTIME MANAGER |
@@ -56,11 +61,20 @@ eval "$(mise hook-env -s zsh)"
 # https://prefix.dev/
 export PATH=$PATH:/$HOME/.pixi/bin
 
-# # +------------------------+
-# # | ADVANCED TAB COMPLETION
-# # +------------------------+
-# # NOTE: This is replaced by Fzf-tab
-# autoload -Uz compinit && setopt PROMPT_SUBST && compinit && zstyle ':completion:*' menu select
+# +-------------+
+# | ZSH HISTORY |
+# +-------------+
+export HISTFILE="$ZDOTDIR/.zhistory"    # History filepath
+export HISTSIZE=5000                    # Maximum events for internal history
+export SAVEHIST=$HISTSIZE               # Maximum events in history file
+export HISTDUP=erase                    # Erase any duplicates in history file
+setopt appendhistory # Append history instead of overwriting
+setopt sharehistory # Share ZSH history across all ZSH sessions
+setopt hist_ignore_space # prevent command to be written to history file by prepending command with space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups # Prevent duplicates from being shown in historical search
 
 # +--------+
 # | AUTOCD |
@@ -68,10 +82,14 @@ export PATH=$PATH:/$HOME/.pixi/bin
 # Enable autocd, autopushd, and pushdignoredups options
 setopt autocd autopushd pushdignoredups
 
-# +----------+
-# | VIM MODE |
-# +----------+
-bindkey -v
+# +-------------+
+# | KEYBINDINGS |
+# +-------------+
+# bindkey -e                            # emacs mode
+# bindkey -v                            # vi mode
+bindkey '^p' history-search-backward  # Search history w/ existing keyword backwards
+bindkey '^n' history-search-forward   # Search history w/ existing keyword forwards
+bindkey '^[w' kill-region
 
 # +----------------------------+
 # | ZOXIDE (Better cd command) |
@@ -79,13 +97,87 @@ bindkey -v
 # https://github.com/ajeetdsouza/zoxide
 eval "$(zoxide init zsh)"
 
+
+# +-----------------------------+
+# | ZINIT - ZSH Package Manager |
+# +-----------------------------+
+# https://github.com/zdharma-continuum/zinit
+
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+   mkdir -p "$(dirname $ZINIT_HOME)"
+   git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
+
+
+# +--------------------+
+# | ZSH Plugins (CORE) |
+# +--------------------+
+
+# Syntax Highlighting
+zinit light zsh-users/zsh-syntax-highlighting
+# zinit light zdharma-continuum/fast-syntax-highlighting
+# zinit wait lucid for \
+#  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+#     zdharma-continuum/fast-syntax-highlighting \
+#  blockf \
+#     zsh-users/zsh-completions \
+#  atload"!_zsh_autosuggest_start" \
+#     zsh-users/zsh-autosuggestions
+bindkey '^f' autosuggest-accept
+
+# Autosuggestions
+zinit light zsh-users/zsh-autosuggestions
+
+# Zsh History Substring Search
+zinit light zsh-users/zsh-history-substring-search
+
+# Completions
+autoload -U compinit && compinit
+zinit light zsh-users/zsh-completions
+# Load completions (for zsh-completions)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # Match upper and lowercase
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+
+# +---------+
+# | VI MODE |
+# +---------+
+zinit snippet OMZP::vi-mode
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/vi-mode/README.md
+# VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+VI_MODE_SET_CURSOR=true
+VI_MODE_CURSOR_NORMAL=2
+VI_MODE_CURSOR_VISUAL=6
+VI_MODE_CURSOR_INSERT=5
+VI_MODE_CURSOR_OPPEND=0
+
 # +------------------+
 # | FZF (fuzzy find) |
 # +------------------+
+
 # https://github.com/junegunn/fzf
 # https://www.josean.com/posts/7-amazing-cli-tools
 eval "$(fzf --zsh)"
 alias cd="z"
+
+# FZF Tab / Git plugins
+# https://www.josean.com/posts/7-amazing-cli-tools
+zinit light Aloxaf/fzf-tab
+zinit light junegunn/fzf-git.sh
+
+# FZF Catppuccin Color Theme
+# https://github.com/catppuccin/fzf
+export FZF_DEFAULT_OPTS=" \
+--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+--color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+--color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 # -- Use fd instead of fzf --
 export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
@@ -122,9 +214,24 @@ _fzf_comprun() {
 	esac
 }
 
-# +--------------------------------------------------------+
-# | The Fuck (correct errors in previous console commands) |
-# +--------------------------------------------------------+
-# https://github.com/nvbn/thefuck
-eval $(thefuck --alias)
-eval $(thefuck --alias darn)
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+# +-----------------+
+# | PLUGINS - OTHER |
+# +-----------------+
+
+# Oh-my-zshell plugins
+# More here: https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::aws
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::kubectx
+zinit snippet OMZP::command-not-found
+
+# Zsh You Should Use (Reminds you of your existing aliases)
+zinit light MichaelAquilina/zsh-you-should-use
+
+# Zsh System Clipboard
+zinit light kutsan/zsh-system-clipboard

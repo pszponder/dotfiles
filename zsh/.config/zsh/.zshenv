@@ -8,7 +8,7 @@
 # +-----+
 # | ZSH |
 # +-----+
-# export ZDOTDIR="$HOME/.config/zsh"      # Where to find dot-files related to zsh (already in /etc/zsh/zshenv)
+export ZDOTDIR="$HOME/.config/zsh"      # Where to find dot-files related to zsh (already in /etc/zsh/zshenv)
 
 # +-----------+
 # | XDG PATHS |
@@ -36,33 +36,10 @@ export STARSHIP_CONFIG="$DOTFILES/starship/starship.toml" # Location of Starship
 export EDITOR="nvim"
 export VISUAL="nvim"
 
-# +--------------------+
-# | LESS PAGER OPTIONS |
-# +--------------------+
-# less shortcuts: https://gist.github.com/awidegreen/3854277
-# j/k -- scroll down/up by one line
-# h/l -- scroll left/right by one character
-# d/u -- scroll down/up by half a page
-# b/f -- scroll down/up by a whole page
-# g/G -- go to start/end of file
-# q   -- quit
-# N   -- toggle line numbers
-# S   -- toggle line wrapping
-# v   -- open file in $EDITOR
-# /   -- search forward
-# ?   -- search backward
-# n/N -- next/previous search result
-# m   -- mark a position
-# '   -- go to marked position
-# &   -- filter lines by a regex
-# h   -- help
-export LESS='--chop-long-lines --HILITE-UNREAD --ignore-case --incsearch --jump-target=4 --LONG-PROMPT --no-init --quit-if-one-screen --RAW-CONTROL-CHARS --use-color --window=-4'
-
 # +-----------------+
 # | RIPGREP OPTIONS |
 # +-----------------+
 export RIPGREP_CONFIG_PATH="$DOTFILES/ripgrep/ripgreprc"
-
 
 # +------------+
 # | LINUX BREW |

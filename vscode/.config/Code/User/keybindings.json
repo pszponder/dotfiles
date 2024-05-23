@@ -29,8 +29,9 @@
     "when": "editorTextFocus"
   },
   {
-    "key": "ctrl+k",
-    "command": "workbench.action.terminal.runSelectedText"
+    "key": "ctrl+shift+k",
+    "command": "workbench.action.terminal.runSelectedText",
+    "when": "editorTextFocus"
   },
 
   // ========================

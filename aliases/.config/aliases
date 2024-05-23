@@ -122,5 +122,10 @@ alias lg="lazygit"
 # alias docker=podman
 
 # +------+
+# | JUST |
+# +------+
+alias j=just
+
+# +------+
 # | MISC |
 # +------+

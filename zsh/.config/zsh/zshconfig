@@ -84,6 +84,7 @@ setopt autocd autopushd pushdignoredups
 # | KEYBINDINGS |
 # +-------------+
 # bindkey -e                            # emacs mode
+bindkey -v                            # vi mode
 bindkey '^p' history-search-backward  # Search history w/ existing keyword backwards
 bindkey '^n' history-search-forward   # Search history w/ existing keyword forwards
 bindkey '^[w' kill-region
@@ -162,18 +163,6 @@ zinit light zsh-users/zsh-completions
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' # Match upper and lowercase
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-
-# +---------+
-# | VI MODE |
-# +---------+
-zinit snippet OMZP::vi-mode
-# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/vi-mode/README.md
-# VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
-VI_MODE_SET_CURSOR=true
-VI_MODE_CURSOR_NORMAL=2
-VI_MODE_CURSOR_VISUAL=6
-VI_MODE_CURSOR_INSERT=5
-VI_MODE_CURSOR_OPPEND=0
 
 # +------------------+
 # | FZF (fuzzy find) |

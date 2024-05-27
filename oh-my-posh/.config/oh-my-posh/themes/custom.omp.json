@@ -57,6 +57,24 @@
 						"max_depth": 3
 					},
 					"template": "\n{{ .Path }} "
+				},
+				{
+					"type": "git",
+					"style": "plain",
+					"foreground": "p:lavender",
+					"template": "{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
+					"properties": {
+						"fetch_status": true,
+						"fetch_upstream_icon": true,
+						"branch_icon": "\ue725 ",
+						"cherry_pick_icon": "\ue29b ",
+						"commit_icon": "\uf417 ",
+						"merge_icon": "\ue727 ",
+						"no_commits_icon": "\uf0c3 ",
+						"rebase_icon": "\ue728 ",
+						"revert_icon": "\uf0e2 ",
+						"tag_icon": "\uf412 "
+					}
 				}
 			]
 		},
@@ -165,24 +183,6 @@
 			"alignment": "left",
 			"newline": true,
 			"segments": [
-				{
-					"type": "git",
-					"style": "plain",
-					"foreground": "p:lavender",
-					"template": "{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }} \uf046 {{ .Staging.String }}{{ end }} ",
-					"properties": {
-						"fetch_status": true,
-						"fetch_upstream_icon": true,
-						"branch_icon": "\ue725 ",
-						"cherry_pick_icon": "\ue29b ",
-						"commit_icon": "\uf417 ",
-						"merge_icon": "\ue727 ",
-						"no_commits_icon": "\uf0c3 ",
-						"rebase_icon": "\ue728 ",
-						"revert_icon": "\uf0e2 ",
-						"tag_icon": "\uf412 "
-					}
-				},
 				{
 					"type": "status",
 					"style": "plain",

@@ -71,7 +71,8 @@ alias rm='rm -iv'
 # +-----+
 # | bat |
 # +-----+
-alias cat='bat --paging=never'
+alias cat='bat -P'
+alias less='bat'
 
 # +------+
 # | grep |

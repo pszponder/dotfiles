@@ -104,6 +104,7 @@ alias clip='xclip -selection clipboard' # ex. pwd | clip
 # https://michaeluloth.com/neovim-switch-configs/
 # alias v="nvim" # default Neovim config
 alias v="NVIM_APPNAME=nvim-lazyvim nvim" # LazyVim
+alias sv="sudo v"
 alias vi=v
 alias vim=v
 

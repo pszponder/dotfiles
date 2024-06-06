@@ -190,7 +190,7 @@
 					"foreground_templates": [
 						"{{ if gt .Code 0 }}red{{ end }}"
 					],
-					"template": "<b>{{ if .Error }}\u2717 \u279c{{ else }}\u279c{{ end }}</b> ",
+					"template": "<b>{{ if .Error }}\u2717 \u276f{{ else }}\u276f{{ end }}</b> ",
 					"properties": {
 						"always_enabled": true
 					}

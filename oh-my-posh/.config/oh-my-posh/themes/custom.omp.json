@@ -1,7 +1,7 @@
 {
 	"$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
 	"version": 2,
-	"console_title_template": "{{.Folder}}",
+	"console_title_template": "{{if .Root}}(Admin){{end}} {{.PWD}}",
 	"palette": {
 		"rosewater": "#f5e0dc",
 		"flamingo": "#f2cdcd",
@@ -52,7 +52,7 @@
 					"properties": {
 						"folder_icon": "\ue5fe",
 						"home_icon": "<b>~</b>",
-						"style": "agnoster_full",
+						"style": "full",
 						"max_width": 80,
 						"max_depth": 3
 					},
@@ -188,9 +188,9 @@
 					"style": "plain",
 					"foreground": "p:green",
 					"foreground_templates": [
-						"{{ if .Error }}#f38ba8{{ end }}"
+						"{{ if gt .Code 0 }}red{{ end }}"
 					],
-					"template": "<b>{{ if .Error }}❌{{ else }}❯{{ end }}</b> ",
+					"template": "<b>{{ if .Error }}\u2717 \u279c{{ else }}\u279c{{ end }}</b> ",
 					"properties": {
 						"always_enabled": true
 					}
@@ -201,6 +201,6 @@
 	"transient_prompt": {
 		"background": "transparent",
 		"foreground": "p:white",
-		"template": "❯ "
+		"template": "\u276f "
 	}
 }

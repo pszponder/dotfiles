@@ -52,11 +52,11 @@
 					"properties": {
 						"folder_icon": "\ue5fe",
 						"home_icon": "<b>~</b>",
-						"style": "full",
+						"style": "agnoster_short",
 						"max_width": 80,
 						"max_depth": 3
 					},
-					"template": "\n{{ .Path }} "
+					"template": "\n{{ $segment := .Segments.Git }}{{ $icon := \"\uf1d2\" }}{{ if .Segments.Sapling.Dir }}{{ $segment = .Segments.Sapling }}{{ $icon = \"\ue22f\" }}{{ end }}{{ if $segment.Dir }} {{ $icon }} <i><b>{{ $segment.RepoName }}{{ if $segment.IsWorkTree}} \ue21c{{ end }}</b></i>{{if ne $segment.RepoName .Path}} \ueaf7{{ trimPrefix $segment.Dir .PWD }}{{ end }}{{ else }} \uea83 {{ path .Path .Location }}{{ end }}{{ if not .Writable }} \uf023{{ end }} "
 				},
 				{
 					"type": "git",

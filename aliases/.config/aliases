@@ -72,7 +72,7 @@ alias rm='rm -iv'
 # | bat |
 # +-----+
 alias cat='bat -P'
-alias less='bat'
+# alias less='bat'
 
 # +------+
 # | grep |

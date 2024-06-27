@@ -315,7 +315,7 @@
   // =============================================
   // ============== LANGUAGE SPECIFIC ============
   // =============================================
-  "editor.insertSpaces": false, // Default to tabs
+  "editor.insertSpaces": true, // Default to tabs
   "editor.tabSize": 4, // Default to 4 spaces
   "editor.detectIndentation": true, // Auto detect indentation
 

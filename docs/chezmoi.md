@@ -15,7 +15,7 @@ Use **chezmoi** to clone down your dotfiles repo.
 - If you don't specify a source directory, **chezmoi** defaults to `~/.local/share/chezmoi`
 
 ```sh
-chezmoi init [--source ~/repos/github/pszponder] git@github.com:pszponder/dotfiles.git
+chezmoi init --source ~/repos/github/pszponder git@github.com:pszponder/dotfiles.git
 ```
 
 If you don't yet have **chezmoi** installed, use the below code snippet instead to install **chezmoi** and clone down your dotfiles

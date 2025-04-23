@@ -1,0 +1,2 @@
+# Ignore anything with the word todo in it (case sensitive)
+*[Tt][Oo][Dd][Oo]*

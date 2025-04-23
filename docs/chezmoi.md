@@ -15,13 +15,13 @@ Use **chezmoi** to clone down your dotfiles repo.
 - If you don't specify a source directory, **chezmoi** defaults to `~/.local/share/chezmoi`
 
 ```sh
-chezmoi init --source ~/repos/github/pszponder git@github.com:pszponder/dotfiles.git
+chezmoi init --source ~/repos/github/pszponder/dotfiles git@github.com:pszponder/dotfiles.git
 ```
 
 If you don't yet have **chezmoi** installed, use the below code snippet instead to install **chezmoi** and clone down your dotfiles
 
 ```sh
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --source ~/repos/github/pszponder git@github.com:pszponder/dotfiles.git
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --source ~/repos/github/pszponder/dotfiles git@github.com:pszponder/dotfiles.git
 ```
 
 Now, to apply the dotfiles using **chezmoi**, use `chezmoi apply`

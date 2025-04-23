@@ -9,7 +9,7 @@ Use the below code snippet to...
 - Apply the dotfiles from the repo to the local machine
 
 ```sh
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --source ~/repos/github/pszponder git@github.com:pszponder/dotfiles.git
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --source ~/repos/github/pszponder/dotfiles git@github.com:pszponder/dotfiles.git
 ```
 
 For more information on **chezmoi**, refer to *./docs/chezmoi.md*

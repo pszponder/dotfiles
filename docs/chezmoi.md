@@ -28,6 +28,11 @@ Now, to apply the dotfiles using **chezmoi**, use `chezmoi apply`
 
 ## Commonly Used Chezmoi Commands
 
+- **chezmoi doctor** - View health / status of chezmoi application
+- **chezmoi source-path** - View the source directory used by chezmoi to manage dotfiles
+- **chezmoi cd** - cd into the chezmoi source directory
+- **chezmoi add** -
+- **chezmoi diff** -
 - **chezmoi apply** - Applies dotfiles from chezmoi source directory and applies them to your system
 - **chezmoi managed** - View a list of files managed by chezmoi
 

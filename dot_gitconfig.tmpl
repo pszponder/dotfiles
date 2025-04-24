@@ -1,0 +1,16 @@
+[user]
+    name = {{ .gitUserName }}
+    email = {{ .gitUserEmail }}
+
+# include for all .git projects under ~/repos/github/pszponder
+# Copy this pattern for any other git repos
+[includeIf "gitdir:~/repos/github/pszponder/**"]
+    path = ~/.gitconfig_github_pszponder
+
+[includeIf "gitdir:~/.local/share/chezmoi/"]
+    path = ~/.gitconfig_github_pszponder
+
+[core]
+    excludesfile = ~/.gitignore  # always ignore the patterns listed in this file
+
+# Add other global gitconfig

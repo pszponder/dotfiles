@@ -89,22 +89,23 @@ This is what your global gitconfig (`/home/YOUR_USER/.gitconfig`) should look li
 # Include for all .git projects under ~/repos/github/pszponder
 # Copy this pattern for any other git repos
 [includeIf "gitdir:~/repos/github/pszponder/**"]
-path = ~/repos/github/pszponder/.gitconfig
+path = ~/.gitconfig_github_pszponder
 
 [core]
 excludesfile = ~/.gitignore      # always ignore the patterns listed in this file
 
-# Add other global gitconfig
+# Add other global gitconfig settings
 ```
 
-What we want to do is to use a unique gitconfig file for each unique directory `~/repos/<REMOTE>/<NAMESPACE>/`
+Now, we also want to create the `~/.gitconfig_github_pszponder` which will specify the SSH key to use
 
 ```txt
-# ~/repos/github/pszponder/.gitconfig
+# ~/.gitconfig_github_pszponder
 
 [user]
     email = <git_email>
     name = <github_username>
+
 [core]
     sshCommand = "ssh -i <PATH_TO_YOUR_PERSONAL_PRIVATE_KEY>"
 ```

@@ -1,15 +1,33 @@
 # Dotfiles
 
-## Using Chezmoi
+## Prerequisites
+
+### Create a chezmoi.toml file
+
+This repository using chezmoi templates, therefore, it is important to first make sure that the expected variables are defined.
+
+The easiest way to do this is to define a `~/.config/chezmoi/chezmoi.toml` file with a `[data]` section containing your variables.
+
+```toml
+# ~/.config/chezmoi/chezmoi.toml
+
+# Optional: customize the source directory
+# sourceDir = "~/repos/github/pszponder/dotfiles"
+
+[data]
+gitUserName = "<git_username>"
+gitUserEmail = "<git_email>"
+```
+
+## How to Run / Setup
 
 Use the below code snippet to...
 - Download and install **chezmoi**
-- Specify the source directory **chezmoi** should reference (`~/.local/share/chezmoi` by default)
 - Download the dotfiles repo to the **chezmoi** directory
 - Apply the dotfiles from the repo to the local machine
 
 ```sh
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --source ~/repos/github/pszponder/dotfiles git@github.com:pszponder/dotfiles.git
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:pszponder/dotfiles.git
 ```
 
 For more information on **chezmoi**, refer to *./docs/chezmoi.md*

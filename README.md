@@ -2,23 +2,6 @@
 
 ## Prerequisites
 
-### Create a chezmoi.toml file
-
-This repository using chezmoi templates, therefore, it is important to first make sure that the expected variables are defined.
-
-The easiest way to do this is to define a `~/.config/chezmoi/chezmoi.toml` file with a `[data]` section containing your variables.
-
-```toml
-# ~/.config/chezmoi/chezmoi.toml
-
-# Optional: customize the source directory
-# sourceDir = "~/repos/github/pszponder/dotfiles"
-
-[data]
-gitUserName = "<git_username>"
-gitUserEmail = "<git_email>"
-```
-
 ## How to Run / Setup
 
 Use the below code snippet to...

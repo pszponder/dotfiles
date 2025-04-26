@@ -1,0 +1,8 @@
+# chezmoi.toml
+
+{{- $gitUserName := promptStringOnce . "gitUserName" "Git username" -}}
+{{- $gitUserEmail := promptStringOnce . "gitUserEmail" "Git email address" -}}
+
+[data]
+    gitUserName  = {{ $gitUserName | quote }}
+    gitUserEmail = {{ $gitUserEmail | quote }}

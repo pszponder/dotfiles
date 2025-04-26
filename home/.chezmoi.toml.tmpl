@@ -1,13 +1,3 @@
-# =============================================================================
-# Used to customize configuration when doing a `chezmoi init`.
-#
-# This template file will trigger prompts to fill-in machine-specific
-# templateable values. The resulting file is then created at
-# `~/.config/chezmoi/chezmoi.toml`
-#
-# {{- /* This file supports Go's text/template language. */}}
-# =============================================================================
-
 {{- /* Prompt for Git username */ -}}
 {{- $gitUserName := promptString "❔ What is your Git username (full name)" -}}
 {{- writeToStdout (printf "✅ Git username set as '%s'\n" $gitUserName) -}}
@@ -17,5 +7,5 @@
 {{- writeToStdout (printf "✅ Git email set as '%s'\n" $gitUserEmail) -}}
 
 [data]
-    gitUserName = "{{ $gitUserName }}"
-    gitUserEmail = "{{ $gitUserEmail }}"
+gitUserName = "{{ $gitUserName }}"
+gitUserEmail = "{{ $gitUserEmail }}"

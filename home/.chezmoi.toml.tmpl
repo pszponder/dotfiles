@@ -16,7 +16,5 @@
 {{- $gitUserEmail := promptString "❔ What is your Git email" | lower -}}
 {{- writeToStdout (printf "✅ Git email set as '%s'\n" $gitUserEmail) -}}
 
-[data]
 gitUserName = "{{ $gitUserName }}"
 gitUserEmail = "{{ $gitUserEmail }}"
-

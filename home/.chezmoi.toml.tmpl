@@ -8,13 +8,6 @@
 # {{- /* This file supports Go's text/template language. */}}
 # =============================================================================
 
-# {{- $gitUserName := promptString "Git username for the author/committer" }}
-# {{- $gitUserEmail := promptString "Git email address for the author/committer" }}
-
-# [data]
-#     gitUserName = "{{ $gitUserName }}"
-#     gitUserEmail = "{{ $gitUserEmail }}"
-
 {{- /* Prompt for full name */ -}}
 {{- $name := promptString "❔ What is your git username" -}}
 

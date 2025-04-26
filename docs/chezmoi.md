@@ -48,3 +48,4 @@ Now, to apply the dotfiles using **chezmoi**, use `chezmoi apply`
 - [kahowell/dotfiles](https://github.com/kahowell/dotfiles)
 - [logandonley/dotfiles](https://github.com/logandonley/dotfiles)
 - [felipecrs/dotfiles](https://github.com/felipecrs/dotfiles)
+- [songkg7/dotfiles](https://github.com/songkg7/dotfiles)

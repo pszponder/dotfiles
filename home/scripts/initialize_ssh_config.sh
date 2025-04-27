@@ -52,6 +52,7 @@ if grep -q "IdentityFile ~/.ssh/id_ed25519" "$SSH_CONFIG" 2>/dev/null; then
 else
   echo "$CONFIG_BLOCK" >> "$SSH_CONFIG"
   echo "✅ SSH config initialized for $OS!"
+  echo "Please use the scripts/create_ssh_key.sh script to create one or more ssh key pairs"
 fi
 
 # Set secure permissions

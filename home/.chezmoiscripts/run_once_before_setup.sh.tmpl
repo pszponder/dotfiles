@@ -4,11 +4,13 @@ set -e  # Exit immediately on any error
 
 echo "🔧 Running setup..."
 
-# TODO: Setup SSH
-
-# TODO: Create home directory files (refer to readme) sandbox, repos, etc.
+# Initialize SSH Config
+$CHEZMOI_SOURCE_DIR/scripts/initialize_ssh_config.sh
 
 # Install Homebrew
 $CHEZMOI_SOURCE_DIR/scripts/install_brew.sh
 
-# TODO: Install Ansible
+# Install Ansible
+$CHEZMOI_SOURCE_DIR/scripts/install_ansible.sh
+
+# TODO: Install packages using ansible

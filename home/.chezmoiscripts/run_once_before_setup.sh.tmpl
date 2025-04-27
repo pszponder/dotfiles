@@ -4,24 +4,11 @@ set -e  # Exit immediately on any error
 
 echo "🔧 Running setup..."
 
-# # Use the rendered script directory
-# SCRIPT_DIR="{{ .chezmoi.sourceDir }}/.chezmoiscripts"
-# # Run the install script
-# "$SCRIPT_DIR/install_brew.sh"
+# TODO: Setup SSH
 
-# # Get source path from chezmoi at template time
-# SCRIPT_DIR="{{ .chezmoi.sourceDir }}/.chezmoiscripts/scripts"
-# # Run the install script
-# "$SCRIPT_DIR/install_brew.sh"
-
-# # Use chezmoi template to find the source path at apply-time
-# "{{ .chezmoi.sourceDir }}/scripts/install_brew.sh"
+# TODO: Create home directory files (refer to readme) sandbox, repos, etc.
 
 # Install Homebrew
-# ./install_brew.sh
-# ~/.local/share/chezmoi/scripts/install_brew.sh
-# "$PWD/scripts/install_brew.sh"
+$CHEZMOI_SOURCE_DIR/scripts/install_brew.sh
 
 # TODO: Install Ansible
-
-# TODO: Setup SSH

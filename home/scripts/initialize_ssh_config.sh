@@ -41,7 +41,7 @@ chmod 700 "$HOME/.ssh"
 
 # Backup existing config if it exists
 if [ -f "$SSH_CONFIG" ]; then
-  BACKUP_PATH="$SSH_CONFIG.backup.$(date +%s)"
+  BACKUP_PATH="$SSH_CONFIG.bak.$(date +%s)"
   echo "📦 Backing up existing ~/.ssh/config to $BACKUP_PATH"
   cp "$SSH_CONFIG" "$BACKUP_PATH"
 fi

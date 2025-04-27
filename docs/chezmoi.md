@@ -39,13 +39,19 @@ Now, to apply the dotfiles using **chezmoi**, use `chezmoi apply`
 ## Resources / References
 
 - [chezmoi](https://www.chezmoi.io/)
+- [chezmoi - application order](https://www.chezmoi.io/reference/application-order/)
+- [Bootstrap config for chezmoi](https://github.com/twpayne/chezmoi/discussions/4415)
+- [running a script within run_once_before script](https://github.com/twpayne/chezmoi/discussions/4421)
 - [Chris Titus - Easily moving Linux installs](https://christitus.com/chezmoi/)
 - [Automating Development Environments w/ Ansible & Chezmoi](https://www.youtube.com/watch?v=P4nI1VhoN2Y)
 - [Conf42 - chezmoi - Dotfiles Manager across multiple machines](https://www.youtube.com/watch?v=JrCMCdvoMAw)
 - [typecraft - Automate your dotfiles w/ chezomoi](https://typecraft.dev/tutorial/our-place-chezmoi)
 - [Code is Everything - The ultimate dotfiles setup](https://www.youtube.com/watch?v=-RkANM9FfTM)
+
+Dotfile Examples w/ chezmoi
 - [twpayne/dotfiles](https://github.com/twpayne/dotfiles)
 - [kahowell/dotfiles](https://github.com/kahowell/dotfiles)
 - [logandonley/dotfiles](https://github.com/logandonley/dotfiles)
 - [felipecrs/dotfiles](https://github.com/felipecrs/dotfiles)
 - [songkg7/dotfiles](https://github.com/songkg7/dotfiles)
+- [lockszmith/dotfiles](https://code.lksz.me/lksz/dotfiles)

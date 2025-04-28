@@ -7,19 +7,25 @@ set -e
 INSTALL_BREW_SCRIPT="./install_brew.sh"
 
 # Function to check if Homebrew is installed
+# Returns 0 (true) if installed, 1 (false) if not installed
 check_homebrew() {
-  if ! command -v brew &>/dev/null; then
-    echo "🍺 Homebrew is not installed! Attempting to install it..."
-    if [[ -f "$INSTALL_BREW_SCRIPT" ]]; then
-      echo "📜 Found install_brew.sh, running it now..."
-      bash "$INSTALL_BREW_SCRIPT"
-      echo "✅ Homebrew installation complete!"
-    else
-      echo "❌ install_brew.sh not found! Please install Homebrew manually."
-      exit 1
-    fi
+  if command -v brew &>/dev/null; then
+    return 0  # Homebrew is installed
   else
-    echo "🍻 Homebrew is already installed. Proceeding!"
+    return 1  # Homebrew is NOT installed
+  fi
+}
+
+# Function to install Homebrew using install_brew.sh
+install_homebrew() {
+  echo "🍺 Homebrew is not installed! Attempting to install it..."
+  if [[ -f "$INSTALL_BREW_SCRIPT" ]]; then
+    echo "📜 Found install_brew.sh, running it now..."
+    bash "$INSTALL_BREW_SCRIPT"
+    echo "✅ Homebrew installation complete!"
+  else
+    echo "❌ install_brew.sh not found! Please install Homebrew manually."
+    exit 1
   fi
 }
 
@@ -41,7 +47,14 @@ install_ansible() {
 # Main function
 main() {
   echo "🏗️ Starting Ansible installation script..."
-  check_homebrew
+
+  # Check if Homebrew is installed
+  if check_homebrew; then
+    echo "🍻 Homebrew is already installed. Proceeding!"
+  else
+    install_homebrew
+  fi
+
   install_ansible
 }
 

@@ -1,64 +1,93 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-set -e  # Exit on error
-
-echo "🔧 Starting Homebrew installation..."
-
-# Detect OS and Distro
-OS=$(uname)
-echo "🖥️ Detected OS: $OS"
-
-DISTRO="unknown"
-if [[ "$OS" == "Linux" && -f /etc/os-release ]]; then
-    . /etc/os-release
-    DISTRO=$ID
-    echo "🐧 Detected Linux distro: $DISTRO"
-fi
-
-# Install dependencies based on distro
-install_dependencies() {
-    echo "📦 Installing required dependencies..."
-    case "$DISTRO" in
-        ubuntu | debian)
-            sudo apt update && sudo apt upgrade -y
-            sudo apt install -y build-essential procps curl file git
-            ;;
-        fedora|rhel|centos)
-            # Update system
-            sudo dnf upgrade --refresh -y
-
-            # Install Development Tools group and core utilities
-            sudo dnf groupinstall -y 'Development Tools'      # compilers, make, etc.
-            sudo dnf install -y procps-ng curl file git
-            ;;
-        arch | manjaro)
-            sudo pacman -Syu --noconfirm
-            sudo pacman -S --noconfirm base-devel procps-ng curl file git
-            ;;
-        *)
-            echo "⚠️ Unknown or unsupported Linux distro. Skipping dependency install."
-            ;;
-    esac
+# Function to detect the OS
+detect_os() {
+  uname
 }
 
-# Run dependency install for Linux
-if [[ "$OS" == "Linux" ]]; then
-    install_dependencies
-fi
+# Function to detect the Linux distribution
+detect_distro() {
+  if [[ -f /etc/os-release ]]; then
+    . /etc/os-release
+    echo "$ID"
+  else
+    echo "unknown"
+  fi
+}
 
-# Install Homebrew (only if not already installed)
-if ! command -v brew &> /dev/null; then
+# Function to install required dependencies based on Linux distro
+install_dependencies() {
+  local distro="$1"
 
-    # Non-interactive Homebrew install
-    echo "🍺 Installing Homebrew..."
-    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "📦 Installing required dependencies for $distro..."
 
-else
-    echo "✅ Homebrew already installed."
-fi
+  case "$distro" in
+    ubuntu | debian)
+      sudo apt update && sudo apt upgrade -y
+      sudo apt install -y build-essential procps curl file git
+      ;;
+    fedora | rhel | centos)
+      sudo dnf upgrade --refresh -y
+      sudo dnf groupinstall -y 'Development Tools'
+      sudo dnf install -y procps-ng curl file git
+      ;;
+    arch | manjaro)
+      sudo pacman -Syu --noconfirm
+      sudo pacman -S --noconfirm base-devel procps-ng curl file git
+      ;;
+    *)
+      echo "⚠️ Unknown or unsupported Linux distro. Skipping dependency installation."
+      ;;
+  esac
+}
 
-# Confirm installation
-echo "🧪 Verifying Homebrew..."
-brew --version
+# Function to install Homebrew
+install_homebrew() {
+  echo "🍺 Homebrew not found. Installing..."
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
 
-echo "🎉 Homebrew setup complete!"
+# Function to update and upgrade Homebrew packages
+update_homebrew() {
+  echo "🔄 Updating Homebrew and upgrading installed packages..."
+  brew update
+  brew upgrade
+  echo "✅ Homebrew and packages updated. Exiting."
+}
+
+# Function to verify Homebrew installation
+verify_homebrew() {
+  echo "🧪 Verifying Homebrew installation..."
+  brew --version
+}
+
+# Main function to orchestrate the setup
+main() {
+  echo "🔧 Starting Homebrew setup..."
+
+  local os
+  os="$(detect_os)"
+  echo "🖥️ Detected OS: $os"
+
+  if command -v brew &> /dev/null; then
+    update_homebrew
+    exit 0
+  fi
+
+  if [[ "$os" == "Linux" ]]; then
+    local distro
+    distro="$(detect_distro)"
+    echo "🐧 Detected Linux distro: $distro"
+
+    install_dependencies "$distro"
+  fi
+
+  install_homebrew
+  verify_homebrew
+
+  echo "🎉 Homebrew setup complete!"
+}
+
+# Execute the main function
+main

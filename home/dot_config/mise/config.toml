@@ -1,0 +1,7 @@
+[tools]
+python = "latest"
+rust = "latest"
+go = "latest"
+node = "latest"
+deno = "latest"
+usage = "latest"

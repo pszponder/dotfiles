@@ -135,4 +135,15 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 export PATH="/usr/local/bin:$PATH"
 
+# Aliases
+alias cat='bat --paging=never'  # Use --paging=never to avoid using bat's pager by default
+alias less='bat --paging=always'  # --paging=always forces the use of the pager
 
+# Zoxide (better cd)
+eval "$(zoxide init bash)"
+
+# Mise
+eval "$(mise activate bash)"
+
+# Starship
+eval "$(starship init bash)"

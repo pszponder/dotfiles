@@ -21,3 +21,16 @@ if test (uname) = "Linux"
   end
 end
 {{ end }}
+
+# Aliases
+alias cat 'bat --paging=never'
+alias less 'bat --paging=always'
+
+# Zoxide (Better cd)
+zoxide init fish | source
+
+# Mise
+mise activate fish | source
+
+# Starship
+starship init fish | source

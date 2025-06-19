@@ -18,3 +18,16 @@ if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 {{ end }}
+
+# Aliases
+alias cat='bat --paging=never'  # Use --paging=never to avoid using bat's pager by default
+alias less='bat --paging=always'  # --paging=always forces the use of the pager
+
+# Zoxide (Better cd)
+eval "$(zoxide init zsh)"
+
+# Mise
+eval "$(mise activate zsh)"
+
+# Starship
+eval "$(starship init zsh)"

@@ -1,36 +1,55 @@
 # ~/.config/fish/config.fish
 
-# Add directories to path
-set -U fish_user_paths $fish_user_paths ~/bin ~/scripts /usr/local/bin
+# 🧪 Only configure in interactive shells
+if status is-interactive
 
-{{ if eq .chezmoi.os "darwin" }}
-# Homebrew setup
-if test (uname) = "Darwin"
-  if test -f /opt/homebrew/bin/brew
-    eval (/opt/homebrew/bin/brew shellenv)
-  end
+    # 🌍 Source shared environment variables
+    if test -f ~/.config/env.sh
+        source ~/.config/env.sh ^/dev/null
+    end
+
+    # 🛣 Add directories to $fish_user_paths (avoid duplicates)
+    for dir in ~/bin ~/.local/bin ~/scripts /usr/local/bin
+        if not contains $dir $fish_user_paths
+            set -U fish_user_paths $fish_user_paths $dir
+        end
+    end
+
+    # VIM mode
+    fish_vi_key_bindings
+
+    # 🍺 Homebrew setup (Darwin)
+    {{ if eq .chezmoi.os "darwin" }}
+    if test -f /opt/homebrew/bin/brew
+        eval (/opt/homebrew/bin/brew shellenv)
+    end
+    {{ end }}
+
+    # 🐧 Homebrew setup (Linux)
+    {{ if eq .chezmoi.os "linux" }}
+    if test -f /home/linuxbrew/.linuxbrew/bin/brew
+        eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    end
+    {{ end }}
+
+    # ⌨️ Atuin (better shell history)
+    if type -q atuin
+        atuin init fish | source
+    end
+
+    # 🧠 Mise (tool version manager)
+    if type -q mise
+        mise activate fish | source
+    end
+
+    # 🌟 Starship prompt
+    if type -q starship
+        starship init fish | source
+    end
+
+    # 📁 Zoxide (smarter cd)
+    if type -q zoxide
+        zoxide init fish | source
+    end
+
 end
-{{ end }}
-
-# For Linux: Homebrew initialization
-{{ if eq .chezmoi.os "linux" }}
-# Homebrew setup
-if test (uname) = "Linux"
-  if test -f /home/linuxbrew/.linuxbrew/bin/brew
-    eval (/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-  end
-end
-{{ end }}
-
-# Aliases
-alias cat 'bat --paging=never'
-alias less 'bat --paging=always'
-
-# Zoxide (Better cd)
-zoxide init fish | source
-
-# Mise
-mise activate fish | source
-
-# Starship
-starship init fish | source

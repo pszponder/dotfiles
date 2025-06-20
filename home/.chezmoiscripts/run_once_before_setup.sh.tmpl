@@ -7,10 +7,18 @@ echo "🔧 Running setup..."
 # Initialize SSH Config
 $CHEZMOI_SOURCE_DIR/scripts/initialize_ssh_config.sh
 
-# Install Homebrew
+# Install Nerdfonts
+$CHEZMOI_SOURCE_DIR/scripts/install_nerdfonts.sh
+
+# Install Homebrew and Brew Packages
 $CHEZMOI_SOURCE_DIR/scripts/install_brew.sh
+$CHEZMOI_SOURCE_DIR/scripts/install_brew_packages.sh
 
 # Install Ansible
 $CHEZMOI_SOURCE_DIR/scripts/install_ansible.sh
 
-# TODO: Install packages using ansible
+# Install Flatpak and applications (Linux only)
+if [[ "$(uname)" == "Linux" ]]; then
+  $CHEZMOI_SOURCE_DIR/scripts/install_flatpak.sh
+  $CHEZMOI_SOURCE_DIR/scripts/install_flatpak_apps.sh
+fi

@@ -1,33 +1,77 @@
 # ~/.zshrc
 
-# Update path
-export PATH="$HOME/bin:$PATH"
-export PATH="$HOME/scripts:$PATH"
-export PATH="/usr/local/bin:$PATH"
+# Only continue if the shell is interactive
+[[ $- != *i* ]] && return
 
+[ -f "$HOME/.config/env.sh" ] && source "$HOME/.config/env.sh"
+
+# ✨ Update PATH with common user script/tool locations
+for dir in "$HOME/bin" "$HOME/.local/bin" "$HOME/scripts" "/usr/local/bin"; do
+  [[ ":$PATH:" != *":$dir:"* ]] && PATH="$dir:$PATH"
+done
+export PATH
+
+# 🧩 Source aliases
+if [[ -f ~/.config/aliases ]]; then
+  source ~/.config/aliases
+fi
+
+# VIM mode
+bindkey -v
+
+# 🛠 Homebrew
 {{ if eq .chezmoi.os "darwin" }}
-# Configure Homebrew
-if [ -f /opt/homebrew/bin/brew ]; then
+if [[ -f /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
-# Configure Homebrew
-if [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
+if [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 {{ end }}
 
-# Aliases
-alias cat='bat --paging=never'  # Use --paging=never to avoid using bat's pager by default
-alias less='bat --paging=always'  # --paging=always forces the use of the pager
+# Atuin (Magical Shell History)
+if command -v atuin &> /dev/null; then
+  eval "$(atuin init zsh)"
+fi
 
-# Zoxide (Better cd)
-eval "$(zoxide init zsh)"
+# 🧠 Mise (tool version manager)
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
+fi
 
-# Mise
-eval "$(mise activate zsh)"
+# 🌟 Starship prompt
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+fi
 
-# Starship
-eval "$(starship init zsh)"
+# 🚀 Zoxide (better cd)
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+# 🔄 History control
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=20000
+setopt INC_APPEND_HISTORY          # Write to history immediately, not on shell exit
+setopt SHARE_HISTORY               # Share command history data
+setopt HIST_IGNORE_DUPS            # Ignore duplicate entries
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_REDUCE_BLANKS          # Remove superfluous blanks
+setopt HIST_VERIFY                 # Don't execute when recalled from history
+setopt EXTENDED_HISTORY            # Record command timestamp
+
+# ✨ Completions
+autoload -Uz compinit && compinit
+
+# ✨ Prompt title in terminals like xterm
+precmd() {
+  print -Pn "\e]0;%n@%m: %~\a"
+}
+
+# 🧹 Clean up
+unset dir

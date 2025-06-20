@@ -2,7 +2,14 @@
 alias l='eza -1 --icons=auto'
 alias ls='eza --icons=auto'
 alias ll='eza -lh --group-directories-first --icons=auto'
-alias lt='eza --tree --level=2 --long --icons --git'
+# alias lt='eza --tree --level=2 --long --icons --git'
+function lt
+  set level 2
+  if test (count $argv) -ge 1
+    set level $argv[1]
+  end
+  eza --tree --level=$level --long --icons --git
+end
 alias lta='lt -a'
 alias fd='fdfind'
 alias ff="fzf --preview 'batcat --style=numbers --color=always {}'"
@@ -51,9 +58,6 @@ alias gp='git push'
 alias gstash='git stash'
 alias gpop='git stash pop'
 
-# ⬆️ Updates
-alias up='~/.local/bin/up.sh'
-
 # 🌐 Networking
 alias ports='lsof -i -P -n | grep LISTEN'
 alias ip='ip -c a'
@@ -76,3 +80,7 @@ function please
         eval sudo $last_cmd
     end
 end
+
+# Scripts
+alias up='~/.local/bin/up.sh'
+alias sshkeygen='~/.local/bin/create_ssh_key_pair.sh'

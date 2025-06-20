@@ -43,3 +43,6 @@
 theme = catppuccin-mocha.conf
 font-family = "Cascadia Code"
 background-opacity = 0.95
+
+# Change default shell
+command = /home/linuxbrew/.linuxbrew/bin/fish --login --interactive

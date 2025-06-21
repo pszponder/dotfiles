@@ -16,6 +16,7 @@ FLATPAK_APPS=(
   io.github.flattool.Ignition       # Ignition – Manage startup apps and scripts
   io.github.flattool.Warehouse      # Warehouse – Flatpak app manager
   io.github.getnf.embellish         # Embellish – Font management tool
+  io.gitlab.adhami3310.Impression   # Impression – Create bootable drives from iso files
   io.missioncenter.MissionCenter    # Mission Center – System monitor (like macOS Activity Monitor)
   io.podman_desktop.PodmanDesktop   # Podman Desktop
   it.mijorus.collector              # Collector – Drag and drop file organizer

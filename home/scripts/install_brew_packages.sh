@@ -23,6 +23,7 @@ BREW_PACKAGES=(
   mise         # Development tool manager
   neovim       # Modern vim
   nushell      # alternative to zsh, fish or bash
+  ollama       # Ollama CLI for AI models
   ripgrep      # Fast grep replacement
   starship     # Cross-shell prompt
   tmux         # Terminal multiplexer

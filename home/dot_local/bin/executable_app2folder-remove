@@ -1,0 +1,38 @@
+#!/bin/bash
+# app2folder-remove.sh - Remove a desktop app from a GNOME folder
+# Usage: ./app2folder-remove.sh <desktop_file.desktop> <folder_name>
+
+if [ "$#" -ne 2 ]; then
+    FOLDERS=$(gsettings get org.gnome.desktop.app-folders folder-children | tr -d "[],'")
+    echo "Usage: $0 <desktop_file.desktop> <folder_name>"
+    echo "Available folders: $FOLDERS"
+    echo "Example: $0 'spotify.desktop' 'Entertainment'"
+    exit 1
+fi
+
+DESKTOP_FILE="$1"
+FOLDER="$2"
+SCHEMA="org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/$FOLDER/"
+CURRENT_APPS=$(gsettings get "$SCHEMA" apps)
+
+if [[ "$CURRENT_APPS" == *"$DESKTOP_FILE"* ]]; then
+    RAW_LIST=$(echo "$CURRENT_APPS" | tr -d "[]'")
+    IFS=',' read -ra APPS_ARRAY <<< "$RAW_LIST"
+
+    # Filter out the app to be removed
+    NEW_APPS=()
+    for app in "${APPS_ARRAY[@]}"; do
+        app=$(echo "$app" | xargs) # trim spaces
+        if [[ "$app" != "$DESKTOP_FILE" && -n "$app" ]]; then
+            NEW_APPS+=("'$app'")
+        fi
+    done
+
+    # Join list again
+    NEW_LIST=$(IFS=, ; echo "${NEW_APPS[*]}")
+
+    gsettings set "$SCHEMA" apps "[$NEW_LIST]"
+    echo "Removed $DESKTOP_FILE from folder $FOLDER"
+else
+    echo "$DESKTOP_FILE is not in folder $FOLDER"
+fi

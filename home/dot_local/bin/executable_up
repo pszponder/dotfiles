@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+set -uo pipefail  # Removed -e to prevent exit on error
+
+# Array to collect error messages
+declare -a ERRORS=()
+
+echo "🔄 Starting system update..."
+
+# Function to run a command and capture errors
+run_with_error_handling() {
+    local description="$1"
+    shift
+    echo "$description"
+
+    if ! "$@"; then
+        ERRORS+=("❌ Failed: $description")
+        echo "❌ Error occurred during: $description"
+        return 1
+    fi
+    return 0
+}
+
+# 🐧 Detect and update system packages
+if command -v apt &>/dev/null; then
+    run_with_error_handling "📦 Updating APT packages..." sudo apt update
+    run_with_error_handling "📦 Upgrading APT packages..." sudo apt upgrade -y
+elif command -v dnf &>/dev/null; then
+    run_with_error_handling "📦 Updating DNF packages..." sudo dnf upgrade --refresh -y
+elif command -v pacman &>/dev/null; then
+    run_with_error_handling "📦 Updating Pacman packages..." sudo pacman -Syu --noconfirm
+else
+    echo "⚠️  Unknown package manager. Skipping system update."
+fi
+
+# 🍺 Update Homebrew packages
+if command -v brew &>/dev/null; then
+    run_with_error_handling "🍺 Updating Homebrew..." brew update
+    run_with_error_handling "🍺 Upgrading Homebrew packages..." brew upgrade
+    run_with_error_handling "🍺 Cleaning up Homebrew..." brew cleanup
+else
+    echo "⚠️  Homebrew not found."
+fi
+
+# 🧩 Update Flatpak apps
+if command -v flatpak &>/dev/null; then
+    run_with_error_handling "🧩 Updating Flatpak packages..." flatpak update -y
+else
+    echo "⚠️  Flatpak not found."
+fi
+
+# 🛠️ Update mise and tools
+if command -v mise &>/dev/null; then
+    # run_with_error_handling "🛠️ Updating mise..." mise self-update
+    run_with_error_handling "📦 Updating mise installed tools..." mise upgrade
+else
+    echo "⚠️  mise not found."
+fi
+
+# Report results
+echo ""
+if [ ${#ERRORS[@]} -eq 0 ]; then
+    echo "✅ Update complete! All operations succeeded."
+    exit 0
+else
+    echo "⚠️  Update completed with errors:"
+    printf '%s\n' "${ERRORS[@]}"
+    echo ""
+    echo "🔍 Please review the errors above and retry failed operations manually if needed."
+    exit 1
+fi

@@ -1,0 +1,28 @@
+#!/bin/bash
+# web2app-remove.sh - Remove a web app desktop launcher
+# Usage: ./web2app-remove.sh <AppName>
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <AppName>"
+    echo "Example: $0 'Gmail'"
+    exit 1
+fi
+
+APP_NAME="$1"
+ICON_DIR="$HOME/.local/share/applications/icons"
+DESKTOP_FILE="$HOME/.local/share/applications/${APP_NAME}.desktop"
+ICON_PATH="${ICON_DIR}/${APP_NAME}.png"
+
+if [ -f "$DESKTOP_FILE" ]; then
+    rm "$DESKTOP_FILE"
+    echo "Removed desktop file: $DESKTOP_FILE"
+else
+    echo "Desktop file not found: $DESKTOP_FILE"
+fi
+
+if [ -f "$ICON_PATH" ]; then
+    rm "$ICON_PATH"
+    echo "Removed icon: $ICON_PATH"
+else
+    echo "Icon file not found: $ICON_PATH"
+fi

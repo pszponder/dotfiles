@@ -5,16 +5,23 @@ set -e
 
 # Define an array of flatpak apps to install
 FLATPAK_APPS=(
+  app.devsuite.Ptyxis               # Ptyxis – Terminal emulator with advanced features
   com.brave.Browser                 # Brave Browser – Privacy-focused web browser
   com.discordapp.Discord            # Discord – Voice, video, and text chat for communities
   com.github.PintaProject.Pinta     # Pinta – Simple image editor (like Paint.NET)
   com.github.tchx84.Flatseal        # Flatseal – Permissions manager for Flatpak apps
+  com.jeffser.Pigment               # Pigment – Color picker and palette manager
   com.mattjakeman.ExtensionManager  # Extension Manager – Manage GNOME Shell extensions
   dev.zed.Zed                       # Zed – High-performance code editor
+  io.github.flattool.Ignition       # Ignition – Manage startup apps and scripts
+  io.github.flattool.Warehouse      # Warehouse – Flatpak app manager
   io.github.getnf.embellish         # Embellish – Font management tool
   io.missioncenter.MissionCenter    # Mission Center – System monitor (like macOS Activity Monitor)
   io.podman_desktop.PodmanDesktop   # Podman Desktop
+  it.mijorus.collector              # Collector – Drag and drop file organizer
+  it.mijorus.gearlever              # Gear Lever – Appimage manager
   md.obsidian.Obsidian              # Obsidian – Markdown knowledge base and note-taking app
+  me.iepure.devtoolbox              # Dev Toolbox – Developer tools and utilities
   org.gimp.GIMP                     # GIMP – GNU Image Manipulation Program
   org.gnome.Extensions              # GNOME Extensions – Manage installed GNOME Shell extensions
   org.gnome.World.PikaBackup        # Pika Backup – Backup tool for GNOME using Borg

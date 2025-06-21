@@ -26,6 +26,7 @@ BREW_PACKAGES=(
   ripgrep      # Fast grep replacement
   starship     # Cross-shell prompt
   tmux         # Terminal multiplexer
+  trash-cli    # Command line trash can
   zellij       # Tmux alternative
   zoxide       # Smarter cd command
   zsh          # ZSH shell

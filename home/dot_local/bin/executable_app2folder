@@ -1,0 +1,24 @@
+#!/bin/bash
+# app2folder.sh - Move a desktop app to a GNOME folder
+# Usage: ./app2folder.sh <desktop_file.desktop> <folder_name>
+
+if [ "$#" -ne 2 ]; then
+    FOLDERS=$(gsettings get org.gnome.desktop.app-folders folder-children | tr -d "[],'")
+    echo "Usage: $0 <desktop_file.desktop> <folder_name>"
+    echo "Available folders: $FOLDERS"
+    echo "Example: $0 'spotify.desktop' 'Entertainment'"
+    exit 1
+fi
+
+DESKTOP_FILE="$1"
+FOLDER="$2"
+SCHEMA="org.gnome.desktop.app-folders.folder:/org/gnome/desktop/app-folders/folders/$FOLDER/"
+CURRENT_APPS=$(gsettings get "$SCHEMA" apps)
+
+if [[ "$CURRENT_APPS" != *"$DESKTOP_FILE"* ]]; then
+    TRIMMED=$(echo "$CURRENT_APPS" | sed "s/^\[//;s/\]$//")
+    gsettings set "$SCHEMA" apps "[$TRIMMED, '$DESKTOP_FILE']"
+    echo "Added $DESKTOP_FILE to folder $FOLDER"
+else
+    echo "$DESKTOP_FILE is already in folder $FOLDER"
+fi

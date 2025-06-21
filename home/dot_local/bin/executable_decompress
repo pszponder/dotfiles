@@ -1,0 +1,12 @@
+#!/bin/bash
+# decompress.sh - Decompress a tar.gz archive
+# Usage: ./decompress.sh <archive.tar.gz>
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <archive.tar.gz>"
+    echo "Example: $0 my_archive.tar.gz"
+    exit 1
+fi
+
+tar -xzf "$1"
+echo "Decompressed $1"

@@ -1,0 +1,25 @@
+#!/bin/bash
+# webm2mp4.sh - Convert WebM files to MP4 format
+# Usage: ./webm2mp4.sh <input.webm>
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <input.webm>"
+    echo "Example: $0 recording.webm"
+    exit 1
+fi
+
+input_file="$1"
+output_file="${input_file%.webm}.mp4"
+
+if [ ! -f "$input_file" ]; then
+    echo "Error: Input file '$input_file' not found"
+    exit 1
+fi
+
+if ! command -v ffmpeg &> /dev/null; then
+    echo "Error: ffmpeg is not installed"
+    exit 1
+fi
+
+ffmpeg -i "$input_file" -c:v libx264 -preset slow -crf 22 -c:a aac -b:a 192k "$output_file"
+echo "Converted $input_file to $output_file"

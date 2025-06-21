@@ -24,17 +24,31 @@ alias ..4='cd ../../../..'
 alias ..5='cd ../../../../..'
 alias ..6='cd ../../../../../..'
 
+alias s='rg --smart-case'
+alias sa='rg --smart-case --hidden --no-ignore'  # search all
+alias search='rg --smart-case --pretty'
+
 # 🧰 Tool shortcuts
 alias n='nvim'
+alias vim='nvim'
 alias g='git'
-alias d='docker'
-alias dc='docker compose'
-alias bat='bat'
 alias lzg='lazygit'
 alias lzd='lazydocker'
 alias k='kubectl'
 alias tf='terraform'
 alias serve='python3 -m http.server'
+
+# Editors
+alias n='nvim'
+alias vi='nvim'
+alias vim='nvim'
+alias se='sudo EDITOR=/home/linuxbrew/.linuxbrew/bin/nvim sudoedit'
+alias snvim=se
+alias sv=se
+alias svi='sudo vi'
+alias vis='nvim "+set si"'
+alias spico='sudo pico'
+alias snano='sudo nano'
 
 # 🛠 Git aliases
 alias gs='git status'
@@ -55,18 +69,70 @@ alias gp='git push'
 alias gstash='git stash'
 alias gpop='git stash pop'
 
+# alias chmod commands
+alias mx='chmod a+x'
+alias 000='chmod -R 000'
+alias 644='chmod -R 644'
+alias 666='chmod -R 666'
+alias 755='chmod -R 755'
+alias 777='chmod -R 777'
+
 # 🌐 Networking
 alias ports='lsof -i -P -n | grep LISTEN'
+alias openports='netstat -nape --inet'
 alias ip='ip -c a'
-alias ping='ping -c 5'
+alias ping='ping -c 10'
 alias wget='wget -c'
+
+# Safe and forced reboots
+alias rebootsafe='sudo shutdown -r now'
+alias rebootforce='sudo shutdown -r -n now'
+
+# Show disk space and space used in a folder
+alias diskspace="du -S | sort -n -r |more"
+alias folders='du -h --max-depth=1'
+alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
+alias tree='tree -CAhF --dirsfirst'
+alias treed='tree -CAFd'
+alias mountedinfo='df -hT'
+
+# Archives
+alias mktar='tar -cvf'
+alias mkbz2='tar -cvjf'
+alias mkgz='tar -cvzf'
+alias untar='tar -xvf'
+alias unbz2='tar -xvjf'
+alias ungz='tar -xvzf'
+
+# Show all logs in /var/log
+alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"
+
+# Docker / Podman
+alias d='docker'
+alias dc='docker compose'
+alias docker='podman'
+alias p='podman'
+# Cleanup unused docker containers, images, networks, and volumes
+alias docker-clean=' \
+  docker container prune -f ; \
+  docker image prune -f ; \
+  docker network prune -f ; \
+  docker volume prune -f '
 
 # ⚙️ Miscellaneous
 alias cat='bat --paging=never'
 alias less='bat --paging=always'
-alias docker='podman'
 alias reload='exec $SHELL -l'
 alias cl='clear'
+alias da='date "+%Y-%m-%d %A %T %Z"'
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='trash -v'
+alias ps='ps auxf'
+
+#######################################################
+# SPECIAL FUNCTIONS
+#######################################################
 
 # Retry last command with sudo
 please() {
@@ -79,6 +145,99 @@ please() {
   fi
 }
 
-# Scripts
-alias up='~/.local/bin/up.sh'
-alias sshkeygen='~/.local/bin/create_ssh_key_pair.sh'
+# Extracts any archive(s) (if unp isn't installed)
+extract() {
+  for archive in "$@"; do
+    if [ -f "$archive" ]; then
+      case $archive in
+      *.tar.bz2) tar xvjf $archive ;;
+      *.tar.gz) tar xvzf $archive ;;
+      *.bz2) bunzip2 $archive ;;
+      *.rar) rar x $archive ;;
+      *.gz) gunzip $archive ;;
+      *.tar) tar xvf $archive ;;
+      *.tbz2) tar xvjf $archive ;;
+      *.tgz) tar xvzf $archive ;;
+      *.zip) unzip $archive ;;
+      *.Z) uncompress $archive ;;
+      *.7z) 7z x $archive ;;
+      *) echo "don't know how to extract '$archive'..." ;;
+      esac
+    else
+      echo "'$archive' is not a valid file!"
+    fi
+  done
+}
+
+# Searches for text in all files in the current folder
+ftext() {
+  # -i case-insensitive
+  # -I ignore binary files
+  # -H causes filename to be printed
+  # -r recursive search
+  # -n causes line number to be printed
+  # optional: -F treat search term as a literal, not a regular expression
+  # optional: -l only print filenames and not the matching lines ex. grep -irl "$1" *
+  grep -iIHrn --color=always "$1" . | less -r
+}
+
+# Copy file with a progress bar
+cpp() {
+    set -e
+    strace -q -ewrite cp -- "${1}" "${2}" 2>&1 |
+    awk '{
+        count += $NF
+        if (count % 10 == 0) {
+            percent = count / total_size * 100
+            printf "%3d%% [", percent
+            for (i=0;i<=percent;i++)
+                printf "="
+            printf ">"
+            for (i=percent;i<100;i++)
+                printf " "
+            printf "]\r"
+        }
+    }
+    END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
+}
+
+# Copy and go to the directory
+cpg() {
+  if [ -d "$2" ]; then
+    cp "$1" "$2" && cd "$2"
+  else
+    cp "$1" "$2"
+  fi
+}
+
+# Move and go to the directory
+mvg() {
+  if [ -d "$2" ]; then
+    mv "$1" "$2" && cd "$2"
+  else
+    mv "$1" "$2"
+  fi
+}
+
+# Create and go to the directory
+mkdirg() {
+  mkdir -p "$1"
+  cd "$1"
+}
+
+# IP address lookup
+alias whatismyip="whatsmyip"
+function whatsmyip () {
+    # Internal IP Lookup.
+    if command -v ip &> /dev/null; then
+        echo -n "Internal IP: "
+        ip addr show wlan0 | grep "inet " | awk '{print $2}' | cut -d/ -f1
+    else
+        echo -n "Internal IP: "
+        ifconfig wlan0 | grep "inet " | awk '{print $2}'
+    fi
+
+    # External IP Lookup
+    echo -n "External IP: "
+    curl -4 ifconfig.me
+}

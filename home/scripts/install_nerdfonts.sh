@@ -8,7 +8,7 @@ FONTS=(
   "CascadiaCode"
   "ComicShannsMono"
   "Meslo"
-  "Symbols Only"
+  "NerdFontsSymbolsOnly"
 )
 
 NERD_FONT_VERSION="3.4.0"

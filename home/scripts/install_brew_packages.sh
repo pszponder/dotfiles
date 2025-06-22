@@ -1,36 +1,51 @@
 #!/usr/bin/env bash
 
-# Exit immediately if a command exits with a non-zero status
+# Exit immediately on error
 set -e
 
-# Define an array of brew packages to install
+# Define an array of brew packages to install (CLI tools)
 BREW_PACKAGES=(
-  atuin        # Better shell history
-  bat          # Better cat with syntax highlighting
-  bottom       # Resource viewer
-  delta        # Better git diff
-  direnv       # Load/unload environmental variables
-  eza          # Modern ls replacement
-  fd           # Fast find replacement
-  fish         # Fish shell
-  fzf          # Fuzzy finder
-  gh           # GitHub CLI
-  jq           # JSON processor
-  just         # Rust-based alternative to make
-  lazydocker   # TUI for docker
-  lazygit      # TUI for git
-  make         # build tool
-  mise         # Development tool manager
-  neovim       # Modern vim
-  nushell      # alternative to zsh, fish or bash
-  ollama       # Ollama CLI for AI models
-  ripgrep      # Fast grep replacement
-  starship     # Cross-shell prompt
-  tmux         # Terminal multiplexer
-  trash-cli    # Command line trash can
-  zellij       # Tmux alternative
-  zoxide       # Smarter cd command
-  zsh          # ZSH shell
+  atuin
+  bat
+  bottom
+  delta
+  direnv
+  eza
+  fd
+  fish
+  fzf
+  gh
+  jq
+  just
+  lazydocker
+  lazygit
+  make
+  mise
+  neovim
+  nushell
+  ollama
+  ripgrep
+  starship
+  tmux
+  trash-cli
+  zellij
+  zoxide
+  zsh
+)
+
+# Define an array of casks to install (macOS GUI apps)
+BREW_CASKS=(
+  brave-browser
+  discord
+  ghostty
+  google-chrome
+  raycast         # Spotlight alternative
+  rectangle       # Window manager
+  lm-studio
+  podman-desktop
+  postman
+  visual-studio-code
+  zed
 )
 
 # Function to check if a command exists
@@ -38,9 +53,14 @@ command_exists() {
   command -v "$1" &> /dev/null
 }
 
-# Function to check if a package is already installed via brew
+# Function to check if a brew package is already installed
 brew_package_installed() {
-  brew list "$1" &> /dev/null
+  brew list --formula "$1" &> /dev/null
+}
+
+# Function to check if a cask is already installed
+brew_cask_installed() {
+  brew list --cask "$1" &> /dev/null
 }
 
 # Check if Homebrew is installed
@@ -54,12 +74,10 @@ brew update
 
 echo "📦 Installing Homebrew packages..."
 for package in "${BREW_PACKAGES[@]}"; do
-  # Skip comments (lines starting with #)
   if [[ "$package" == \#* ]] || [[ -z "$package" ]]; then
     continue
   fi
 
-  # Check if the package is already installed
   if brew_package_installed "$package"; then
     echo "✅ $package is already installed, skipping..."
   else
@@ -68,9 +86,25 @@ for package in "${BREW_PACKAGES[@]}"; do
   fi
 done
 
-echo "🎉 Homebrew packages installation completed!"
+# Check for macOS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  echo "🍏 macOS detected — installing Homebrew casks..."
+  for cask in "${BREW_CASKS[@]}"; do
+    if [[ "$cask" == \#* ]] || [[ -z "$cask" ]]; then
+      continue
+    fi
 
-# Reminder about customizing packages
+    if brew_cask_installed "$cask"; then
+      echo "✅ $cask is already installed, skipping..."
+    else
+      echo "📥 Installing cask: $cask..."
+      brew install --cask "$cask"
+    fi
+  done
+fi
+
+echo "🎉 Homebrew installation complete!"
+
 echo ""
-echo "📝 Note: You can customize the list of packages by editing the BREW_PACKAGES array in this script."
-echo "   Current location: $(readlink -f "$0")"
+echo "📝 Customize the BREW_PACKAGES and BREW_CASKS arrays to your liking."
+echo "   Current script: $(readlink -f "$0" 2>/dev/null || realpath "$0")"

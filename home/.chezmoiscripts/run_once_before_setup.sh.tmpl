@@ -4,6 +4,9 @@ set -e  # Exit immediately on any error
 
 echo "🔧 Running setup..."
 
+# Initialize the home directory structure
+$CHEZMOI_SOURCE_DIR/scripts/initialize_home.sh
+
 # Initialize SSH Config
 $CHEZMOI_SOURCE_DIR/scripts/initialize_ssh_config.sh
 

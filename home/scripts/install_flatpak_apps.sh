@@ -10,6 +10,7 @@ FLATPAK_APPS=(
   com.discordapp.Discord            # Discord – Voice, video, and text chat for communities
   com.github.PintaProject.Pinta     # Pinta – Simple image editor (like Paint.NET)
   com.github.tchx84.Flatseal        # Flatseal – Permissions manager for Flatpak apps
+  com.jeffser.Alpaca                # Alpaca – ollama client for Linux
   com.jeffser.Pigment               # Pigment – Color picker and palette manager
   com.mattjakeman.ExtensionManager  # Extension Manager – Manage GNOME Shell extensions
   dev.zed.Zed                       # Zed – High-performance code editor

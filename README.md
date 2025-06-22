@@ -73,3 +73,6 @@ Ansible
 Misc
 - [Boot.dev - How I organize my local development environment](https://blog.boot.dev/misc/how-i-organize-my-local-development-environment/)
 
+Dotfiles
+- [Folke dot files](https://github.com/folke/dot)
+-

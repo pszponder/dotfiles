@@ -17,9 +17,10 @@ $CHEZMOI_SOURCE_DIR/scripts/install_brew_packages.sh
 # Install Ansible
 $CHEZMOI_SOURCE_DIR/scripts/install_ansible.sh
 
-# Install Flatpak and applications (Linux only)
+# Install Applications (Linux only)
 if [[ "$(uname)" == "Linux" ]]; then
   $CHEZMOI_SOURCE_DIR/scripts/install_flatpak.sh
   $CHEZMOI_SOURCE_DIR/scripts/install_flatpak_apps.sh
-  # $CHEZMOI_SOURCE_DIR/scripts/install_docker.sh
+  $CHEZMOI_SOURCE_DIR/scripts/install_docker.sh
+  $CHEZMOI_SOURCE_DIR/scripts/install_gnome_extensions.sh
 fi

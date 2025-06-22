@@ -43,7 +43,7 @@ BREW_CASKS=(
   raycast         # Spotlight alternative
   rectangle       # Window manager
   lm-studio
-  # podman-desktop
+  podman-desktop
   postman
   visual-studio-code
   zed

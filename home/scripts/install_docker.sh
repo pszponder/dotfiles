@@ -20,48 +20,7 @@ if [ "$EUID" -eq 0 ]; then
   exit 1
 fi
 
-# Detect distribution
-if [ -f /etc/os-release ]; then
-  . /etc/os-release
-  DISTRO_ID="$ID"
-else
-  print_status "$RED" "❌ Cannot detect Linux distribution. /etc/os-release not found."
-  exit 1
-fi
-
 print_status "$BLUE" "🔍 Detected distribution: $DISTRO_ID"
-
-# Install curl if needed
-if ! command -v curl &>/dev/null; then
-  print_status "$YELLOW" "📦 Installing curl..."
-  case "$DISTRO_ID" in
-    ubuntu|debian)
-      sudo apt-get update && sudo apt-get install -y curl
-      ;;
-    fedora)
-      sudo dnf install -y curl
-      ;;
-    centos|rhel|rocky|almalinux)
-      sudo yum install -y curl
-      ;;
-    opensuse*|sles)
-      sudo zypper install -y curl
-      ;;
-    arch)
-      sudo pacman -Sy --noconfirm curl
-      ;;
-    *)
-      print_status "$YELLOW" "⚠️  Unknown distro: $DISTRO_ID. Attempting to install curl anyway..."
-      sudo apt-get update && sudo apt-get install -y curl || \
-      sudo dnf install -y curl || \
-      sudo yum install -y curl || \
-      sudo zypper install -y curl || \
-      sudo pacman -Sy --noconfirm curl || \
-      print_status "$RED" "❌ Failed to install curl. Aborting."
-      exit 1
-      ;;
-  esac
-fi
 
 print_status "$BLUE" "🐳 Downloading Docker's official convenience script..."
 curl -fsSL https://get.docker.com -o get-docker.sh

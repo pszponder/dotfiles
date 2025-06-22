@@ -37,12 +37,13 @@ BREW_PACKAGES=(
 BREW_CASKS=(
   brave-browser
   discord
+  docker
   ghostty
   google-chrome
   raycast         # Spotlight alternative
   rectangle       # Window manager
   lm-studio
-  podman-desktop
+  # podman-desktop
   postman
   visual-studio-code
   zed

@@ -114,7 +114,7 @@ alias ungz='tar -xvzf'
 # Docker / Podman
 alias d='docker'
 alias dc='docker compose'
-alias docker='podman'
+# alias docker='podman'
 alias p='podman'
 # Cleanup unused docker containers, images, networks, and volumes
 alias docker-clean=' \

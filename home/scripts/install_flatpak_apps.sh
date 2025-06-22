@@ -18,7 +18,7 @@ FLATPAK_APPS=(
   io.github.getnf.embellish         # Embellish – Font management tool
   io.gitlab.adhami3310.Impression   # Impression – Create bootable drives from iso files
   io.missioncenter.MissionCenter    # Mission Center – System monitor (like macOS Activity Monitor)
-  io.podman_desktop.PodmanDesktop   # Podman Desktop
+  # io.podman_desktop.PodmanDesktop   # Podman Desktop
   it.mijorus.collector              # Collector – Drag and drop file organizer
   it.mijorus.gearlever              # Gear Lever – Appimage manager
   md.obsidian.Obsidian              # Obsidian – Markdown knowledge base and note-taking app

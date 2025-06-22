@@ -36,8 +36,6 @@ alias sa='rg --smart-case --hidden --no-ignore'  # search all
 alias search='rg --smart-case --pretty'
 
 # 🧰 Tool shortcuts
-alias n='nvim'
-alias vim='nvim'
 alias g='git'
 alias lzg='lazygit'
 alias lzd='lazydocker'
@@ -47,7 +45,7 @@ alias serve='python3 -m http.server'
 
 # Editors
 alias n='nvim'
-alias vi='nvim'
+alias v='nvim'
 alias vim='nvim'
 alias se='sudo EDITOR=/home/linuxbrew/.linuxbrew/bin/nvim sudoedit'
 alias snvim=se

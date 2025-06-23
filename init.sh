@@ -49,3 +49,16 @@ print_status "$GREEN" "🎉 chezmoi initialization and SSH switch complete!"
 
 # Note: You do NOT need a configured SSH key when switching to SSH remote.
 # However, to pull/push later via SSH, you WILL need a valid SSH key added to GitHub.
+
+# Prompt user to restart
+echo
+read -rp "$(echo -e "${YELLOW}⚠️  Would you like to restart the machine now to ensure all changes are applied? (y/N): ${NC}")" restart_answer
+case "$restart_answer" in
+  [yY][eE][sS]|[yY])
+    print_status "$BLUE" "🔁 Restarting the system..."
+    sudo reboot
+    ;;
+  *)
+    print_status "$YELLOW" "⏭️  Restart skipped. You may want to restart later to ensure all changes are applied."
+    ;;
+esac

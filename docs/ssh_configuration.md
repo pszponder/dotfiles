@@ -2,11 +2,11 @@
 
 ## Create SSH Config
 
-Use the `./scripts/initialize_ssh_config.sh` script to create a templated starter ssh config file if one doesn't yet exist
+Use the `$HOME/scripts/initialize_ssh_config.sh` script to create a templated starter ssh config file if one doesn't yet exist
 
 ## Generate new SSH key pairs
 
-Refer to `./scripts/create_ssh_key.sh` script to help create an ssh key
+Refer to `$HOME/scripts/create_ssh_key.sh` script to help create an ssh key
 
 You should create a new SSH key for each service which you wish to connect to via SSH
 - Ex. If you have a GitHub and Bitbucket account, you should have a separate SSH key pair for each service.

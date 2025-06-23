@@ -61,7 +61,7 @@ update_ssh_config() {
   else
     echo "$config_block" >> "$SSH_CONFIG"
     echo "✅ SSH config updated!"
-    echo "Please use the scripts/create_ssh_key.sh script to create one or more SSH key pairs."
+    echo "Please use the ~/.local/bin/sshkeygen.sh script to create one or more SSH key pairs."
   fi
 
   chmod 600 "$SSH_CONFIG"

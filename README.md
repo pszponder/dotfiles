@@ -4,16 +4,18 @@
 
 ## How to Run / Setup
 
-Use the below code snippet to...
+```sh
+./init.sh
+```
+
+What does `init.sh` do?
 - Download and install **chezmoi**
 - Download the dotfiles repo to the **chezmoi** directory
 - Apply the dotfiles from the repo to the local machine
+- Performs system setup (installs applications, sets up ssh keys, etc.)
+- Switches chezmoi dotfiles repo from https to ssh
 
-```sh
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply git@github.com:pszponder/dotfiles.git
-```
-
-For more information on **chezmoi**, refer to *./docs/chezmoi.md*
+For more information on **chezmoi**, refer to *./docs/chezmoi.md* and the [official chezmoi docs](https://www.chezmoi.io/)
 
 ## Organization
 

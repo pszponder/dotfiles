@@ -27,7 +27,9 @@ BREW_PACKAGES=(
   ripgrep
   starship
   tmux
+  tealdeer
   trash-cli
+  yazi
   zellij
   zoxide
   zsh

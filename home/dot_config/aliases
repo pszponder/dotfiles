@@ -223,6 +223,16 @@ mkdirg() {
   cd "$1"
 }
 
+# Create a new git-enabled directory and navigate into it
+newgit() {
+  if [ -z "$1" ]; then
+    echo "Usage: newgit <directory_name>"
+    return 1
+  fi
+  mkdir -p "$1" && cd "$1"
+  git init
+}
+
 # IP address lookup
 alias whatismyip="whatsmyip"
 function whatsmyip () {

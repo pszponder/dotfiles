@@ -14,13 +14,13 @@ function backup
 
   if test -f "$src"
     # If it's a file, append .bak
-    set dest "${src}.bak"
+    set dest "$src.bak"
     cp "$src" "$dest"
     echo "File backup created at: $dest"
   else if test -d "$src"
     # If it's a directory, create a timestamped backup
     set timestamp (date "+%Y%m%d_%H%M%S")
-    set dest "${src}_backup_$timestamp"
+    set dest "$src"_backup_"$timestamp"
     cp -r "$src" "$dest"
     echo "Directory backup created at: $dest"
   else

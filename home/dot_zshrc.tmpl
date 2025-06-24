@@ -10,6 +10,7 @@ for dir in "$HOME/bin" "$HOME/.local/bin" "$HOME/scripts" "/usr/local/bin"; do
   [[ ":$PATH:" != *":$dir:"* ]] && PATH="$dir:$PATH"
 done
 export PATH
+unset dir # Clean up loop var
 
 # 🧩 Source aliases
 if [[ -f ~/.config/aliases ]]; then
@@ -47,11 +48,6 @@ if command -v starship &> /dev/null; then
   eval "$(starship init zsh)"
 fi
 
-# 🚀 Zoxide (better cd)
-if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init zsh)"
-fi
-
 # 🔄 History control
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
@@ -73,5 +69,7 @@ precmd() {
   print -Pn "\e]0;%n@%m: %~\a"
 }
 
-# 🧹 Clean up
-unset dir
+# 🚀 Zoxide (better cd)
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi

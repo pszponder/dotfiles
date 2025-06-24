@@ -105,7 +105,7 @@ Misc
 - setup nushell config?
     - https://www.youtube.com/watch?v=LFBOLx5KiME
     - https://www.youtube.com/watch?v=TgQZz2kGysk
-- [DevOps Toolbox - 7 Amazin Terminal API tools you need to try](https://www.youtube.com/watch?v=eyXxEBZMVQI)
+- [DevOps Toolbox - 7 Amazing Terminal API tools you need to try](https://www.youtube.com/watch?v=eyXxEBZMVQI)
 - Auto-configure Gnome extensions and gnome (refer to resources / references on Gnome)
     - Enable `Switch to workspace #` shortcut -> super + #
     - Gnome Extensions

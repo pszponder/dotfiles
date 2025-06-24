@@ -3,3 +3,6 @@
 
 # Editors
 .vscode
+
+# Nushell history
+home/dot_config/nushell/history.txt

@@ -233,6 +233,39 @@ newgit() {
   git init
 }
 
+# Backup a file or directory
+backup() {
+  if [ -z "$1" ]; then
+    echo "Usage: backup <file_or_directory>"
+    return 1
+  fi
+
+  local src="$1"
+
+  if [ ! -e "$src" ]; then
+    echo "Error: '$src' does not exist."
+    return 1
+  fi
+
+  if [ -f "$src" ]; then
+    # If it's a file, append .bak
+    local dest="${src}.bak"
+    cp "$src" "$dest"
+    echo "File backup created at: $dest"
+  elif [ -d "$src" ]; then
+    # If it's a directory, add timestamp suffix
+    local timestamp
+    timestamp=$(date +%Y%m%d_%H%M%S)
+    local dest="${src}_backup_${timestamp}"
+    cp -r "$src" "$dest"
+    echo "Directory backup created at: $dest"
+  else
+    echo "Error: '$src' is neither a file nor a directory."
+    return 1
+  fi
+}
+
+
 # IP address lookup
 alias whatismyip="whatsmyip"
 function whatsmyip () {

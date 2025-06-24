@@ -16,3 +16,6 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
+
+use ~/.config/nushell/aliases.nu
+use ~/.config/nushell/functions.nu

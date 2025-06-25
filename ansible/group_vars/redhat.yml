@@ -1,0 +1,13 @@
+dnf_packages:
+  - git
+  - curl
+  - htop
+
+gui_packages:
+  - gnome-terminal
+  - firefox
+  - vlc
+
+flatpak_apps:
+  - org.gimp.GIMP
+  - org.mozilla.firefox

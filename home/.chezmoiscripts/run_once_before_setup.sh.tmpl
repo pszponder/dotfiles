@@ -4,27 +4,133 @@ set -e  # Exit immediately on any error
 
 echo "🔧 Running setup..."
 
-# Initialize the home directory structure
-$CHEZMOI_SOURCE_DIR/scripts/initialize_home.sh
+# ======
+# Common
+# ======
+$CHEZMOI_SOURCE_DIR/scripts/scripts_common/initialize_home.sh
+$CHEZMOI_SOURCE_DIR/scripts/scripts_common/initialize_ssh_config.sh
+$CHEZMOI_SOURCE_DIR/scripts/scripts_common/install_nerdfonts.sh
+# $CHEZMOI_SOURCE_DIR/scripts/scripts_common/install_podman_cli.sh
 
-# Initialize SSH Config
-$CHEZMOI_SOURCE_DIR/scripts/initialize_ssh_config.sh
+# =======================
+# 🍎 macOS-specific setup
+# =======================
+if [[ "$(uname)" == "Darwin" ]]; then
+  echo "🍎 Detected macOS"
 
-# Install Nerdfonts
-$CHEZMOI_SOURCE_DIR/scripts/install_nerdfonts.sh
+  # Install brew if not installed
+  if ! command -v brew &>/dev/null; then
+    echo "🔧 Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  else
+    echo "Homebrew is already installed."
+  fi
 
-# Install Homebrew and Brew Packages
-$CHEZMOI_SOURCE_DIR/scripts/install_brew.sh
-$CHEZMOI_SOURCE_DIR/scripts/install_brew_packages.sh
+  # Install Ansible on macOS
+  if ! command -v ansible-playbook &>/dev/null; then
+    echo "🔧 Installing Ansible (Homebrew)..."
+    brew install ansible
+  fi
 
-# Install Ansible
-$CHEZMOI_SOURCE_DIR/scripts/install_ansible.sh
+  # Install Ansible galaxy roles
+  ansible-galaxy collection install community.general
 
-# Install Applications (Linux only)
-if [[ "$(uname)" == "Linux" ]]; then
-  $CHEZMOI_SOURCE_DIR/scripts/install_flatpak.sh
-  $CHEZMOI_SOURCE_DIR/scripts/install_flatpak_apps.sh
-  # $CHEZMOI_SOURCE_DIR/scripts/install_docker.sh
-  $CHEZMOI_SOURCE_DIR/scripts/install_podman_cli.sh
-  # $CHEZMOI_SOURCE_DIR/scripts/install_gnome_extensions.sh
+  # Always run Ansible as workstation on macOS
+  if command -v ansible-playbook &>/dev/null; then
+    echo "🖥️ Installing packages with Ansible..."
+    ansible-playbook "$CHEZMOI_SOURCE_DIR/ansible/setup.yml" -K -e workstation=true
+  else
+    echo "⚠️ Ansible not found, skipping Ansible setup."
+  fi
+
+  exit 0
 fi
+
+# =======================
+# 🐧 Linux: Detect distro
+# =======================
+if [[ -f /etc/os-release ]]; then
+  . /etc/os-release
+  DISTRO_ID="${ID,,}"
+else
+  echo "❌ Could not determine Linux distribution."
+  exit 1
+fi
+
+echo "🐧 Detected Linux distro: $DISTRO_ID"
+
+# Update below here
+
+# =====================
+# 📦 Common Linux steps
+# =====================
+# $CHEZMOI_SOURCE_DIR/scripts/install_podman_cli.sh
+
+# =====================
+# 📦 Ansible setup
+# =====================
+
+# Check if Ansible is installed
+if ! command -v ansible-playbook &>/dev/null; then
+  echo "🔧 Installing Ansible..."
+  if command -v apt-get &>/dev/null; then
+    sudo apt-get update && sudo apt-get install -y ansible
+  elif command -v dnf &>/dev/null; then
+    sudo dnf install -y ansible
+  elif command -v pacman &>/dev/null; then
+    sudo pacman -Syu ansible --noconfirm
+  else
+    echo "❌ Could not install Ansible. Please install it manually."
+    exit 1
+  fi
+fi
+
+# Install Ansible galaxy roles
+ansible-galaxy collection install community.general
+
+if command -v ansible-playbook &>/dev/null; then
+  echo
+  read -p "Is this a workstation (with GUI apps)? [y/N]: " workstation_answer
+  if [[ "$workstation_answer" =~ ^[Yy] ]]; then
+    workstation=true
+  else
+    workstation=false
+  fi
+
+  echo "🔧 Running Ansible setup (workstation: $workstation)..."
+  ansible-playbook "$CHEZMOI_SOURCE_DIR/ansible/setup.yml" -K -e workstation="$workstation"
+else
+  echo "⚠️ Ansible not found, skipping Ansible setup."
+fi
+
+# =================================
+# 📦 Linux distro-specific sections
+# =================================
+case "$DISTRO_ID" in
+  ubuntu | debian)
+    echo "📦 Running Ubuntu/Debian setup..."
+    # $CHEZMOI_SOURCE_DIR/scripts/install_apt_dependencies.sh
+    # $CHEZMOI_SOURCE_DIR/scripts/install_flatpak.sh
+    # $CHEZMOI_SOURCE_DIR/scripts/install_flatpak_apps.sh
+    ;;
+
+  fedora)
+    echo "📦 Running Fedora setup..."
+    # $CHEZMOI_SOURCE_DIR/scripts/install_dnf_dependencies.sh
+    # $CHEZMOI_SOURCE_DIR/scripts/install_flatpak.sh
+    # $CHEZMOI_SOURCE_DIR/scripts/install_flatpak_apps.sh
+    ;;
+
+  arch)
+    echo "📦 Running Arch Linux setup..."
+    # $CHEZMOI_SOURCE_DIR/scripts/install_pacman_dependencies.sh
+    # $CHEZMOI_SOURCE_DIR/scripts/install_flatpak.sh
+    # $CHEZMOI_SOURCE_DIR/scripts/install_flatpak_apps.sh
+    ;;
+
+  *)
+    echo "⚠️ Distro '$DISTRO_ID' is not explicitly supported. Running generic Linux setup."
+    # $CHEZMOI_SOURCE_DIR/scripts/install_flatpak.sh
+    # $CHEZMOI_SOURCE_DIR/scripts/install_flatpak_apps.sh
+    ;;
+esac

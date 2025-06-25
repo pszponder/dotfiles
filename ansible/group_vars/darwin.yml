@@ -1,0 +1,45 @@
+brew_packages:
+  - git
+  - curl
+  - atuin
+  - bat
+  - bottom
+  - delta
+  - direnv
+  - eza
+  - fd
+  - fish
+  - fzf
+  - gh
+  - jq
+  - just
+  - lazydocker
+  - lazygit
+  - make
+  - mise
+  - neovim
+  - nushell
+  - ollama
+  - ripgrep
+  - starship
+  - tmux
+  - tealdeer
+  - trash-cli
+  - yazi
+  - zellij
+  - zoxide
+  - zsh
+
+brew_cask_packages:
+  - brave-browser
+  - discord
+  - docker
+  - ghostty
+  - google-chrome
+  - raycast # Spotlight alternative
+  - rectangle # Window manager
+  - lm-studio
+  - podman-desktop
+  - postman
+  - visual-studio-code
+  - zed

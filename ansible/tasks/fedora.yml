@@ -1,0 +1,11 @@
+- name: Install CLI packages on Fedora
+  dnf:
+    name: "{{ cli_packages }}"
+    state: present
+  when: not workstation | default(false)
+
+- name: Install GUI packages on Fedora
+  dnf:
+    name: "{{ gui_packages }}"
+    state: present
+  when: workstation | default(false)

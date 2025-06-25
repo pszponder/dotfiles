@@ -118,3 +118,14 @@ Misc
     - `dconf load /org/gnome/shell/extensions/ < gnome_extensions.txt`
 - Incorporate tmux config from old dotfiles
 - Update codebase to prompt user if machine is a workstation or a server and install things accordingly (server doesn't get flatpak or any other gui tools installed, but dotfiles, cli apps & executable scripts should all be installed)
+- Ansible
+    - Update group vars and tasks for
+        - arch
+            - Instead of flatpak, prefer install using pacman or yay?
+            - Install warp terminal
+            - Figure out how to install warp terminal
+            - Configure gnome extensions and settings
+            - Configure desktop background
+        - darwin
+        - debian
+        - fedora

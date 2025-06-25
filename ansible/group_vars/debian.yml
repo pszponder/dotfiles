@@ -1,0 +1,23 @@
+apt_server_packages:
+  - git
+  - curl
+  - htop
+
+apt_workstation_packages:
+  - gnome-terminal
+  - vlc
+
+ppa_repos:
+  - ppa:mozillateam/ppa
+  - ppa:obsproject/obs-studio
+
+ppa_server_packages:
+  - nginx
+
+ppa_workstation_packages:
+  - firefox
+  - obs-studio
+
+flatpak_apps:
+  - org.gimp.GIMP
+  - com.discordapp.Discord

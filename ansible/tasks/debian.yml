@@ -1,0 +1,39 @@
+# APT (server)
+- name: Install server packages via APT
+  apt:
+    name: "{{ apt_server_packages }}"
+    state: present
+    update_cache: yes
+  when: not workstation | default(false)
+
+# APT (workstation)
+- name: Install workstation packages via APT
+  apt:
+    name: "{{ apt_workstation_packages }}"
+    state: present
+    update_cache: yes
+  when: workstation | default(false)
+
+# Add PPAs
+- name: Add PPA repositories
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  loop: "{{ ppa_repos }}"
+  when: ppa_repos is defined and ppa_repos | length > 0
+
+# PPA (server)
+- name: Install server packages from PPAs
+  apt:
+    name: "{{ ppa_server_packages }}"
+    state: present
+    update_cache: yes
+  when: not workstation | default(false)
+
+# PPA (workstation)
+- name: Install GUI packages from PPAs
+  apt:
+    name: "{{ ppa_workstation_packages }}"
+    state: present
+    update_cache: yes
+  when: workstation | default(false)

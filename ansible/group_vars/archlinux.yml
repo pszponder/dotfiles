@@ -26,6 +26,7 @@ arch_server_pacman_packages:
   - tmux
   - tealdeer
   - trash-cli
+  - python-uv
   - yazi
   - zellij
   - zoxide

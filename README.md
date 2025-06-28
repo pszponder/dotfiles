@@ -102,7 +102,7 @@ Thin Client
 - [Typecraft - Code from ANYTHING w/ a Thin Client setup](https://youtu.be/ZqfrtoqAGWs?si=RIwve_hdzK6wjAB9)
 - [tailscale - How to get started w/ Tailscale in under 10 minutes](https://youtu.be/sPdvyR7bLqI?si=WAc2ZX9MKMZoJxpc)
 
-Setups
+Hyprland
 - [Omarchy - DHH Arch Config](https://omarchy.org/)
 
 Misc

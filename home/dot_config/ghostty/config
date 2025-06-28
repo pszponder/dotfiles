@@ -45,4 +45,4 @@ font-family = "Cascadia Code"
 background-opacity = 0.95
 
 # Change default shell
-command = /home/linuxbrew/.linuxbrew/bin/fish --login --interactive
+command = /usr/bin/fish --login --interactive

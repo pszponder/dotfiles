@@ -2,6 +2,8 @@
 
 set -e
 
+SCRIPTS_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")/scripts"
+
 # Prompt for setup type (workstation or server)
 echo
 read -p "Is this machine a workstation or a server? [w/s]: " setup_type
@@ -17,7 +19,8 @@ echo "🖥️ Arch Linux $setup_type Setup"
 
 # Run appropriate Setup Script
 if [[ "$setup_type" == "workstation" ]]; then
-  $CHEZMOI_SOURCE_DIR/scripts/arch/install_arch_workstation.sh
+  $SCRIPTS_DIR/arch/install_arch_workstation.sh
 else
-  $CHEZMOI_SOURCE_DIR/scripts/arch/install_arch_server.sh
+  $SCRIPTS_DIR/arch/install_arch_server.sh
 fi
+

@@ -8,7 +8,10 @@ echo "🔧 Running common Arch setup (server/workstation)"
 sudo pacman -Syu --noconfirm
 
 # Install paru (and its dependencies)
-"$(dirname "$0")/install_paru.sh"
+# "$(dirname "$0")/install_paru.sh"
+
+# Install yay (and its dependencies)
+"$(dirname "$0")/install_yay.sh"
 
 # Install fonts
 "$(dirname "$0")/install_fonts.sh"

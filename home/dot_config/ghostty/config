@@ -41,7 +41,8 @@
 # resize-overlay-duration = 4s 200ms
 
 theme = catppuccin-mocha.conf
-font-family = "Cascadia Code"
+# font-family = "Cascadia Code"
+font-family = "CaskaydiaCove NF"
 background-opacity = 0.95
 
 # Change default shell

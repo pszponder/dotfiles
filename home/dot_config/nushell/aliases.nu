@@ -2,10 +2,11 @@
 alias l = eza -1 --icons=auto
 alias ls = eza --icons=auto
 alias ll = eza -lh --group-directories-first --icons=auto
+alias la = eza -lha --group-directories-first --icons=auto
 alias lta = lt -a
 alias fd = fdfind
 alias ff = fzf --preview 'bat --style=numbers --color=always {}'
-alias mkdir = mkdir -pv
+alias mkdir = 'mkdir -pv'
 alias cd = z
 
 # 📂 Directory navigation

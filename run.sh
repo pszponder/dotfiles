@@ -14,6 +14,17 @@ print_status() {
   echo -e "${color}${message}${NC}"
 }
 
+# Function to check if chezmoi is installed
+install_chezmoi_if_needed() {
+  if ! command -v chezmoi &> /dev/null; then
+    print_status "$YELLOW" "🔄 chezmoi not found. Installing..."
+    sh -c "$(curl -fsLS get.chezmoi.io)"
+    print_status "$GREEN" "✅ chezmoi installed successfully!"
+  else
+    print_status "$GREEN" "✅ chezmoi is already installed."
+  fi
+}
+
 # Function to switch chezmoi repo to SSH
 switch_chezmoi_to_ssh() {
   local chezmoi_repo_dir="$HOME/.local/share/chezmoi"
@@ -40,8 +51,10 @@ switch_chezmoi_to_ssh() {
 }
 
 # Main logic
+install_chezmoi_if_needed
+
 print_status "$BLUE" "🚀 Initializing chezmoi with HTTPS..."
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply pszponder
+chezmoi init --apply pszponder
 
 switch_chezmoi_to_ssh
 

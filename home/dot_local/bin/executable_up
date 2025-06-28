@@ -26,8 +26,12 @@ if command -v apt &>/dev/null; then
     run_with_error_handling "📦 Upgrading APT packages..." sudo apt upgrade -y
 elif command -v dnf &>/dev/null; then
     run_with_error_handling "📦 Updating DNF packages..." sudo dnf upgrade --refresh -y
+elif command -v yay &>/dev/null; then
+    run_with_error_handling "📦 Updating Arch packages..." sudo yay -Syu --noconfirm
+elif command -v paru &>/dev/null; then
+    run_with_error_handling "📦 Updating Arch packages..." sudo paru -Syu --noconfirm
 elif command -v pacman &>/dev/null; then
-    run_with_error_handling "📦 Updating Pacman packages..." sudo pacman -Syu --noconfirm
+    run_with_error_handling "📦 Updating Arch packages..." sudo pacman -Syu --noconfirm
 else
     echo "⚠️  Unknown package manager. Skipping system update."
 fi

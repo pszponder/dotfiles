@@ -7,8 +7,8 @@ echo "🔧 Running setup..."
 # ======
 # Common
 # ======
-$CHEZMOI_SOURCE_DIR/scripts/common/initialize_home.sh
-$CHEZMOI_SOURCE_DIR/scripts/common/initialize_ssh_config.sh
+$CHEZMOI_SOURCE_DIR/../scripts/common/initialize_home.sh
+$CHEZMOI_SOURCE_DIR/../scripts/common/initialize_ssh_config.sh
 # $CHEZMOI_SOURCE_DIR/scripts/common/install_nerdfonts.sh
 # $CHEZMOI_SOURCE_DIR/scripts/common/install_podman_cli.sh
 
@@ -109,18 +109,18 @@ echo "🐧 Detected Linux distro: $DISTRO_ID"
 
 # Arch
 if [[ "$DISTRO_ID" == "arch" ]]; then
-  $CHEZMOI_SOURCE_DIR/scripts/arch/_install_arch.sh
+  $CHEZMOI_SOURCE_DIR/../scripts/arch/_install_arch.sh
   exit 0
 fi
 
 # Ubuntu or Debian
 if [[ "$DISTRO_ID" == "ubuntu" || "$DISTRO_ID" == "debian" ]]; then
-  $CHEZMOI_SOURCE_DIR/scripts/ubuntu/_install_ubuntu.sh
+  $CHEZMOI_SOURCE_DIR/../scripts/ubuntu/_install_ubuntu.sh
   exit 0
 fi
 
 # Fedora
 if [[ "$DISTRO_ID" == "fedora" ]]; then
-  $CHEZMOI_SOURCE_DIR/scripts/fedora/_install_fedora.sh
+  $CHEZMOI_SOURCE_DIR/../scripts/fedora/_install_fedora.sh
   exit 0
 fi

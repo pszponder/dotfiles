@@ -5,7 +5,7 @@
 ## How to Run / Setup
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/pszponder/dotfiles/main/init.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/pszponder/dotfiles/main/run.sh)"
 ```
 
 What does `init.sh` do?
@@ -48,6 +48,16 @@ Code repositories are organized in the following location: `~/repos/<REMOTE>/<NA
 ## Configuring Git / SSH
 
 Refer to `./docs/ssh_configuration.md` for more information on configuring SSH and Git on your system
+
+## Troubleshooting
+
+### bat warning: Unknown theme 'Catppuccin Mocha'
+
+You need to rebuild bat's cache
+
+```sh
+bat cache --build
+```
 
 ## Resources / References
 

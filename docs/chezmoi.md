@@ -26,6 +26,10 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply --source ~/repos/github/psz
 
 Now, to apply the dotfiles using **chezmoi**, use `chezmoi apply`
 
+## Making edits to dotfiles
+
+**NOTE**: If you want to make changes to files managed by chezmoi, make sure to make the changes from within the chezmoi repo (`chezmoi cd`)
+
 ## Commonly Used Chezmoi Commands
 
 - **chezmoi doctor** - View health / status of chezmoi application

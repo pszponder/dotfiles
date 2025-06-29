@@ -69,16 +69,21 @@ update_ssh_config() {
 
 # Main function
 main() {
-  local os
-  os="$(detect_os)"
-  echo "🔍 Detected OS: $os"
+  read -p "Would you like to initialize your SSH configuration? (y/n): " response
+  if [[ "$response" =~ ^[Yy]$ ]]; then
+    local os
+    os="$(detect_os)"
+    echo "🔍 Detected OS: $os"
 
-  local config_block
-  config_block="$(get_config_block "$os")"
+    local config_block
+    config_block="$(get_config_block "$os")"
 
-  ensure_ssh_directory
-  backup_ssh_config
-  update_ssh_config "$config_block"
+    ensure_ssh_directory
+    backup_ssh_config
+    update_ssh_config "$config_block"
+  else
+    echo "❌ SSH configuration initialization skipped."
+  fi
 }
 
 # Run the main function

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e  # Exit immediately on any error
+
+echo "🔧 Running setup tasks after applying dotfiles..."
+
+# Rebuild bat's cache to ensure custom themes are recognized from dotfiles
+bat cache --build

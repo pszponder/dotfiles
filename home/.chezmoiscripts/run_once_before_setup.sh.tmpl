@@ -4,125 +4,70 @@ set -e  # Exit immediately on any error
 
 echo "🔧 Running setup..."
 
-# Define the location of the scripts in the repo
-SCRIPTS_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")/scripts"
+# # Define the location of the scripts in the repo
+# SCRIPTS_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")/scripts"
 
-# ======
-# Common
-# ======
+# # ======
+# # Common
+# # ======
 
-$SCRIPTS_DIR/common/initialize_home.sh
-$SCRIPTS_DIR/common/initialize_ssh_config.sh
+# # $SCRIPTS_DIR/common/initialize_home.sh
+# # $SCRIPTS_DIR/common/initialize_ssh_config.sh
 
-# ============
-# Detect macOS
-# ============
-if [[ "$(uname)" == "Darwin" ]]; then
-  echo "🍎 Detected macOS"
+# # ============
+# # Detect macOS
+# # ============
+# if [[ "$(uname)" == "Darwin" ]]; then
+#   echo "🍎 Detected macOS"
 
-  # Install brew if not installed
-  if ! command -v brew &>/dev/null; then
-    echo "🔧 Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  else
-    echo "Homebrew is already installed."
-  fi
-
-  # # Install Ansible on macOS
-  # if ! command -v ansible-playbook &>/dev/null; then
-  #   echo "🔧 Installing Ansible (Homebrew)..."
-  #   brew install ansible
-  # fi
-
-  # # Install Ansible galaxy roles
-  # ansible-galaxy collection install community.general
-
-  # # Always run Ansible as workstation on macOS
-  # if command -v ansible-playbook &>/dev/null; then
-  #   echo "🖥️ Installing packages with Ansible..."
-  #   ansible-playbook "$CHEZMOI_SOURCE_DIR/ansible/setup.yml" -K -e workstation=true
-  # else
-  #   echo "⚠️ Ansible not found, skipping Ansible setup."
-  # fi
-
-  exit 0
-fi
-
-# =========================
-# Detect Linux distribution
-# =========================
-echo "🔍 Detecting Linux distribution..."
-if [[ -f /etc/os-release ]]; then
-  . /etc/os-release
-  DISTRO_ID="${ID,,}"
-else
-  echo "❌ Could not determine Linux distribution."
-  exit 1
-fi
-
-echo "🐧 Detected Linux distro: $DISTRO_ID"
-
-# =====================
-# 📦 Common Linux steps
-# =====================
-# $CHEZMOI_SOURCE_DIR/scripts/install_podman_cli.sh
-
-# =====================
-# 📦 Ansible setup
-# =====================
-
-# # Check if Ansible is installed
-# if ! command -v ansible-playbook &>/dev/null; then
-#   echo "🔧 Installing Ansible..."
-#   if command -v apt-get &>/dev/null; then
-#     sudo apt-get update && sudo apt-get install -y ansible
-#   elif command -v dnf &>/dev/null; then
-#     sudo dnf install -y ansible
-#   elif command -v pacman &>/dev/null; then
-#     sudo pacman -Syu ansible --noconfirm
+#   # Install brew if not installed
+#   if ! command -v brew &>/dev/null; then
+#     echo "🔧 Installing Homebrew..."
+#     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 #   else
-#     echo "❌ Could not install Ansible. Please install it manually."
-#     exit 1
+#     echo "Homebrew is already installed."
 #   fi
+
+#   exit 0
 # fi
 
-# # Install Ansible galaxy roles
-# ansible-galaxy collection install community.general
-
-# if command -v ansible-playbook &>/dev/null; then
-#   echo
-#   read -p "Is this a workstation (with GUI apps)? [y/N]: " workstation_answer
-#   if [[ "$workstation_answer" =~ ^[Yy] ]]; then
-#     workstation=true
-#   else
-#     workstation=false
-#   fi
-
-#   echo "🔧 Running Ansible setup (workstation: $workstation)..."
-#   ansible-playbook "$CHEZMOI_SOURCE_DIR/ansible/setup.yml" -K -e workstation="$workstation"
+# # =========================
+# # Detect Linux distribution
+# # =========================
+# echo "🔍 Detecting Linux distribution..."
+# if [[ -f /etc/os-release ]]; then
+#   . /etc/os-release
+#   DISTRO_ID="${ID,,}"
 # else
-#   echo "⚠️ Ansible not found, skipping Ansible setup."
+#   echo "❌ Could not determine Linux distribution."
+#   exit 1
 # fi
 
+# echo "🐧 Detected Linux distro: $DISTRO_ID"
 
-# =================================
-# 📦 Linux distro-specific sections
-# =================================
+# # =====================
+# # 📦 Common Linux steps
+# # =====================
+# # $CHEZMOI_SOURCE_DIR/scripts/install_podman_cli.sh
 
-# Arch
-if [[ "$DISTRO_ID" == "arch" ]]; then
-  $SCRIPTS_DIR/arch/_install_arch.sh
-  exit 0
-fi
+# # =================================
+# # 📦 Linux distro-specific sections
+# # =================================
 
-# Ubuntu or Debian
-if [[ "$DISTRO_ID" == "ubuntu" || "$DISTRO_ID" == "debian" ]]; then
-  $SCRIPTS_DIR/ubuntu/_install_ubuntu.sh
-  exit 0
-fi
+# # Arch
+# if [[ "$DISTRO_ID" == "arch" ]]; then
+#   $SCRIPTS_DIR/arch/_install_arch.sh
+#   exit 0
+# fi
 
-# Fedora
-if [[ "$DISTRO_ID" == "fedora" ]]; then
-  $SCRIPTS_DIR/fedora/_install_fedora.sh
-  exit 0
-fi
+# # Ubuntu or Debian
+# if [[ "$DISTRO_ID" == "ubuntu" || "$DISTRO_ID" == "debian" ]]; then
+#   $SCRIPTS_DIR/ubuntu/_install_ubuntu.sh
+#   exit 0
+# fi
+
+# # Fedora
+# if [[ "$DISTRO_ID" == "fedora" ]]; then
+#   $SCRIPTS_DIR/fedora/_install_fedora.sh
+#   exit 0
+# fi

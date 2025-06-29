@@ -1,9 +1,0 @@
-- name: Install CLI packages on macOS
-  homebrew:
-    name: "{{ brew_packages }}"
-    state: present
-
-- name: Install GUI packages on macOS (casks)
-  homebrew_cask:
-    name: "{{ brew_cask_packages }}"
-    state: present

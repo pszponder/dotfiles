@@ -4,5 +4,11 @@ set -e  # Exit immediately on any error
 
 echo "🔧 Running setup tasks after applying dotfiles..."
 
+# Define the location of the scripts in the repo
+SCRIPTS_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")/scripts"
+
 # Rebuild bat's cache to ensure custom themes are recognized from dotfiles
 bat cache --build
+
+# Run the script to initialize SSH config
+$SCRIPTS_DIR/initialize_ssh_config.sh

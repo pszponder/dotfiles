@@ -2,20 +2,13 @@
 
 ## Prerequisites
 
+- [chezmoi](https://www.chezmoi.io/)
+
 ## How to Run / Setup
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/pszponder/dotfiles/main/install.sh)"
+chezmoi init --apply pszponder
 ```
-
-What does `init.sh` do?
-- Download and install **chezmoi**
-- Download the dotfiles repo to the **chezmoi** directory
-- Apply the dotfiles from the repo to the local machine
-- Performs system setup (installs applications, sets up ssh keys, etc.)
-- Switches chezmoi dotfiles repo from https to ssh
-
-For more information on **chezmoi**, refer to *./docs/chezmoi.md* and the [official chezmoi docs](https://www.chezmoi.io/)
 
 ## Organization
 
@@ -51,14 +44,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 
 ## Troubleshooting
 
-### bat warning: Unknown theme 'Catppuccin Mocha'
-
-You need to rebuild bat's cache
-
-```sh
-bat cache --build
-```
-
 ## Resources / References
 
 Homebrew
@@ -92,7 +77,3 @@ Hyprland
 
 Misc
 - [Boot.dev - How I organize my local development environment](https://blog.boot.dev/misc/how-i-organize-my-local-development-environment/)
-
-
-## Todos
-- Incorporate install scripts from omarchy

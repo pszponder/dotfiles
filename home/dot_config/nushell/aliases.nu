@@ -101,7 +101,7 @@ alias logs = sudo find /var/log -type f | grep 'text' | cut -d' ' -f1 | sed -e's
 # Docker / Podman
 alias d = docker
 alias dc = docker compose
-alias docker = podman
+# alias docker = podman
 alias p = podman
 alias docker-clean = do {
   docker container prune -f;

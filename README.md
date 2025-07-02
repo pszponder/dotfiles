@@ -77,3 +77,17 @@ Hyprland
 
 Misc
 - [Boot.dev - How I organize my local development environment](https://blog.boot.dev/misc/how-i-organize-my-local-development-environment/)
+
+## TODOS
+
+- [TheBlackDon - Linux Playlist](https://youtube.com/playlist?list=PLk4JqtLzOZRQsVQw4SQrqLJdZoyxaziOl&si=5dOo7HOYh14MazX6)
+- [TheBlackDon - What Packages/Tools I Use For My Hyprland Config](https://www.youtube.com/watch?v=luEivVMLf0s)
+- [Meowrch](https://github.com/meowrch/meowrch)
+- [sane1090x - How to Rice Hyprland | Full Guide](https://www.youtube.com/watch?v=Bv_CpFbf84w&t=2734s)
+- [sane1090x - How to rice Hyprland](https://www.youtube.com/playlist?list=PLDK-KGioYK8olxTQHL_bpsopCnAXy2rbk)
+- [HyprAccelerator](https://www.youtube.com/watch?v=Bv_CpFbf84w&t=2734s)
+- [Custom shell prompt](https://www.youtube.com/watch?v=Dz7JUHEls2A)
+- Refer to [this video](https://www.youtube.com/watch?v=JmFZhRUs_mI&list=PLDK-KGioYK8olxTQHL_bpsopCnAXy2rbk&index=7) to set system fonts (`/etc/fonts/local.conf`)
+- [My Linux For Work - Hyprland](https://www.youtube.com/watch?v=EujO_5KvCCo&list=PLZhEtW7iLbnB0Qa0kp9ICLViOp6ty4Rkk)
+- [My Linux for Work - Setup WAYBAR, the status bar for HYPRLAND](https://www.youtube.com/watch?v=rW3JKs1_oVI&t=369s)
+- [My Linux for Work - HYPRLAND Tips and Tricks](https://www.youtube.com/watch?v=rW3JKs1_oVI&t=369s)

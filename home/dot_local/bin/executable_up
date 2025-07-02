@@ -41,23 +41,17 @@ if command -v brew &>/dev/null; then
     run_with_error_handling "🍺 Updating Homebrew..." brew update
     run_with_error_handling "🍺 Upgrading Homebrew packages..." brew upgrade
     run_with_error_handling "🍺 Cleaning up Homebrew..." brew cleanup
-else
-    echo "⚠️  Homebrew not found."
 fi
 
 # 🧩 Update Flatpak apps
 if command -v flatpak &>/dev/null; then
     run_with_error_handling "🧩 Updating Flatpak packages..." flatpak update -y
-else
-    echo "⚠️  Flatpak not found."
 fi
 
 # 🛠️ Update mise and tools
 if command -v mise &>/dev/null; then
     # run_with_error_handling "🛠️ Updating mise..." mise self-update
     run_with_error_handling "📦 Updating mise installed tools..." mise upgrade
-else
-    echo "⚠️  mise not found."
 fi
 
 # Report results

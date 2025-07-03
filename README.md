@@ -73,7 +73,9 @@ Tmux
 - [dreamsofcode-io - tmux](https://github.com/dreamsofcode-io/tmux/blob/main/tmux.conf)
 
 Hyprland
+- [Hyprland - examples](https://github.com/hyprwm/Hyprland/tree/main/example)
 - [Omarchy - DHH Arch Config](https://omarchy.org/)
+- [ML4W Dotfiles for Hyprland](https://github.com/mylinuxforwork/dotfiles)
 
 Misc
 - [Boot.dev - How I organize my local development environment](https://blog.boot.dev/misc/how-i-organize-my-local-development-environment/)

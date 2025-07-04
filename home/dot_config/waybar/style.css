@@ -3,7 +3,7 @@
   border-radius: 0;
   min-height: 0;
   font-family: CaskaydiaMono Nerd Font;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 #workspaces {
@@ -16,13 +16,15 @@
   margin-right: 3px;
 }
 
-#custom-dropbox,
 #cpu,
 #power-profiles-daemon,
 #battery,
 #network,
 #bluetooth,
 #pulseaudio,
+#custom-weather,
+#custom-updates,
+#custom-launcher,
 #clock {
   min-width: 12px;
   margin-right: 13px;
@@ -39,4 +41,9 @@ tooltip label {
 * {
   color: #cdd6f4;
   background-color: #181824;
+}
+
+#custom-launcher {
+  margin-right: 0;
+  margin-left: 1rem;
 }

@@ -82,6 +82,7 @@ Misc
 
 ## TODOS
 
+- [HYPRLAND w/ swaylogk and wlogout. Beautiful logout menu and lock screen automated with swayidle](https://www.youtube.com/watch?v=ptmiPG_V4u8)
 - [TheBlackDon - Linux Playlist](https://youtube.com/playlist?list=PLk4JqtLzOZRQsVQw4SQrqLJdZoyxaziOl&si=5dOo7HOYh14MazX6)
 - [TheBlackDon - What Packages/Tools I Use For My Hyprland Config](https://www.youtube.com/watch?v=luEivVMLf0s)
 - [Meowrch](https://github.com/meowrch/meowrch)

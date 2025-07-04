@@ -1,126 +1,184 @@
 {
   "layer": "top",
-    "position": "top",
-    "spacing": 0,
-    "height": 26,
-    "modules-left": [
-      "hyprland/workspaces"
-    ],
-    "modules-center": [
-      "clock"
-    ],
-    "modules-right": [
-      "custom/dropbox",
-      "bluetooth",
-      "network",
-      "pulseaudio",
-      "cpu",
-      "power-profiles-daemon",
-      "battery"
-    ],
-    "hyprland/workspaces": {
-      "on-click": "activate",
-      "format": "{icon}",
-      "format-icons": {
-        "default": "",
-        "1": "1",
-        "2": "2",
-        "3": "3",
-        "4": "4",
-        "5": "5",
-        "6": "6",
-        "7": "7",
-        "8": "8",
-        "9": "9",
-        "active": "󱓻"
-      },
-      "persistent_workspaces": {
-        "1": [],
-        "2": [],
-        "3": [],
-        "4": [],
-        "5": []
-      }
+  "position": "top",
+  "spacing": 0,
+  "height": 26,
+  "modules-left": [
+    "custom/launcher",
+    "hyprland/workspaces"
+  ],
+  "modules-center": [
+    "hyprland/window"
+  ],
+  "modules-right": [
+    "custom/updates",
+    "network",
+    "bluetooth",
+    "pulseaudio",
+    "cpu",
+    "power-profiles-daemon",
+    "battery",
+    "clock"
+  ],
+  "custom/launcher": {
+    "format": "󰣇",
+    "on-click": "wofi --show drun"
+  },
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "default": "",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "active": "󱓻"
     },
-    "cpu": {
-      "interval": 5,
-      "format": "󰍛",
-      "on-click": "alacritty -e btop"
-    },
-    "clock": {
-      "format": "{:%A %H:%M}",
-      "format-alt": "{:%d %B W%V %Y}",
-      "tooltip": false
-    },
-    "network": {
-      "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
-      "format" : "{icon}",
-      "format-wifi" : "{icon}",
-      "format-ethernet" : "󰀂",
-      "format-disconnected" : "󰖪",
-      "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-      "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-      "tooltip-format-disconnected": "Disconnected",
-      "interval": 3,
-      "nospacing": 1,
-      "on-click": "alacritty -e iwctl"
-    },
-    "battery": {
-      "interval": 5,
-      "format": "{capacity}% {icon}",
-      "format-discharging": "{icon}",
-      "format-charging":    "{icon}",
-      "format-plugged":     "",
-        "format-icons": {
-          "charging": [
-            "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"
-          ],
-          "default": [
-            "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
-          ]
-        },
-      "format-full": "Charged ",
-      "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
-      "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
-      "interval": 5,
-      "states": {
-        "warning": 20,
-        "critical": 10
-      }
-    },
-    "bluetooth": {
-      "format": "",
-      "format-disabled": "󰂲",
-      "format-connected": "",
-      "tooltip-format": "Devices connected: {num_connections}",
-      "on-click": "GTK_THEME=Adwaita-dark blueberry"
-    },
-    "pulseaudio": {
-      "format": "",
-      "format-muted": "󰝟",
-      "scroll-step": 5,
-      "on-click": "GTK_THEME=Adwaita-dark pavucontrol",
-      "tooltip-format": "Playing at {volume}%",
-      "on-click-right": "pamixer -t",
-      "ignored-sinks": ["Easy Effects Sink"]
-    },
-    "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}",
-      "tooltip": true,
-      "format-icons": {
-        "power-saver": "󰡳",
-        "balanced":     "󰊚",
-        "performance":  "󰡴"
-      }
-    },
-    "custom/dropbox": {
-      "format": "",
-      "on-click": "nautilus ~/Dropbox",
-      "exec": "dropbox-cli status",
-      "return-type": "text",
-      "interval": 5,
-      "tooltip": true,
-      "tooltip-format": "{}"
+    "persistent_workspaces": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": [],
+      "5": []
     }
+  },
+  "cpu": {
+    "interval": 5,
+    "format": "󰍛",
+    "on-click": "alacritty -e btop"
+  },
+  "clock": {
+    "format": "{:%A %I:%M %p}",
+    "format-alt": "{:%d %B W%V %Y}",
+    "tooltip": false
+  },
+  "network": {
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "format": "{icon}",
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰀂",
+    "format-disconnected": "󰖪",
+    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-disconnected": "Disconnected",
+    "interval": 3,
+    "nospacing": 1,
+    "on-click": "alacritty -e iwctl"
+  },
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-discharging": "{icon}",
+    "format-charging": "{icon}",
+    "format-plugged": "",
+    "format-icons": {
+      "charging": [
+        "󰢜",
+        "󰂆",
+        "󰂇",
+        "󰂈",
+        "󰢝",
+        "󰂉",
+        "󰢞",
+        "󰂊",
+        "󰂋",
+        "󰂅"
+      ],
+      "default": [
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
+      ]
+    },
+    "format-full": "Charged ",
+    "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
+    "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
+    "interval": 5,
+    "states": {
+      "warning": 20,
+      "critical": 10
+    }
+  },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "󰂲",
+    "format-connected": "",
+    "tooltip-format": "Devices connected: {num_connections}",
+    "on-click": "GTK_THEME=Adwaita-dark blueberry"
+  },
+  "pulseaudio": {
+    "format": "",
+    "format-muted": "󰝟",
+    "scroll-step": 5,
+    "on-click": "GTK_THEME=Adwaita-dark pavucontrol",
+    "tooltip-format": "Playing at {volume}%",
+    "on-click-right": "pamixer -t",
+    "ignored-sinks": [
+      "Easy Effects Sink"
+    ]
+  },
+  "custom/media": {
+    "format": "{icon} {}",
+    "escape": true,
+    "return-type": "json",
+    "max-length": 40,
+    "on-click": "playerctl play-pause",
+    "on-click-right": "playerctl stop",
+    "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous",
+    "exec": "$HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null", // Script in resources/custom_modules folder
+  },
+  "custom/updates": {
+    "format": "{} ",
+    "interval": 3600, // every hour
+    "exec": "checkupdates | wc -l", // # of updates
+    "exec-if": "exit 0", // always run; consider advanced run conditions
+    "on-click": "ghostty -e 'yay -Syu'; pkill -SIGRTMIN+8 waybar", // update system
+    "signal": 8
+  },
+  "custom/weather": {
+    "exec": "${HOME}/.config/waybar/scripts/get_weather.sh",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "interval": 900
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}",
+    "tooltip": true,
+    "format-icons": {
+      "power-saver": "󰡳",
+      "balanced": "󰊚",
+      "performance": "󰡴"
+    }
+  },
+  "hyprland/window": {
+    "format": "{}",
+    "empty-text": "Desktop",
+    "rewrite": {
+      "(.*) — Mozilla Firefox": "🌎 $1",
+      "(.*) - fish": "> [$1]"
+    },
+    "separate-outputs": true
+  }
 }

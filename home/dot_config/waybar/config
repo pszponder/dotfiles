@@ -16,7 +16,6 @@
     "bluetooth",
     "pulseaudio",
     "cpu",
-    "power-profiles-daemon",
     "battery",
     "clock"
   ],

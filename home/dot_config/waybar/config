@@ -8,7 +8,8 @@
     "hyprland/workspaces"
   ],
   "modules-center": [
-    "hyprland/window"
+    // "hyprland/window"
+    "clock"
   ],
   "modules-right": [
     "custom/updates",
@@ -16,12 +17,11 @@
     "bluetooth",
     "pulseaudio",
     "cpu",
-    "battery",
-    "clock"
+    "battery"
   ],
   "custom/launcher": {
     "format": "󰣇",
-    "on-click": "wofi --show drun"
+    "on-click": "rofi -show drun"
   },
   "hyprland/workspaces": {
     "on-click": "activate",
@@ -39,13 +39,14 @@
       "9": "9",
       "active": "󱓻"
     },
-    "persistent_workspaces": {
-      "1": [],
-      "2": [],
-      "3": [],
-      "4": [],
-      "5": []
-    }
+    // "persistent_workspaces": {
+    //   "1": [],
+    //   "2": [],
+    //   "3": [],
+    //   "4": [],
+    //   "5": [],
+    //   "6": []
+    // }
   },
   "cpu": {
     "interval": 5,
@@ -151,7 +152,7 @@
     "interval": 3600, // every hour
     "exec": "checkupdates | wc -l", // # of updates
     "exec-if": "exit 0", // always run; consider advanced run conditions
-    "on-click": "ghostty -e 'yay -Syu'; pkill -SIGRTMIN+8 waybar", // update system
+    "on-click": "ghostty -e 'yay -Syu' --noconfirm; pkill -SIGRTMIN+8 waybar", // update system
     "signal": 8
   },
   "custom/weather": {

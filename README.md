@@ -77,11 +77,16 @@ Hyprland
 - [Omarchy - DHH Arch Config](https://omarchy.org/)
 - [ML4W Dotfiles for Hyprland](https://github.com/mylinuxforwork/dotfiles)
 
+Rofi
+- [Eric Murphy - How to Setup and Configure Rofi (The Best App Launcher)](https://www.youtube.com/watch?v=TutfIwxSE_s)
+
 Misc
 - [Boot.dev - How I organize my local development environment](https://blog.boot.dev/misc/how-i-organize-my-local-development-environment/)
 
 ## TODOS
-
+- Fix brave browser asking for keyring authentication each time (potentially by installing via recommended cli command instead of from aur)
+- Update browser to use Brave
+- Change tiling pattern
 - [HYPRLAND w/ swaylogk and wlogout. Beautiful logout menu and lock screen automated with swayidle](https://www.youtube.com/watch?v=ptmiPG_V4u8)
 - [TheBlackDon - Linux Playlist](https://youtube.com/playlist?list=PLk4JqtLzOZRQsVQw4SQrqLJdZoyxaziOl&si=5dOo7HOYh14MazX6)
 - [TheBlackDon - What Packages/Tools I Use For My Hyprland Config](https://www.youtube.com/watch?v=luEivVMLf0s)
@@ -94,3 +99,4 @@ Misc
 - [My Linux For Work - Hyprland](https://www.youtube.com/watch?v=EujO_5KvCCo&list=PLZhEtW7iLbnB0Qa0kp9ICLViOp6ty4Rkk)
 - [My Linux for Work - Setup WAYBAR, the status bar for HYPRLAND](https://www.youtube.com/watch?v=rW3JKs1_oVI&t=369s)
 - [My Linux for Work - HYPRLAND Tips and Tricks](https://www.youtube.com/watch?v=rW3JKs1_oVI&t=369s)
+- [HyDE](https://github.com/HyDE-Project/HyDE)

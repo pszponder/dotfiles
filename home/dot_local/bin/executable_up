@@ -36,16 +36,21 @@ else
     echo "⚠️  Unknown package manager. Skipping system update."
 fi
 
-# 🍺 Update Homebrew packages
-if command -v brew &>/dev/null; then
-    run_with_error_handling "🍺 Updating Homebrew..." brew update
-    run_with_error_handling "🍺 Upgrading Homebrew packages..." brew upgrade
-    run_with_error_handling "🍺 Cleaning up Homebrew..." brew cleanup
+# Update Snap packages
+if command -v snap &>/dev/null; then
+    run_with_error_handling "🔄 Updating Snap packages..." sudo snap refresh
 fi
 
 # 🧩 Update Flatpak apps
 if command -v flatpak &>/dev/null; then
     run_with_error_handling "🧩 Updating Flatpak packages..." flatpak update -y
+fi
+
+# 🍺 Update Homebrew packages
+if command -v brew &>/dev/null; then
+    run_with_error_handling "🍺 Updating Homebrew..." brew update
+    run_with_error_handling "🍺 Upgrading Homebrew packages..." brew upgrade
+    run_with_error_handling "🍺 Cleaning up Homebrew..." brew cleanup
 fi
 
 # 🛠️ Update mise and tools

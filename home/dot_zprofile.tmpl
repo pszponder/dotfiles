@@ -1,0 +1,6 @@
+{{- /* Only execute Hyprland if on Arch and Hyprland is installed */ -}}
+{{- if and (eq .chezmoi.osRelease.ID "arch") (exec "command" "-v" "Hyprland") -}}
+if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+  exec Hyprland
+fi
+{{- end }}

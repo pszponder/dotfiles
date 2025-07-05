@@ -25,7 +25,7 @@
 #custom-weather,
 #custom-updates,
 #custom-launcher,
-#clock {
+#custom-power #clock {
   min-width: 12px;
   margin-right: 13px;
   padding-right: 0.5rem;
@@ -47,4 +47,9 @@ tooltip label {
 #custom-launcher {
   margin-right: 0;
   margin-left: 1rem;
+}
+
+#custom-power {
+  margin-right: 1rem;
+  margin-left: 0;
 }

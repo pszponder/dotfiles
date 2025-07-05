@@ -89,6 +89,8 @@ Misc
 - [Boot.dev - How I organize my local development environment](https://blog.boot.dev/misc/how-i-organize-my-local-development-environment/)
 
 ## TODOS
+- Add network selection options to waybar
+    - https://github.com/mylinuxforwork/dotfiles/tree/main/share/dotfiles/.config/waybar
 - Fix brave browser asking for keyring authentication each time (potentially by installing via recommended cli command instead of from aur)
 - Update browser to use Brave
 - Change tiling pattern

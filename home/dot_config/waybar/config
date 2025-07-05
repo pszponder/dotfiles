@@ -17,11 +17,16 @@
     "bluetooth",
     "pulseaudio",
     "cpu",
-    "battery"
+    "battery",
+    "custom/power"
   ],
   "custom/launcher": {
     "format": "󰣇",
     "on-click": "rofi -show drun"
+  },
+  "custom/power": {
+    "format": "⏻",
+    "on-click": "wlogout -b 5"
   },
   "hyprland/workspaces": {
     "on-click": "activate",
@@ -75,7 +80,7 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "nospacing": 1,
-    "on-click": "alacritty -e iwctl"
+    "on-click": "ghostty -e iwctl"
   },
   "battery": {
     "format": "{capacity}% {icon}",

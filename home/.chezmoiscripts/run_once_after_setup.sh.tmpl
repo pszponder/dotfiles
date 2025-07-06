@@ -12,3 +12,18 @@ bat cache --build
 
 # Run the script to initialize SSH config
 $SCRIPTS_DIR/initialize_ssh_config.sh
+
+# Run update script
+up
+
+# Setup SSH Keys
+read -rp "❓ Do you want to setup SSH Keys? [y/N]: " response
+case "$response" in
+  [yY][eE][sS]|[yY])
+    echo "🔑 Setting up SSH keys..."
+    sshkeygen
+    ;;
+  *)
+    echo "❌ Skipping SSH Key generation."
+    ;;
+esac

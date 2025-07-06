@@ -1,0 +1,11 @@
+{
+    0: (
+        name: "catppuccin",
+        command: "/usr/bin/fish",
+        syntax_theme_dark: "Catppuccin Mocha",
+        syntax_theme_light: "COSMIC Light",
+        tab_title: "",
+        working_directory: "",
+        hold: false,
+    ),
+}

@@ -44,6 +44,54 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 
 ## Troubleshooting
 
+## Shortcuts - Cosmic Desktop
+
+### Windows
+- Close Window
+    - Super + Q
+- Focus Window
+    - Super + h,j,k,l
+- Move Window
+    - Super + Shift + h,j,k,l
+- Maximize Window
+    - Super + M
+- Minimize Window
+    - Super + Shift + M
+- Resize Window Inwards
+    - Super + Shift + R
+- Resize Window Outwards
+    - Super + R
+
+### Workspaces
+- Switch to Workspace 1-9
+    - Super + 1-9
+- Move Window to Workspace 1-9
+    - Super + Shift + 1-9
+- Move Window to Next Workspace
+    - Super + Shift + Ctrl + L
+- Move Window to Prev Workspace
+    - Super + Shift + Ctrl + H
+
+### Misc
+- Switch between open windows
+    - Alt + Tab
+    - Super + Tab
+- Open App Library
+    - Super + A
+- Open Launcher
+    - Super
+    - Super + /
+- Open Workspace Overview
+    - Super + W
+- Lock The Screen
+    - Super + Escape
+- Open Default Terminal
+    - Super + T
+- Open Default Browser
+    - Super + B
+- Open File Explorer
+    - Super + F
+
 ## Resources / References
 
 Homebrew
@@ -89,6 +137,9 @@ Misc
 - [Boot.dev - How I organize my local development environment](https://blog.boot.dev/misc/how-i-organize-my-local-development-environment/)
 
 ## TODOS
+
+### Arch - Hyprland
+
 - Add network selection options to waybar
     - https://github.com/mylinuxforwork/dotfiles/tree/main/share/dotfiles/.config/waybar
 - Fix brave browser asking for keyring authentication each time (potentially by installing via recommended cli command instead of from aur)
@@ -101,3 +152,8 @@ Misc
 - Refer to [this video](https://www.youtube.com/watch?v=JmFZhRUs_mI&list=PLDK-KGioYK8olxTQHL_bpsopCnAXy2rbk&index=7) to set system fonts (`/etc/fonts/local.conf`)
 - [My Linux For Work - Hyprland](https://www.youtube.com/watch?v=EujO_5KvCCo&list=PLZhEtW7iLbnB0Qa0kp9ICLViOp6ty4Rkk)
 - [My Linux for Work - Setup WAYBAR, the status bar for HYPRLAND](https://www.youtube.com/watch?v=rW3JKs1_oVI&t=369s)
+
+### Fedora - Cosmic
+- Update keybindings for:
+    - Enable alt+tab?
+- Add ~/.config/cosmic to dotfiles

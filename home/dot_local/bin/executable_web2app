@@ -1,41 +1,71 @@
-#!/bin/bash
-# web2app.sh - Create a desktop launcher for a web app
-# Usage: ./web2app.sh <AppName> <AppURL> <IconURL>
+#!/usr/bin/env bash
+# web2app.sh - Create a desktop launcher for a web app using Brave, Chrome, or Chromium
 
+set -euo pipefail
+
+# ------------------------
+# 🔧 Validate Arguments
+# ------------------------
 if [ "$#" -ne 3 ]; then
-    echo "Usage: $0 <AppName> <AppURL> <IconURL>"
-    echo "IconURL must be in PNG format (try https://dashboardicons.com)"
-    echo "Example: $0 'Gmail' 'https://gmail.com' 'https://example.com/gmail-icon.png'"
-    exit 1
+  echo "Usage: $0 <AppName> <AppURL> <IconURL>"
+  echo "Example: $0 'Gmail' 'https://mail.google.com' 'https://example.com/gmail.png'"
+  exit 1
 fi
 
 APP_NAME="$1"
 APP_URL="$2"
 ICON_URL="$3"
+
 ICON_DIR="$HOME/.local/share/applications/icons"
-DESKTOP_FILE="$HOME/.local/share/applications/${APP_NAME}.desktop"
 ICON_PATH="${ICON_DIR}/${APP_NAME}.png"
+DESKTOP_FILE="$HOME/.local/share/applications/${APP_NAME}.desktop"
 
 mkdir -p "$ICON_DIR"
 
-if ! curl -sL -o "$ICON_PATH" "$ICON_URL"; then
-    echo "Error: Failed to download icon."
-    exit 1
+# ------------------------
+# 🌐 Detect Available Browser
+# ------------------------
+get_browser_command() {
+  local candidates=("brave" "brave-browser" "google-chrome" "chromium" "chromium-browser")
+
+  for cmd in "${candidates[@]}"; do
+    if command -v "$cmd" &>/dev/null; then
+      echo "$cmd"
+      return 0
+    fi
+  done
+
+  echo "❌ No supported browser found (brave, brave-browser, google-chrome, chromium)" >&2
+  exit 1
+}
+
+BROWSER_CMD=$(get_browser_command)
+echo "🌐 Using browser: $BROWSER_CMD"
+
+# ------------------------
+# 🖼 Download Icon
+# ------------------------
+if ! curl -fsSL -o "$ICON_PATH" "$ICON_URL"; then
+  echo "❌ Failed to download icon from $ICON_URL"
+  exit 1
 fi
 
+# ------------------------
+# 🖥 Create .desktop Entry
+# ------------------------
 cat > "$DESKTOP_FILE" <<EOF
 [Desktop Entry]
 Version=1.0
 Name=$APP_NAME
-Comment=$APP_NAME
-Exec=google-chrome --app="$APP_URL" --name="$APP_NAME" --class="$APP_NAME" --window-size=800,600
+Comment=$APP_NAME Web App
+Exec=$BROWSER_CMD --app="$APP_URL" --class="$APP_NAME"
 Terminal=false
 Type=Application
 Icon=$ICON_PATH
-Categories=GTK;
-MimeType=text/html;text/xml;application/xhtml_xml;
+Categories=Network;WebBrowser;
 StartupNotify=true
 EOF
 
 chmod +x "$DESKTOP_FILE"
-echo "Desktop launcher created for $APP_NAME"
+
+echo "✅ Desktop launcher created for $APP_NAME using $BROWSER_CMD"

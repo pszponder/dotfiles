@@ -1,0 +1,13 @@
+[
+    Home,
+    Documents,
+    Downloads,
+    Music,
+    Pictures,
+    Videos,
+    Path("/home/piotr/repos/github/pszponder"),
+    Path("/home/piotr/.local/share/chezmoi"),
+    Path("/home/piotr/courses"),
+    Path("/home/piotr/resources"),
+    Path("/home/piotr/sandbox"),
+]

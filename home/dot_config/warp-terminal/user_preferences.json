@@ -1,6 +1,6 @@
 {
   "prefs": {
-    "WelcomeTipsFeaturesUsed": "[{\"Action\":\"ThemePicker\"},{\"Hint\":\"BlockSelect\"},{\"Hint\":\"CreateBlock\"}]",
+    "WelcomeTipsFeaturesUsed": "[{\"Hint\":\"CreateBlock\"},{\"Action\":\"ThemePicker\"},{\"Hint\":\"BlockSelect\"},{\"Hint\":\"BlockAction\"}]",
     "NewSessionShellOverride": "{\"Executable\":\"/usr/bin/fish\"}",
     "FontName": "\"CaskaydiaCove Nerd Font\"",
     "AliasExpansionBannerSeen": "true",

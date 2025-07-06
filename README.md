@@ -154,6 +154,3 @@ Misc
 - [My Linux for Work - Setup WAYBAR, the status bar for HYPRLAND](https://www.youtube.com/watch?v=rW3JKs1_oVI&t=369s)
 
 ### Fedora - Cosmic
-- Update keybindings for:
-    - Enable alt+tab?
-- Add ~/.config/cosmic to dotfiles

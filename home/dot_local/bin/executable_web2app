@@ -1,5 +1,6 @@
-#!/usr/bin/env bash
-# web2app.sh - Create a desktop launcher for a web app using Brave, Chrome, or Chromium
+#!/bin/bash
+# web2app.sh - Create a desktop launcher for a web app
+# Usage: ./web2app.sh <AppName> <AppURL> <IconURL>
 
 set -euo pipefail
 
@@ -7,9 +8,10 @@ set -euo pipefail
 # 🔧 Validate Arguments
 # ------------------------
 if [ "$#" -ne 3 ]; then
-  echo "Usage: $0 <AppName> <AppURL> <IconURL>"
-  echo "Example: $0 'Gmail' 'https://mail.google.com' 'https://example.com/gmail.png'"
-  exit 1
+    echo "Usage: $0 <AppName> <AppURL> <IconURL>"
+    echo "IconURL must be in PNG format (try https://dashboardicons.com)"
+    echo "Example: $0 'Gmail' 'https://gmail.com' 'https://example.com/gmail-icon.png'"
+    exit 1
 fi
 
 APP_NAME="$1"
@@ -17,61 +19,52 @@ APP_URL="$2"
 ICON_URL="$3"
 
 ICON_DIR="$HOME/.local/share/applications/icons"
-ICON_PATH="${ICON_DIR}/${APP_NAME}.png"
 DESKTOP_FILE="$HOME/.local/share/applications/${APP_NAME}.desktop"
+ICON_PATH="${ICON_DIR}/${APP_NAME}.png"
 
 mkdir -p "$ICON_DIR"
 
 # ------------------------
 # 🌐 Detect Available Browser
 # ------------------------
-get_browser_command() {
-  local candidates=("brave" "brave-browser" "google-chrome" "chromium" "chromium-browser")
-
- local browser_cmd=""
-
-  for cmd in "${browser_candidates[@]}"; do
-    if command -v "$cmd" &>/dev/null; then
-      browser_cmd="$(command -v "$cmd")"
-      break
-    fi
-  done
-
-  if [[ -z "$browser_cmd" ]]; then
-    echo "❌ No supported browser found (brave, chrome, chromium)." >&2
+detect_browser() {
+    local candidates=("brave" "brave-browser" "chrome" "google-chrome" "chromium")
+    for browser in "${candidates[@]}"; do
+        if command -v "$browser" &>/dev/null; then
+            echo "$browser"
+            return 0
+        fi
+    done
+    echo "Error: No supported browser found (brave, chrome, chromium)." >&2
     exit 1
-  fi
-
-  echo "🌐 Using browser: $browser_cmd"
 }
 
-BROWSER_CMD=$(get_browser_command)
-echo "🌐 Using browser: $BROWSER_CMD"
+BROWSER_CMD="$(detect_browser)"
 
 # ------------------------
 # 🖼 Download Icon
 # ------------------------
-if ! curl -fsSL -o "$ICON_PATH" "$ICON_URL"; then
-  echo "❌ Failed to download icon from $ICON_URL"
-  exit 1
+if ! curl -sL -o "$ICON_PATH" "$ICON_URL"; then
+    echo "Error: Failed to download icon."
+    exit 1
 fi
 
 # ------------------------
-# 🖥 Create .desktop Entry
+# 🧷 Create .desktop File
 # ------------------------
 cat > "$DESKTOP_FILE" <<EOF
 [Desktop Entry]
 Version=1.0
 Name=$APP_NAME
-Comment=$APP_NAME Web App
-Exec=$BROWSER_CMD --app="$APP_URL" --class="$APP_NAME"
+Comment=$APP_NAME
+Exec=$BROWSER_CMD --new-window --app="$APP_URL" --name="$APP_NAME" --class="$APP_NAME"
 Terminal=false
 Type=Application
 Icon=$ICON_PATH
-Categories=Network;WebBrowser;
+Categories=GTK;
+MimeType=text/html;text/xml;application/xhtml_xml;
 StartupNotify=true
 EOF
 
 chmod +x "$DESKTOP_FILE"
-
 echo "✅ Desktop launcher created for $APP_NAME using $BROWSER_CMD"

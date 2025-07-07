@@ -28,15 +28,21 @@ mkdir -p "$ICON_DIR"
 get_browser_command() {
   local candidates=("brave" "brave-browser" "google-chrome" "chromium" "chromium-browser")
 
-  for cmd in "${candidates[@]}"; do
+ local browser_cmd=""
+
+  for cmd in "${browser_candidates[@]}"; do
     if command -v "$cmd" &>/dev/null; then
-      echo "$cmd"
-      return 0
+      browser_cmd="$(command -v "$cmd")"
+      break
     fi
   done
 
-  echo "❌ No supported browser found (brave, brave-browser, google-chrome, chromium)" >&2
-  exit 1
+  if [[ -z "$browser_cmd" ]]; then
+    echo "❌ No supported browser found (brave, chrome, chromium)." >&2
+    exit 1
+  fi
+
+  echo "🌐 Using browser: $browser_cmd"
 }
 
 BROWSER_CMD=$(get_browser_command)

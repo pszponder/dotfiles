@@ -1,3 +1,3 @@
 {
-    Terminal: "warp-terminal %U",
+    Terminal: "cosmic-term",
 }

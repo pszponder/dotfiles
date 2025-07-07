@@ -4,3 +4,6 @@ go = "latest"
 node = "latest"
 deno = "latest"
 usage = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]

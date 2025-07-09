@@ -52,4 +52,6 @@ if status is-interactive
         zoxide init fish | source
     end
 
+    # Warpify subshells (if using Warp terminal)
+    printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\x9c'
 end

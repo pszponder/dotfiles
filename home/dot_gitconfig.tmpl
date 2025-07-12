@@ -4,15 +4,18 @@
 
 # include for all .git projects under ~/repos/github/pszponder
 # Copy this pattern for any other git repos
-[includeIf "gitdir:~/repos/github/pszponder/**"]
-    path = ~/.gitconfig_github_pszponder
+[includeIf "gitdir:{{ .chezmoi.homeDir }}/repos/github/pszponder/**"]
+    path = {{ .chezmoi.homeDir }}/.gitconfig_github_pszponder
 
-[includeIf "gitdir:~/.local/share/chezmoi/"]
-    path = ~/.gitconfig_github_pszponder
+[includeIf "gitdir:{{ .chezmoi.homeDir }}/.local/share/chezmoi/"]
+    path = {{ .chezmoi.homeDir }}/.gitconfig_github_pszponder
+
+[init]
+    defaultBranch = main
 
 [core]
     editor = nvim
-    excludesfile = ~/.config/git/.gitignore  # always ignore the patterns listed in this file
+    excludesfile = {{ .chezmoi.homeDir }}/.config/git/.gitignore  # always ignore the patterns listed in this file
     autocrlf = input # convert CRLF to LF on commit
     pager = delta --dark # use delta for paging
     # pager = less

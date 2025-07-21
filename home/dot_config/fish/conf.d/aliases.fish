@@ -132,6 +132,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rm='trash -v'
 alias ps='ps auxf'
+alias up='topgrade -y'
 
 # Retry last command with sudo
 function '!!'

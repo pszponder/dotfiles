@@ -72,6 +72,7 @@
   "preview_tabs": {
     "enable_preview_from_file_finder": true
   },
+  "show_whitespaces": "boundary",
   "file_scan_inclusions": [".env"],
   "languages": {
     "Python": {
@@ -90,6 +91,10 @@
           }
         }
       ]
+    },
+    "Markdown": {
+      "format_on_save": "on",
+      "remove_trailing_whitespace_on_save": true
     }
   }
 }

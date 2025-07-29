@@ -1,4 +1,21 @@
 ---
-"editor_view:up": none
-"workspace:toggle_command_palette": ctrl-p
 "workspace:toggle_keybindings_page": none
+"app:reopen_closed_session": ctrl-shift-T
+"workspace:new_tab": ctrl-t
+"pane_group:navigate_left": alt-h
+Close Workflow: ctrl-w
+"pane_group:navigate_up": alt-k
+"editor_view:cut_word_left": none
+"pane_group:add_left": ctrl-shift-H
+"terminal:clear_blocks": none
+"notebookview:focus_terminal_input": none
+"pane_group:add_right": ctrl-shift-L
+"editor_view:up": none
+"pane_group:add_down": ctrl-shift-J
+"terminal:focus_input": none
+"ai_assistant_panel:focus_terminal_input": none
+"pane_group:navigate_down": alt-j
+"workspace:toggle_command_palette": ctrl-p
+"pane_group:navigate_right": alt-l
+"ai_assistant_panel:reset_context": none
+"pane_group:add_up": ctrl-shift-K

@@ -7,6 +7,16 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+    "show_edit_predictions": true,
+    "edit_predictions": {
+        "mode": "subtle",
+        "copilot": {
+            "proxy": null,
+            "proxy_no_verify": null,
+            "enterprise_uri": null
+        },
+        "enabled_in_text_threads": false
+    },
     "icon_theme": "Catppuccin Mocha",
     "ui_font_size": 16,
     "ui_font_family": "CaskaydiaCove Nerd Font",
@@ -48,7 +58,6 @@
         "enabled": true,
         "coloring": "indent_aware"
     },
-    "show_edit_predictions": false,
     // Word Wrap
     "wrap_guides": [88],
     "show_wrap_guides": true,
@@ -99,6 +108,14 @@
         "Markdown": {
             "format_on_save": "on",
             "remove_trailing_whitespace_on_save": true
+        }
+    },
+    "lsp": {
+        "omnisharp": {
+            "binary": {
+                "path": "/path/to/OmniSharp",
+                "arguments": ["optional", "additional", "args", "-lsp"]
+            }
         }
     }
 }

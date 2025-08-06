@@ -85,6 +85,18 @@
     "show_whitespaces": "boundary",
     "file_scan_inclusions": [".env"],
     "languages": {
+        "Shell Script": {
+            "format_on_save": "on",
+            // "tab_size": 2,
+            // "hard_tabs": false,
+            "formatter": {
+                "external": {
+                    "command": "shfmt",
+                    // Change `--indent 2` to match your preferred tab_size
+                    "arguments": ["--filename", "{buffer_path}", "--indent", "4"]
+                }
+            }
+        },
         "JSON": {
             "format_on_save": "on"
         },

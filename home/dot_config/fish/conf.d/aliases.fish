@@ -138,3 +138,70 @@ alias up='topgrade -y'
 function '!!'
     eval commandline -rp | string escape --style=script | xargs sudo fish -c
 end
+
+# 🐙 GitHub CLI aliases
+alias ghst='gh status'
+alias ghissues='gh issue list'
+alias ghprs='gh pr list'
+
+# List repositories
+alias ghls='gh repo list'                          # List your repos
+alias ghlsp='gh repo list --source'                # List only source repos (no forks)
+alias ghlsf='gh repo list --fork'                  # List only forked repos  
+alias ghlspub='gh repo list --visibility public'   # List only public repos
+alias ghlspriv='gh repo list --visibility private' # List only private repos
+
+# Create new GitHub repo from current directory and push
+function ghnew
+    set -l repo_name (basename (pwd))
+    if test (count $argv) -ge 1
+        set repo_name $argv[1]
+    end
+    echo "Creating public GitHub repo: $repo_name"
+    gh repo create $repo_name --public --source=. --remote=origin --push
+end
+
+# Create new private GitHub repo from current directory and push
+function ghnewp
+    set -l repo_name (basename (pwd))
+    if test (count $argv) -ge 1
+        set repo_name $argv[1]
+    end
+    echo "Creating private GitHub repo: $repo_name"
+    gh repo create $repo_name --private --source=. --remote=origin --push
+end
+
+# Clone repo and cd into it
+function ghclone
+    if test (count $argv) -eq 0
+        echo "Usage: ghclone <repo>"
+        return 1
+    end
+    gh repo clone $argv[1]
+    set -l repo_name (basename $argv[1])
+    cd $repo_name
+end
+
+# Fork a repo and clone it
+function ghfork
+    if test (count $argv) -eq 0
+        echo "Usage: ghfork <repo>"
+        return 1
+    end
+    gh repo fork $argv[1] --clone
+    set -l repo_name (basename $argv[1])
+    cd $repo_name
+end
+
+# Create pull request
+function ghpr
+    if test (count $argv) -eq 0
+        gh pr create --web
+    else
+        gh pr create --title "$argv[1]" --web
+    end
+end
+
+# Open current repo in browser
+alias ghview='gh repo view --web'
+alias ghopen='gh repo view --web'

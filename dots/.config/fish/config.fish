@@ -3,12 +3,6 @@
 # Only configure in interactive shells
 if status is-interactive
 
-    # Source shared environment variables
-    if test -f ~/.config/env.sh
-        # TODO: Will this work correctly in fish shell?
-        source ~/.config/env.sh ^/dev/null
-    end
-
     # 🛣 Add directories to $fish_user_paths (avoid duplicates)
     for dir in ~/bin ~/.local/bin ~/scripts /usr/local/bin
         if not contains $dir $fish_user_paths

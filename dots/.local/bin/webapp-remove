@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -uo pipefail # Don't exit immediately on error
+
+ICON_DIR="$HOME/.local/share/applications/icons"
+DESKTOP_DIR="$HOME/.local/share/applications"
+
+# Define known browser candidates used to create web apps
+BROWSER_CANDIDATES=("google-chrome" "chrome" "chromium" "brave" "brave-browser")
+
+# Find all desktop files that launch a browser as a web app
+find_webapps() {
+    local webapps=()
+    while IFS= read -r -d '' file; do
+        for browser in "${BROWSER_CANDIDATES[@]}"; do
+            if grep -q "^Exec=.*$browser.*--app=" "$file"; then
+                webapps+=("$(basename "${file%.desktop}")")
+                break
+            fi
+        done
+    done < <(find "$DESKTOP_DIR" -name '*.desktop' -print0)
+    echo "${webapps[@]}"
+}
+
+# Interactive or CLI selection
+if [ "$#" -ne 1 ]; then
+    readarray -t WEB_APPS < <(find_webapps)
+
+    if ((${#WEB_APPS[@]} == 0)); then
+        echo "No web apps to remove."
+        exit 1
+    fi
+
+    IFS=$'\n' SORTED_WEB_APPS=($(sort <<<"${WEB_APPS[*]}"))
+    unset IFS
+
+    APP_NAME=$(gum choose --header "Select web app to remove..." "${SORTED_WEB_APPS[@]}")
+else
+    APP_NAME="$1"
+fi
+
+# Validate input
+if [[ -z "$APP_NAME" ]]; then
+    echo "❌ You must provide a web app name."
+    exit 1
+fi
+
+# Remove files
+DESKTOP_FILE="$DESKTOP_DIR/$APP_NAME.desktop"
+ICON_FILE="$ICON_DIR/$APP_NAME.png"
+
+rm -f "$DESKTOP_FILE"
+rm -f "$ICON_FILE"
+
+if [ "$#" -ne 1 ]; then
+    echo -e "🗑️ Removed web app: \e[33m$APP_NAME\e[0m\n"
+fi

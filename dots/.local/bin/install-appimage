@@ -1,0 +1,263 @@
+#!/usr/bin/env bash
+
+# Script to install or update an AppImage and create/update a desktop entry for it.
+#
+# Usage:
+#   ./install-appimage.sh /path/to/your-app.AppImage [optional_app_name] [optional_icon_path]
+#   ./install-appimage.sh --help | -h
+#
+# If an AppImage with the same filename already exists in the destination, it will be replaced.
+
+APPIMAGE_PATH="$1"
+CUSTOM_APP_NAME="$2"
+CUSTOM_ICON_PATH="$3"
+
+# --- Configuration ---
+# Choose where to move the AppImage.
+# Option 1: User-specific (no sudo required, recommended for most users)
+APPIMAGE_DEST_DIR="$HOME/Applications"
+DESKTOP_FILE_DIR="$HOME/.local/share/applications"
+ICONS_DIR="$HOME/.local/share/icons/hicolor/scalable/apps" # Or specific size like 64x64
+
+# Option 2: System-wide (requires sudo, for all users)
+# APPIMAGE_DEST_DIR="/opt"
+# DESKTOP_FILE_DIR="/usr/share/applications"
+# ICONS_DIR="/usr/share/icons/hicolor/scalable/apps" # Or specific size like 64x64
+
+# --- Functions ---
+
+log_info() {
+  echo -e "\e[32mINFO:\e[0m $1"
+}
+
+log_error() {
+  echo -e "\e[31mERROR:\e[0m $1" >&2
+}
+
+log_warn() {
+  echo -e "\e[33mWARN:\e[0m $1"
+}
+
+# Function to display help message
+show_help() {
+  echo "Usage: $(basename "$0") /path/to/your-app.AppImage [optional_app_name] [optional_icon_path]"
+  echo "       $(basename "$0") --help | -h"
+  echo ""
+  echo "This script installs or updates an AppImage, makes it executable,"
+  echo "and creates/updates a .desktop file so it appears in your application menu."
+  echo ""
+  echo "Arguments:"
+  echo "  /path/to/your-app.AppImage   : The full path to the AppImage file."
+  echo "  [optional_app_name]          : A custom name for the application in the menu."
+  echo "                                 If not provided, the script attempts to extract it"
+  echo "                                 from the AppImage, or uses a formatted filename."
+  echo "  [optional_icon_path]         : A custom path to an icon file (.png, .svg, .xpm)."
+  echo "                                 If not provided, the script attempts to extract an"
+  echo "                                 icon from the AppImage, or uses a default."
+  echo ""
+  echo "Installation Details:"
+  echo "  - The provided AppImage will first be made executable."
+  echo "  - AppImage will be moved to: $APPIMAGE_DEST_DIR"
+  echo "  - Desktop file will be created in: $DESKTOP_FILE_DIR"
+  echo "  - Icons (if extracted/provided) will be copied to: $ICONS_DIR"
+  echo "  - If an AppImage with the same filename already exists in the destination,"
+  echo "    it will be replaced without prompting."
+  echo "  - If using system-wide paths (e.g., /opt), the script will attempt to use sudo."
+  exit 0
+}
+
+# Function to get application name from AppImage, or use a custom one
+get_app_name() {
+  local appimage="$1"
+  local custom_name="$2"
+  local name=""
+
+  if [ -n "$custom_name" ]; then
+    name="$custom_name"
+  else
+    # Try to extract Name from within the AppImage's .desktop file
+    local mount_point=$(mktemp -d)
+    if command -v gio &>/dev/null; then
+      if gio mount -d "$appimage" "$mount_point" 2>/dev/null; then # gio mount is often found in Nautilus/Gnome related systems
+        name=$(find "$mount_point" -maxdepth 2 -name "*.desktop" -print -quit | xargs -r grep -m 1 '^Name=' | cut -d'=' -f2)
+        gio mount -u "$mount_point" 2>/dev/null
+      fi
+    else
+      log_warn "gio command not found. Cannot reliably extract app name from AppImage. Using filename fallback."
+    fi
+
+    if [ -z "$name" ]; then
+      # Fallback to filename if name not extracted or custom name not provided
+      name=$(basename "$appimage" .AppImage | sed 's/[_-]/ /g' | sed 's/\b\(.\)/\u\1/g') # Convert filename to title case
+    fi
+  fi
+  echo "$name"
+}
+
+# Function to find and extract icon from AppImage, or use a custom one
+get_app_icon() {
+  local appimage="$1"
+  local custom_icon="$2"
+  local icon_path=""
+  local temp_mount_point=""
+
+  if [ -n "$custom_icon" ]; then
+    if [ -f "$custom_icon" ]; then
+      echo "$custom_icon"
+      return 0
+    else
+      log_error "Custom icon file not found: $custom_icon"
+      return 1
+    fi
+  fi
+
+  temp_mount_point=$(mktemp -d)
+
+  # Try to mount with gio (more reliable for user)
+  if command -v gio &>/dev/null; then
+    if gio mount -d "$appimage" "$temp_mount_point" 2>/dev/null; then
+      # Search for common icon extensions
+      icon_file=$(find "$temp_mount_point" -maxdepth 3 -type f \( -iname "*.png" -o -iname "*.svg" -o -iname "*.xpm" \) -print -quit)
+      if [ -n "$icon_file" ]; then
+        log_info "Found icon within AppImage: $(basename "$icon_file")"
+        # Copy the icon to a temporary location before unmounting
+        local temp_icon_copy="/tmp/$(basename "$appimage" .AppImage)_icon.$(basename "$icon_file" | awk -F'.' '{print $NF}')"
+        cp "$icon_file" "$temp_icon_copy"
+        gio mount -u "$temp_mount_point" 2>/dev/null # Unmount
+        echo "$temp_icon_copy"
+        return 0
+      fi
+      gio mount -u "$temp_mount_point" 2>/dev/null # Unmount if icon not found but mounted
+    fi
+  fi
+
+  # Fallback if gio failed or not available, and no custom icon.
+  log_warn "Could not extract icon from AppImage or find custom icon. Using default 'application-x-appimage' if available."
+  echo "application-x-appimage" # A common default AppImage icon name
+  return 0
+}
+
+# --- Main Script Logic ---
+
+# Check for help argument
+if [[ "$APPIMAGE_PATH" == "--help" || "$APPIMAGE_PATH" == "-h" ]]; then
+  show_help
+fi
+
+if [ -z "$APPIMAGE_PATH" ]; then
+  log_error "No AppImage path provided."
+  show_help # Show help if no arguments provided
+fi
+
+if [ ! -f "$APPIMAGE_PATH" ]; then
+  log_error "AppImage not found: $APPIMAGE_PATH"
+  exit 1
+fi
+
+# Ensure the AppImage is executable before moving or trying to extract info from it.
+if [ ! -x "$APPIMAGE_PATH" ]; then
+  log_info "Making AppImage executable: $APPIMAGE_PATH"
+  chmod +x "$APPIMAGE_PATH" || {
+    log_error "Failed to make AppImage executable. Check permissions."
+    exit 1
+  }
+fi
+
+# Determine final AppImage name and destination
+APPIMAGE_FILENAME=$(basename "$APPIMAGE_PATH")
+FINAL_APPIMAGE_PATH="$APPIMAGE_DEST_DIR/$APPIMAGE_FILENAME"
+
+# Create destination directories if they don't exist
+mkdir -p "$APPIMAGE_DEST_DIR" || {
+  log_error "Failed to create AppImage destination directory: $APPIMAGE_DEST_DIR"
+  exit 1
+}
+mkdir -p "$DESKTOP_FILE_DIR" || {
+  log_error "Failed to create .desktop file directory: $DESKTOP_FILE_DIR"
+  exit 1
+}
+mkdir -p "$ICONS_DIR" || {
+  log_error "Failed to create icon directory: $ICONS_DIR"
+  exit 1
+}
+
+# Move (and replace if exists) the AppImage
+if [ -f "$FINAL_APPIMAGE_PATH" ]; then
+  log_info "Existing AppImage found at '$FINAL_APPIMAGE_PATH'. Replacing it..."
+  # Use sudo for system-wide locations when replacing
+  if [[ "$APPIMAGE_DEST_DIR" == "/opt" || "$APPIMAGE_DEST_DIR" == "/usr/local/bin" ]]; then
+    sudo mv -f "$APPIMAGE_PATH" "$FINAL_APPIMAGE_PATH" || {
+      log_error "Failed to replace AppImage (sudo may be required)."
+      exit 1
+    }
+  else
+    mv -f "$APPIMAGE_PATH" "$FINAL_APPIMAGE_PATH" || {
+      log_error "Failed to replace AppImage."
+      exit 1
+    }
+  fi
+else
+  log_info "Moving AppImage to: $FINAL_APPIMAGE_PATH"
+  if [[ "$APPIMAGE_DEST_DIR" == "/opt" || "$APPIMAGE_DEST_DIR" == "/usr/local/bin" ]]; then
+    sudo mv "$APPIMAGE_PATH" "$FINAL_APPIMAGE_PATH" || {
+      log_error "Failed to move AppImage (sudo may be required)."
+      exit 1
+    }
+  else
+    mv "$APPIMAGE_PATH" "$FINAL_APPIMAGE_PATH" || {
+      log_error "Failed to move AppImage."
+      exit 1
+    }
+  fi
+fi
+
+# Get App Name
+APP_NAME=$(get_app_name "$FINAL_APPIMAGE_PATH" "$CUSTOM_APP_NAME")
+log_info "Determined Application Name: $APP_NAME"
+
+# Get App Icon
+ICON_SOURCE_PATH=$(get_app_icon "$FINAL_APPIMAGE_PATH" "$CUSTOM_ICON_PATH")
+ICON_BASENAME=""
+if [[ "$ICON_SOURCE_PATH" == application-x-appimage ]]; then
+  ICON_BASENAME="$ICON_SOURCE_PATH" # Use the literal string for default icon
+else
+  ICON_BASENAME=$(basename "$ICON_SOURCE_PATH")
+  if [ -n "$ICON_SOURCE_PATH" ] && [ -f "$ICON_SOURCE_PATH" ]; then
+    log_info "Copying icon to: $ICONS_DIR/$ICON_BASENAME"
+    cp "$ICON_SOURCE_PATH" "$ICONS_DIR/$ICON_BASENAME" || log_warn "Failed to copy icon. Desktop file might not display it."
+    rm -f "$ICON_SOURCE_PATH" # Clean up temporary icon copy if extracted
+  fi
+fi
+
+# Create/Update .desktop file
+DESKTOP_FILENAME="${APP_NAME// /_}.desktop" # Replace spaces with underscores for filename
+DESKTOP_FILE="$DESKTOP_FILE_DIR/$DESKTOP_FILENAME"
+
+# Check if desktop file exists for update logging
+if [ -f "$DESKTOP_FILE" ]; then
+  log_info "Updating existing desktop file: $DESKTOP_FILE"
+else
+  log_info "Creating new desktop file: $DESKTOP_FILE"
+fi
+
+cat <<EOF >"$DESKTOP_FILE"
+[Desktop Entry]
+Name=$APP_NAME
+Comment=Launch $APP_NAME AppImage
+Exec=$FINAL_APPIMAGE_PATH
+Icon=$ICON_BASENAME
+Terminal=false
+Type=Application
+Categories=Utility;Application;
+EOF
+
+# Update desktop database
+log_info "Updating desktop database..."
+if command -v update-desktop-database &>/dev/null; then
+  update-desktop-database "$DESKTOP_FILE_DIR" || log_warn "Failed to update desktop database. You may need to log out/in."
+else
+  log_warn "update-desktop-database not found. Your application menu might not update immediately."
+fi
+
+log_info "AppImage '$APP_NAME' installed/updated successfully!"
+log_info "You should now find '$APP_NAME' in your application menu."

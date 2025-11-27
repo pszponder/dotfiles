@@ -1,0 +1,347 @@
+# 🗂 File system navigation
+alias l='eza -1 --icons=auto'
+alias ls='eza --icons=auto'
+alias ll='eza -lh --group-directories-first --icons=auto'
+alias la='eza -lha --group-directories-first --icons=auto'
+# alias lt='eza --tree --level=2 --long --icons --git'
+lt() {
+  local level=${1:-2}  # default to 2 if no argument is passed
+  eza --tree --level="$level" --long --icons --git
+}
+alias lta='lt -a'
+alias fd='fdfind'
+alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+alias mkdir='mkdir -pv'
+alias cd='z'
+
+# 📂 Directory navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ..2='cd ../..'
+alias ....='cd ../../..'
+alias ..3='cd ../../..'
+alias .....='cd ../../../..'
+alias ..4='cd ../../../..'
+alias ..5='cd ../../../../..'
+alias ..6='cd ../../../../../..'
+
+alias s='rg --smart-case'
+alias sa='rg --smart-case --hidden --no-ignore'  # search all
+alias search='rg --smart-case --pretty'
+
+# 🧰 Tool shortcuts
+alias g='git'
+alias lzg='lazygit'
+alias lzd='lazydocker'
+alias k='kubectl'
+alias tf='terraform'
+alias serve='python3 -m http.server'
+
+# Editors
+alias n='nvim'
+alias v='nvim'
+alias vim='nvim'
+alias se='sudo EDITOR=/home/linuxbrew/.linuxbrew/bin/nvim sudoedit'
+alias snvim=se
+alias sv=se
+alias svi='sudo vi'
+alias vis='nvim "+set si"'
+alias spico='sudo pico'
+alias snano='sudo nano'
+
+# 🛠 Git aliases
+alias gs='git status'
+alias ga='git add'
+alias gaa='git add .'
+alias gb='git branch'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gl='git log --oneline --graph --decorate'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gcm='git commit -m'
+alias gcam='git commit -a -m'
+alias gcad='git commit -a --amend'
+alias gca='git commit --amend --no-edit'
+alias gpl='git pull'
+alias gp='git push'
+alias gstash='git stash'
+alias gpop='git stash pop'
+
+# alias chmod commands
+alias mx='chmod a+x'
+alias 000='chmod -R 000'
+alias 644='chmod -R 644'
+alias 666='chmod -R 666'
+alias 755='chmod -R 755'
+alias 777='chmod -R 777'
+
+# 🌐 Networking
+alias ports='lsof -i -P -n | grep LISTEN'
+alias openports='netstat -nape --inet'
+alias ip='ip -c a'
+alias ping='ping -c 10'
+alias wget='wget -c'
+
+# Safe and forced reboots
+alias rebootsafe='sudo shutdown -r now'
+alias rebootforce='sudo shutdown -r -n now'
+
+# Show disk space and space used in a folder
+alias diskspace="du -S | sort -n -r |more"
+alias folders='du -h --max-depth=1'
+alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
+alias tree='tree -CAhF --dirsfirst'
+alias treed='tree -CAFd'
+alias mountedinfo='df -hT'
+
+# Archives
+alias mktar='tar -cvf'
+alias mkbz2='tar -cvjf'
+alias mkgz='tar -cvzf'
+alias untar='tar -xvf'
+alias unbz2='tar -xvjf'
+alias ungz='tar -xvzf'
+
+# Show all logs in /var/log
+alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"
+
+# Docker / Podman
+alias d='docker'
+alias dc='docker compose'
+# alias docker='podman'
+alias p='podman'
+# Cleanup unused docker containers, images, networks, and volumes
+alias docker-clean=' \
+  docker container prune -f ; \
+  docker image prune -f ; \
+  docker network prune -f ; \
+  docker volume prune -f '
+
+# ⚙️ Miscellaneous
+alias cat='bat --paging=never'
+alias less='bat --paging=always'
+alias reload='exec $SHELL -l'
+alias cl='clear'
+alias da='date "+%Y-%m-%d %A %T %Z"'
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='trash -v'
+alias ps='ps auxf'
+alias up='topgrade -y'
+
+#######################################################
+# SPECIAL FUNCTIONS
+#######################################################
+
+# Retry last command with sudo
+please() {
+  if [[ -n "$ZSH_VERSION" ]]; then
+    eval "sudo !!"
+  elif [[ -n "$BASH_VERSION" ]]; then
+    sudo "$(fc -ln -1)"
+  else
+    echo "Unsupported shell"
+  fi
+}
+
+# Extracts any archive(s) (if unp isn't installed)
+extract() {
+  for archive in "$@"; do
+    if [ -f "$archive" ]; then
+      case $archive in
+      *.tar.bz2) tar xvjf $archive ;;
+      *.tar.gz) tar xvzf $archive ;;
+      *.bz2) bunzip2 $archive ;;
+      *.rar) rar x $archive ;;
+      *.gz) gunzip $archive ;;
+      *.tar) tar xvf $archive ;;
+      *.tbz2) tar xvjf $archive ;;
+      *.tgz) tar xvzf $archive ;;
+      *.zip) unzip $archive ;;
+      *.Z) uncompress $archive ;;
+      *.7z) 7z x $archive ;;
+      *) echo "don't know how to extract '$archive'..." ;;
+      esac
+    else
+      echo "'$archive' is not a valid file!"
+    fi
+  done
+}
+
+# Searches for text in all files in the current folder
+ftext() {
+  # -i case-insensitive
+  # -I ignore binary files
+  # -H causes filename to be printed
+  # -r recursive search
+  # -n causes line number to be printed
+  # optional: -F treat search term as a literal, not a regular expression
+  # optional: -l only print filenames and not the matching lines ex. grep -irl "$1" *
+  grep -iIHrn --color=always "$1" . | less -r
+}
+
+# Copy file with a progress bar
+cpp() {
+    set -e
+    strace -q -ewrite cp -- "${1}" "${2}" 2>&1 |
+    awk '{
+        count += $NF
+        if (count % 10 == 0) {
+            percent = count / total_size * 100
+            printf "%3d%% [", percent
+            for (i=0;i<=percent;i++)
+                printf "="
+            printf ">"
+            for (i=percent;i<100;i++)
+                printf " "
+            printf "]\r"
+        }
+    }
+    END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
+}
+
+# Copy and go to the directory
+cpg() {
+  if [ -d "$2" ]; then
+    cp "$1" "$2" && cd "$2"
+  else
+    cp "$1" "$2"
+  fi
+}
+
+# Move and go to the directory
+mvg() {
+  if [ -d "$2" ]; then
+    mv "$1" "$2" && cd "$2"
+  else
+    mv "$1" "$2"
+  fi
+}
+
+# Create and go to the directory
+mkdirg() {
+  mkdir -p "$1"
+  cd "$1"
+}
+
+# Create a new git-enabled directory and navigate into it
+newgit() {
+  if [ -z "$1" ]; then
+    echo "Usage: newgit <directory_name>"
+    return 1
+  fi
+  mkdir -p "$1" && cd "$1"
+  git init
+}
+
+# Backup a file or directory
+backup() {
+  if [ -z "$1" ]; then
+    echo "Usage: backup <file_or_directory>"
+    return 1
+  fi
+
+  local src="$1"
+
+  if [ ! -e "$src" ]; then
+    echo "Error: '$src' does not exist."
+    return 1
+  fi
+
+  if [ -f "$src" ]; then
+    # If it's a file, append .bak
+    local dest="${src}.bak"
+    cp "$src" "$dest"
+    echo "File backup created at: $dest"
+  elif [ -d "$src" ]; then
+    # If it's a directory, add timestamp suffix
+    local timestamp
+    timestamp=$(date +%Y%m%d_%H%M%S)
+    local dest="${src}_backup_${timestamp}"
+    cp -r "$src" "$dest"
+    echo "Directory backup created at: $dest"
+  else
+    echo "Error: '$src' is neither a file nor a directory."
+    return 1
+  fi
+}
+
+
+# IP address lookup
+alias whatismyip="whatsmyip"
+function whatsmyip () {
+    # Internal IP Lookup.
+    if command -v ip &> /dev/null; then
+        echo -n "Internal IP: "
+        ip addr show wlan0 | grep "inet " | awk '{print $2}' | cut -d/ -f1
+    else
+        echo -n "Internal IP: "
+        ifconfig wlan0 | grep "inet " | awk '{print $2}'
+    fi
+
+    # External IP Lookup
+    echo -n "External IP: "
+    curl -4 ifconfig.me
+}
+
+# 🐙 GitHub CLI aliases
+alias ghst='gh status'
+alias ghissues='gh issue list'
+alias ghprs='gh pr list'
+
+# List repositories
+alias ghls='gh repo list'                          # List your repos
+alias ghlsp='gh repo list --source'                # List only source repos (no forks)
+alias ghlsf='gh repo list --fork'                  # List only forked repos
+alias ghlspub='gh repo list --visibility public'   # List only public repos
+alias ghlspriv='gh repo list --visibility private' # List only private repos
+
+# Create new GitHub repo from current directory and push
+ghnew() {
+    local repo_name=${1:-$(basename "$(pwd)")}
+    echo "Creating public GitHub repo: $repo_name"
+    gh repo create "$repo_name" --public --source=. --remote=origin --push
+}
+
+# Create new private GitHub repo from current directory and push
+ghnewp() {
+    local repo_name=${1:-$(basename "$(pwd)")}
+    echo "Creating private GitHub repo: $repo_name"
+    gh repo create "$repo_name" --private --source=. --remote=origin --push
+}
+
+# Clone repo and cd into it
+ghclone() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: ghclone <repo>"
+        return 1
+    fi
+    gh repo clone "$1"
+    local repo_name=$(basename "$1")
+    cd "$repo_name"
+}
+
+# Fork a repo and clone it
+ghfork() {
+    if [ $# -eq 0 ]; then
+        echo "Usage: ghfork <repo>"
+        return 1
+    fi
+    gh repo fork "$1" --clone
+    local repo_name=$(basename "$1")
+    cd "$repo_name"
+}
+
+# Create pull request
+ghpr() {
+    if [ $# -eq 0 ]; then
+        gh pr create --web
+    else
+        gh pr create --title "$1" --web
+    fi
+}
+
+# Open current repo in browser
+alias ghview='gh repo view --web'
+alias ghopen='gh repo view --web'

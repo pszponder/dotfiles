@@ -1,4 +1,6 @@
-# Ghostty shell integration for Bash. This should be at the top of your bashrc!
+# ~/.config/bash/bashrc - Fully merged version
+
+# Ghostty shell integration (should be at the top)
 if [ -n "${GHOSTTY_RESOURCES_DIR}" ]; then
     builtin source "${GHOSTTY_RESOURCES_DIR}/shell-integration/bash/ghostty.bash"
 fi
@@ -9,6 +11,7 @@ case $- in
       *) return;;
 esac
 
+# Load environment variables
 [ -f "$HOME/.config/env.sh" ] && source "$HOME/.config/env.sh"
 
 # Paths
@@ -33,9 +36,30 @@ shopt -s histappend
 shopt -s cmdhist
 PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-# Terminal prompt fallback
-if ! command -v starship &> /dev/null; then
-  PS1='\u@\h:\w\$ '
+# Less support
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Color support for ls and grep
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+fi
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Alert alias for long-running commands
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" \
+"$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Bash completion
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 fi
 
 # Atuin (Magical Shell History)
@@ -48,11 +72,6 @@ if command -v mise &> /dev/null; then
   eval "$(mise activate bash)"
 fi
 
-# Starship initialization
-if command -v starship &> /dev/null; then
-  eval "$(starship init bash)"
-fi
-
 # Homebrew (macOS & Linux)
 for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
     if [ -f "$brew_path" ]; then
@@ -60,6 +79,11 @@ for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
         break
     fi
 done
+
+# Starship initialization
+if command -v starship &> /dev/null; then
+  eval "$(starship init bash)"
+fi
 
 # Zoxide initialization
 if command -v zoxide &> /dev/null; then

@@ -26,10 +26,18 @@ bindkey -v
 # Homebrew (macOS & Linux)
 for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
     if [ -f "$brew_path" ]; then
+        # Add brew directory to PATH first
+        BREW_PREFIX="$(dirname "$(dirname "$brew_path")")"
+        export PATH="$BREW_PREFIX/bin:$PATH"
         eval "$($brew_path shellenv)"
         break
     fi
 done
+
+# 🌟 Starship prompt
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+fi
 
 # Atuin (Magical Shell History)
 if command -v atuin &> /dev/null; then
@@ -39,11 +47,6 @@ fi
 # 🧠 Mise (tool version manager)
 if command -v mise &> /dev/null; then
   eval "$(mise activate zsh)"
-fi
-
-# 🌟 Starship prompt
-if command -v starship &> /dev/null; then
-  eval "$(starship init zsh)"
 fi
 
 # 🔄 History control

@@ -1,0 +1,53 @@
+name: "Catppuccin Mocha"
+accent: "#cba6f7"
+cursor: "#89b4fa"
+background: "#11111b" # crust - darkest option
+foreground: "#cdd6f4" # text
+details: darker
+
+terminal_colors:
+  bright:
+    black: "#313244" # surface0
+    red: "#f38ba8"
+    green: "#a6e3a1"
+    yellow: "#f9e2af"
+    blue: "#89b4fa"
+    magenta: "#cba6f7"
+    cyan: "#94e2d5"
+    white: "#f5e0dc"
+
+  normal:
+    black: "#181825" # mantle for dim black text
+    red: "#eba0ac"
+    green: "#a6e3a1"
+    yellow: "#fab387"
+    blue: "#74c7ec"
+    magenta: "#f5c2e7"
+    cyan: "#89dceb"
+    white: "#bac2de"
+###################################################################
+
+# name: "Catppuccin Mocha"
+# background: "#1e1e2e"
+# accent: "#f5e0dc"
+# foreground: "#cdd6f4"
+# details: darker
+# terminal_colors:
+#   normal:
+#     black: "#45475a"
+#     red: "#f38ba8"
+#     green: "#a6e3a1"
+#     yellow: "#f9e2af"
+#     blue: "#89b4fa"
+#     magenta: "#f5c2e7"
+#     cyan: "#94e2d5"
+#     white: "#bac2de"
+#   bright:
+#     black: "#585b70"
+#     red: "#f38ba8"
+#     green: "#a6e3a1"
+#     yellow: "#f9e2af"
+#     blue: "#89b4fa"
+#     magenta: "#f5c2e7"
+#     cyan: "#94e2d5"
+#     white: "#a6adc8"

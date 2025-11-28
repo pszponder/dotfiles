@@ -1,0 +1,22 @@
+---
+"pane_group:add_up": ctrl-shift-K
+"editor_view:up": none
+"pane_group:add_down": ctrl-shift-J
+"notebookview:focus_terminal_input": none
+"pane_group:add_right": ctrl-shift-L
+Close Workflow: ctrl-w
+"editor_view:cut_word_left": none
+"app:reopen_closed_session": ctrl-shift-T
+"pane_group:navigate_up": alt-k
+"workspace:new_tab": ctrl-t
+"pane_group:navigate_down": alt-j
+"workspace:toggle_command_palette": ctrl-p
+"pane_group:navigate_right": alt-l
+"ai_assistant_panel:reset_context": none
+"pane_group:close_current_session": ctrl-w
+"pane_group:add_left": ctrl-shift-H
+"pane_group:navigate_left": alt-h
+"workspace:toggle_keybindings_page": none
+"ai_assistant_panel:focus_terminal_input": none
+"terminal:focus_input": none
+"terminal:clear_blocks": none

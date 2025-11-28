@@ -34,7 +34,6 @@ HISTSIZE=10000
 HISTFILESIZE=20000
 shopt -s histappend
 shopt -s cmdhist
-PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # Less support
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -42,12 +41,8 @@ PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 # Color support for ls and grep
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
     alias grep='grep --color=auto'
 fi
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
 
 # Alert alias for long-running commands
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" \
@@ -62,11 +57,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# Atuin (Magical Shell History)
-if command -v atuin &> /dev/null; then
-  eval "$(atuin init bash)"
-fi
-
 # Mise Tool initialization
 if command -v mise &> /dev/null; then
   eval "$(mise activate bash)"
@@ -75,20 +65,31 @@ fi
 # Homebrew (macOS & Linux)
 for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
     if [ -f "$brew_path" ]; then
+        # Add brew directory to PATH first
+        BREW_PREFIX="$(dirname "$(dirname "$brew_path")")"
+        export PATH="$BREW_PREFIX/bin:$PATH"
         eval "$($brew_path shellenv)"
         break
     fi
 done
 
-# Starship initialization
+# Starship initialization (must come BEFORE atuin to avoid bash-preexec detection issue)
 if command -v starship &> /dev/null; then
   eval "$(starship init bash)"
+fi
+
+# Atuin (Magical Shell History)
+if command -v atuin &> /dev/null; then
+  eval "$(atuin init bash)"
 fi
 
 # Zoxide initialization
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init bash)"
 fi
+
+# History PROMPT_COMMAND (must come LAST, after all tools)
+PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # Warpify Subshells (only if using Warp Terminal)
 printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'

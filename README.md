@@ -27,6 +27,12 @@ Symlink all files in the "dots" directory.
 stow dots
 ```
 
+### Restow Dotfiles
+
+```sh
+stow -R dots
+```
+
 ### Undo / Unstow
 
 Unlink all files in the "dots" directory.

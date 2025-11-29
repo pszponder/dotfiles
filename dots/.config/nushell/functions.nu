@@ -7,42 +7,8 @@ def please [] {
   sudo $last
 }
 
-def extract [archives: list<string>] {
-  for archive in $archives {
-    if not ($archive | path exists) {
-      print "'$archive' is not a valid file!"
-    } else if ($archive | path type) == 'file' {
-      match $archive {
-        *.tar.bz2 => tar xvjf $archive,
-        *.tar.gz => tar xvzf $archive,
-        *.bz2 => bunzip2 $archive,
-        *.rar => rar x $archive,
-        *.gz => gunzip $archive,
-        *.tar => tar xvf $archive,
-        *.tbz2 => tar xvjf $archive,
-        *.tgz => tar xvzf $archive,
-        *.zip => unzip $archive,
-        *.Z => uncompress $archive,
-        *.7z => 7z x $archive,
-        _ => print "don't know how to extract '$archive'..."
-      }
-    }
-  }
-}
-
 def ftext [text: string] {
   grep -iIHrn --color=always $text . | less -r
-}
-
-def cpp [source: string, destination: string] {
-  let size = (stat $source | get size);
-  mut count = 0;
-  strace -q -ewrite cp -- $source $destination | lines | each {|line|
-    let bytes = ($line | parse "write\((?P<count>\d+)" | get count.0 | into int);
-    count += $bytes;
-    let percent = ($count * 100 / $size);
-    print (format "{percent}%")
-  }
 }
 
 def cpg [source: string, destination: string] {

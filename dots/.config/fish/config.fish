@@ -31,6 +31,11 @@ if status is-interactive
         starship init fish | source
     end
 
+    # Atuin
+    if type -q atuin
+        atuin init fish | source
+    end
+
     # Zoxide (smarter cd)
     if type -q zoxide
         zoxide init fish | source

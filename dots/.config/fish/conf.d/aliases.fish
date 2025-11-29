@@ -62,23 +62,105 @@ alias spico='sudo pico'
 alias snano='sudo nano'
 
 # 🛠 Git aliases
-alias gs='git status'
+# alias gs='git status'
+# alias ga='git add'
+# alias gaa='git add .'
+# alias gb='git branch'
+# alias gco='git checkout'
+# alias gcb='git checkout -b'
+# alias gl='git log --oneline --graph --decorate'
+# alias gd='git diff'
+# alias gds='git diff --staged'
+# alias gcm='git commit -m'
+# alias gcam='git commit -a -m'
+# alias gcad='git commit -a --amend'
+# alias gca='git commit --amend --no-edit'
+# alias gpl='git pull'
+# alias gp='git push'
+# alias gstash='git stash'
+# alias gpop='git stash pop'
+# Basic git
+alias g='git'
+alias gst='git status'
 alias ga='git add'
-alias gaa='git add .'
-alias gb='git branch'
+alias gaa='git add --all'
+alias gapa='git add --patch'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gdcw='git diff --word-diff'
+alias gds='git diff --staged'
+
+# Commit
+alias gc='git commit -v'
+alias gc\!='git commit -v --amend'
+alias gca='git commit -v -a'
+alias gcam='git commit -a -m'
 alias gco='git checkout'
 alias gcb='git checkout -b'
-alias gl='git log --oneline --graph --decorate'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias gcm='git commit -m'
-alias gcam='git commit -a -m'
-alias gcad='git commit -a --amend'
-alias gca='git commit --amend --no-edit'
-alias gpl='git pull'
+
+# Branches
+alias gb='git branch'
+alias gba='git branch -a'
+alias gbd='git branch -d'
+alias gbD='git branch -D'
+
+# Log
+alias glog='git log --oneline --graph --decorate --all'
+alias glog1='git log --oneline -1'
+alias glp='git log -p'
+
+# Fetch/Pull/Push
+alias gf='git fetch'
+alias gl='git pull'
+alias gup='git pull --rebase'
 alias gp='git push'
-alias gstash='git stash'
-alias gpop='git stash pop'
+alias gpo='git push origin'
+alias gpo\! ='git push origin --force'
+
+# Stash
+alias gstl='git stash list'
+alias gsta='git stash save'
+alias gstp='git stash pop'
+alias gstd='git stash drop'
+alias gstaall='git stash apply'
+
+# Remote
+alias gr='git remote'
+alias gra='git remote add'
+alias grv='git remote -v'
+
+# Tags
+alias gt='git tag'
+alias gts='git tag -s'
+
+# Reset/Revert
+alias grh='git reset HEAD'
+alias grhh='git reset --hard HEAD'
+alias grm='git revert'
+
+# Merge/Rebase
+alias gm='git merge'
+alias gmt='git mergetool'
+alias grb='git rebase'
+alias grbi='git rebase -i'
+
+# Show / Log
+alias gsh='git show'
+alias gss='git shortlog'
+alias gblame='git blame'
+
+# Cherry-pick
+alias gcp='git cherry-pick'
+
+# Clean
+alias gcl='git clean -fd'
+
+# Misc
+alias gcf='git config --list'
+alias gg='git gui'
+alias ggi='git gui citool'
+alias gcount='git shortlog -sn'
+alias gwho='git shortlog -sn --all'
 
 # alias chmod commands
 alias mx='chmod a+x'

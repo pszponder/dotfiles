@@ -15,7 +15,7 @@ esac
 [ -f "$HOME/.config/env.sh" ] && source "$HOME/.config/env.sh"
 
 # Paths
-for dir in "$HOME/bin" "$HOME/.local/bin" "$HOME/scripts" "/usr/local/bin"; do
+for dir in "$HOME/bin" "$HOME/.local/bin" "$HOME/.local/share/blesh" "$HOME/scripts" "/usr/local/bin"; do
   [[ ":$PATH:" != *":$dir:"* ]] && PATH="$dir:$PATH"
 done
 export PATH
@@ -27,13 +27,6 @@ fi
 
 # VIM mode
 set -o vi
-
-# History enhancements
-HISTCONTROL=ignoredups:erasedups
-HISTSIZE=10000
-HISTFILESIZE=20000
-shopt -s histappend
-shopt -s cmdhist
 
 # Less support
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -79,16 +72,23 @@ if command -v starship &> /dev/null; then
 fi
 
 # Atuin (Magical Shell History)
-if command -v atuin &> /dev/null; then
-  eval "$(atuin init bash)"
-fi
+# if command -v atuin &> /dev/null; then
+#   eval "$(atuin init bash)"
+# fi
 
 # Zoxide initialization
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init bash)"
 fi
 
-# History PROMPT_COMMAND (must come LAST, after all tools)
+# Optional: History enhancements
+HISTCONTROL=ignoredups:erasedups
+HISTSIZE=10000
+HISTFILESIZE=20000
+shopt -s histappend
+shopt -s cmdhist
+
+# # History PROMPT_COMMAND (must come LAST, after all tools)
 PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 # Warpify Subshells (only if using Warp Terminal)

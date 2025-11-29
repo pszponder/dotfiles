@@ -45,12 +45,17 @@ alias tf='terraform'
 alias serve='python3 -m http.server'
 
 # Editors
-alias n='nvim'
-alias v='nvim'
-alias vim='nvim'
-alias se='sudo EDITOR=/home/linuxbrew/.linuxbrew/bin/nvim sudoedit'
-alias snvim=se
-alias sv=se
+alias nvim-lazy='NVIM_APPNAME=nvim-lazyvim command nvim'
+alias nviml='nvim-lazy'
+alias nvim-kickstart='NVIM_APPNAME=nvim-kickstart command nvim'
+alias nvimk='nvim-kickstart'
+alias nvim='NVIM_APPNAME=nvim command nvim'
+alias n='nviml'
+alias v='n'
+alias vim='n'
+# alias se='sudo EDITOR=/home/linuxbrew/.linuxbrew/bin/nvim sudoedit'
+# alias snvim=se
+# alias sv=se
 alias svi='sudo vi'
 alias vis='nvim "+set si"'
 alias spico='sudo pico'

@@ -1,0 +1,22 @@
+# Ignore anything with the word todo in it (case sensitive)
+*[Tt][Oo][Dd][Oo]*
+
+# Editors
+.vscode
+
+# Nushell history
+home/.config/nushell/history.txt
+
+# ZSH
+.zcompdump
+.zsh_history
+
+# Warp terminal
+dots/.config/warp-terminal/user_preferences.json
+
+# fish shell
+.fish_history
+fish_variables
+
+# nushell
+history.txt

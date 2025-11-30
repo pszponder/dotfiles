@@ -18,3 +18,6 @@
 # them for future reference.
 
 source ~/.local/share/atuin/init.nu
+
+# Disable welcome banner
+$env.config.show_banner = false

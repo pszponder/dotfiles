@@ -2,6 +2,11 @@
     name = pszponder
     email = 14116413+pszponder@users.noreply.github.com
 
+# Include for all .git projects under ~/Development/repos/github/pszponder
+# Copy this pattern for any other git repos
+[includeIf "gitdir:~/Development/repos/github/pszponder/**"]
+path = ~/.gitconfig_github_pszponder
+
 [init]
     defaultBranch = main
 

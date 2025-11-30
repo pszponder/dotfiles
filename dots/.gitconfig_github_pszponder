@@ -1,0 +1,6 @@
+[user]
+    name = pszponder
+    email = 14116413+pszponder@users.noreply.github.com
+
+[core]
+    sshCommand = "ssh -i ~/.ssh/github/pszponder/key_github"

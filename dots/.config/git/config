@@ -7,7 +7,7 @@
 
 [core]
     editor = nvim
-    excludesfile = ~/.gitignore  # always ignore the patterns listed in this file
+    # excludesfile = ~/.gitignore  # always ignore the patterns listed in this file
     autocrlf = input # convert CRLF to LF on commit
     # pager = delta --dark # use delta for paging
     # pager = less

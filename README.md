@@ -15,7 +15,7 @@ Ensure you have the following installed on your system:
 First, clone the repo onto the system and navigate into the repository.
 
 ```sh
-git clone git@github.com/pszponder/dotfiles.git
+git clone https://github.com/pszponder/dotfiles.git
 cd dotfiles
 ```
 

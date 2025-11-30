@@ -16,7 +16,7 @@ function lt
 end
 
 alias lta='lt -a'
-alias fd='fdfind'
+# alias fd='fdfind'
 alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 alias mkdir='mkdir -pv'
 alias cd='z'

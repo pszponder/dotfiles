@@ -49,7 +49,8 @@ alias nvim-lazy='NVIM_APPNAME=nvim-lazyvim command nvim'
 alias nviml='nvim-lazy'
 alias nvim-kickstart='NVIM_APPNAME=nvim-kickstart command nvim'
 alias nvimk='nvim-kickstart'
-alias nvim='NVIM_APPNAME=nvim command nvim'
+# alias nvim='NVIM_APPNAME=nvim command nvim'
+alias nvim='nvim-lazy'
 alias n='nviml'
 alias v='n'
 alias vim='n'
@@ -61,79 +62,89 @@ alias vis='nvim "+set si"'
 alias spico='sudo pico'
 alias snano='sudo nano'
 
+# --------------
 # 🛠 Git aliases
-# alias gs='git status'
-# alias ga='git add'
-# alias gaa='git add .'
-# alias gb='git branch'
-# alias gco='git checkout'
-# alias gcb='git checkout -b'
-# alias gl='git log --oneline --graph --decorate'
-# alias gd='git diff'
-# alias gds='git diff --staged'
-# alias gcm='git commit -m'
-# alias gcam='git commit -a -m'
-# alias gcad='git commit -a --amend'
-# alias gca='git commit --amend --no-edit'
-# alias gpl='git pull'
-# alias gp='git push'
-# alias gstash='git stash'
-# alias gpop='git stash pop'
-# Basic git
-alias g='git'
-alias gst='git status'
-alias ga='git add'
-alias gaa='git add --all'
-alias gapa='git add --patch'
-alias gd='git diff'
-alias gdc='git diff --cached'
-alias gdcw='git diff --word-diff'
-alias gds='git diff --staged'
+# --------------
 
-# Commit
-alias gc='git commit -v'
-alias gc\!='git commit -v --amend'
-alias gca='git commit -v -a'
+# Basic Git Commands
+alias g='git'
+alias gs='git status'
+
+alias ga='git add'
+alias gaa='git add .'
+alias gap='git add --patch'
+
+# Diffing
+alias gd='git diff --output-indicator-new=" " --output-indicator-old=" "'
+alias gds='git diff --staged'
+alias gdc='git diff --cached'
+alias gdcw='git diff --cached --word-diff'
+
+# Committing
+alias gc='git commit'
+alias gcv='git commit -v'
+alias gcve='git commit -v --amend'
+function gcm
+    git commit --message "$argv"
+end
 alias gcam='git commit -a -m'
+alias gcad='git commit -a --amend'
+alias gca='gc --amend --no-edit'
+alias gce='gc --amend'
+
+# Branching and Checking Out
+alias gb='git branch'
+alias gba='git branch --all'
+alias gbr='git branch --remote'
+alias gbd='git branch -d'
+alias gbD='git branch -D'
+alias gbn='git checkout -b'  # new branch
+
 alias gco='git checkout'
 alias gcb='git checkout -b'
 
-# Branches
-alias gb='git branch'
-alias gba='git branch -a'
-alias gbd='git branch -d'
-alias gbD='git branch -D'
+alias gsw='git switch'
+alias gswc='git switch -c'
 
-# Log
-alias glog='git log --oneline --graph --decorate --all'
-alias glog1='git log --oneline -1'
+# Show / Logging
+alias gl='git log --oneline --graph --decorate --all'
+alias glog='git log --oneline -1'
+alias gll='git log --graph --all --pretty=format:"%C(magenta)%h %C(white) %an  %ar%C(auto)  %D%n%s%n"'
 alias glp='git log -p'
+
+alias gsh='git show'
+alias gss='git shortlog'
+alias gblame='git blame'
 
 # Fetch/Pull/Push
 alias gf='git fetch'
-alias gl='git pull'
-alias gup='git pull --rebase'
+
 alias gp='git push'
 alias gpo='git push origin'
-alias gpo\! ='git push origin --force'
+alias gpof='git push origin --force'
+
+alias gu='git pull'
+alias gur='git pull --rebase'
 
 # Stash
+alias gst='git stash'
 alias gstl='git stash list'
-alias gsta='git stash save'
+alias gsts='git stash save'
 alias gstp='git stash pop'
+alias gsta='git stash apply'
 alias gstd='git stash drop'
-alias gstaall='git stash apply'
 
 # Remote
 alias gr='git remote'
 alias gra='git remote add'
 alias grv='git remote -v'
 
-# Tags
+# Tagging
 alias gt='git tag'
 alias gts='git tag -s'
 
 # Reset/Revert
+alias gr='git reset'
 alias grh='git reset HEAD'
 alias grhh='git reset --hard HEAD'
 alias grm='git revert'
@@ -141,13 +152,9 @@ alias grm='git revert'
 # Merge/Rebase
 alias gm='git merge'
 alias gmt='git mergetool'
+
 alias grb='git rebase'
 alias grbi='git rebase -i'
-
-# Show / Log
-alias gsh='git show'
-alias gss='git shortlog'
-alias gblame='git blame'
 
 # Cherry-pick
 alias gcp='git cherry-pick'
@@ -161,6 +168,9 @@ alias gg='git gui'
 alias ggi='git gui citool'
 alias gcount='git shortlog -sn'
 alias gwho='git shortlog -sn --all'
+alias gcl='git clone --recursive'
+alias gi='git init'
+
 
 # alias chmod commands
 alias mx='chmod a+x'

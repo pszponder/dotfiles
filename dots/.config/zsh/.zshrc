@@ -53,8 +53,8 @@ zinit light Aloxaf/fzf-tab
 
 # Add in snippets / Plugins from Oh My Zsh
 # https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
-zinit snippet OMZL::git.zsh
-zinit snippet OMZP::git
+# zinit snippet OMZL::git.zsh
+# zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 zinit snippet OMZP::archlinux
 zinit snippet OMZP::aws

@@ -51,3 +51,10 @@ stow -D dots
 - [Elijah Manor - Neovim Config Switcher](https://www.youtube.com/watch?v=LkHjJlSgKZY)
 - [Dreams of Autonomy - This ZSH config is perhaps my favorite one yet](https://youtu.be/ud7YxC33Z3w?si=27kOpHT6xNCeLBx4)
 - [Configure your Git](https://www.youtube.com/watch?v=G3NJzFX6XhY)
+
+## TODOs
+
+- [ ] Add nixos section
+- [ ] Change repo from private to public
+- [ ] Add Configurations
+	- [ ] tmux

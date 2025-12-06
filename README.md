@@ -58,3 +58,7 @@ stow -D dots
 - [ ] Change repo from private to public
 - [ ] Add Configurations
 	- [ ] tmux
+- [ ] Add an `install.sh` script to automate the installation process
+    - [ ] Prompt user to install missing prerequisites (e.g., git, stow)
+    - [ ] Automate cloning the repository
+    - [ ] Automate stowing the dotfiles

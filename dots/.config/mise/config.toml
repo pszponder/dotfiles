@@ -1,12 +1,12 @@
 [tools]
-rust = "latest"
-go = "latest"
-zig = "latest"
-node = "latest"
-deno = "latest"
 bun = "latest"
+deno = "latest"
+go = "latest"
+node = "latest"
 python = "latest"
+rust = "latest"
 usage = "latest"
+zig = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]

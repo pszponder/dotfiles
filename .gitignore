@@ -21,3 +21,6 @@ fish_variables
 
 # nushell
 history.txt
+
+# Podman Containers
+containers/

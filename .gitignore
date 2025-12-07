@@ -4,6 +4,9 @@
 # Editors
 .vscode
 
+# Mac
+.DS_Store
+
 # Nushell history
 home/.config/nushell/history.txt
 

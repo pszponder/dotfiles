@@ -31,10 +31,7 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # ─── FZF Options ───────────────────────────────────
 export FZF_DEFAULT_COMMAND="fd --type f"
-export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
-
-# ─── Custom Bin Paths ──────────────────────────────
-export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+# export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
 
 # ─── Catppuccin Theme for fzf ───────────────────────
 export FZF_DEFAULT_OPTS=" \
@@ -43,3 +40,6 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
 --color=selected-bg:#45475A \
 --color=border:#6C7086,label:#CDD6F4"
+
+# ─── Custom Bin Paths ──────────────────────────────
+export PATH="$HOME/.local/bin:$HOME/bin:$PATH"

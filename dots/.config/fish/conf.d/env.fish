@@ -29,7 +29,7 @@ set -gx PYENV_VIRTUALENV_DISABLE_PROMPT 1
 
 # FZF Options
 set -gx FZF_DEFAULT_COMMAND "fd --type f"
-set -gx FZF_DEFAULT_OPTS "--height 40% --layout=reverse --border"
+# set -gx FZF_DEFAULT_OPTS "--height 40% --layout=reverse --border"
 
 # Custom Bin Paths
 set -gx PATH $HOME/.local/bin $HOME/bin $PATH

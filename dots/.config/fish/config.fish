@@ -36,6 +36,11 @@ if status is-interactive
         atuin init fish | source
     end
 
+    # # FZF Integration (Only use if not using Atuin)
+    # if type -q fzf
+    #     fzf --fish | source
+    # end
+
     # Zoxide (smarter cd)
     if type -q zoxide
         zoxide init fish | source

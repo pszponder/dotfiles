@@ -10,6 +10,7 @@ home/.config/nushell/history.txt
 # ZSH
 .zcompdump
 .zsh_history
+.zsh_sessions/
 
 # Warp terminal
 dots/.config/warp-terminal/user_preferences.json

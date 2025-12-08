@@ -22,20 +22,20 @@ configure_keyboard() {
     # Disable automatic spelling correction
     defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
-    # Disable smart quotes
-    defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+    # # Disable smart quotes
+    # defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-    # Disable smart dashes
-    defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+    # # Disable smart dashes
+    # defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
-    # Disable auto-capitalization
-    defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+    # # Disable auto-capitalization
+    # defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
-    # Disable automatic period substitution
-    defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+    # # Disable automatic period substitution
+    # defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
-    # Enable full keyboard access for all controls
-    defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+    # # Enable full keyboard access for all controls
+    # defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
     log_success "Keyboard settings configured"
 }

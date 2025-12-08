@@ -76,7 +76,7 @@ end
 if OS.mac?
   cask "raycast"
 
-  cask discord
+  cask "discord"
 
   cask "brave-browser"
   cask "google-chrome"

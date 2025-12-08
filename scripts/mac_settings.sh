@@ -34,9 +34,6 @@ configure_keyboard() {
     # Disable automatic period substitution
     defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
-    # # Enable full keyboard access for all controls
-    # defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
-
     log_success "Keyboard settings configured"
 }
 
@@ -74,39 +71,45 @@ configure_keyboard() {
 #     log_success "Finder settings configured"
 # }
 
-# # Dock Settings
-# configure_dock() {
-#     log_info "Configuring Dock settings..."
+# Dock Settings
+configure_dock() {
+    log_info "Configuring Dock settings..."
 
-#     # Set Dock size
-#     defaults write com.apple.dock tilesize -int 48
+    # Set Dock size
+    defaults write com.apple.dock tilesize -int 48
 
-#     # Enable magnification
-#     defaults write com.apple.dock magnification -bool true
+    # Enable magnification
+    defaults write com.apple.dock magnification -bool true
 
-#     # Set magnification size
-#     defaults write com.apple.dock largesize -int 64
+    # Set magnification size
+    defaults write com.apple.dock largesize -int 64
 
-#     # Minimize windows into application icon
-#     defaults write com.apple.dock minimize-to-application -bool true
+    # Set Minimized window effect to scale
+    defaults write com.apple.dock mineffect -string "scale"
 
-#     # Show indicator lights for open applications
-#     defaults write com.apple.dock show-process-indicators -bool true
+    # Set Window title bar double-click action to Fill
+    defaults write NSGlobalDomain AppleActionOnDoubleClick -string "Fill"
 
-#     # Don't show recent applications
-#     defaults write com.apple.dock show-recents -bool false
+    # Minimize windows into application icon
+    defaults write com.apple.dock minimize-to-application -bool true
 
-#     # Automatically hide and show the Dock
-#     defaults write com.apple.dock autohide -bool true
+    # Show indicator lights for open applications
+    defaults write com.apple.dock show-process-indicators -bool true
 
-#     # Remove all default app icons from Dock
-#     defaults write com.apple.dock persistent-apps -array
+    # Don't show recent applications
+    defaults write com.apple.dock show-recents -bool false
 
-#     # Restart Dock
-#     killall Dock
+    # Automatically hide and show the Dock
+    defaults write com.apple.dock autohide -bool true
 
-#     log_success "Dock settings configured"
-# }
+    # Remove all default app icons from Dock
+    defaults write com.apple.dock persistent-apps -array
+
+    # Restart Dock
+    killall Dock
+
+    log_success "Dock settings configured"
+}
 
 # # Trackpad Settings
 # configure_trackpad() {
@@ -212,7 +215,7 @@ main() {
     # Apply all configurations
     configure_keyboard
     # configure_finder
-    # configure_dock
+    configure_dock
     # configure_trackpad
     # configure_development
     # configure_screenshots

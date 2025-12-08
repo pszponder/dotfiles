@@ -52,6 +52,9 @@ stow -D dots
 - [Dreams of Autonomy - This ZSH config is perhaps my favorite one yet](https://youtu.be/ud7YxC33Z3w?si=27kOpHT6xNCeLBx4)
 - [Configure your Git](https://www.youtube.com/watch?v=G3NJzFX6XhY)
 
+### Mac Configuration References
+- [Snazzy Labs - 25 Mac Settings You have to Change](https://www.youtube.com/watch?v=psPgSN1bPLY)
+
 ## TODOs
 
 - [ ] Add nixos section

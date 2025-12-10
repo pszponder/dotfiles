@@ -54,6 +54,7 @@ stow -D dots
 
 ### Mac Configuration References
 - [Snazzy Labs - 25 Mac Settings You have to Change](https://www.youtube.com/watch?v=psPgSN1bPLY)
+- [Syntax - Set up a Mac for Power Users and Developers](https://www.youtube.com/watch?v=GK7zLYAXdDs)
 
 ## TODOs
 

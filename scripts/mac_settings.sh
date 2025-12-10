@@ -81,6 +81,12 @@ configure_finder() {
     # Use list view in all Finder windows
     defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
+    # Open folders in tabs instead of new windows
+    defaults write com.apple.finder FinderSpawnTab -bool true
+
+    # Disable tags in Finder
+    defaults write com.apple.finder ShowRecentTags -bool false
+
     # # Show Library folder
     # chflags nohidden ~/Library
 
@@ -135,6 +141,9 @@ configure_dock() {
 
     # Make Hidden Apps Transparent
     defaults write com.apple.dock showhidden -bool true
+
+    # Disable animate opening applications
+    defaults write com.apple.dock launchAnimated -bool false
 
     # Remove all default app icons from Dock
     defaults write com.apple.dock persistent-apps -array

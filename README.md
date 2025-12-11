@@ -52,6 +52,13 @@ stow -D dots
 - [Dreams of Autonomy - This ZSH config is perhaps my favorite one yet](https://youtu.be/ud7YxC33Z3w?si=27kOpHT6xNCeLBx4)
 - [Configure your Git](https://www.youtube.com/watch?v=G3NJzFX6XhY)
 
+### TMUX
+- [typecraft - Tmux for Newbs](https://www.youtube.com/playlist?list=PLsz00TDipIfdrJDjpULKY7mQlIFi4HjdR)
+- [tmuxcheatsheet.com](https://tmuxcheatsheet.com/)
+- [Dreams of Code - Tmux has forever changed the way I write code](https://www.youtube.com/watch?v=DzNmUNvnB04)
+- [DevOps Toolbox - Tmux from Scratch to BEST MODE](https://www.youtube.com/watch?v=GH3kpsbbERo)
+- [DevOps Toolbox - Hidden Tmux Power: The Missing 50%](https://www.youtube.com/watch?v=_TI8qcsiiBU)
+
 ### Mac Configuration References
 - [Snazzy Labs - 25 Mac Settings You have to Change](https://www.youtube.com/watch?v=psPgSN1bPLY)
 - [Syntax - Set up a Mac for Power Users and Developers](https://www.youtube.com/watch?v=GK7zLYAXdDs)

@@ -145,6 +145,9 @@ configure_dock() {
     # Disable animate opening applications
     defaults write com.apple.dock launchAnimated -bool false
 
+    # Group windows by application
+    defaults write com.apple.dock expose-group-by-app -bool true
+
     # Remove all default app icons from Dock
     defaults write com.apple.dock persistent-apps -array
 
@@ -224,6 +227,12 @@ configure_security() {
     defaults write com.apple.Siri StatusMenuVisible -bool false
     defaults write com.apple.Siri UserHasDeclinedEnable -bool true
 
+    # # Allow accessories to connect
+    # defaults write /Library/Preferences/com.apple.Bluetooth.plist BluetoothAutoSeekPointingDevice -bool true
+
+    # # Ask for new accessories
+    # defaults write /Library/Preferences/com.apple.Bluetooth.plist BluetoothAutoSeekKeyboard -bool true
+
     log_success "Security settings configured"
 }
 
@@ -235,6 +244,22 @@ configure_menu_bar() {
     defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 
     log_success "Menu bar settings configured"
+}
+
+# Software Update Settings
+configure_updates() {
+    log_info "Configuring automatic updates settings..."
+
+    # Download new updates when available
+    defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool true
+
+    # Install macOS updates
+    defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticSecurityUpdates -bool true
+
+    # Install security responses and system files
+    defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
+
+    log_success "Automatic updates settings configured"
 }
 
 run_section() {
@@ -263,6 +288,9 @@ run_section() {
             ;;
         menu_bar|menubar|menu-bar)
             configure_menu_bar
+            ;;
+        updates)
+            configure_updates
             ;;
         *)
             log_warning "Unknown section '$section' - skipping"
@@ -301,6 +329,7 @@ main() {
             screenshots
             security
             menu_bar
+            updates
         )
     fi
 

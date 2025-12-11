@@ -439,4 +439,4 @@ ghpr() {
 
 # Open current repo in browser
 alias ghview='gh repo view --web'
-alias ghopen='gh repo view --web'
+alias ghopen=ghview

@@ -79,7 +79,7 @@ alias gdcw='git diff --cached --word-diff'
 alias gc='git commit'
 alias gcv='git commit -v'
 alias gcve='git commit -v --amend'
-gcm() { git commit --message "$*" }
+gcm() { git commit --message "$*"; }
 alias gcam='git commit -a -m'
 alias gcad='git commit -a --amend'
 alias gca='gc --amend --no-edit'
@@ -293,8 +293,7 @@ cpp() {
                 printf " "
             printf "]\r"
         }
-    }
-    END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
+    } END { print "" }' total_size="$(stat -c '%s' "${1}")" count=0
 }
 
 # Copy and go to the directory

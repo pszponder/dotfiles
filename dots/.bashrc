@@ -88,8 +88,10 @@ HISTFILESIZE=20000
 shopt -s histappend
 shopt -s cmdhist
 
-# # History PROMPT_COMMAND (must come LAST, after all tools)
+# History PROMPT_COMMAND (must come LAST, after all tools)
 PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-# Warpify Subshells (only if using Warp Terminal)
-printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\x9c'
+# Warpify subshells only when launched from Warp (not inside tmux)
+if [[ $TERM_PROGRAM == "WarpTerminal" && -z $TMUX ]]; then
+  printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\e\\'
+fi

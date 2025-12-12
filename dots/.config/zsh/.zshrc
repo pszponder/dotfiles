@@ -127,5 +127,7 @@ if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
-# Warpify Subshells (Only if using Warp Terminal)
-printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\x9c'
+# Warpify subshells only when launched from Warp (and not inside tmux); use ESC backslash terminator
+if [[ $TERM_PROGRAM == "WarpTerminal" && -z $TMUX ]]; then
+  printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\e\\'
+fi

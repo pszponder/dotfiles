@@ -73,3 +73,4 @@ stow -D dots
     - [ ] Prompt user to install missing prerequisites (e.g., git, stow)
     - [ ] Automate cloning the repository
     - [ ] Automate stowing the dotfiles
+- [ ] Figure out if there is a way to use stow to replace files which are already present in the home directory with the ones from the dotfiles repo

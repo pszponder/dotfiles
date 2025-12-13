@@ -58,6 +58,7 @@ stow -D dots
 - [Dreams of Code - Tmux has forever changed the way I write code](https://www.youtube.com/watch?v=DzNmUNvnB04)
 - [DevOps Toolbox - Tmux from Scratch to BEST MODE](https://www.youtube.com/watch?v=GH3kpsbbERo)
 - [DevOps Toolbox - Hidden Tmux Power: The Missing 50%](https://www.youtube.com/watch?v=_TI8qcsiiBU)
+- [tony - How to Customize Tmux (20XX Edition)](https://www.youtube.com/watch?v=XivdyrFCV4M)
 
 ### Mac Configuration References
 - [Snazzy Labs - 25 Mac Settings You have to Change](https://www.youtube.com/watch?v=psPgSN1bPLY)
@@ -66,14 +67,10 @@ stow -D dots
 ## TODOs
 
 - [ ] Add nixos section
-- [ ] Change repo from private to public
-- [ ] Add Configurations
-	- [ ] tmux
 - [ ] Add an `install.sh` script to automate the installation process
     - [ ] Prompt user to install missing prerequisites (e.g., git, stow)
     - [ ] Automate cloning the repository
     - [ ] Automate stowing the dotfiles
 - [ ] Figure out if there is a way to use stow to replace files which are already present in the home directory with the ones from the dotfiles repo
-- [ ] Don't install shells using brew
-- [ ] Get atuin working with bash
-- [ ] get tmux to use zsh shells (only if can't get bash to work with atuin)
+- [ ] Consider using nix darwin / nix configurations
+- [ ] Add kanata

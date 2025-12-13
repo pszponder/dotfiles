@@ -64,6 +64,13 @@ stow -D dots
 - [Snazzy Labs - 25 Mac Settings You have to Change](https://www.youtube.com/watch?v=psPgSN1bPLY)
 - [Syntax - Set up a Mac for Power Users and Developers](https://www.youtube.com/watch?v=GK7zLYAXdDs)
 
+### Kanata (Keyboard Configurator)
+- [Dreams of Code - Turning the works key on a keyboard into the mos useful one](https://www.youtube.com/watch?v=XuQVbZ0wENE)
+- [Dreams of Code - kanata - caps2esc.kbd](https://www.youtube.com/watch?v=XuQVbZ0wENE)
+- [Dreams of Code - This weird keyboard technique has improved the way I type](https://www.youtube.com/watch?v=sLWQ4Gx88h4&list=PLZbzMyCByWJ3KmJfRlzus4BhryPs1nsyU&index=9)
+- [Dreams of Code - kanata - home-row-mods](https://github.com/dreamsofcode-io/home-row-mods/tree/main/kanata)
+
+
 ## TODOs
 
 - [ ] Add nixos section
@@ -74,3 +81,9 @@ stow -D dots
 - [ ] Figure out if there is a way to use stow to replace files which are already present in the home directory with the ones from the dotfiles repo
 - [ ] Consider using nix darwin / nix configurations
 - [ ] Add kanata
+    - [ ] How to install Kanata? (`cargo install kanata` or `brew install kanata`?)
+    - [ ] Also need to install karabiner driver???
+    - [ ] On mac, kanata resets function rows so need to redefine them in Kanata
+- [ ] Setup tiling window manager on mac (Aerospace or yabai)
+    - [ ] https://www.youtube.com/watch?v=5nwnJjr5eOo
+    - [ ]

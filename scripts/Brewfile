@@ -8,6 +8,7 @@ brew "btop"
 brew "clipboard"
 brew "curl"
 brew "direnv"
+# brew "docker"
 brew "eza"
 brew "fd"
 brew "figlet"
@@ -67,7 +68,7 @@ cask "font-meslo-lg-nerd-font"
 #+ Platform-specific (leave as-is)
 ########################################
 if OS.linux?
-  brew "podman"
+  # brew "podman"
 end
 
 ########################################
@@ -88,5 +89,6 @@ if OS.mac?
   cask "visual-studio-code"
   cask "zed"
 
-  cask "podman-desktop"
+  # cask "podman-desktop"
+  brew "orbstack"
 end

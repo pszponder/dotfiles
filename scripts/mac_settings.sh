@@ -262,8 +262,9 @@ configure_security() {
 configure_menu_bar() {
     log_info "Configuring menu bar settings..."
 
-    # Automatically hide and show the menu bar
-    defaults write NSGlobalDomain AppleMenuBarVisible -bool false
+    # Always show the menu bar (disable autohide)
+    defaults write NSGlobalDomain AppleMenuBarVisible -bool true
+    defaults write NSGlobalDomain _HIHideMenuBar -bool false
 
     # Disable Spotlight search icon in menu bar
     defaults write com.apple.Spotlight MenuItemHidden -bool true

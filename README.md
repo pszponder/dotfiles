@@ -69,6 +69,7 @@ stow -D dots
 - [Dreams of Code - kanata - caps2esc.kbd](https://www.youtube.com/watch?v=XuQVbZ0wENE)
 - [Dreams of Code - This weird keyboard technique has improved the way I type](https://www.youtube.com/watch?v=sLWQ4Gx88h4&list=PLZbzMyCByWJ3KmJfRlzus4BhryPs1nsyU&index=9)
 - [Dreams of Code - kanata - home-row-mods](https://github.com/dreamsofcode-io/home-row-mods/tree/main/kanata)
+- [jaycedam/install_kanata_macos.sh](https://gist.github.com/Jaycedam/4db80fc49c1d23c76c90c9b3e653c07f)
 
 
 ## TODOs
@@ -84,6 +85,7 @@ stow -D dots
     - [ ] How to install Kanata? (`cargo install kanata` or `brew install kanata`?)
     - [ ] Also need to install karabiner driver???
     - [ ] On mac, kanata resets function rows so need to redefine them in Kanata
+    - [ ] Need to first install Karabiner-DriverKit-VirtualHIDDevice (via karakaber-elements???) for kanata on mac
 - [ ] Setup tiling window manager on mac (Aerospace or yabai)
     - [ ] https://www.youtube.com/watch?v=5nwnJjr5eOo
-    - [ ]
+- [ ] Create a Makefile or justfile to automate the installation process (or use a script)

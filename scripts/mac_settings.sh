@@ -148,8 +148,30 @@ configure_dock() {
     # Group windows by application
     defaults write com.apple.dock expose-group-by-app -bool true
 
+    # Define list of apps to pin to Dock
+    local -a pinned_apps=(
+        "/Applications/Finder.app"
+        "/Applications/Mail.app"
+        "/Applications/Brave Browser.app"
+        "/Applications/Ghostty.app"
+        "/Applications/Visual Studio Code.app"
+        "/Applications/Obsidian.app"
+        "/Applications/Bitwarden.app"
+        "/Applications/Docker.app"
+    )
+
     # Remove all default app icons from Dock
     defaults write com.apple.dock persistent-apps -array
+
+    # Add pinned applications
+    for app in "${pinned_apps[@]}"; do
+        if [[ -d "$app" ]]; then
+            defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
+            log_info "Pinned: $(basename "$app")"
+        else
+            log_warning "App not found: $app"
+        fi
+    done
 
     # Restart Dock
     killall Dock 2>/dev/null || true
@@ -239,6 +261,12 @@ configure_security() {
 # Menu Bar Settings
 configure_menu_bar() {
     log_info "Configuring menu bar settings..."
+
+    # Automatically hide and show the menu bar
+    defaults write NSGlobalDomain AppleMenuBarVisible -bool false
+
+    # Disable Spotlight search icon in menu bar
+    defaults write com.apple.Spotlight MenuItemHidden -bool true
 
     # Show battery percentage
     defaults write com.apple.menuextra.battery ShowPercent -string "YES"

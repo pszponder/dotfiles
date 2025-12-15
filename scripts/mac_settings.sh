@@ -105,7 +105,7 @@ configure_dock() {
     log_info "Configuring Dock settings..."
 
     # Set Dock size (larger icons) (max is 128)
-    defaults write com.apple.dock tilesize -int 32
+    defaults write com.apple.dock tilesize -int 48
 
     # Enable magnification
     defaults write com.apple.dock magnification -bool true
@@ -179,13 +179,22 @@ configure_dock() {
 configure_trackpad() {
     log_info "Configuring trackpad settings..."
 
-    # Enable tap to click
+    # Enable tap to click (1 finger tap)
     defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
     defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+    defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+    defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
-    # Enable three finger drag
-    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
-    defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+    # Increase tracking speed (range: 0-3, 2.5 = fast but not maximum)
+    defaults write NSGlobalDomain com.apple.trackpad.scaling -float 2.5
+
+    # Disable three finger drag (conflicts with 3-finger swipe for spaces)
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool false
+    defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool false
+
+    # Enable 3-finger swipe between fullscreen apps/spaces
+    defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 2
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 2
 
     # Enable App Expose gesture
     defaults write com.apple.dock showAppExposeGestureEnabled -bool true
@@ -288,8 +297,8 @@ configure_menu_bar() {
     log_info "Configuring menu bar settings..."
 
     # Always show the menu bar (disable autohide)
-    defaults write NSGlobalDomain AppleMenuBarVisible -bool true
-    defaults write NSGlobalDomain _HIHideMenuBar -bool false
+    # defaults write NSGlobalDomain AppleMenuBarVisible -bool true
+    # defaults write NSGlobalDomain _HIHideMenuBar -bool false
 
     # Disable Spotlight search icon in menu bar
     defaults write com.apple.Spotlight MenuItemHidden -bool true

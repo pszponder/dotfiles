@@ -104,14 +104,14 @@ configure_finder() {
 configure_dock() {
     log_info "Configuring Dock settings..."
 
-    # Set Dock size
-    defaults write com.apple.dock tilesize -int 48
+    # Set Dock size (larger icons) (max is 128)
+    defaults write com.apple.dock tilesize -int 32
 
     # Enable magnification
     defaults write com.apple.dock magnification -bool true
 
-    # Set magnification size
-    defaults write com.apple.dock largesize -int 64
+    # Set magnification size to maximum (128 is macOS limit)
+    defaults write com.apple.dock largesize -int 128
 
     # Set Minimized window effect to scale
     defaults write com.apple.dock mineffect -string "scale"
@@ -131,13 +131,11 @@ configure_dock() {
     # Automatically hide and show the Dock
     defaults write com.apple.dock autohide -bool true
 
-    # Instant Dock hiding
+    # Remove autohide delay for instant response
     defaults write com.apple.dock autohide-delay -float 0
-    defaults write com.apple.dock autohide-time-modifier -int 0
 
-    # # Faster Dock hiding undo
-    # defaults write com.apple.dock autohide-delay -float 0.5
-    # defaults write com.apple.dock autohide-time-modifier -int 0.5
+    # Faster animation for showing/hiding Dock
+    defaults write com.apple.dock autohide-time-modifier -float 0.4
 
     # Make Hidden Apps Transparent
     defaults write com.apple.dock showhidden -bool true
@@ -150,16 +148,14 @@ configure_dock() {
 
     # Define list of apps to pin to Dock
     local -a pinned_apps=(
-        "/Applications/Finder.app"
-        "/Applications/Mail.app"
+        # "/System/Library/CoreServices/Finder.app"
+        "/System/Applications/Mail.app"
         "/Applications/Brave Browser.app"
         "/Applications/Ghostty.app"
         "/Applications/Visual Studio Code.app"
         "/Applications/Obsidian.app"
         "/Applications/Bitwarden.app"
-        "/Applications/Docker.app"
     )
-
     # Remove all default app icons from Dock
     defaults write com.apple.dock persistent-apps -array
 
@@ -203,13 +199,42 @@ configure_development() {
 
     # Enable developer mode in Safari (if Safari is installed)
     if [[ -d "/Applications/Safari.app" ]]; then
-        defaults write com.apple.Safari IncludeDevelopMenu -bool true
-        defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-        defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+        # Safari uses a sandbox container that can't be modified externally
+        # Try using osascript to enable developer menu through Safari's preferences
+        log_info "Attempting to enable Safari developer menu..."
+
+        if osascript -e 'tell application "Safari" to activate' \
+                      -e 'tell application "System Events" to tell process "Safari"' \
+                      -e 'tell menu bar 1' \
+                      -e 'tell menu bar item "Safari"' \
+                      -e 'tell menu "Safari"' \
+                      -e 'click menu item "Settings…"' \
+                      -e 'end tell' \
+                      -e 'end tell' \
+                      -e 'end tell' \
+                      -e 'delay 1' \
+                      -e 'tell window 1' \
+                      -e 'click button "Advanced" of toolbar 1' \
+                      -e 'delay 0.5' \
+                      -e 'tell group 1 of group 1' \
+                      -e 'set checkboxValue to value of checkbox "Show features for web developers"' \
+                      -e 'if checkboxValue is 0 then click checkbox "Show features for web developers"' \
+                      -e 'end tell' \
+                      -e 'end tell' \
+                      -e 'end tell' \
+                      -e 'tell application "Safari" to quit' 2>/dev/null; then
+            log_success "Safari developer menu enabled"
+        else
+            log_warning "Could not automatically enable Safari developer menu. Please enable manually:"
+            log_warning "  Safari → Settings → Advanced → Show features for web developers"
+        fi
     fi
 
     # Enable secure keyboard entry in Terminal
     defaults write com.apple.terminal SecureKeyboardEntry -bool true
+
+    # Enable key repeat in VS Code
+    defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
     log_success "Development settings configured"
 }
@@ -280,13 +305,13 @@ configure_updates() {
     log_info "Configuring automatic updates settings..."
 
     # Download new updates when available
-    defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool true
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool true
 
     # Install macOS updates
-    defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticSecurityUpdates -bool true
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticSecurityUpdates -bool true
 
     # Install security responses and system files
-    defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
 
     log_success "Automatic updates settings configured"
 }

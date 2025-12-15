@@ -75,18 +75,10 @@ stow -D dots
 ## TODOs
 
 - [ ] Add nixos section
-- [ ] Add an `install.sh` script to automate the installation process
-    - [ ] Prompt user to install missing prerequisites (e.g., git, stow)
-    - [ ] Automate cloning the repository
-        - [ ] Should we describe how to install prerequisites or try to automate it?
-    - [ ] Automate stowing the dotfiles
 - [ ] Figure out if there is a way to use stow to replace files which are already present in the home directory with the ones from the dotfiles repo
 - [ ] Consider using nix darwin / nix configurations
-- [ ] Add kanata
-    - [ ] How to install Kanata? (`cargo install kanata` or `brew install kanata`?)
-    - [ ] Also need to install karabiner driver???
-    - [ ] On mac, kanata resets function rows so need to redefine them in Kanata
-    - [ ] Need to first install Karabiner-DriverKit-VirtualHIDDevice (via karakaber-elements???) for kanata on mac
+- [ ] Add homerow mods for karabiner elements
 - [ ] Setup tiling window manager on mac (Aerospace or yabai)
     - [ ] https://www.youtube.com/watch?v=5nwnJjr5eOo
 - [ ] Create a Makefile or justfile to automate the installation process (or use a script)
+- [ ] Investigate orbstack or colima for containerization on mac (colima is also linux compatible)

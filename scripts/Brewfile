@@ -77,6 +77,8 @@ end
 if OS.mac?
   cask "raycast"
 
+  cask "karabiner-elements"
+
   cask "discord"
 
   cask "brave-browser"

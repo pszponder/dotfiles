@@ -78,6 +78,7 @@ stow -D dots
 - [ ] Add an `install.sh` script to automate the installation process
     - [ ] Prompt user to install missing prerequisites (e.g., git, stow)
     - [ ] Automate cloning the repository
+        - [ ] Should we describe how to install prerequisites or try to automate it?
     - [ ] Automate stowing the dotfiles
 - [ ] Figure out if there is a way to use stow to replace files which are already present in the home directory with the ones from the dotfiles repo
 - [ ] Consider using nix darwin / nix configurations

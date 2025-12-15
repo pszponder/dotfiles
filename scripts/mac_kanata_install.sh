@@ -2,23 +2,38 @@
 set -euo pipefail
 
 # mac_kanata_install.sh
-# Installs:
-# - kanata (Homebrew)
-# - Karabiner-DriverKit-VirtualHIDDevice (pkg)
-# Configures:
-# - launchd (LaunchDaemons) for:
-#   - Karabiner-VirtualHIDDevice-Manager activate
-#   - Karabiner-VirtualHIDDevice-Daemon
-#   - kanata (runs as root)
+#
+# What this script sets up
+# - Installs kanata via Homebrew.
+# - Installs Karabiner-DriverKit-VirtualHIDDevice via its signed .pkg.
+# - Creates and loads 3 launchd *LaunchDaemons* (system-wide services):
+#   1) Karabiner-VirtualHIDDevice-Manager activate
+#   2) Karabiner-VirtualHIDDevice-Daemon
+#   3) kanata (must run as root on macOS)
+#
+# About "plists" / the XML below
+# - macOS uses launchd to manage background services.
+# - launchd is configured with .plist files (Property Lists).
+# - A LaunchDaemon plist is an XML file placed in /Library/LaunchDaemons.
+# - The XML describes:
+#   - the job label (unique name)
+#   - the program + arguments to execute
+#   - whether to start at boot (RunAtLoad)
+#   - whether to restart on exit (KeepAlive)
+#   - where to write stdout/stderr logs
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
 # shellcheck source=./utils_logging.sh
 source "$SCRIPT_DIR/utils_logging.sh"
+# shellcheck source=./utils_env.sh
+source "$SCRIPT_DIR/utils_env.sh"
 
 if [[ "${OSTYPE:-}" != darwin* ]]; then
     log_error "This script is designed for macOS only."
     exit 1
 fi
+
+load_config_env
 
 # ---- Configuration (override via env vars) ----
 LAUNCHD_LABEL_PREFIX=${LAUNCHD_LABEL_PREFIX:-com.pszponder.kanata}
@@ -73,6 +88,12 @@ mktemp_file() {
 }
 
 launchd_bootstrap_enable_kickstart() {
+    # Idempotently (re)load a LaunchDaemon plist.
+    #
+    # - bootout: unload if currently loaded (may fail if it's not loaded).
+    # - bootstrap: load the plist into the system domain.
+    # - enable: ensure the job is enabled.
+    # - kickstart: start/restart it immediately.
     local plist_path="$1"
     local label="$2"
 
@@ -84,6 +105,11 @@ launchd_bootstrap_enable_kickstart() {
 }
 
 write_plist() {
+    # Writes a plist to /Library/LaunchDaemons safely:
+    # - write content to a temp file
+    # - install it with root ownership and 0644 permissions
+    #
+    # Note: launchd prefers plists to be owned by root:wheel in /Library/LaunchDaemons.
     local dst="$1"
     local content="$2"
 
@@ -202,6 +228,9 @@ configure_launchd() {
     fi
 
     # 1) Manager activation job
+    #
+    # This runs once at boot (RunAtLoad) to "activate" the DriverKit virtual HID device.
+    # If DriverKit approval hasn't been granted yet, this may fail until the user approves it.
     write_plist "$PLIST_VHID_MANAGER" "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">
@@ -224,6 +253,10 @@ configure_launchd() {
 "
 
     # 2) VirtualHID daemon job
+    #
+    # This is the long-running background daemon that implements the virtual HID device.
+    # KeepAlive=true means launchd restarts it if it exits/crashes.
+    # ProcessType=Interactive is a common recommendation for input-related daemons.
     write_plist "$PLIST_VHID_DAEMON" "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">
@@ -249,6 +282,13 @@ configure_launchd() {
 "
 
     # 3) Kanata job
+    #
+    # Kanata is run as a LaunchDaemon (root). This is intentional on macOS because:
+    # - Kanata needs to read raw input devices and inject output events.
+    # - The output side is provided by the VirtualHIDDevice daemon above.
+    #
+    # NOTE: $KANATA_CFG is expanded now and embedded into the plist as an absolute path,
+    # because LaunchDaemons do not run with your interactive shell environment.
     local -a kanata_args
     kanata_args=("$kanata_bin" "--cfg" "$kanata_cfg_expanded")
 
@@ -325,6 +365,7 @@ EOF
 
     log_warning "After completing the approvals above, you may need to reboot or restart the services."
     log_info "To restart services: sudo launchctl kickstart -k system/${LABEL_KANATA}"
+    log_info "To uninstall (clean removal by default): ./scripts/mac_kanata_uninstall.sh"
 }
 
 main() {

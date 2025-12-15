@@ -1,21 +1,35 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# mac_kanata.uninstall.sh
-# Removes:
-# - launchd LaunchDaemons created by scripts/mac_kanata_install.sh
-# Optionally removes:
-# - kanata (Homebrew) if REMOVE_KANATA=1
-# - Karabiner DriverKit VirtualHIDDevice files if REMOVE_DRIVERKIT=1
+# mac_kanata_uninstall.sh
+#
+# What this script removes
+# - The launchd LaunchDaemons (system services) created by scripts/mac_kanata_install.sh.
+#   This stops kanata + the VirtualHIDDevice services from starting at boot.
+#
+# Optional removals (enabled by default)
+# - REMOVE_KANATA=1: uninstall kanata from Homebrew.
+# - REMOVE_DRIVERKIT=1: run the DriverKit package's own uninstall scripts (if present).
+# - REMOVE_LOGS=1: delete /Library/Logs/Kanata.
+#
+# You can keep things installed by overriding to 0, e.g.:
+#   REMOVE_KANATA=0 REMOVE_DRIVERKIT=0 REMOVE_LOGS=0 ./scripts/mac_kanata_uninstall.sh
+#
+# Note: macOS Privacy permissions (Accessibility/Input Monitoring) are user-managed and
+# are not removed automatically.
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
 # shellcheck source=./utils_logging.sh
 source "$SCRIPT_DIR/utils_logging.sh"
+# shellcheck source=./utils_env.sh
+source "$SCRIPT_DIR/utils_env.sh"
 
 if [[ "${OSTYPE:-}" != darwin* ]]; then
     log_error "This script is designed for macOS only."
     exit 1
 fi
+
+load_config_env
 
 LAUNCHD_LABEL_PREFIX=${LAUNCHD_LABEL_PREFIX:-com.pszponder.kanata}
 PLIST_DIR=${PLIST_DIR:-/Library/LaunchDaemons}
@@ -29,9 +43,10 @@ PLIST_VHID_MANAGER="${PLIST_DIR}/${LABEL_VHID_MANAGER}.plist"
 PLIST_VHID_DAEMON="${PLIST_DIR}/${LABEL_VHID_DAEMON}.plist"
 PLIST_KANATA="${PLIST_DIR}/${LABEL_KANATA}.plist"
 
-REMOVE_KANATA=${REMOVE_KANATA:-0}
-REMOVE_DRIVERKIT=${REMOVE_DRIVERKIT:-0}
-REMOVE_LOGS=${REMOVE_LOGS:-0}
+# Defaults: perform a "clean" removal.
+REMOVE_KANATA=${REMOVE_KANATA:-1}
+REMOVE_DRIVERKIT=${REMOVE_DRIVERKIT:-1}
+REMOVE_LOGS=${REMOVE_LOGS:-1}
 
 bootout_if_present() {
     local plist="$1"
@@ -120,11 +135,12 @@ main() {
     cat <<EOF
 
 Notes:
-- macOS Privacy permissions (Accessibility/Input Monitoring) are not removed automatically.
-- If you want to remove the DriverKit package content, re-run with:
-    REMOVE_DRIVERKIT=1 $0
-- If you want to uninstall kanata from Homebrew, re-run with:
-    REMOVE_KANATA=1 $0
+- macOS Privacy permissions are not removed automatically. To fully clean up:
+  - System Settings -> Privacy & Security -> Accessibility: remove/disable kanata
+  - System Settings -> Privacy & Security -> Input Monitoring: remove/disable kanata
+- This script defaults to a clean removal (kanata + driverkit + logs).
+- To keep installed packages/logs, override any of these to 0:
+    REMOVE_DRIVERKIT=0 REMOVE_KANATA=0 REMOVE_LOGS=0 $0
 
 EOF
 }

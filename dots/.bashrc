@@ -72,9 +72,9 @@ if command -v starship &> /dev/null; then
 fi
 
 # Atuin (Magical Shell History)
-# if command -v atuin &> /dev/null; then
-#   eval "$(atuin init bash)"
-# fi
+if command -v atuin &> /dev/null; then
+  eval "$(atuin init bash)"
+fi
 
 # Zoxide initialization
 if command -v zoxide &> /dev/null; then
@@ -90,6 +90,9 @@ shopt -s cmdhist
 
 # History PROMPT_COMMAND (must come LAST, after all tools)
 PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+# Bash-preexec (Required for Atuin)
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
 
 # Warpify subshells only when launched from Warp (not inside tmux)
 if [[ $TERM_PROGRAM == "WarpTerminal" && -z $TMUX ]]; then

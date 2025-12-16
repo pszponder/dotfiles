@@ -337,6 +337,32 @@ configure_updates() {
     log_success "Automatic updates settings configured"
 }
 
+# Wallpaper Settings
+configure_wallpaper() {
+    log_info "Configuring desktop wallpaper..."
+
+    local wallpaper_path="$HOME/Pictures/wallpaper/catppuccin-mocha.png"
+
+    if [[ ! -f "$wallpaper_path" ]]; then
+        log_warning "Wallpaper not found: $wallpaper_path"
+        return 1
+    fi
+
+    if osascript <<EOF
+tell application "System Events"
+    tell every desktop
+        set picture to POSIX file "$wallpaper_path"
+    end tell
+end tell
+EOF
+    then
+        log_success "Wallpaper set to: $wallpaper_path"
+    else
+        log_error "Failed to set wallpaper"
+        return 1
+    fi
+}
+
 run_section() {
     local section=$1
     case "$section" in
@@ -366,6 +392,9 @@ run_section() {
             ;;
         updates)
             configure_updates
+            ;;
+        wallpaper)
+            configure_wallpaper
             ;;
         *)
             log_warning "Unknown section '$section' - skipping"
@@ -405,6 +434,7 @@ main() {
             security
             menu_bar
             updates
+            wallpaper
         )
     fi
 

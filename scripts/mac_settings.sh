@@ -206,38 +206,38 @@ configure_trackpad() {
 configure_development() {
     log_info "Configuring development settings..."
 
-    # Enable developer mode in Safari (if Safari is installed)
-    if [[ -d "/Applications/Safari.app" ]]; then
-        # Safari uses a sandbox container that can't be modified externally
-        # Try using osascript to enable developer menu through Safari's preferences
-        log_info "Attempting to enable Safari developer menu..."
+    # # Enable developer mode in Safari (if Safari is installed)
+    # if [[ -d "/Applications/Safari.app" ]]; then
+    #     # Safari uses a sandbox container that can't be modified externally
+    #     # Try using osascript to enable developer menu through Safari's preferences
+    #     log_info "Attempting to enable Safari developer menu..."
 
-        if osascript -e 'tell application "Safari" to activate' \
-                      -e 'tell application "System Events" to tell process "Safari"' \
-                      -e 'tell menu bar 1' \
-                      -e 'tell menu bar item "Safari"' \
-                      -e 'tell menu "Safari"' \
-                      -e 'click menu item "Settings…"' \
-                      -e 'end tell' \
-                      -e 'end tell' \
-                      -e 'end tell' \
-                      -e 'delay 1' \
-                      -e 'tell window 1' \
-                      -e 'click button "Advanced" of toolbar 1' \
-                      -e 'delay 0.5' \
-                      -e 'tell group 1 of group 1' \
-                      -e 'set checkboxValue to value of checkbox "Show features for web developers"' \
-                      -e 'if checkboxValue is 0 then click checkbox "Show features for web developers"' \
-                      -e 'end tell' \
-                      -e 'end tell' \
-                      -e 'end tell' \
-                      -e 'tell application "Safari" to quit' 2>/dev/null; then
-            log_success "Safari developer menu enabled"
-        else
-            log_warning "Could not automatically enable Safari developer menu. Please enable manually:"
-            log_warning "  Safari → Settings → Advanced → Show features for web developers"
-        fi
-    fi
+    #     if osascript -e 'tell application "Safari" to activate' \
+    #                   -e 'tell application "System Events" to tell process "Safari"' \
+    #                   -e 'tell menu bar 1' \
+    #                   -e 'tell menu bar item "Safari"' \
+    #                   -e 'tell menu "Safari"' \
+    #                   -e 'click menu item "Settings…"' \
+    #                   -e 'end tell' \
+    #                   -e 'end tell' \
+    #                   -e 'end tell' \
+    #                   -e 'delay 1' \
+    #                   -e 'tell window 1' \
+    #                   -e 'click button "Advanced" of toolbar 1' \
+    #                   -e 'delay 0.5' \
+    #                   -e 'tell group 1 of group 1' \
+    #                   -e 'set checkboxValue to value of checkbox "Show features for web developers"' \
+    #                   -e 'if checkboxValue is 0 then click checkbox "Show features for web developers"' \
+    #                   -e 'end tell' \
+    #                   -e 'end tell' \
+    #                   -e 'end tell' \
+    #                   -e 'tell application "Safari" to quit' 2>/dev/null; then
+    #         log_success "Safari developer menu enabled"
+    #     else
+    #         log_warning "Could not automatically enable Safari developer menu. Please enable manually:"
+    #         log_warning "  Safari → Settings → Advanced → Show features for web developers"
+    #     fi
+    # fi
 
     # Enable secure keyboard entry in Terminal
     defaults write com.apple.terminal SecureKeyboardEntry -bool true

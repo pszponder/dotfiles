@@ -313,14 +313,26 @@ configure_menu_bar() {
 configure_updates() {
     log_info "Configuring automatic updates settings..."
 
+    # Enable automatic check for updates
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+
     # Download new updates when available
     sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool true
 
-    # Install macOS updates
+    # Install macOS updates automatically
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticallyInstallMacOSUpdates -bool true
+
+    # Install security updates automatically
     sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticSecurityUpdates -bool true
 
-    # Install security responses and system files
+    # Install system data files and security updates automatically
+    sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall -bool true
+
+    # Install critical security responses and system files
     sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
+
+    # Auto-install App Store app updates
+    sudo defaults write /Library/Preferences/com.apple.commerce AutoUpdate -bool true
 
     log_success "Automatic updates settings configured"
 }

@@ -30,10 +30,9 @@ check_macos() {
 configure_keyboard() {
     log_info "Configuring keyboard and text input settings..."
 
-    # Developer-friendly key repeat behavior
-    # Use fast key repeat rates
-    defaults write NSGlobalDomain KeyRepeat -int 2
-    defaults write NSGlobalDomain InitialKeyRepeat -int 15
+    # Fast keyboard key repeat
+    defaults write -g InitialKeyRepeat -int 10
+    defaults write -g KeyRepeat -int 1
 
     # Disable press-and-hold in favor of key repeat
     defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
@@ -63,22 +62,33 @@ configure_finder() {
     # Show hidden files
     defaults write com.apple.finder AppleShowAllFiles -bool true
 
-    # Show file extensions
+    # Always show file extensions
     defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
-    # Show path bar
+    # Always search current folder
+    defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+    # Show path bar and status bar
+    defaults write com.apple.finder ShowStatusBar -bool true
     defaults write com.apple.finder ShowPathbar -bool true
 
-    # Show status bar
-    defaults write com.apple.finder ShowStatusBar -bool true
+    # Devices for the sidebar
+    defaults write com.apple.sidebarlists systemitems -dict-add ShowServers -int 1
+    defaults write com.apple.sidebarlists systemitems -dict-add ShowRemovable -int 1
+    defaults write com.apple.sidebarlists systemitems -dict-add ShowHardDisks -int 1
+    defaults write com.apple.sidebarlists systemitems -dict-add ShowEjectables -int 1
 
-    # Search current folder by default
-    defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+    # Items to display on the desktop (0 = hide, 1 = show)
+    defaults write com.apple.finder ShowHardDrivesOnDesktop -int 0
+    defaults write com.apple.finder ShowMountedServersOnDesktop -int 0
+    defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -int 0
+    defaults write com.apple.finder ShowRemovableMediaOnDesktop -int 0
 
     # Disable warning when changing file extension
     defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-    # Use list view in all Finder windows
+    # List view by default
+    # Possible values: `icnv` (icon), `clmv` (column), `Flwv` (flow), `Nlsv` (list)
     defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
     # Open folders in tabs instead of new windows
@@ -87,12 +97,12 @@ configure_finder() {
     # Disable tags in Finder
     defaults write com.apple.finder ShowRecentTags -bool false
 
-    # # Show Library folder
-    # chflags nohidden ~/Library
-
-    # Set default new window to home directory
+    # Open home in new window
     defaults write com.apple.finder NewWindowTarget -string "PfHm"
     defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+
+    # Show the ~/Library folder
+    chflags nohidden ~/Library
 
     # Restart Finder
     killall Finder 2>/dev/null || true
@@ -135,7 +145,7 @@ configure_dock() {
     defaults write com.apple.dock autohide-delay -float 0
 
     # Faster animation for showing/hiding Dock
-    defaults write com.apple.dock autohide-time-modifier -float 0.4
+    defaults write com.apple.dock autohide-time-modifier -float 0
 
     # Make Hidden Apps Transparent
     defaults write com.apple.dock showhidden -bool true
@@ -179,11 +189,16 @@ configure_dock() {
 configure_trackpad() {
     log_info "Configuring trackpad settings..."
 
-    # Enable tap to click (1 finger tap)
+    # Trackpad: Enable tap to click
     defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
     defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
     defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
     defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+
+    # Trackpad: Two-finger tap for right-click
+    defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
+    defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
+    defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 
     # Increase tracking speed (range: 0-3, 2.5 = fast but not maximum)
     defaults write NSGlobalDomain com.apple.trackpad.scaling -float 2.5
@@ -292,6 +307,74 @@ configure_security() {
     log_success "Security settings configured"
 }
 
+# System Preferences & UI Settings
+configure_system_preferences() {
+    log_info "Configuring system preferences..."
+
+    # Scroll bars
+    # Possible values: "WhenScrolling", "Automatic", "Always"
+    defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
+
+    # Right click for magic mouse
+    defaults write com.apple.AppleMultitouchMouse MouseButtonMode -string TwoButton
+
+    # Different spaces for different displays
+    defaults write com.apple.spaces spans-displays -int 0
+
+    # Don't automatically rearrange Spaces based on most recent use
+    defaults write com.apple.dock mru-spaces -int 0
+
+    log_success "System preferences configured"
+}
+
+# Hot Corners Settings
+configure_hot_corners() {
+    log_info "Configuring hot corners..."
+
+    # Hot corner values:
+    # 0 = no-op
+    # 2 = Mission Control
+    # 3 = Show application windows
+    # 4 = Desktop
+    # 5 = Start screen saver
+    # 6 = Disable screen saver
+    # 7 = Dashboard
+    # 10 = Put display to sleep
+    # 11 = Launchpad
+    # 12 = Notification Center
+    # 13 = Look up & data detectors
+    # 14 = Smart zoom
+    # 15 = Increase contrast
+    # 16 = Reduce motion
+    # 17 = Lock screen
+    # 18 = Quick Note (Notes app)
+
+    # Modifier key values:
+    # 0 = no modifier
+    # 131072 = Shift (⇧)
+    # 262144 = Control (⌃)
+    # 524288 = Option (⌥)
+    # 1048576 = Command (⌘)
+
+    # Top-left: Show application windows (requires Option)
+    defaults write com.apple.dock wvous-tl-corner -int 3
+    defaults write com.apple.dock wvous-tl-modifier -int 524288
+
+    # Top-right: Desktop (requires Option)
+    defaults write com.apple.dock wvous-tr-corner -int 4
+    defaults write com.apple.dock wvous-tr-modifier -int 524288
+
+    # Bottom-left: Mission Control (requires Option)
+    defaults write com.apple.dock wvous-bl-corner -int 2
+    defaults write com.apple.dock wvous-bl-modifier -int 524288
+
+    # Bottom-right: Quick Note (requires Option)
+    defaults write com.apple.dock wvous-br-corner -int 18
+    defaults write com.apple.dock wvous-br-modifier -int 524288
+
+    log_success "Hot corners configured (requires Option key)"
+}
+
 # Menu Bar Settings
 configure_menu_bar() {
     log_info "Configuring menu bar settings..."
@@ -387,6 +470,12 @@ run_section() {
         security)
             configure_security
             ;;
+        system_preferences|system-preferences|preferences)
+            configure_system_preferences
+            ;;
+        hot_corners|hot-corners|corners)
+            configure_hot_corners
+            ;;
         menu_bar|menubar|menu-bar)
             configure_menu_bar
             ;;
@@ -432,6 +521,8 @@ main() {
             development
             screenshots
             security
+            system_preferences
+            hot_corners
             menu_bar
             updates
             wallpaper

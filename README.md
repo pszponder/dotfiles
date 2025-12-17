@@ -60,9 +60,11 @@ stow -D dots
 - [DevOps Toolbox - Hidden Tmux Power: The Missing 50%](https://www.youtube.com/watch?v=_TI8qcsiiBU)
 - [tony - How to Customize Tmux (20XX Edition)](https://www.youtube.com/watch?v=XivdyrFCV4M)
 
-### Mac Configuration References
+### Mac Configuration
+- [NetworkChuck - 50 macOS Tips and Tricks Using Terminology](https://www.youtube.com/watch?v=qOrlYzqXPa8)
 - [Snazzy Labs - 25 Mac Settings You have to Change](https://www.youtube.com/watch?v=psPgSN1bPLY)
 - [Syntax - Set up a Mac for Power Users and Developers](https://www.youtube.com/watch?v=GK7zLYAXdDs)
+- [Sane Defaults for MacOS](https://macowners.club/posts/sane-defaults-for-macos/)
 
 ### Kanata (Keyboard Configurator)
 - [Dreams of Code - Turning the works key on a keyboard into the mos useful one](https://www.youtube.com/watch?v=XuQVbZ0wENE)

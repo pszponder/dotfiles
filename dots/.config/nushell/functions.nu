@@ -76,3 +76,27 @@ def whatsmyip [] {
   print "External IP: "
   curl -4 ifconfig.me
 }
+
+# Clone a git repository and cd into it
+def clone [
+  url: string,   # git url to clone
+  dir?: string   # optional target directory name
+] {
+  if ($url | is-empty) {
+    print "Usage: clone <git-url> [directory]"
+    return
+  }
+
+  if ($dir != null) {
+    ^git clone $url $dir
+    cd $dir
+  } else {
+    let name = ($url | path basename | str replace -r '\\.git$' '')
+    ^git clone $url
+    if (path exists $name) {
+      cd $name
+    } else {
+      print $"Could not cd into '{name}' (clone may have used a different folder name)."
+    }
+  }
+}

@@ -330,6 +330,32 @@ newgit() {
   git init
 }
 
+# Clone a git repository into current directory and cd into it
+clone() {
+  if [ $# -lt 1 ]; then
+    echo "Usage: clone <git-url> [directory]"
+    return 1
+  fi
+
+  local url="$1"
+  local dir="${2:-}"
+
+  if [ -n "$dir" ]; then
+    git clone "$url" "$dir" || return $?
+    cd "$dir" || return $?
+  else
+    # Derive repo name from URL (strip trailing .git)
+    local name
+    name="${url##*/}"
+    name="${name%.git}"
+    git clone "$url" || return $?
+    cd "$name" || {
+      echo "Could not cd into '$name' (clone may have used a different folder name)."
+      return 1
+    }
+  fi
+}
+
 # Backup a file or directory
 backup() {
   if [ -z "$1" ]; then

@@ -84,3 +84,28 @@ stow -D dots
     - [ ] https://www.youtube.com/watch?v=5nwnJjr5eOo
 - [ ] Create a Makefile or justfile to automate the installation process (or use a script)
 - [ ] Investigate orbstack or colima for containerization on mac (colima is also linux compatible)
+
+### Karabiner Elements Mappings
+
+- [ ] Caps Lock to Escape when pressed alone, Ctrl when held
+- [ ] Left Shift to Left Parenthesis when tapped, Shift when held
+- [ ] Right Shift to Right Parenthesis when tapped, Shift when held
+- [ ] tab + q to backtick `
+- [ ] tab + shift + q to tilde ~
+- [ ] x + c to left bracket [
+- [ ] x + shift + c to left curly brace {
+- [ ] , + . to right bracket ]
+- [ ] , + shift + . to right curly brace }
+- [ ] Homerow Mods
+    - [ ] a to Cmd when held
+    - [ ] s to Alt when held
+    - [ ] d to Shift when held
+    - [ ] f to Ctrl when held
+    - [ ] j to Ctrl when held
+    - [ ] k to Shift when held
+    - [ ] l to Alt when held
+    - [ ] ; to Cmd when held
+- [ ] z to hyper when held
+- [ ] / to hyper when held
+- [ ] space + hjkl to arrow keys
+- [ ] space + shift + hjkl to home/page down/page up/end

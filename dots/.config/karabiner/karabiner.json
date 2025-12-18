@@ -17,7 +17,7 @@
         },
         "rules": [
           {
-            "description": "Caps Lock to Cmd when held, Escape when tapped",
+            "description": "Caps Lock to Ctrl when held, Escape when tapped",
             "manipulators": [
               {
                 "type": "basic",
@@ -29,7 +29,7 @@
                 },
                 "to": [
                   {
-                    "key_code": "left_command"
+                    "key_code": "left_control"
                   }
                 ],
                 "to_if_alone": [
@@ -41,14 +41,45 @@
             ]
           },
           {
-            "description": "Shift + Spacebar + HJKL to Home/PageDown/PageUp/End",
+            "description": "Spacebar layer (hold for nav layer, tap for space)",
             "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "spacebar",
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "space_layer",
+                      "value": 1
+                    }
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "space_layer",
+                      "value": 0
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "spacebar"
+                  }
+                ]
+              },
               {
                 "type": "basic",
                 "from": {
                   "key_code": "h",
                   "modifiers": {
-                    "mandatory": ["shift"]
+                    "mandatory": ["shift"],
+                    "optional": ["any"]
                   }
                 },
                 "to": [
@@ -59,7 +90,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "spacebar_held",
+                    "name": "space_layer",
                     "value": 1
                   }
                 ]
@@ -69,7 +100,8 @@
                 "from": {
                   "key_code": "j",
                   "modifiers": {
-                    "mandatory": ["shift"]
+                    "mandatory": ["shift"],
+                    "optional": ["any"]
                   }
                 },
                 "to": [
@@ -80,7 +112,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "spacebar_held",
+                    "name": "space_layer",
                     "value": 1
                   }
                 ]
@@ -90,7 +122,8 @@
                 "from": {
                   "key_code": "k",
                   "modifiers": {
-                    "mandatory": ["shift"]
+                    "mandatory": ["shift"],
+                    "optional": ["any"]
                   }
                 },
                 "to": [
@@ -101,7 +134,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "spacebar_held",
+                    "name": "space_layer",
                     "value": 1
                   }
                 ]
@@ -111,7 +144,8 @@
                 "from": {
                   "key_code": "l",
                   "modifiers": {
-                    "mandatory": ["shift"]
+                    "mandatory": ["shift"],
+                    "optional": ["any"]
                   }
                 },
                 "to": [
@@ -122,42 +156,11 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "spacebar_held",
+                    "name": "space_layer",
                     "value": 1
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "description": "Spacebar + C to Toggle Caps Lock",
-            "manipulators": [
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "c",
-                  "modifiers": {
-                    "optional": ["any"]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "caps_lock"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "spacebar_held",
-                    "value": 1
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "description": "Spacebar + HJKL to Arrow Keys",
-            "manipulators": [
+              },
               {
                 "type": "basic",
                 "from": {
@@ -174,7 +177,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "spacebar_held",
+                    "name": "space_layer",
                     "value": 1
                   }
                 ]
@@ -195,7 +198,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "spacebar_held",
+                    "name": "space_layer",
                     "value": 1
                   }
                 ]
@@ -216,7 +219,7 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "spacebar_held",
+                    "name": "space_layer",
                     "value": 1
                   }
                 ]
@@ -237,40 +240,233 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "spacebar_held",
+                    "name": "space_layer",
                     "value": 1
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "description": "Left Shift to Left Parenthesis when tapped, Shift when held",
+            "manipulators": [
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "spacebar",
+                  "key_code": "left_shift",
                   "modifiers": {
                     "optional": ["any"]
                   }
                 },
                 "to": [
                   {
-                    "set_variable": {
-                      "name": "spacebar_held",
-                      "value": 1
-                    }
-                  }
-                ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "spacebar_held",
-                      "value": 0
-                    }
+                    "key_code": "left_shift"
                   }
                 ],
                 "to_if_alone": [
                   {
-                    "key_code": "spacebar"
+                    "key_code": "9",
+                    "modifiers": ["left_shift"]
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "description": "Simultaneous chord: tab+q -> `, shift+tab+q -> ~",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "simultaneous": [
+                    { "key_code": "tab" },
+                    { "key_code": "q" }
+                  ],
+                  "modifiers": {
+                    "mandatory": ["shift"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "grave_accent_and_tilde",
+                    "modifiers": ["left_shift"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "simultaneous": [
+                    { "key_code": "tab" },
+                    { "key_code": "q" }
+                  ],
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "grave_accent_and_tilde"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Simultaneous chords: x+c -> [/{ and ,+. -> ]/}",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "simultaneous": [
+                    { "key_code": "x" },
+                    { "key_code": "c" }
+                  ],
+                  "modifiers": {
+                    "mandatory": ["shift"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket",
+                    "modifiers": ["left_shift"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "simultaneous": [
+                    { "key_code": "x" },
+                    { "key_code": "c" }
+                  ],
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "simultaneous": [
+                    { "key_code": "comma" },
+                    { "key_code": "period" }
+                  ],
+                  "modifiers": {
+                    "mandatory": ["shift"],
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "close_bracket",
+                    "modifiers": ["left_shift"]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "simultaneous": [
+                    { "key_code": "comma" },
+                    { "key_code": "period" }
+                  ],
+                  "modifiers": {
+                    "optional": ["any"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "close_bracket"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Home-row mods (hold for modifiers, tap for letters)",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": { "key_code": "a", "modifiers": { "optional": ["any"] } },
+                "to_if_held_down": [ { "key_code": "left_command" } ],
+                "to_if_alone": [ { "key_code": "a" } ]
+              },
+              {
+                "type": "basic",
+                "from": { "key_code": "s", "modifiers": { "optional": ["any"] } },
+                "to_if_held_down": [ { "key_code": "left_option" } ],
+                "to_if_alone": [ { "key_code": "s" } ]
+              },
+              {
+                "type": "basic",
+                "from": { "key_code": "d", "modifiers": { "optional": ["any"] } },
+                "to_if_held_down": [ { "key_code": "left_shift" } ],
+                "to_if_alone": [ { "key_code": "d" } ]
+              },
+              {
+                "type": "basic",
+                "from": { "key_code": "f", "modifiers": { "optional": ["any"] } },
+                "to_if_held_down": [ { "key_code": "left_control" } ],
+                "to_if_alone": [ { "key_code": "f" } ]
+              },
+              {
+                "type": "basic",
+                "from": { "key_code": "j", "modifiers": { "optional": ["any"] } },
+                "to_if_held_down": [ { "key_code": "right_control" } ],
+                "to_if_alone": [ { "key_code": "j" } ]
+              },
+              {
+                "type": "basic",
+                "from": { "key_code": "k", "modifiers": { "optional": ["any"] } },
+                "to_if_held_down": [ { "key_code": "right_shift" } ],
+                "to_if_alone": [ { "key_code": "k" } ]
+              },
+              {
+                "type": "basic",
+                "from": { "key_code": "l", "modifiers": { "optional": ["any"] } },
+                "to_if_held_down": [ { "key_code": "right_option" } ],
+                "to_if_alone": [ { "key_code": "l" } ]
+              },
+              {
+                "type": "basic",
+                "from": { "key_code": "semicolon", "modifiers": { "optional": ["any"] } },
+                "to_if_held_down": [ { "key_code": "right_command" } ],
+                "to_if_alone": [ { "key_code": "semicolon" } ]
+              }
+            ]
+          },
+          {
+            "description": "Hyper keys: z and / -> Hyper when held",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": { "key_code": "z", "modifiers": { "optional": ["any"] } },
+                "to_if_held_down": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": ["left_command", "left_control", "left_option"]
+                  }
+                ],
+                "to_if_alone": [ { "key_code": "z" } ]
+              },
+              {
+                "type": "basic",
+                "from": { "key_code": "slash", "modifiers": { "optional": ["any"] } },
+                "to_if_held_down": [
+                  {
+                    "key_code": "left_shift",
+                    "modifiers": ["left_command", "left_control", "left_option"]
+                  }
+                ],
+                "to_if_alone": [ { "key_code": "slash" } ]
               }
             ]
           },

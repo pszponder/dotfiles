@@ -363,13 +363,12 @@ theme "catppuccin-mocha"
 // the stdin of the program to perform the copy. This can be used with
 // terminal emulators which do not support the OSC 52 ANSI control sequence
 // that will be used by default if this option is not set.
-// Examples:
+// UNCOMMENT one of the below lines to use a specific clipboard tool (based on your platform)
 //
 // copy_command "xclip -selection clipboard" // x11
 // copy_command "wl-copy"                    // wayland
 // copy_command "pbcopy"                     // osx
-//
-// copy_command "pbcopy"
+copy_command "cb"                         // platform agnostic clipboard tool
 
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.

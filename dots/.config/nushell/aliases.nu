@@ -15,6 +15,7 @@ alias lzd = lazydocker
 alias k = kubectl
 alias tf = terraform
 alias serve = python3 -m http.server
+alias zmux = zellij -l welcome
 
 # --------------------------
 # Editors

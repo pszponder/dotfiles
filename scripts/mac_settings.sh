@@ -160,24 +160,47 @@ configure_dock() {
     local -a pinned_apps=(
         # "/System/Library/CoreServices/Finder.app"
         "/System/Applications/Mail.app"
+        "/Applications/Safari.app"
         "/Applications/Brave Browser.app"
-        "/Applications/Ghostty.app"
         "/Applications/Visual Studio Code.app"
         "/Applications/Obsidian.app"
+        "/Applications/Ghostty.app"
+        "/Applications/Warp.app"
         "/Applications/Bitwarden.app"
+        "/Applications/Discord.app"
     )
     # Remove all default app icons from Dock
     defaults write com.apple.dock persistent-apps -array
 
-    # Add pinned applications
-    for app in "${pinned_apps[@]}"; do
-        if [[ -d "$app" ]]; then
-            defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>$app</string><key>_CFURLStringType</key><integer>0</integer></dict></dict></dict>"
-            log_info "Pinned: $(basename "$app")"
-        else
-            log_warning "App not found: $app"
-        fi
-    done
+    if command -v dockutil >/dev/null 2>&1; then
+        log_info "Using dockutil to configure Dock..."
+
+        # Remove all existing persistent apps via dockutil (more reliable)
+        dockutil --remove all --no-restart || true
+
+        # Add pinned applications via dockutil
+        for app in "${pinned_apps[@]}"; do
+            if [[ -d "$app" ]]; then
+                dockutil --add "$app" --no-restart || log_warning "dockutil failed to add: $app"
+                log_info "Pinned: $(basename "$app")"
+            else
+                log_warning "App not found: $app"
+            fi
+        done
+    else
+        # Fallback to defaults-based approach
+        log_warning "dockutil not found; using defaults fallback"
+        for app in "${pinned_apps[@]}"; do
+            if [[ -d "$app" ]]; then
+                # Use a fully qualified file URL with trailing slash and URL-encoded spaces
+                local file_url="file://${app// /%20}/"
+                defaults write com.apple.dock persistent-apps -array-add "<dict><key>tile-type</key><string>file-tile</string><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>${file_url}</string><key>_CFURLStringType</key><integer>15</integer></dict></dict></dict>"
+                log_info "Pinned: $(basename "$app")"
+            else
+                log_warning "App not found: $app"
+            fi
+        done
+    fi
 
     # Restart Dock
     killall Dock 2>/dev/null || true
@@ -359,23 +382,26 @@ configure_hot_corners() {
     # 524288 = Option (⌥)
     # 1048576 = Command (⌘)
 
-    # Top-left: Show application windows (requires Option)
-    defaults write com.apple.dock wvous-tl-corner -int 3
+    # Top-left: Mission Control (requires Option)
+    defaults write com.apple.dock wvous-tl-corner -int 2
     defaults write com.apple.dock wvous-tl-modifier -int 524288
 
     # Top-right: Desktop (requires Option)
     defaults write com.apple.dock wvous-tr-corner -int 4
     defaults write com.apple.dock wvous-tr-modifier -int 524288
 
-    # Bottom-left: Mission Control (requires Option)
-    defaults write com.apple.dock wvous-bl-corner -int 2
+    # Bottom-left: Show application windows (requires Option)
+    defaults write com.apple.dock wvous-bl-corner -int 3
     defaults write com.apple.dock wvous-bl-modifier -int 524288
 
     # Bottom-right: Quick Note (requires Option)
-    defaults write com.apple.dock wvous-br-corner -int 18
+    defaults write com.apple.dock wvous-br-corner -int 14
     defaults write com.apple.dock wvous-br-modifier -int 524288
 
-    log_success "Hot corners configured (requires Option key)"
+    # Restart Dock to apply changes
+    killall Dock 2>/dev/null || true
+
+    log_success "Hot corners configured (all require Option): TL=Mission Control, TR=Desktop, BL=App Windows, BR=Quick Note"
 }
 
 # Menu Bar Settings

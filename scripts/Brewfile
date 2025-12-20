@@ -81,6 +81,7 @@ if OS.mac?
   cask "alt-tab"
   cask "karabiner-elements"
   cask "hiddenbar"
+  brew "dockutil"
 
   cask "discord"
 

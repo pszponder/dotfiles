@@ -16,6 +16,7 @@ alias k = kubectl
 alias tf = terraform
 alias serve = python3 -m http.server
 alias zmux = zellij -l welcome
+alias drink = brew update && brew upgrade && brew cleanup
 
 # --------------------------
 # Editors
@@ -37,9 +38,10 @@ def nvimk [] { nvim-kickstart }
 def nk [] { nvim-kickstart }
 
 # Default nvim
+def nvim [] { nvim-lazy }
 def n [] { nvim-lazy }
-def v [] { n }
-def vim [] { n }
+def v [] { nvim-lazy }
+def vim [] { nvim-lazy }
 
 # Other editors
 def svi [] { sudo vi }

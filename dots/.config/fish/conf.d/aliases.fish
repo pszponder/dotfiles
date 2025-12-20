@@ -43,17 +43,20 @@ alias lzd='lazydocker'
 alias k='kubectl'
 alias tf='terraform'
 alias serve='python3 -m http.server'
+alias drink='brew update && brew upgrade && brew cleanup'
 
 # Editors
 alias nvim-lazy='NVIM_APPNAME=nvim-lazyvim command nvim'
 alias nviml='nvim-lazy'
+alias nl='nvim-lazy'
 alias nvim-kickstart='NVIM_APPNAME=nvim-kickstart command nvim'
 alias nvimk='nvim-kickstart'
+alias nk='nvim-kickstart'
 # alias nvim='NVIM_APPNAME=nvim command nvim'
-alias nvim='nvim-lazy'
+alias nvim='nviml'
 alias n='nviml'
-alias v='n'
-alias vim='n'
+alias v='nviml'
+alias vim='nviml'
 # alias se='sudo EDITOR=/home/linuxbrew/.linuxbrew/bin/nvim sudoedit'
 # alias snvim=se
 # alias sv=se

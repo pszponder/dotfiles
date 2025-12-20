@@ -203,6 +203,9 @@ configure_trackpad() {
     # Increase tracking speed (range: 0-3, 2.5 = fast but not maximum)
     defaults write NSGlobalDomain com.apple.trackpad.scaling -float 2.5
 
+    # Set scroll speed to maximum
+    defaults write NSGlobalDomain com.apple.scrollwheel.scaling -float 1
+
     # Disable three finger drag (conflicts with 3-finger swipe for spaces)
     defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool false
     defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool false

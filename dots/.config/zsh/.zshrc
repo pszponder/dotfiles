@@ -57,16 +57,16 @@ zinit light Aloxaf/fzf-tab
 # zinit snippet OMZP::git
 zinit snippet OMZP::sudo
 # zinit snippet OMZP::archlinux
-zinit snippet OMZP::aws
-zinit snippet OMZP::kubectl
-zinit snippet OMZP::kubectx
-zinit snippet OMZP::docker
-zinit snippet OMZP::terraform
+# zinit snippet OMZP::aws
+# zinit snippet OMZP::kubectl
+# zinit snippet OMZP::kubectx
+# zinit snippet OMZP::docker
+# zinit snippet OMZP::terraform
 zinit snippet OMZP::command-not-found
-zinit snippet OMZP::golang
-zinit snippet OMZP::python
-zinit snippet OMZP::uv
-zinit snippet OMZP::rust
+# zinit snippet OMZP::golang
+# zinit snippet OMZP::python
+# zinit snippet OMZP::uv
+# zinit snippet OMZP::rust
 # zinit snippet OMZP::tmux
 
 

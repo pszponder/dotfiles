@@ -78,7 +78,9 @@ end
 if OS.mac?
   cask "raycast"
 
+  cask "alt-tab"
   cask "karabiner-elements"
+  cask "hiddenbar"
 
   cask "discord"
 

@@ -31,7 +31,7 @@ configure_keyboard() {
     log_info "Configuring keyboard and text input settings..."
 
     # Fast keyboard key repeat
-    defaults write -g InitialKeyRepeat -int 10
+    defaults write -g InitialKeyRepeat -int 15
     defaults write -g KeyRepeat -int 1
 
     # Disable press-and-hold in favor of key repeat

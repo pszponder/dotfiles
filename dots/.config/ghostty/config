@@ -1,14 +1,5 @@
 # This is the configuration file for Ghostty.
 #
-# This template file has been automatically created at the following
-# path since Ghostty couldn't find any existing config files on your system:
-#
-#   /var/home/piotr/.config/ghostty/config
-#
-# The template does not set any default options, since Ghostty ships
-# with sensible defaults for all options. Users should only need to set
-# options that they want to change from the default.
-#
 # Run `ghostty +show-config --default --docs` to view a list of
 # all available config options and their default values.
 #
@@ -47,3 +38,8 @@ background-opacity = 0.95
 
 # Change default shell
 # command = /usr/bin/fish --login --interactive
+
+# Enable Quick Terminal on MacOS
+# https://dbushell.com/2025/04/11/ghostty-macos-quick-terminal/
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+quick-terminal-position = bottom

@@ -421,6 +421,66 @@ configure_menu_bar() {
     log_success "Menu bar settings configured"
 }
 
+# Accessibility Settings
+configure_accessibility() {
+    log_info "Configuring accessibility permissions..."
+
+    # List of apps that need accessibility permissions
+    local -a accessibility_apps=(
+        "/Applications/Ghostty.app"
+        "/Applications/Raycast.app"
+        "/Applications/Warp.app"
+    )
+
+    # Check if apps are installed and need accessibility permissions
+    local needs_manual_action=false
+    for app in "${accessibility_apps[@]}"; do
+        if [[ -d "$app" ]]; then
+            local app_name=$(basename "$app" .app)
+            log_info "Checking accessibility permissions for: $app_name"
+
+            # Check if app has accessibility permissions
+            # Note: This requires the app to have requested permissions at least once
+            if ! osascript -e "tell application \"System Events\" to get name of processes" >/dev/null 2>&1; then
+                log_warning "Unable to verify accessibility status programmatically"
+            fi
+
+            log_info "App found: $app_name"
+            needs_manual_action=true
+        else
+            log_warning "App not found: $app"
+        fi
+    done
+
+    if [[ "$needs_manual_action" == true ]]; then
+        log_warning "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        log_warning "  Manual action required: Grant Accessibility permissions"
+        log_warning "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        log_warning ""
+        log_warning "  1. Open System Settings > Privacy & Security > Accessibility"
+        log_warning "  2. Click the lock icon and authenticate"
+        log_warning "  3. Click the '+' button to add apps"
+        log_warning "  4. Navigate to Applications directory to find the apps"
+        log_warning "  5. Enable the following apps:"
+        for app in "${accessibility_apps[@]}"; do
+            if [[ -d "$app" ]]; then
+                log_warning "     • $(basename "$app" .app)"
+            fi
+        done
+        log_warning ""
+        log_warning "  Opening System Settings now..."
+        log_warning ""
+
+        # Open Accessibility settings pane
+        open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"
+
+        log_info "Waiting for you to grant permissions (press Enter when done)..."
+        read -r
+    fi
+
+    log_success "Accessibility configuration completed"
+}
+
 # Software Update Settings
 configure_updates() {
     log_info "Configuring automatic updates settings..."
@@ -508,6 +568,9 @@ run_section() {
         menu_bar|menubar|menu-bar)
             configure_menu_bar
             ;;
+        accessibility)
+            configure_accessibility
+            ;;
         updates)
             configure_updates
             ;;
@@ -553,6 +616,7 @@ main() {
             system_preferences
             hot_corners
             menu_bar
+            accessibility
             updates
             wallpaper
         )

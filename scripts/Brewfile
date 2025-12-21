@@ -96,5 +96,5 @@ if OS.mac?
   cask "zed"
 
   # cask "podman-desktop"
-  brew "orbstack"
+  cask "orbstack"
 end

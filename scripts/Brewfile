@@ -85,8 +85,8 @@ if OS.mac?
 
   cask "discord"
 
-  cask "brave-browser"
-  cask "google-chrome"
+  cask "helium-browser"
+  cask "zen"
 
   cask "ghostty"
   cask "warp"

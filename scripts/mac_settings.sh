@@ -161,11 +161,12 @@ configure_dock() {
         # "/System/Library/CoreServices/Finder.app"
         "/System/Applications/Mail.app"
         "/Applications/Safari.app"
-        "/Applications/Brave Browser.app"
+        "/Applications/Helium.app"
         "/Applications/Visual Studio Code.app"
         "/Applications/Obsidian.app"
         "/Applications/Ghostty.app"
         "/Applications/Warp.app"
+        "/Applications/OrbStack.app"
         "/Applications/Bitwarden.app"
         "/Applications/Discord.app"
     )

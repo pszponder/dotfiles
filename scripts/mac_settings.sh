@@ -481,6 +481,56 @@ configure_accessibility() {
     log_success "Accessibility configuration completed"
 }
 
+# Login Items Settings
+configure_login_items() {
+    log_info "Configuring login items..."
+
+    # List of apps to add as login items
+    local -a login_apps=(
+        "/Applications/Ghostty.app"
+        "/Applications/Raycast.app"
+    )
+
+    for app in "${login_apps[@]}"; do
+        if [[ -d "$app" ]]; then
+            local app_name=$(basename "$app" .app)
+
+            # Check if app is already in login items
+            local is_login_item=$(osascript 2>/dev/null <<EOF
+tell application "System Events"
+    set appNames to name of every login item
+    if appNames contains "$app_name" then
+        return "true"
+    else
+        return "false"
+    end if
+end tell
+EOF
+)
+
+            if [[ "$is_login_item" == "true" ]]; then
+                log_info "Already a login item: $app_name"
+            else
+                # Add app to login items (hidden = true means runs in background at login)
+                if osascript >/dev/null 2>&1 <<EOF
+tell application "System Events"
+    make login item at end with properties {path:"$app", hidden:true}
+end tell
+EOF
+                then
+                    log_success "Added login item: $app_name"
+                else
+                    log_error "Failed to add login item: $app_name"
+                fi
+            fi
+        else
+            log_warning "App not found: $app"
+        fi
+    done
+
+    log_success "Login items configuration completed"
+}
+
 # Software Update Settings
 configure_updates() {
     log_info "Configuring automatic updates settings..."
@@ -571,6 +621,9 @@ run_section() {
         accessibility)
             configure_accessibility
             ;;
+        login_items|login-items|login)
+            configure_login_items
+            ;;
         updates)
             configure_updates
             ;;
@@ -617,6 +670,7 @@ main() {
             hot_corners
             menu_bar
             accessibility
+            login_items
             updates
             wallpaper
         )

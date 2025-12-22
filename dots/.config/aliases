@@ -226,6 +226,7 @@ alias docker-clean=' \
 alias cat='bat --paging=never'
 alias less='bat --paging=always'
 alias reload='exec $SHELL -l'
+alias c='clear'
 alias cl='clear'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 alias cp='cp -i'

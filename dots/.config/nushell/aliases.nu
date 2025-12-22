@@ -225,6 +225,7 @@ def docker-clean [] {
 alias cat = bat --paging=never
 alias less = bat --paging=always
 alias reload = exec $nu.shell-path -l
+alias c = clear
 alias cl = clear
 alias cp = cp -i
 alias mv = mv -i

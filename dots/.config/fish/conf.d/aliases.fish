@@ -45,6 +45,12 @@ alias tf='terraform'
 alias serve='python3 -m http.server'
 alias drink='brew update && brew upgrade && brew cleanup'
 
+# CLI tools
+alias cc='claude'
+alias oc='opencode'
+alias gai='gemini'
+alias cr='crush'
+
 # Editors
 alias nvim-lazy='NVIM_APPNAME=nvim-lazyvim command nvim'
 alias nviml='nvim-lazy'

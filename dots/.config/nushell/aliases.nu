@@ -18,6 +18,12 @@ alias serve = python3 -m http.server
 alias zmux = zellij -l welcome
 alias drink = brew update && brew upgrade && brew cleanup
 
+# CLI tools
+alias cc = claude
+alias oc = opencode
+alias gai = gemini
+alias cr = crush
+
 # --------------------------
 # Editors
 # --------------------------

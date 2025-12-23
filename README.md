@@ -73,6 +73,8 @@ stow -D dots
 - [Dreams of Code - kanata - home-row-mods](https://github.com/dreamsofcode-io/home-row-mods/tree/main/kanata)
 - [jaycedam/install_kanata_macos.sh](https://gist.github.com/Jaycedam/4db80fc49c1d23c76c90c9b3e653c07f)
 
+### Raycast (Spotlight Replacement)
+- [Josean Martinez - This Simple macOS Window Management Workflow is All I Need](https://www.youtube.com/watch?v=DBifQv9AYhc)
 
 ## TODOs
 
@@ -88,6 +90,7 @@ stow -D dots
 
 ### Karabiner Elements Mappings
 
+- [ ] Should spacebar be hypr on hold?
 - [ ] Caps Lock to Escape when pressed alone, Ctrl when held
 - [ ] Left Shift to Left Parenthesis when tapped, Shift when held
 - [ ] Right Shift to Right Parenthesis when tapped, Shift when held
@@ -106,7 +109,8 @@ stow -D dots
     - [ ] k to Shift when held
     - [ ] l to Alt when held
     - [ ] ; to Cmd when held
-- [ ] z to hyper when held
-- [ ] / to hyper when held
+- [ ] hyper (test that this works)
+    - [ ] z to hyper when held
+    - [ ] / to hyper when held
 - [ ] space + hjkl to arrow keys
 - [ ] space + shift + hjkl to home/page down/page up/end

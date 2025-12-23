@@ -561,59 +561,6 @@ configure_updates() {
 }
 
 configure_spotlight() {
-    log_info "Configuring Spotlight and Raycast..."
-
-    # ---- Preconditions -----------------------------------------------------
-
-    # Check if Raycast is installed
-    if [ ! -d "/Applications/Raycast.app" ]; then
-        log_error "Raycast is not installed. Aborting configuration."
-        return 1
-    fi
-
-    SYMBOLIC_HOTKEYS_PLIST="$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
-    RAYCAST_PLIST="$HOME/Library/Preferences/com.raycast.macos.plist"
-    PLISTBUDDY="/usr/libexec/PlistBuddy"
-
-    # Ensure the symbolic hotkeys plist exists
-    if [ ! -f "$SYMBOLIC_HOTKEYS_PLIST" ]; then
-        log_error "Symbolic hotkeys plist not found. Aborting."
-        return 1
-    fi
-
-    # ---- Disable Spotlight shortcuts --------------------------------------
-
-    # Disable Spotlight search (Cmd+Space) — ID 64
-    $PLISTBUDDY -c "Set :AppleSymbolicHotKeys:64:enabled false" \
-        "$SYMBOLIC_HOTKEYS_PLIST"
-    log_success "Disabled Spotlight search (Cmd+Space)"
-
-    # Disable Finder search window (Cmd+Option+Space) — ID 65
-    $PLISTBUDDY -c "Set :AppleSymbolicHotKeys:65:enabled false" \
-        "$SYMBOLIC_HOTKEYS_PLIST"
-    log_success "Disabled Finder search window shortcut"
-
-    # ---- Configure Raycast hotkey -----------------------------------------
-
-    # Ensure raycastHotkey dictionary exists
-    if ! $PLISTBUDDY -c "Print :raycastHotkey" "$RAYCAST_PLIST" >/dev/null 2>&1; then
-        $PLISTBUDDY -c "Add :raycastHotkey dict" "$RAYCAST_PLIST"
-    fi
-
-    # Cmd + Space
-    $PLISTBUDDY -c "Set :raycastHotkey:carbonKeyCode 49" \
-        "$RAYCAST_PLIST"
-    $PLISTBUDDY -c "Set :raycastHotkey:carbonModifiers 524288" \
-        "$RAYCAST_PLIST"
-
-    log_success "Configured Raycast hotkey (Cmd+Space)"
-
-    # ---- Apply changes -----------------------------------------------------
-
-    killall SystemUIServer >/dev/null 2>&1
-    log_success "Restarted SystemUIServer"
-
-    log_success "Spotlight and Raycast configuration completed"
 }
 
 configure_wallpaper() {

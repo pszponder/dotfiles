@@ -41,5 +41,5 @@ background-opacity = 0.95
 
 # Enable Quick Terminal on MacOS
 # https://dbushell.com/2025/04/11/ghostty-macos-quick-terminal/
-keybind = global:hypr+grave_accent=toggle_quick_terminal
+keybind = global:cmd+option+comma=toggle_quick_terminal
 quick-terminal-position = bottom

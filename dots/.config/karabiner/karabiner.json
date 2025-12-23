@@ -529,14 +529,15 @@
                     ]
                   }
                 },
-                "to_if_held_down": [
+                "to": [
                   {
                     "key_code": "left_shift",
                     "modifiers": [
                       "left_command",
                       "left_control",
                       "left_option"
-                    ]
+                    ],
+                    "lazy": true
                   }
                 ],
                 "to_if_alone": [
@@ -555,14 +556,15 @@
                     ]
                   }
                 },
-                "to_if_held_down": [
+                "to": [
                   {
                     "key_code": "left_shift",
                     "modifiers": [
                       "left_command",
                       "left_control",
                       "left_option"
-                    ]
+                    ],
+                    "lazy": true
                   }
                 ],
                 "to_if_alone": [

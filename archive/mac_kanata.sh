@@ -32,8 +32,6 @@ echo "Using kanata binary: $KANATA_BIN"
 echo "Using config file:    $KANATA_CONFIG"
 echo "Console user:         $CONSOLE_USER"
 
----
-
 ### --- Install Karabiner DriverKit ---
 echo "Fetching latest Karabiner DriverKit pkg URL..."
 
@@ -53,8 +51,6 @@ curl -L -o /tmp/karabiner-driverkit.pkg "$DRIVERKIT_PKG_URL"
 echo "Installing DriverKit..."
 sudo installer -pkg /tmp/karabiner-driverkit.pkg -target /
 rm -f /tmp/karabiner-driverkit.pkg
-
----
 
 ### --- launchd services ---
 service_name='com.jtroo.kanata'
@@ -128,8 +124,6 @@ service_configs["$service_name"]=$(cat <<EOF
 EOF
 )
 
----
-
 ### --- Install & enable services ---
 for s in "${!service_configs[@]}"; do
   plist="/Library/LaunchDaemons/${s}.plist"
@@ -146,8 +140,6 @@ for s in "${!service_configs[@]}"; do
     sudo launchctl enable "system/$s"
   }
 done
-
----
 
 ### --- Permissions ---
 open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility"

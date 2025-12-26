@@ -160,7 +160,7 @@ configure_dock() {
     local -a pinned_apps=(
         # "/System/Library/CoreServices/Finder.app"
         "/System/Applications/Mail.app"
-        "/Applications/Safari.app"
+        # "/Applications/Safari.app"
         "/Applications/Helium.app"
         "/Applications/Visual Studio Code.app"
         "/Applications/Obsidian.app"

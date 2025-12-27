@@ -2,12 +2,16 @@
 
 ## App Shortcuts
 
-- Switch to Browser: `hyper + b`
-- Switch to Code Editor: `hyper + c`
-- Open File Explorer: `hyper + f`
-- Switch to Obsidian Notes: `hyper + n`
-- Switch to Music App: `hyper + m`
-- Switch to Terminal: `hyper + t`
+**NOTE**: "meh" key is `shift + option + control`
+
+- Switch to AI / GPT Tool: `meh + a`
+- Switch to Browser: `meh + b`
+- Switch to Code Editor: `meh + c`
+- Open File Explorer: `meh + f`
+- Switch to Obsidian Notes: `meh + n`
+- Switch to Music App: `meh + m`
+- Switch to Password Manager: `meh + p`
+- Switch to Terminal: `meh + t`
 
 ## Window Management
 

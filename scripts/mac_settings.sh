@@ -342,6 +342,9 @@ configure_system_preferences() {
     # Possible values: "WhenScrolling", "Automatic", "Always"
     defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
 
+    # Allow dragging windows from anywhere in the window
+    defaults write -g NSWindowShouldDragOnGesture -bool true
+
     # Right click for magic mouse
     defaults write com.apple.AppleMultitouchMouse MouseButtonMode -string TwoButton
 

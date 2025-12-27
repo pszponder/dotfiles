@@ -517,7 +517,7 @@
             ]
           },
           {
-            "description": "Hyper keys: z and / -> Hyper when held",
+            "description": "Meh keys: z and / -> Meh when held",
             "manipulators": [
               {
                 "type": "basic",
@@ -533,7 +533,6 @@
                   {
                     "key_code": "left_shift",
                     "modifiers": [
-                      "left_command",
                       "left_control",
                       "left_option"
                     ],
@@ -560,7 +559,6 @@
                   {
                     "key_code": "left_shift",
                     "modifiers": [
-                      "left_command",
                       "left_control",
                       "left_option"
                     ],

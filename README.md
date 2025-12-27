@@ -73,6 +73,10 @@ stow -D dots
 - [Dreams of Code - kanata - home-row-mods](https://github.com/dreamsofcode-io/home-row-mods/tree/main/kanata)
 - [jaycedam/install_kanata_macos.sh](https://gist.github.com/Jaycedam/4db80fc49c1d23c76c90c9b3e653c07f)
 
+### Aerospace (Tiling Window Manager for macOS)
+- [mehd-io dotfiles - aerospace configuration](https://github.com/mehd-io/dotfiles/blob/main/aerospace/aerospace.toml)
+- [Josean Martinez - Tiling Window Managers on macOS with AeroSpace](https://www.josean.com/posts/how-to-setup-aerospace-tiling-window-manager)
+- [Ben Vallack - Aerospace Config](https://benvallack.com/notebook/aerospace-config/)
 
 ## TODOs
 

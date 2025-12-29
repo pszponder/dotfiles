@@ -342,6 +342,15 @@ configure_system_preferences() {
     # Possible values: "WhenScrolling", "Automatic", "Always"
     defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
 
+    # Enable Reduce Motion
+    defaults write com.apple.universalaccess reduceMotion -bool true
+
+    # Disable window animations to speed up switching/opening
+    defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+
+    # Speed up Mission Control animations
+    defaults write com.apple.dock expose-animation-duration -float 0.1
+
     # Allow dragging windows from anywhere in the window
     defaults write -g NSWindowShouldDragOnGesture -bool true
 

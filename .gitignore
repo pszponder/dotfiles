@@ -27,3 +27,7 @@ history.txt
 
 # Podman Containers
 containers/
+
+# Zed Editor
+zed/prompts/
+zed/settings_backup.json

@@ -17,7 +17,7 @@
         },
         "enabled_in_text_threads": false
     },
-    "icon_theme": "Catppuccin Mocha",
+    "icon_theme": "Zed (Default)",
     "ui_font_size": 16,
     "ui_font_family": "CaskaydiaCove Nerd Font",
     "ui_font_fallbacks": ["JetBrainsMono Nerd Font", "Zed Plex Mono"],
@@ -25,9 +25,9 @@
     "buffer_font_family": "CaskaydiaCove Nerd Font",
     "buffer_font_fallbacks": ["JetBrainsMono Nerd Font", "Zed Plex Mono"],
     "theme": {
-        "mode": "system",
+        "mode": "dark",
         "light": "One Light",
-        "dark": "Catppuccin Mocha"
+        "dark": "One Dark"
     },
     // "base_keymap": "VSCode",
     "vim_mode": true,
@@ -105,10 +105,10 @@
             "format_on_save": "on",
             "formatter": [
                 {
-                    "code_actions": {
-                        "source.organizeImports.ruff": true,
-                        "source.fixAll.ruff": true
-                    }
+                    "code_action": "source.organizeImports.ruff"
+                },
+                {
+                    "code_action": "source.fixAll.ruff"
                 },
                 {
                     "language_server": {

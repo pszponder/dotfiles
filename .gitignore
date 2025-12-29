@@ -29,5 +29,5 @@ history.txt
 containers/
 
 # Zed Editor
-zed/prompts/
-zed/settings_backup.json
+dots/.config/zed/prompts/
+dots/.config/zed/settings_backup.json

@@ -11,6 +11,20 @@ def ftext [text: string] {
   grep -iIHrn --color=always $text . | less -r
 }
 
+def docker [...args] {
+  if (which colima | is-empty) {
+    print "Colima not found. Using Docker directly."
+  } else {
+    let status = (colima status | complete)
+    if ($status.exit_code != 0) or (not ($status.stdout | str contains "Running")) {
+      print "Starting Colima..."
+      colima start
+    }
+  }
+
+  ^docker $args
+}
+
 def cpg [source: string, destination: string] {
   cp $source $destination;
   if ($destination | path type) == 'dir' {

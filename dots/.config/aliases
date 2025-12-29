@@ -211,6 +211,20 @@ alias ungz='tar -xvzf'
 alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"
 
 # Docker / Podman
+docker() {
+  # Start Colima on demand to back docker
+  if command -v colima >/dev/null 2>&1; then
+    if ! colima status 2>/dev/null | grep -q Running; then
+      echo "Starting Colima..."
+      colima start
+    fi
+  else
+    echo "Colima not found. Using Docker directly."
+  fi
+
+  command docker "$@"
+}
+
 alias d='docker'
 alias dc='docker compose'
 # alias docker='podman'

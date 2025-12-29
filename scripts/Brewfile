@@ -77,7 +77,7 @@ end
 ########################################
 if OS.mac?
   cask "raycast"
-  cask "alfred"
+  # cask "alfred"
 
   cask "alt-tab"
   cask "karabiner-elements"
@@ -96,6 +96,9 @@ if OS.mac?
   cask "visual-studio-code"
   cask "zed"
 
+  brew "colima"
+  brew "docker"
+  brew "docker-compose"
   # cask "podman-desktop"
-  cask "orbstack"
+  # cask "orbstack"
 end

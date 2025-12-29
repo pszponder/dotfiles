@@ -342,8 +342,9 @@ configure_system_preferences() {
     # Possible values: "WhenScrolling", "Automatic", "Always"
     defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
 
-    # Enable Reduce Motion
-    defaults write com.apple.universalaccess reduceMotion -bool true
+    # # Enable Reduce Motion
+    # defaults write com.apple.universalaccess reduceMotion -bool true
+    # defaults write com.apple.Accessibility ReduceMotionEnabled -bool true
 
     # Disable window animations to speed up switching/opening
     defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
@@ -573,6 +574,9 @@ configure_updates() {
 }
 
 configure_spotlight() {
+    log_info "Configuring Spotlight..."
+    # TODO: Add Spotlight configuration
+    log_success "Spotlight settings configured"
 }
 
 configure_wallpaper() {

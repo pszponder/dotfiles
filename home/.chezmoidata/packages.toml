@@ -1,0 +1,76 @@
+[packages.darwin.server]
+items = ["git", "curl", "vim"]
+
+[packages.darwin.workstation]
+items = ["git", "curl", "vim"]
+
+[packages.linux.ubuntu.server]
+items = ["git", "curl", "vim"]
+
+[packages.linux.ubuntu.workstation]
+items = ["git", "curl", "vim"]
+
+[packages.linux.fedora.server]
+items = ["git", "curl", "vim"]
+
+[packages.linux.fedora.workstation]
+items = ["git", "curl", "vim"]
+
+[packages.linux.arch.server]
+items = [
+    # Miscellaneous utilities
+    "git",
+    "curl",
+
+    # Editors
+    "vim",
+
+    # Shells
+    "fish",
+    "zsh",
+
+    # Containers
+    "podman",
+    "podman-docker",
+
+    # Fonts
+    "ttf-cascadia-code-nerd",
+    "ttf-cascadia-mono-nerd",
+
+    # Wayland clipboard utilities
+    "wl-clipboard",
+]
+
+[packages.linux.arch.workstation]
+items = [
+    # Miscellaneous utilities
+    "git",
+    "curl",
+
+    # Editors
+    "vim",
+    "libreoffice-fresh",
+    "obsidian",
+    "zed",
+
+    # Shells
+    "fish",
+    "zsh",
+
+    # Containers
+    "podman",
+    "podman-docker",
+
+    # Fonts
+    "ttf-cascadia-code-nerd",
+    "ttf-cascadia-mono-nerd",
+
+    # Wayland clipboard utilities
+    "wl-clipboard",
+
+    # Terminals
+    "ghostty",
+
+    # Browsers
+    "helium-browser-bin",
+]

@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "🔧 Installing packages ..."
-
-# ---------------------------
-# OS and distro detection
-# ---------------------------
-OS="{{ .chezmoi.os }}"
+{{- /* --- resolve template variables --- */ -}}
 {{- $linuxID := "" -}}
 {{- if eq .chezmoi.os "linux" -}}
-{{- $linuxID = .chezmoi.linux -}}
+{{-   $linuxID = .chezmoi.osRelease.idLike | default .chezmoi.osRelease.id -}}
 {{- end -}}
-LINUX_ID="{{ $linuxID }}"
-MACHINE_TYPE="{{ .machine_type }}"
+{{- $machineType := .machine_type | default "workstation" -}}
+{{- $packages := list -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $packages = dig "darwin" $machineType "items" (list) .packages -}}
+{{- else if eq .chezmoi.os "linux" -}}
+{{-   $packages = dig "linux" $linuxID $machineType "items" (list) .packages -}}
+{{- end }}
 
-# ---------------------------
-# Fetch package list from TOML data
-# ---------------------------
-packages=($(chezmoi data get "packages.${OS}.${LINUX_ID:-}.${MACHINE_TYPE}.items" | jq -r '.[]'))
+echo "🔧 Installing packages ..."
+
+OS="{{ .chezmoi.os }}"
+LINUX_ID="{{ $linuxID }}"
+MACHINE_TYPE="{{ $machineType }}"
+packages=({{ range $packages }}{{ . | quote }} {{ end }})
 
 if [[ "${#packages[@]}" -eq 0 ]]; then
   echo "⚠️ No packages for ${OS}/${LINUX_ID}/${MACHINE_TYPE}, skipping."

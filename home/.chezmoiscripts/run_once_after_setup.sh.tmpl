@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -e  # Exit immediately on any error
+
+echo "🔧 Running setup tasks after applying dotfiles..."
+
+# Define the location of the scripts in the repo
+SCRIPTS_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")/scripts"
+
+# Rebuild bat's cache to ensure custom themes are recognized from dotfiles
+bat cache --build
+
+# Setup directories
+$SCRIPTS_DIR/setup_directories.sh
+
+# Run the script to initialize SSH config
+$SCRIPTS_DIR/setup_ssh_config.sh
+
+# Setup SSH Keys
+read -rp "❓ Do you want to setup SSH Keys? [y/N]: " response
+case "$response" in
+  [yY][eE][sS]|[yY])
+    echo "🔑 Setting up SSH keys..."
+    sshkeygen
+    ;;
+  *)
+    echo "❌ Skipping SSH Key generation."
+    ;;
+esac

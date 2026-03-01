@@ -3,11 +3,20 @@ set -euo pipefail
 
 echo "🔧 Installing packages ..."
 
+# ---------------------------
+# OS and distro detection
+# ---------------------------
 OS="{{ .chezmoi.os }}"
-LINUX_ID="{{ if eq .chezmoi.os "linux" }}{{ .chezmoi.linux }}{{ else }}""{{ end }}"
+{{- $linuxID := "" -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{- $linuxID = .chezmoi.linux -}}
+{{- end -}}
+LINUX_ID="{{ $linuxID }}"
 MACHINE_TYPE="{{ .machine_type }}"
 
-# fetch packages from TOML in .chezmoidata
+# ---------------------------
+# Fetch package list from TOML data
+# ---------------------------
 packages=($(chezmoi data get "packages.${OS}.${LINUX_ID:-}.${MACHINE_TYPE}.items" | jq -r '.[]'))
 
 if [[ "${#packages[@]}" -eq 0 ]]; then
@@ -19,12 +28,16 @@ echo "📦 Installing: ${packages[*]}"
 
 command_exists() { command -v "$1" >/dev/null 2>&1; }
 
+# ---------------------------
+# Install packages per OS
+# ---------------------------
 if [[ "$OS" == "darwin" ]]; then
   if ! command_exists brew; then
     echo "🍺 Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
   brew install "${packages[@]}"
+
 elif [[ "$OS" == "linux" ]]; then
   case "$LINUX_ID" in
     ubuntu|debian)
@@ -35,7 +48,7 @@ elif [[ "$OS" == "linux" ]]; then
       sudo dnf install -y "${packages[@]}"
       ;;
     arch)
-      # if yay exists, use it; otherwise bootstrap yay
+      # bootstrap yay if missing
       if ! command_exists yay; then
         echo "🛠 yay not found – bootstrapping from AUR..."
         sudo pacman -S --noconfirm --needed git base-devel
@@ -53,6 +66,9 @@ elif [[ "$OS" == "linux" ]]; then
       echo "⚠️ Unsupported Linux distro: $LINUX_ID"
       ;;
   esac
+
+else
+  echo "⚠️ Unsupported OS: $OS"
 fi
 
 # ---------------------------

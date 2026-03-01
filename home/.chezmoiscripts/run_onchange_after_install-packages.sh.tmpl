@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+
+set -e  # Exit immediately on any error
+
+echo "🔧 Installing packages ..."
+
+# ask whether this machine is a workstation or a server (default server)
+read -rp "Is this machine a server or workstation? [server(s)/workstation(w)] (default server): " _mt
+case "${_mt,,}" in
+  server|s)
+    MACHINETYPE=server
+    ;;
+  workstation|w)
+    MACHINETYPE=workstation
+    ;;
+  "" )
+    MACHINETYPE=server
+    ;;
+  *)
+    echo "⚠️  Unrecognized input, defaulting to server."
+    MACHINETYPE=server
+    ;;
+esac
+
+# helper to check command
+command_exists() { command -v "$1" >/dev/null 2>&1; }
+
+# populate packages using an OS-specific helper template
+# helpers live alongside this script and are only included in the rendered
+# file for the matching platform.  keeping the lists separate makes it easy
+# to adjust per‑OS names or add new distros.
+
+{{ if eq .chezmoi.os "darwin" -}}
+{{ template "packages_darwin.sh" . }}
+
+{{ else if eq .chezmoi.os "linux" -}}
+  {{- if eq .chezmoi.linux "ubuntu" -}}
+    {{ template "packages_linux-ubuntu.sh" . }}
+  {{- else if eq .chezmoi.linux "arch" -}}
+    {{ template "packages_linux-arch.sh" . }}
+  {{- else if eq .chezmoi.linux "fedora" -}}
+    {{ template "packages_linux-fedora.sh" . }}
+  {{- else -}}
+    # unknown distro – leave list empty
+    packages=()
+  {{- end -}}
+
+{{ else -}}
+packages=()
+{{ end -}}
+
+if [ "${#packages[@]}" -eq 0 ]; then
+  echo "⚠️  No packages specified, skipping."
+  exit 0
+fi
+
+# now install using the proper manager for the compiled OS block
+{{ if eq .chezmoi.os "darwin" -}}
+if ! command_exists brew; then
+  echo "🍺 Homebrew not found, installing..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+brew install "${packages[@]}"
+
+{{ else if eq .chezmoi.os "linux" -}}
+case "{{ .chezmoi.linux }}" in
+  ubuntu|debian)
+    sudo apt-get update
+    sudo apt-get install -y "${packages[@]}"
+    ;;
+  fedora)
+    sudo dnf install -y "${packages[@]}"
+    ;;
+  arch)
+    # if yay (AUR helper) is available use it; otherwise bootstrap it
+    if command_exists yay; then
+      yay -S --noconfirm "${packages[@]}"
+    else
+      echo "🛠 yay not found – installing from AUR first..."
+      sudo pacman -S --noconfirm --needed git base-devel
+      tmpdir=$(mktemp -d)
+      git clone https://aur.archlinux.org/yay.git "$tmpdir/yay"
+      pushd "$tmpdir/yay" >/dev/null
+      makepkg -si --noconfirm
+      popd >/dev/null
+      rm -rf "$tmpdir"
+      yay -S --noconfirm "${packages[@]}"
+    fi
+    ;;
+  *)
+    if grep -qi debian /etc/os-release 2>/dev/null; then
+      sudo apt-get update
+      sudo apt-get install -y "${packages[@]}"
+    else
+      echo "⚠️  Unsupported Linux distro: {{ .chezmoi.linux }}"
+    fi
+    ;;
+esac
+
+{{ else -}}
+echo "⚠️  Unsupported OS: {{ .chezmoi.os }}"
+{{ end -}}
+
+# If the user is managing CLI packages via mise, run it whenever the
+# config file under ~/.config/mise/config.toml changes in our dotfiles
+mise_cfg="$HOME/.config/mise/config.toml"
+hashfile="$HOME/.cache/chezmoi/mise_config.hash"
+if [ -f "$mise_cfg" ]; then
+  newhash=$(sha256sum "$mise_cfg" | awk '{print $1}')
+  oldhash=""
+  if [ -f "$hashfile" ]; then
+    oldhash=$(cat "$hashfile")
+  fi
+  if [ "$newhash" != "$oldhash" ]; then
+    echo "🔁 mise config updated, mise install..."
+    if command_exists mise; then
+      mise install || echo "⚠️ mise install failed"
+    else
+      echo "🛠 mise not found; bootstrapping via curl..."
+      if curl -fsSL https://mise.run | sh; then
+        echo "✅ mise installed, running mise install"
+        mise install || echo "⚠️ mise install failed after bootstrap"
+      else
+        echo "⚠️ failed to install mise via curl, skipping"
+      fi
+    fi
+    mkdir -p "$(dirname "$hashfile")"
+    echo "$newhash" > "$hashfile"
+  fi
+fi

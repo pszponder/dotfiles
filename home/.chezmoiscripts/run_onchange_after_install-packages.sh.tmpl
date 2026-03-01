@@ -4,7 +4,7 @@ set -euo pipefail
 echo "🔧 Installing packages ..."
 
 OS="{{ .chezmoi.os }}"
-LINUX_ID="{{ .chezmoi.linux | default "" }}"
+LINUX_ID="{{ if eq .chezmoi.os "linux" }}{{ .chezmoi.linux }}{{ else }}""{{ end }}"
 MACHINE_TYPE="{{ .machine_type }}"
 
 # fetch packages from TOML in .chezmoidata

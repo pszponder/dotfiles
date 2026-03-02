@@ -3,5 +3,5 @@
 {{- if hasKey . "machine_type" }}
     machine_type = "{{ .machine_type }}"
 {{- else }}
-    machine_type = "{{ promptChoice "Machine type?" (list "server" "workstation") }}"
+    machine_type = "{{ promptChoice "Machine type (server/workstation)" (list "server" "workstation") }}"
 {{- end }}

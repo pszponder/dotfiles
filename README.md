@@ -47,8 +47,16 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
+- When downloading and setting up Chezmoi for the 1st time, it should later configure itself to use the ssh branch instead of https, so that future updates and changes are done via ssh instead of https. This can be done by modifying the git remote url after the initial clone.
 - Install and setup Podman
 - Install and setup Kanata
+- Configure Bash
+- Configure Zsh
+- Configure fish shell
+- Configure Neovim
+- Configure Tmux
+- Configure Warp Terminal
+- Configure Helium Browser with shortcuts (ex. yt for youtube)
 
 ## Resources / References
 
@@ -58,3 +66,4 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [Home | mise-en-place](https://mise.jdx.dev/)
 - [Mise: The BEST Way to Manage Versions of Node, Python, Go (and Much More...)](https://www.youtube.com/watch?v=eKJCnc0t8V0)
 - [DevOps Toolbox - The Holy Grail of Developer CLIs - mise](https://www.youtube.com/watch?v=-_o1AS3q6xo)
+- [Warp Terminal - Installation and Setup](https://docs.warp.dev/getting-started/readme-1/installation-and-setup#linux)

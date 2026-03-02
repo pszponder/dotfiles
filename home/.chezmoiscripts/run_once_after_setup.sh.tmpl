@@ -13,6 +13,9 @@ bat cache --build
 # Setup directories
 $SCRIPTS_DIR/setup_directories.sh
 
+# Configure Podman storage driver based on filesystem type
+$SCRIPTS_DIR/setup_podman_storage.sh
+
 # Run the script to initialize SSH config
 $SCRIPTS_DIR/setup_ssh_config.sh
 

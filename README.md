@@ -48,7 +48,8 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 
 ## TODOs
 - When downloading and setting up Chezmoi for the 1st time, it should later configure itself to use the ssh branch instead of https, so that future updates and changes are done via ssh instead of https. This can be done by modifying the git remote url after the initial clone.
-- Install and setup Podman
+- Update package scripts for ubuntu section
+- Update package scripts for fedora section
 - Install and setup Kanata
 - Configure Bash
 - Configure Zsh

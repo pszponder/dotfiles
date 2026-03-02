@@ -1,4 +1,5 @@
+[data]
 # Prompt for machine type on first apply
 {{- if not (hasKey . "machine_type") }}
-machine_type = "{{ promptChoice "Machine type?" (list "server" "workstation") }}"
+    machine_type = "{{ promptChoice "Machine type?" (list "server" "workstation") }}"
 {{- end }}

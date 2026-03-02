@@ -125,6 +125,7 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## TODOs
 - Update package scripts for ubuntu section
 - Update package scripts for fedora section
+- Update ~/.config/git
 - Install and setup Kanata
 - Add aliases for lsd (ls alternative)
 - Configure Zsh

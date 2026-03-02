@@ -127,7 +127,7 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - Update package scripts for fedora section
 - Update ~/.config/git
 - Install and setup Kanata
-- Add aliases for lsd (ls alternative)
+- Add aliases for lsd (ls alternative) (for all shells)
 - Configure Zsh
 - Configure fish shell
 - Configure Neovim

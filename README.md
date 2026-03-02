@@ -126,12 +126,14 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - Update package scripts for ubuntu section
 - Update package scripts for fedora section
 - Install and setup Kanata
-- Configure Bash
+- Add aliases for lsd (ls alternative)
 - Configure Zsh
 - Configure fish shell
 - Configure Neovim
 - Configure Tmux
 - Configure Warp Terminal
+- Configure Ghostty Terminal
+- Configure Zed Editor
 - Configure Helium Browser with shortcuts (ex. yt for youtube)
 
 ## Resources / References

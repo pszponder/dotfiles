@@ -62,7 +62,7 @@ elif [[ "$OS" == "linux" ]]; then
         rm -rf "$tmpdir"
       fi
       echo "📦 Installing packages with yay..."
-      yay -S --noconfirm "${packages[@]}"
+      yay -Syu --needed --noconfirm "${packages[@]}"
       ;;
     *)
       echo "⚠️ Unsupported Linux distro: $LINUX_ID"
@@ -99,6 +99,22 @@ if [[ -f "$mise_cfg" ]]; then
     mkdir -p "$(dirname "$hashfile")"
     echo "$newhash" > "$hashfile"
   fi
+fi
+
+# --------------------------------
+# Warp install (workstations only)
+# --------------------------------
+if [[ "$MACHINE_TYPE" == "workstation" ]]; then
+  warp_script="${HOME}/.local/share/chezmoi/scripts/setup_warp_terminal.sh"
+
+  if [[ -x "$warp_script" ]]; then
+    echo "🚀 Workstation detected — installing Warp..."
+    bash "$warp_script"
+  else
+    echo "⚠️ Warp setup script not found or not executable, skipping."
+  fi
+else
+  echo "🖥 Machine type is '$MACHINE_TYPE' — skipping Warp (workstation only)."
 fi
 
 echo "✅ Package installation complete."

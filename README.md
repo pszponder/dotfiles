@@ -134,10 +134,11 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [ ] Configure Tmux
 - [ ] Configure Warp Terminal
 - [ ] Configure Ghostty Terminal
+- [ ] Install and configure Kitty Terminal
 - [ ] Configure Zed Editor
 - [ ] Configure Helium Browser with shortcuts (ex. yt for youtube)
 - [ ] Consider installing and using paru instead of yay for AUR package management
-- [ ] Add simple dotfiles for vimrc
+- [ ] Add simple dotfiles for vimrc (see tony's .vimrc from [this article](https://www.tonybtw.com/tutorial/nixos-hyprland/))
 - [ ] Install additional tools with mise
     - [ ] ty
     - [ ] ruff

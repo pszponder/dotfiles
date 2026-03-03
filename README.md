@@ -149,8 +149,10 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] opencode
     - [ ] goose (via `mise use -g github:block/goose`)
     - [ ] copilot cli (via `mise use -g npm:@github/copilot`)
+- [ ] Create a template file for mise configuration which will change based on whether machine is "server" or "workstation"
 - [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)
 - [ ] Checkout apps from [Charm](https://charm.land/apps/) such as Skate, Glow, Wishlist, Pop etc.
+- [ ] Investigate installing [limactl](https://www.youtube.com/watch?v=2SGyhd5OI-c)
 
 ## Resources / References
 

@@ -143,6 +143,9 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] ty
     - [ ] ruff
     - [ ] uv
+    - [ ] jj
+    - [ ] jq
+    - [ ] worktrunk (via `mise use -g github:max-sixty/worktrunk`)
     - [ ] crush
     - [ ] codex
     - [ ] gemini-cli

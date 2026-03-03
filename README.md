@@ -123,19 +123,33 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
-- Update package scripts for ubuntu section
-- Update package scripts for fedora section
-- Update ~/.config/git
-- Install and setup Kanata
-- Add aliases for lsd (ls alternative) (for all shells)
-- Configure Zsh
-- Configure fish shell
-- Configure Neovim
-- Configure Tmux
-- Configure Warp Terminal
-- Configure Ghostty Terminal
-- Configure Zed Editor
-- Configure Helium Browser with shortcuts (ex. yt for youtube)
+- [ ] Update package scripts for ubuntu section
+- [ ] Update package scripts for fedora section
+- [ ] Update ~/.config/git
+- [ ] Install and setup Kanata
+- [ ] Add aliases for lsd (ls alternative) (for all shells)
+- [ ] Configure Zsh
+- [ ] Configure fish shell
+- [ ] Configure Neovim
+- [ ] Configure Tmux
+- [ ] Configure Warp Terminal
+- [ ] Configure Ghostty Terminal
+- [ ] Configure Zed Editor
+- [ ] Configure Helium Browser with shortcuts (ex. yt for youtube)
+- [ ] Consider installing and using paru instead of yay for AUR package management
+- [ ] Add simple dotfiles for vimrc
+- [ ] Install additional tools with mise
+    - [ ] ty
+    - [ ] ruff
+    - [ ] uv
+    - [ ] crush
+    - [ ] codex
+    - [ ] gemini-cli
+    - [ ] opencode
+    - [ ] goose (via `mise use -g github:block/goose`)
+    - [ ] copilot cli (via `mise use -g npm:@github/copilot`)
+- [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)
+- [ ] Checkout apps from [Charm](https://charm.land/apps/) such as Skate, Glow, Wishlist, Pop etc.
 
 ## Resources / References
 

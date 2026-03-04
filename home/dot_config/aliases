@@ -11,7 +11,6 @@ alias ..6='cd ../../../../../..'
 
 # File System Navigation (via lsd)
 alias l='lsd -l'
-alias ls='lsd -l'
 alias la='lsd -a'
 alias ll='lsd -la'
 alias lla='lsd -la'

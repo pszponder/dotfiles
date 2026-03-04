@@ -93,5 +93,5 @@
 (defchordsv2
   (x c)   [ $chord-time first-release ()
   (, .)   ] $chord-time first-release ()
-  (tab q) ` $chord-time first-release ()
+;;  (tab q) ` $chord-time first-release ()
 )

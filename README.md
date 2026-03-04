@@ -129,7 +129,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] Create a template file for mise configuration which will change based on whether machine is "server" or "workstation"
     - [ ] Add global mise configuration in .config to dotfiles repo
 - [ ] Kanata
-    - [ ] Test if removing tab + q chords fixes using alt tab to switch applications
     - [ ] Add scripts to properly install and configure Kanata
 - [ ] Add a "workstation" and "server" section in the home/.chezmoiscripts/run_once_after_setup.sh.tmpl to control which scripts to run based on the machine type
 - [ ] Move gnome keyring installation logic from run_once_after_setup.sh.tmpl to a separate script and only run it for workstations

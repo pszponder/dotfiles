@@ -1,0 +1,57 @@
+filetype plugin indent on
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+set number
+set relativenumber
+set smartindent
+set showmatch
+set backspace=indent,eol,start
+syntax on
+
+" Enable true color
+set termguicolors
+
+" Catppuccin Mocha colorscheme
+" Base
+hi Normal       guifg=#cdd6f4 guibg=#1e1e2e
+hi NormalFloat  guifg=#cdd6f4 guibg=#181825
+hi CursorLine   guibg=#313244 cterm=NONE
+hi Visual       guibg=#45475a
+hi Search       guifg=#181825 guibg=#f9e2af
+hi IncSearch    guifg=#181825 guibg=#fab387
+
+" Syntax
+hi Comment      guifg=#6c7086 gui=italic
+hi Constant     guifg=#fab387
+hi String       guifg=#a6e3a1
+hi Number       guifg=#fab387
+hi Boolean      guifg=#fab387
+hi Identifier   guifg=#f2cdcd
+hi Function     guifg=#89b4fa
+hi Statement    guifg=#cba6f7
+hi Keyword      guifg=#cba6f7
+hi Operator     guifg=#89dceb
+hi Type         guifg=#f9e2af
+hi PreProc      guifg=#f5c2e7
+hi Special      guifg=#f5c2e7
+hi Error        guifg=#f38ba8 guibg=NONE
+hi Todo         guifg=#f9e2af guibg=NONE gui=bold
+
+" UI
+hi LineNr       guifg=#45475a
+hi CursorLineNr guifg=#b4befe
+hi StatusLine   guifg=#cdd6f4 guibg=#181825
+hi StatusLineNC guifg=#6c7086 guibg=#181825
+hi VertSplit    guifg=#313244 guibg=NONE
+hi Pmenu        guifg=#cdd6f4 guibg=#313244
+hi PmenuSel     guifg=#cdd6f4 guibg=#45475a
+hi MatchParen   guifg=#fab387 guibg=#45475a gui=bold
+hi NonText      guifg=#45475a
+hi SpecialKey   guifg=#45475a
+
+" Diff
+hi DiffAdd      guifg=#a6e3a1 guibg=NONE
+hi DiffChange   guifg=#f9e2af guibg=NONE
+hi DiffDelete   guifg=#f38ba8 guibg=NONE

@@ -138,7 +138,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [ ] Configure Zed Editor
 - [ ] Configure Helium Browser with shortcuts (ex. yt for youtube)
 - [ ] Consider installing and using paru instead of yay for AUR package management
-- [ ] Add simple dotfiles for vimrc (see tony's .vimrc from [this article](https://www.tonybtw.com/tutorial/nixos-hyprland/))
 - [ ] Create a template file for mise configuration which will change based on whether machine is "server" or "workstation"
 - [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)
 - [ ] Checkout apps from [Charm](https://charm.land/apps/) such as Skate, Glow, Wishlist, Pop etc.

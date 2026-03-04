@@ -31,6 +31,11 @@ case "$response" in
     ;;
 esac
 
+# Setup COSMIC desktop keyring (Arch Linux only)
+if [[ -f /etc/arch-release ]]; then
+  $SCRIPTS_DIR/setup_arch_cosmic-keyring.sh
+fi
+
 # Switch chezmoi repo remote from HTTPS to SSH
 REPO_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")"
 CURRENT_URL=$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null || true)

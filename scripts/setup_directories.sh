@@ -3,7 +3,7 @@ set -euo pipefail
 
 # Define your list of paths here
 PATHS=(
-    "$HOME/repos"
+    "$HOME/repos/github/pszponder"
     "$HOME/sandbox"
     "$HOME/courses"
     "$HOME/resources"

@@ -123,22 +123,33 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
+- [ ] Add catppuccin wallpaper to dotfiles and set it as the default wallpaper
+- [ ] Chezmoi should ask the user for their github username and email during setup and configure git globally with those values
+- [ ] Mise
+    - [ ] Create a template file for mise configuration which will change based on whether machine is "server" or "workstation"
+    - [ ] Add global mise configuration in .config to dotfiles repo
+- [ ] Kanata
+    - [ ] Test if removing tab + q chords fixes using alt tab to switch applications
+    - [ ] Add scripts to properly install and configure Kanata
+- [ ] Add a "workstation" and "server" section in the home/.chezmoiscripts/run_once_after_setup.sh.tmpl to control which scripts to run based on the machine type
+- [ ] Move gnome keyring installation logic from run_once_after_setup.sh.tmpl to a separate script and only run it for workstations
+- [ ] Atuin
+    - [ ] Configure for use in bash shell
+- [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
 - [ ] Update package scripts for ubuntu section
 - [ ] Update package scripts for fedora section
 - [ ] Update ~/.config/git
-- [ ] Install and setup Kanata
-- [ ] Add aliases for lsd (ls alternative) (for all shells)
 - [ ] Configure Zsh
 - [ ] Configure fish shell
 - [ ] Configure Neovim
 - [ ] Configure Tmux
 - [ ] Configure Warp Terminal
 - [ ] Configure Ghostty Terminal
+    - [ ] Configure to launch fish shell by default
 - [ ] Install and configure Kitty Terminal
 - [ ] Configure Zed Editor
 - [ ] Configure Helium Browser with shortcuts (ex. yt for youtube)
 - [ ] Consider installing and using paru instead of yay for AUR package management
-- [ ] Create a template file for mise configuration which will change based on whether machine is "server" or "workstation"
 - [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)
 - [ ] Checkout apps from [Charm](https://charm.land/apps/) such as Skate, Glow, Wishlist, Pop etc.
 - [ ] Investigate installing [limactl](https://www.youtube.com/watch?v=2SGyhd5OI-c)

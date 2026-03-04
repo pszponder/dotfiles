@@ -67,11 +67,6 @@ if command -v starship &> /dev/null; then
   eval "$(starship init bash)"
 fi
 
-# Zoxide initialization
-if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init bash)"
-fi
-
 # Optional: History enhancements
 HISTCONTROL=ignoredups:erasedups
 HISTSIZE=10000
@@ -85,4 +80,9 @@ PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 # Warpify subshells only when launched from Warp (not inside tmux)
 if [[ $TERM_PROGRAM == "WarpTerminal" && -z $TMUX ]]; then
   printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\e\\'
+fi
+
+# Zoxide initialization
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init bash)"
 fi

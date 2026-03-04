@@ -39,16 +39,16 @@ if status is-interactive
     #     fzf --fish | source
     # end
 
-    # Zoxide (smarter cd)
-    if type -q zoxide
-        zoxide init fish | source
-    end
-
     # Aliases
     alias zmux='zellij -l welcome'
 
     # Warpify subshells only when launched from Warp (and not inside tmux)
     if test "$TERM_PROGRAM" = "WarpTerminal" -a -z "$TMUX"
         printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\e\\'
+    end
+
+    # Zoxide (smarter cd)
+    if type -q zoxide
+        zoxide init fish | source
     end
 end

@@ -217,7 +217,7 @@ alias cl='clear'
 alias da='date "+%Y-%m-%d %A %T %Z"'
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm='trash -v'
+alias rm='rm -v'
 alias ps='ps auxf'
 alias up='topgrade -y'
 

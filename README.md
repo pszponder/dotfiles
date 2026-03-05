@@ -140,10 +140,11 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [ ] Update package scripts for ubuntu section
 - [ ] Update package scripts for fedora section
 - [ ] Update ~/.config/git
-- [ ] Configure Zsh
-- [ ] Configure fish shell
+- [x] Configure Zsh
+- [x] Configure fish shell
 - [ ] Configure Neovim
 - [ ] Configure Tmux
+- [ ] Review `~/.config` and add relevant configurations to the dotfiles repo (ex. alacritty, nvim, zsh, tmux, etc.)
 - [ ] Configure Warp Terminal
     - [ ] Is there a way to programatically / via config set the theme and font in warp terminal?
 - [ ] Configure Ghostty Terminal

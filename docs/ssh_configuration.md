@@ -80,19 +80,16 @@ Here is an example directory hierarchy:
 - **courses/** (place course materials here)
 - **resources/** (books, cheat sheets, etc.)
 
-This is what your global gitconfig (`/home/YOUR_USER/.gitconfig`) should look like
+This is what your global gitconfig (`~/.config/git/config`) should look like
 ```txt
-# ~/.gitconfig
+# ~/.config/git/config
 
 # Include for all .git projects under ~/repos/github/pszponder
 # Copy this pattern for any other git repos, making sure to change the gitdir and path
 [includeIf "gitdir:~/repos/github/pszponder/**"]
 path = ~/.gitconfig_github_pszponder
 
-[core]
-excludesfile = ~/.gitignore      # always ignore the patterns listed in this file
-
-# Add other global gitconfig settings
+# Add other global gitconfig settings here ...
 ```
 
 Now, we also want to create the `~/.gitconfig_github_pszponder` which will specify the SSH key to use for any repos within the `~/repos/github/pszponder` directory path.

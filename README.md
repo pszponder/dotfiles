@@ -123,8 +123,11 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
-- [ ] Install screenshot tool (ex. Flameshot) and configure it with custom shortcuts
-    - [ ] Does cosmic have a screenshot tool that can be configured with custom shortcuts?
+- [ ] Install applications
+    - [ ] global speech to text application (ex. whisper.cpp) for use in talking to ai assistants, taking notes, etc.
+    - [ ] password manager (ex. bitwarden cli + desktop app)
+    - [ ] Install screenshot tool (ex. Flameshot) and configure it with custom shortcuts
+        - [ ] Does cosmic have a screenshot tool that can be configured with custom shortcuts?
 - [ ] Add catppuccin wallpaper to dotfiles and set it as the default wallpaper
 - [ ] Chezmoi should ask the user for their github username and email during setup and configure git globally with those values
 - [ ] Mise
@@ -139,16 +142,15 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
 - [ ] Update package scripts for ubuntu section
 - [ ] Update package scripts for fedora section
-- [ ] Update ~/.config/git
-- [x] Configure Zsh
-- [x] Configure fish shell
 - [ ] Configure Neovim
 - [ ] Configure Tmux
 - [ ] Review `~/.config` and add relevant configurations to the dotfiles repo (ex. alacritty, nvim, zsh, tmux, etc.)
 - [ ] Configure Warp Terminal
     - [ ] Is there a way to programatically / via config set the theme and font in warp terminal?
+    - [ ] Configure global microphone hotkey in warp terminal for speech to text functionality
 - [ ] Configure Ghostty Terminal
     - [ ] Configure to launch fish shell by default
+    - [ ] Configure quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
 - [ ] Install and configure Kitty Terminal
 - [ ] Configure Zed Editor
 - [ ] Configure Helium Browser with shortcuts (ex. yt for youtube)
@@ -166,3 +168,4 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [Mise: The BEST Way to Manage Versions of Node, Python, Go (and Much More...)](https://www.youtube.com/watch?v=eKJCnc0t8V0)
 - [DevOps Toolbox - The Holy Grail of Developer CLIs - mise](https://www.youtube.com/watch?v=-_o1AS3q6xo)
 - [Warp Terminal - Installation and Setup](https://docs.warp.dev/getting-started/readme-1/installation-and-setup#linux)
+- [Catppuccin Color Pallete](https://catppuccin.com/palette/)

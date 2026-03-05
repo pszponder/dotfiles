@@ -1,0 +1,13 @@
+.*.sw*
+*.pyc
+.DS_Store
+.Python
+.envrc
+.idea
+.pc
+.svn
+.vscode
+/tmp
+
+# Ignore anything with the word todo in it (case sensitive)
+*[Tt][Oo][Dd][Oo]*

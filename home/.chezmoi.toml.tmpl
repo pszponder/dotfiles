@@ -5,3 +5,5 @@
 {{- else }}
     machine_type = "{{ promptChoice "Machine type (server/workstation)" (list "server" "workstation") }}"
 {{- end }}
+    git_name = {{ promptStringOnce . "git_name" "Git username" | quote }}
+    git_email = {{ promptStringOnce . "git_email" "Git email" | quote }}

@@ -67,6 +67,11 @@ if command -v starship &> /dev/null; then
   eval "$(starship init bash)"
 fi
 
+# Atuin shell history (after starship so bash-preexec is available)
+if command -v atuin &> /dev/null; then
+  eval "$(atuin init bash)"
+fi
+
 # Optional: History enhancements
 HISTCONTROL=ignoredups:erasedups
 HISTSIZE=10000

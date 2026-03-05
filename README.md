@@ -123,6 +123,8 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
+- [ ] Install screenshot tool (ex. Flameshot) and configure it with custom shortcuts
+    - [ ] Does cosmic have a screenshot tool that can be configured with custom shortcuts?
 - [ ] Add catppuccin wallpaper to dotfiles and set it as the default wallpaper
 - [ ] Chezmoi should ask the user for their github username and email during setup and configure git globally with those values
 - [ ] Mise
@@ -143,6 +145,7 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [ ] Configure Neovim
 - [ ] Configure Tmux
 - [ ] Configure Warp Terminal
+    - [ ] Is there a way to programatically / via config set the theme and font in warp terminal?
 - [ ] Configure Ghostty Terminal
     - [ ] Configure to launch fish shell by default
 - [ ] Install and configure Kitty Terminal

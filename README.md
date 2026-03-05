@@ -129,7 +129,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] Install screenshot tool (ex. Flameshot) and configure it with custom shortcuts
         - [ ] Does cosmic have a screenshot tool that can be configured with custom shortcuts?
 - [ ] Add catppuccin wallpaper to dotfiles and set it as the default wallpaper
-- [ ] Chezmoi should ask the user for their github username and email during setup and configure git globally with those values
 - [ ] Mise
     - [ ] Create a template file for mise configuration which will change based on whether machine is "server" or "workstation"
     - [ ] Add global mise configuration in .config to dotfiles repo
@@ -143,7 +142,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [ ] Update package scripts for ubuntu section
 - [ ] Update package scripts for fedora section
 - [ ] Configure Neovim
-- [ ] Configure Tmux
 - [ ] Review `~/.config` and add relevant configurations to the dotfiles repo (ex. alacritty, nvim, zsh, tmux, etc.)
 - [ ] Configure Warp Terminal
     - [ ] Is there a way to programatically / via config set the theme and font in warp terminal?

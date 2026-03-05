@@ -6,6 +6,15 @@ echo "🔧 Running setup tasks after applying dotfiles..."
 
 # Define the location of the scripts in the repo
 SCRIPTS_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")/scripts"
+{{- if .machine_type }}
+MACHINE_TYPE="{{ .machine_type }}"
+{{- else }}
+read -rp "❓ Is this machine a workstation or server? [workstation/server]: " MACHINE_TYPE
+if [[ "$MACHINE_TYPE" != "workstation" && "$MACHINE_TYPE" != "server" ]]; then
+  echo "⚠️ Invalid machine type '$MACHINE_TYPE'. Must be 'workstation' or 'server'."
+  exit 1
+fi
+{{- end }}
 
 # Rebuild bat's cache to ensure custom themes are recognized from dotfiles
 bat cache --build
@@ -49,4 +58,20 @@ if [[ "$CURRENT_URL" == https://github.com/* ]]; then
   echo "✅ Remote URL switched to SSH."
 else
   echo "ℹ️ Remote URL is already SSH or not GitHub, skipping."
+fi
+
+# ====================================
+# Workstation-only setup
+# ====================================
+if [[ "$MACHINE_TYPE" == "workstation" ]]; then
+  echo "🖥 Running workstation-specific setup..."
+  # Add workstation-specific tasks here
+fi
+
+# ====================================
+# Server-only setup
+# ====================================
+if [[ "$MACHINE_TYPE" == "server" ]]; then
+  echo "🖧 Running server-specific setup..."
+  # Add server-specific tasks here
 fi

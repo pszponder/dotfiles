@@ -136,8 +136,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] Add scripts to properly install and configure Kanata
 - [ ] Add a "workstation" and "server" section in the home/.chezmoiscripts/run_once_after_setup.sh.tmpl to control which scripts to run based on the machine type
 - [ ] Move gnome keyring installation logic from run_once_after_setup.sh.tmpl to a separate script and only run it for workstations
-- [ ] Atuin
-    - [ ] Configure for use in bash shell
 - [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
 - [ ] Update package scripts for ubuntu section
 - [ ] Update package scripts for fedora section

@@ -130,6 +130,7 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [ ] Cosmic Terminal
     - [ ] Add configuration for cosmic terminal to dotfiles repo
 - [ ] Install applications
+    - [ ] Zen browser
     - [ ] global speech to text application (ex. whisper.cpp) for use in talking to ai assistants, taking notes, etc.
     - [ ] password manager (ex. bitwarden cli + desktop app)
     - [ ] Install screenshot tool (ex. Flameshot) and configure it with custom shortcuts

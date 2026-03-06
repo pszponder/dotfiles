@@ -134,12 +134,10 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
         - [ ] Does cosmic have a screenshot tool that can be configured with custom shortcuts?
     - [ ] Devpod.sh
 - [ ] Add catppuccin wallpaper to dotfiles and set it as the default wallpaper
-- [ ] Mise
-    - [ ] Create a template file for mise configuration which will change based on whether machine is "server" or "workstation"
 - [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
 - [ ] Update package scripts for ubuntu section
 - [ ] Update package scripts for fedora section
-- [ ] Configure Neovim
+- [ ] Add section for fedora silverblue
 - [ ] Review `~/.config` and add relevant configurations to the dotfiles repo (ex. alacritty, nvim, zsh, tmux, etc.)
 - [ ] Configure Warp Terminal
     - [ ] Is there a way to programatically / via config set the theme and font in warp terminal?

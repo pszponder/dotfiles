@@ -1,0 +1,221 @@
+[
+    {
+        "context": "MarkdownPreview",
+        "bindings": {
+            "ctrl-w": "pane::CloseActiveItem"
+        }
+    },
+    {
+        "context": "VimControl && !menu",
+        "bindings": {
+            // Put key bindings here if you want them to work in normal & visual mode.
+
+            "ctrl-w": "pane::CloseActiveItem",
+            "ctrl-shift-t": "pane::ReopenClosedItem",
+            "space x": "pane::CloseActiveItem",
+            "ctrl-,": "terminal_panel::ToggleFocus",
+            "ctrl-g": "git_panel::ToggleFocus",
+            "space g": "workspace::ToggleLeftDock",
+            "space [": "workspace::ToggleLeftDock",
+            "ctrl-e": "project_panel::ToggleFocus",
+            "space e": "workspace::ToggleRightDock",
+            "space ]": "workspace::ToggleRightDock",
+            "ctrl-a": "agent::ToggleFocus",
+            "ctrl-d": "debug_panel::ToggleFocus",
+            "space f f": "file_finder::Toggle",
+            "space f g": "pane::DeploySearch", // Fuzzy Finder
+            "space o": "outline::Toggle",
+            "space p": "command_palette::Toggle",
+            "space t": "tab_switcher::Toggle",
+
+            // Toggle Docks
+            "space h": "workspace::ToggleLeftDock",
+            "space l": "workspace::ToggleRightDock",
+            "space j": "workspace::ToggleBottomDock",
+            "space k": "workspace::ToggleCenteredLayout",
+
+            // Split Panes
+            "space s j": "pane::SplitDown",
+            "space s k": "pane::SplitUp",
+            "space s h": "pane::SplitLeft",
+            "space s l": "pane::SplitRight",
+
+            "ctrl-shift-j": "pane::SplitDown",
+            "ctrl-shift-k": "pane::SplitUp",
+            "ctrl-shift-h": "pane::SplitLeft",
+            "ctrl-shift-l": "pane::SplitRight",
+
+            // Navigate Panels
+            "alt-h": "workspace::ActivatePaneLeft",
+            "alt-l": "workspace::ActivatePaneRight",
+            "alt-k": "workspace::ActivatePaneUp",
+            "alt-j": "workspace::ActivatePaneDown",
+
+            // Navigate Tabs
+            "space 1": ["pane::ActivateItem", 0],
+            "space 2": ["pane::ActivateItem", 1],
+            "space 3": ["pane::ActivateItem", 2],
+            "space 4": ["pane::ActivateItem", 3],
+            "space 5": ["pane::ActivateItem", 4],
+            "space 6": ["pane::ActivateItem", 5],
+            "space 7": ["pane::ActivateItem", 6],
+            "space 8": ["pane::ActivateItem", 7],
+            "space 9": ["pane::ActivateItem", 8]
+        }
+    },
+    {
+        "context": "Editor && vim_mode == visual && !VimWaiting && !VimObject",
+        "bindings": {
+            // Move current line Up/Down (in Visual Mode)
+            "shift-j": "editor::MoveLineDown",
+            "shift-k": "editor::MoveLineUp"
+        }
+    },
+    {
+        "context": "vim_mode == normal && !menu",
+        "bindings": {
+            "shift-y": ["workspace::SendKeystrokes", "y $"] // Use neovim's yank behavior: yank to end of line.
+        }
+    },
+    {
+        "context": "vim_mode == insert",
+        "bindings": {
+            // "j k": "vim::NormalBefore" // In insert mode, make jk escape to normal mode.
+        }
+    },
+    {
+        "context": "EmptyPane || SharedScreen",
+        "bindings": {
+            // Put key bindings here (in addition to the context above) if you want them to
+            // work when no editor exists.
+            "space f": "file_finder::Toggle"
+        }
+    },
+    {
+        "context": "ProjectPanel",
+        "bindings": {
+            "ctrl-e": "workspace::ToggleRightDock"
+        }
+    },
+    {
+        // Vim: File Tree ("ProjectPanel") actions
+        "context": "ProjectPanel && not_editing",
+        "bindings": {
+            // Navigation (use hjkl keys)
+            // File CRUD
+            "a": "project_panel::NewFile",
+            "shift-a": "project_panel::NewDirectory",
+            "y": "project_panel::Copy",
+            "y y": "project_panel::Duplicate",
+            "x": "project_panel::Cut",
+            "p": "project_panel::Paste",
+            "r": "project_panel::Rename",
+            "d": ["project_panel::Trash", { "skip_prompt": false }],
+            "shift-d": ["project_panel::Delete", { "skip_prompt": false }],
+            // "o": "project_panel::OpenWithSystem",
+            "o": "project_panel::RevealInFileManager",
+            "c p": "workspace::CopyPath",
+            "c p r": "workspace::CopyRelativePath"
+        }
+    },
+    {
+        "context": "GitPanel",
+        "bindings": {
+            "ctrl-g": "workspace::ToggleLeftDock"
+        }
+    },
+    {
+        "context": "(AgentPanel > MessageEditor > Editor) || AgentPanel",
+        "bindings": {
+            "ctrl-a": "workspace::ToggleLeftDock"
+        }
+    },
+    {
+        "context": "DebugPanel",
+        "bindings": {
+            // "ctrl-d": "debug_panel::ToggleFocus",
+            "ctrl-d": "workspace::CloseActiveDock"
+        }
+    },
+    {
+        "context": "Terminal",
+        "bindings": {
+            // Toggle terminal panel
+            "ctrl-,": "workspace::ToggleBottomDock",
+            "ctrl-n": "workspace::NewTerminal",
+            "ctrl-q": "pane::CloseActiveItem"
+            // TODO: Switch to next terminal tab
+            // TODO: Switch to previous terminal tab
+            // For Now: Ctrl + Tab
+        }
+    },
+    {
+        "context": "TabSwitcher",
+        "bindings": {
+            "ctrl-shift-tab": "menu::SelectPrevious",
+            "k": "menu::SelectPrevious",
+            "j": "menu::SelectNext",
+            "x": "tab_switcher::CloseSelectedItem"
+        }
+    },
+    {
+        "context": "OutlinePanel",
+        "bindings": {
+            "ctrl-o": "workspace::ToggleLeftDock"
+        }
+    },
+    {
+        "context": "FileFinder || (FileFinder > Picker > Editor) || (FileFinder > Picker > menu)",
+        "bindings": {
+            "ctrl-shift-p": "file_finder::SelectPrevious",
+            "ctrl-j": "pane::SplitDown",
+            "ctrl-k": "pane::SplitUp",
+            "ctrl-h": "pane::SplitLeft",
+            "ctrl-l": "pane::SplitRight"
+        }
+    },
+    {
+        "context": "ProjectPanel && not_editing",
+        "bindings": {
+            "space": "project_panel::Open"
+        }
+    },
+    // // Navigate between panels (open tabs / splits)
+    // {
+    //     "context": "Dock",
+    //     "bindings": {
+    //         "shift-h": "workspace::ActivatePaneLeft",
+    //         "shift-l": "workspace::ActivatePaneRight",
+    //         "shift-k": "workspace::ActivatePaneUp",
+    //         "shift-j": "workspace::ActivatePaneDown"
+    //     }
+    // },
+    {
+        "context": "BufferSearchBar",
+        "bindings": {
+            "escape": "buffer_search::Dismiss",
+            "tab": "buffer_search::FocusEditor",
+            "enter": "search::SelectNextMatch",
+            "shift-enter": "search::SelectPreviousMatch",
+            "alt-enter": "search::SelectAllMatches",
+            "find": "search::FocusSearch",
+            "ctrl-f": "search::FocusSearch",
+            "ctrl-r": "search::ToggleReplace",
+            "ctrl-l": "search::ToggleSelection"
+        }
+    },
+    {
+        "context": "BufferSearchBar && in_replace > Editor",
+        "bindings": {
+            "enter": "search::ReplaceNext",
+            "ctrl-enter": "search::ReplaceAll"
+        }
+    },
+    {
+        "context": "BufferSearchBar && !in_replace > Editor",
+        "bindings": {
+            "up": "search::PreviousHistoryQuery",
+            "down": "search::NextHistoryQuery"
+        }
+    }
+]

@@ -1,0 +1,193 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+########################################
+# Defaults
+########################################
+KEY_TYPE="ed25519"
+KEY_DIR="$HOME/.ssh"
+KEY_NAME=""
+KEY_COMMENT=""
+ADD_AGENT="ask"
+
+DIR_PROVIDED=false
+NAME_PROVIDED=false
+COMMENT_PROVIDED=false
+
+########################################
+# Usage
+########################################
+usage() {
+  cat <<EOF
+Usage: $0 [-t ed25519|rsa] [-d key_dir] [-n key_name] [-c comment] [-a]
+
+Options:
+  -t  Key type (ed25519 or rsa) [default: ed25519]
+  -d  Key directory [default: ~/.ssh]
+  -n  Key filename [default: id_<type>]
+  -c  Key comment
+  -a  Automatically add key to ssh-agent (non-interactive)
+  -h  Show this help message
+EOF
+  exit 1
+}
+
+########################################
+# Parse Arguments
+########################################
+while getopts ":t:d:n:c:ah" opt; do
+  case ${opt} in
+    t)
+      KEY_TYPE="${OPTARG,,}"
+      ;;
+    d)
+      KEY_DIR="${OPTARG/#\~/$HOME}"
+      DIR_PROVIDED=true
+      ;;
+    n)
+      KEY_NAME="${OPTARG%.pub}"
+      NAME_PROVIDED=true
+      ;;
+    c)
+      KEY_COMMENT="$OPTARG"
+      COMMENT_PROVIDED=true
+      ;;
+    a)
+      ADD_AGENT="yes"
+      ;;
+    h)
+      usage
+      ;;
+    *)
+      usage
+      ;;
+  esac
+done
+
+########################################
+# Validate Key Type
+########################################
+if [[ "$KEY_TYPE" != "ed25519" && "$KEY_TYPE" != "rsa" ]]; then
+  echo "❌ Unsupported key type: $KEY_TYPE"
+  echo "Only 'ed25519' and 'rsa' are supported."
+  exit 1
+fi
+
+########################################
+# Interactive Prompts (only if missing)
+########################################
+
+if [[ "$DIR_PROVIDED" == false ]]; then
+  read -rp "Enter SSH key directory [default: $KEY_DIR]: " input_dir
+  if [[ -n "$input_dir" ]]; then
+    KEY_DIR="${input_dir/#\~/$HOME}"
+  fi
+fi
+
+if [[ "$NAME_PROVIDED" == false ]]; then
+  read -rp "Enter SSH key filename [default: id_${KEY_TYPE}]: " KEY_NAME
+  KEY_NAME=${KEY_NAME:-id_${KEY_TYPE}}
+fi
+
+if [[ "$COMMENT_PROVIDED" == false ]]; then
+  read -rp "Enter SSH key comment (e.g., email or purpose): " KEY_COMMENT
+fi
+
+KEY_PATH="${KEY_DIR}/${KEY_NAME}"
+
+########################################
+# Ensure Directory Exists Securely
+########################################
+if [[ ! -d "$KEY_DIR" ]]; then
+  echo "📁 Creating directory: $KEY_DIR"
+  mkdir -p "$KEY_DIR"
+fi
+
+chmod 700 "$KEY_DIR"
+
+########################################
+# Handle Existing Key
+########################################
+if [[ -f "$KEY_PATH" ]]; then
+  echo "❗ A key already exists at $KEY_PATH"
+  read -rp "Overwrite it? [y/N]: " overwrite
+  if [[ ! "$overwrite" =~ ^[Yy]$ ]]; then
+    echo "Aborting."
+    exit 1
+  fi
+fi
+
+########################################
+# Generate Key
+########################################
+echo "🔐 Generating $KEY_TYPE key..."
+
+if [[ "$KEY_TYPE" == "rsa" ]]; then
+  ssh-keygen -t rsa -b 4096 -f "$KEY_PATH" -C "$KEY_COMMENT"
+else
+  ssh-keygen -t ed25519 -f "$KEY_PATH" -C "$KEY_COMMENT"
+fi
+
+chmod 600 "$KEY_PATH"
+chmod 644 "${KEY_PATH}.pub"
+
+echo ""
+echo "✅ SSH key generated:"
+echo "  Private: $KEY_PATH"
+echo "  Public:  ${KEY_PATH}.pub"
+
+########################################
+# Add to ssh-agent
+########################################
+if [[ "$ADD_AGENT" == "ask" ]]; then
+  read -rp "Add this key to ssh-agent? [Y/n]: " add_agent_input
+  add_agent_input=${add_agent_input,,}
+  add_agent_input=${add_agent_input:-y}
+else
+  add_agent_input="y"
+fi
+
+if [[ "$add_agent_input" == "y" ]]; then
+  echo "🚀 Adding key to ssh-agent..."
+
+  # Start agent only if not running
+  if [[ -z "${SSH_AUTH_SOCK:-}" ]]; then
+    eval "$(ssh-agent -s)" >/dev/null
+  fi
+
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    ssh-add --apple-use-keychain "$KEY_PATH"
+    echo "✅ Added with macOS Keychain support"
+  else
+    ssh-add "$KEY_PATH"
+    echo "✅ Key added"
+  fi
+fi
+
+########################################
+# Clipboard Copy
+########################################
+echo "📋 Attempting to copy public key to clipboard..."
+
+if command -v pbcopy &>/dev/null; then
+  pbcopy < "${KEY_PATH}.pub"
+  echo "✅ Copied to clipboard (macOS)"
+elif command -v xclip &>/dev/null; then
+  xclip -selection clipboard < "${KEY_PATH}.pub"
+  echo "✅ Copied to clipboard (xclip)"
+elif command -v xsel &>/dev/null; then
+  xsel --clipboard < "${KEY_PATH}.pub"
+  echo "✅ Copied to clipboard (xsel)"
+elif command -v wl-copy &>/dev/null; then
+  wl-copy < "${KEY_PATH}.pub"
+  echo "✅ Copied to clipboard (Wayland)"
+elif command -v clip.exe &>/dev/null; then
+  clip.exe < "${KEY_PATH}.pub"
+  echo "✅ Copied to clipboard (Windows/WSL)"
+else
+  echo "⚠️ Clipboard utility not found."
+  echo "🔓 Public key:"
+  echo "----------------------------------------"
+  cat "${KEY_PATH}.pub"
+  echo "----------------------------------------"
+fi

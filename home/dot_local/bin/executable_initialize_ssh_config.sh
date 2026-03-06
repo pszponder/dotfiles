@@ -69,7 +69,7 @@ update_ssh_config() {
 
 # Main function
 main() {
-  read -p "Would you like to initialize your SSH configuration? [y/N]: " response
+  read -p "Would you like to initialize your SSH configuration? (y/n): " response
   if [[ "$response" =~ ^[Yy]$ ]]; then
     local os
     os="$(detect_os)"

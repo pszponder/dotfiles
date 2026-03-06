@@ -22,17 +22,19 @@ bat cache --build
 # Setup directories
 $SCRIPTS_DIR/setup_directories.sh
 
+# TODO: Only setup if podman is installed
 # Configure Podman storage driver based on filesystem type
 $SCRIPTS_DIR/setup_podman_storage.sh
-
-# Run the script to initialize SSH config
-$SCRIPTS_DIR/setup_ssh_config.sh
 
 # Setup SSH Keys
 read -rp "❓ Do you want to setup SSH Keys? [y/N]: " response
 case "$response" in
   [yY][eE][sS]|[yY])
     echo "🔑 Setting up SSH keys..."
+    # Run the script to initialize SSH config
+    $SCRIPTS_DIR/setup_ssh_config.sh
+
+    # Run the script to generate SSH keys
     sshkeygen
     ;;
   *)
@@ -40,32 +42,19 @@ case "$response" in
     ;;
 esac
 
-# Setup COSMIC desktop keyring (Arch Linux only)
-if [[ -f /etc/arch-release ]]; then
-  $SCRIPTS_DIR/setup_arch_cosmic-keyring.sh
-fi
-
 # Switch chezmoi repo remote from HTTPS to SSH
-REPO_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")"
-CURRENT_URL=$(git -C "$REPO_DIR" remote get-url origin 2>/dev/null || true)
-
-if [[ "$CURRENT_URL" == https://github.com/* ]]; then
-  SSH_URL="${CURRENT_URL/https:\/\/github.com\//git@github.com:}"
-  echo "🔄 Switching chezmoi repo remote from HTTPS to SSH..."
-  echo "   Old: $CURRENT_URL"
-  echo "   New: $SSH_URL"
-  git -C "$REPO_DIR" remote set-url origin "$SSH_URL"
-  echo "✅ Remote URL switched to SSH."
-else
-  echo "ℹ️ Remote URL is already SSH or not GitHub, skipping."
-fi
+git2ssh -C "$(dirname "$CHEZMOI_SOURCE_DIR")"
 
 # ====================================
 # Workstation-only setup
 # ====================================
 if [[ "$MACHINE_TYPE" == "workstation" ]]; then
   echo "🖥 Running workstation-specific setup..."
-  # Add workstation-specific tasks here
+
+  # Setup gnome-keyring if no secrets service is available
+  $SCRIPTS_DIR/setup_gnome_keyring.sh
+
+  # TODO: Add kanata setup script and run it here
 fi
 
 # ====================================

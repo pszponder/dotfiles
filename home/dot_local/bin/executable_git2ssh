@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+########################################
+# Defaults
+########################################
+REPO_DIR="."
+REMOTE="origin"
+
+########################################
+# Usage
+########################################
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") [-C repo_dir] [-r remote]
+
+Switch a git remote from HTTPS to SSH.
+
+Options:
+  -C  Path to the git repository [default: current directory]
+  -r  Remote name to convert [default: origin]
+  -h  Show this help message
+
+Examples:
+  $(basename "$0")                     # switch origin in current repo
+  $(basename "$0") -C ~/projects/myapp # switch origin in a specific repo
+  $(basename "$0") -r upstream         # switch a different remote
+EOF
+  exit 1
+}
+
+########################################
+# Parse Arguments
+########################################
+while getopts ":C:r:h" opt; do
+  case ${opt} in
+    C) REPO_DIR="$OPTARG" ;;
+    r) REMOTE="$OPTARG" ;;
+    h) usage ;;
+    *) usage ;;
+  esac
+done
+
+########################################
+# Validate
+########################################
+if ! git -C "$REPO_DIR" rev-parse --git-dir &>/dev/null; then
+  echo "❌ Not a git repository: $REPO_DIR"
+  exit 1
+fi
+
+CURRENT_URL=$(git -C "$REPO_DIR" remote get-url "$REMOTE" 2>/dev/null || true)
+
+if [[ -z "$CURRENT_URL" ]]; then
+  echo "❌ Remote '$REMOTE' not found in $REPO_DIR"
+  exit 1
+fi
+
+########################################
+# Convert HTTPS to SSH
+########################################
+# Match any HTTPS git remote: https://host/path
+if [[ "$CURRENT_URL" =~ ^https://([^/]+)/(.+)$ ]]; then
+  HOST="${BASH_REMATCH[1]}"
+  PATH_PART="${BASH_REMATCH[2]}"
+  SSH_URL="git@${HOST}:${PATH_PART}"
+
+  echo "🔄 Switching remote '$REMOTE' from HTTPS to SSH..."
+  echo "   Old: $CURRENT_URL"
+  echo "   New: $SSH_URL"
+  git -C "$REPO_DIR" remote set-url "$REMOTE" "$SSH_URL"
+  echo "✅ Remote URL switched to SSH."
+else
+  echo "ℹ️  Remote '$REMOTE' is already SSH or not HTTPS, skipping."
+  echo "   Current: $CURRENT_URL"
+fi

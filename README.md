@@ -123,6 +123,10 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
+- [ ] Cosmic DE
+    - [ ] Add configuration for cosmic desktop to dotfiles repo
+    - [ ] Add shortcut to minimize current window (to compliment the existing shortcut to maximize current window)
+    - [ ] Review shortcuts to launch applications
 - [ ] Install applications
     - [ ] global speech to text application (ex. whisper.cpp) for use in talking to ai assistants, taking notes, etc.
     - [ ] password manager (ex. bitwarden cli + desktop app)
@@ -137,7 +141,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [ ] `home/.chezmoiscripts/run_once_after_setup.sh.tmpl`
     - [ ] Add a section to install and configure kanata only if machine is a workstation
     - [ ] Add a section to install and configure mise with different configurations based on whether machine is a workstation or server
-    - [ ] Move gnome keyring installation logic from run_once_after_setup.sh.tmpl to a separate script and only run it for workstations
 - [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
 - [ ] Update package scripts for ubuntu section
 - [ ] Update package scripts for fedora section

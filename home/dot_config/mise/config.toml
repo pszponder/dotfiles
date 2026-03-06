@@ -1,36 +1,54 @@
 [tools]
+# Languages & runtimes
 bun = "latest"
+go = "latest"
+node = "latest"
 python = "latest"
 rust = "latest"
-go = "latest"
-chezmoi = "latest"
-node = "latest"
-tmux = "latest"
-devcontainer-cli = "latest"
-fd = "latest"
-zoxide = "latest"
-uv = "latest"
-jq = "latest"
-github-cli = "latest"
-neovim = "latest"
-lazydocker = "latest"
-lazygit = "latest"
-lsd = "latest"
-fzf = "latest"
-ripgrep = "latest"
-starship = "latest"
-bat = "latest"
-"aqua:topgrade-rs/topgrade" = "latest"
-atuin = "latest"
-"github:block/goose" = "latest"
+
+# Python tools
 ruff = "latest"
 ty = "latest"
-opencode = "latest"
+uv = "latest"
+
+# Editor
+neovim = "latest"
+
+# Terminal & shell
+atuin = "latest"
+starship = "latest"
+tmux = "latest"
+zellij = "latest"
+zoxide = "latest"
+
+# File & search utilities
+bat = "latest"
+fd = "latest"
+fzf = "latest"
+jq = "latest"
+lsd = "latest"
+ripgrep = "latest"
+
+# Git & VCS
+delta = "latest"
+github-cli = "latest"
 jj = "latest"
-gemini-cli = "latest"
+lazygit = "latest"
+"github:max-sixty/worktrunk" = "latest"
+
+# AI coding tools
 codex = "latest"
 crush = "latest"
+gemini-cli = "latest"
+"github:block/goose" = "latest"
 "npm:@github/copilot" = "latest"
-"github:max-sixty/worktrunk" = "latest"
+opencode = "latest"
+
+# Containers
+devcontainer-cli = "latest"
+lazydocker = "latest"
+
+# System & misc
 btop = "latest"
-zellij = "latest"
+chezmoi = "latest"
+"aqua:topgrade-rs/topgrade" = "latest"

@@ -132,12 +132,10 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] password manager (ex. bitwarden cli + desktop app)
     - [ ] Install screenshot tool (ex. Flameshot) and configure it with custom shortcuts
         - [ ] Does cosmic have a screenshot tool that can be configured with custom shortcuts?
+    - [ ] Devpod.sh
 - [ ] Add catppuccin wallpaper to dotfiles and set it as the default wallpaper
 - [ ] Mise
     - [ ] Create a template file for mise configuration which will change based on whether machine is "server" or "workstation"
-    - [ ] Add global mise configuration in .config to dotfiles repo
-- [ ] `home/.chezmoiscripts/run_once_after_setup.sh.tmpl`
-    - [ ] Add a section to install and configure mise with different configurations based on whether machine is a workstation or server
 - [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
 - [ ] Update package scripts for ubuntu section
 - [ ] Update package scripts for fedora section

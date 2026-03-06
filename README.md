@@ -127,16 +127,23 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] Add configuration for cosmic desktop to dotfiles repo
     - [ ] Add shortcut to minimize current window (to compliment the existing shortcut to maximize current window)
     - [ ] Review shortcuts to launch applications
+- [ ] Cosmic Terminal
+    - [ ] Add configuration for cosmic terminal to dotfiles repo
 - [ ] Install applications
     - [ ] global speech to text application (ex. whisper.cpp) for use in talking to ai assistants, taking notes, etc.
     - [ ] password manager (ex. bitwarden cli + desktop app)
     - [ ] Install screenshot tool (ex. Flameshot) and configure it with custom shortcuts
         - [ ] Does cosmic have a screenshot tool that can be configured with custom shortcuts?
     - [ ] Devpod.sh
+- [ ] Add flatpak setup and installation
+- [ ] Kanata
+    - [ ] Kanata should be installed once by the kanta script instead of mise packages
+    - [ ] Ask user to confirm if they want to setup kanata
 - [ ] Add catppuccin wallpaper to dotfiles and set it as the default wallpaper
 - [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
 - [ ] Update package scripts for ubuntu section
 - [ ] Update package scripts for fedora section
+- [ ] Add section for package scripts for pop_os section
 - [ ] Add section for fedora silverblue
 - [ ] Review `~/.config` and add relevant configurations to the dotfiles repo (ex. alacritty, nvim, zsh, tmux, etc.)
 - [ ] Configure Warp Terminal

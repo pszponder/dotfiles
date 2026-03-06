@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if ! command -v podman &>/dev/null; then
+  echo "ℹ️  Podman not found, skipping storage driver setup."
+  exit 0
+fi
+
 STORAGE_CONF="${HOME}/.config/containers/storage.conf"
 STORAGE_DIR="${HOME}/.local/share/containers/storage"
 

@@ -75,3 +75,10 @@ items = [
     # Browsers
     "helium-browser-bin",
 ]
+
+[flatpaks]
+items = [
+    # Add Flatpak application IDs here
+    # Example:
+    # "com.spotify.Client",
+]

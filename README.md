@@ -123,6 +123,7 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
+- [ ] Check and setup / install homebrew (ask user if they want to)
 - [ ] Cosmic DE
     - [ ] Add configuration for cosmic desktop to dotfiles repo
     - [ ] Add shortcut to minimize current window (to compliment the existing shortcut to maximize current window)
@@ -136,7 +137,10 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] Install screenshot tool (ex. Flameshot) and configure it with custom shortcuts
         - [ ] Does cosmic have a screenshot tool that can be configured with custom shortcuts?
     - [ ] Devpod.sh
-- [ ] Add flatpak setup and installation
+- [ ] Flatpak
+    - [ ] VSCode
+    - [ ] Discord
+    - [ ] ...
 - [ ] Kanata
     - [ ] Kanata should be installed once by the kanta script instead of mise packages
     - [ ] Ask user to confirm if they want to setup kanata

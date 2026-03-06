@@ -12,70 +12,90 @@ set -euo pipefail
 {{-   $packages = dig "darwin" $machineType "items" (list) .packages -}}
 {{- else if eq .chezmoi.os "linux" -}}
 {{-   $packages = dig "linux" $linuxID $machineType "items" (list) .packages -}}
-{{- end }}
-
-echo "🔧 Installing packages ..."
+{{- end -}}
+{{- $flatpaks := dig "items" (list) .flatpaks }}
 
 OS="{{ .chezmoi.os }}"
 LINUX_ID="{{ $linuxID }}"
 MACHINE_TYPE="{{ $machineType }}"
+
+command_exists() { command -v "$1" >/dev/null 2>&1; }
+
+# ===================================
+# Native packages
+# ===================================
+echo "🔧 Installing native packages..."
+
 packages=({{ range $packages }}{{ . | quote }} {{ end }})
 
 if [[ "${#packages[@]}" -eq 0 ]]; then
   echo "⚠️ No packages for ${OS}/${LINUX_ID}/${MACHINE_TYPE}, skipping."
-  exit 0
-fi
-
-echo "📦 Installing: ${packages[*]}"
-
-command_exists() { command -v "$1" >/dev/null 2>&1; }
-
-# ---------------------------
-# Install packages per OS
-# ---------------------------
-if [[ "$OS" == "darwin" ]]; then
-  if ! command_exists brew; then
-    echo "🍺 Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  fi
-  brew install "${packages[@]}"
-
-elif [[ "$OS" == "linux" ]]; then
-  case "$LINUX_ID" in
-    ubuntu|debian)
-      sudo apt-get update
-      sudo apt-get install -y "${packages[@]}"
-      ;;
-    fedora)
-      sudo dnf install -y "${packages[@]}"
-      ;;
-    arch)
-      # bootstrap yay if missing
-      if ! command_exists yay; then
-        echo "🛠 yay not found – bootstrapping from AUR..."
-        sudo pacman -S --noconfirm --needed git base-devel
-        tmpdir=$(mktemp -d)
-        git clone https://aur.archlinux.org/yay.git "$tmpdir/yay"
-        pushd "$tmpdir/yay" >/dev/null
-        makepkg -si --noconfirm
-        popd >/dev/null
-        rm -rf "$tmpdir"
-      fi
-      echo "📦 Installing packages with yay..."
-      yay -Syu --needed --noconfirm "${packages[@]}"
-      ;;
-    *)
-      echo "⚠️ Unsupported Linux distro: $LINUX_ID"
-      ;;
-  esac
-
 else
-  echo "⚠️ Unsupported OS: $OS"
+  echo "📦 Installing: ${packages[*]}"
+
+  if [[ "$OS" == "darwin" ]]; then
+    if ! command_exists brew; then
+      echo "🍺 Installing Homebrew..."
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    brew install "${packages[@]}"
+
+  elif [[ "$OS" == "linux" ]]; then
+    case "$LINUX_ID" in
+      ubuntu|debian)
+        sudo apt-get update
+        sudo apt-get install -y "${packages[@]}"
+        ;;
+      fedora)
+        sudo dnf install -y "${packages[@]}"
+        ;;
+      arch)
+        # bootstrap yay if missing
+        if ! command_exists yay; then
+          echo "🛠 yay not found – bootstrapping from AUR..."
+          sudo pacman -S --noconfirm --needed git base-devel
+          tmpdir=$(mktemp -d)
+          git clone https://aur.archlinux.org/yay.git "$tmpdir/yay"
+          pushd "$tmpdir/yay" >/dev/null
+          makepkg -si --noconfirm
+          popd >/dev/null
+          rm -rf "$tmpdir"
+        fi
+        echo "📦 Installing packages with yay..."
+        yay -Syu --needed --noconfirm "${packages[@]}"
+        ;;
+      *)
+        echo "⚠️ Unsupported Linux distro: $LINUX_ID"
+        ;;
+    esac
+  else
+    echo "⚠️ Unsupported OS: $OS"
+  fi
 fi
 
-# ---------------------------
-# mise auto-install logic
-# ---------------------------
+# ===================================
+# Flatpak apps (Linux workstations)
+# ===================================
+flatpaks=({{ range $flatpaks }}{{ . | quote }} {{ end }})
+
+if [[ "$OS" != "linux" || "$MACHINE_TYPE" != "workstation" ]]; then
+  echo "⏭ Skipping Flatpak apps (Linux workstation only)."
+elif ! command_exists flatpak; then
+  echo "⚠️ Flatpak is not installed, skipping Flatpak apps."
+elif [[ "${#flatpaks[@]}" -eq 0 ]]; then
+  echo "⚠️ No Flatpak apps configured, skipping."
+else
+  echo "📦 Installing Flatpak apps..."
+  flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  for app in "${flatpaks[@]}"; do
+    echo "  → $app"
+    flatpak install --noninteractive flathub "$app" || echo "⚠️ Failed to install $app"
+  done
+fi
+
+# ===================================
+# mise auto-install
+# ===================================
 mise_cfg="$HOME/.config/mise/config.toml"
 hashfile="$HOME/.cache/chezmoi/mise_config.hash"
 
@@ -101,9 +121,9 @@ if [[ -f "$mise_cfg" ]]; then
   fi
 fi
 
-# --------------------------------
+# ===================================
 # Warp install (workstations only)
-# --------------------------------
+# ===================================
 if [[ "$MACHINE_TYPE" == "workstation" ]]; then
   warp_script="${HOME}/.local/share/chezmoi/scripts/setup_warp_terminal.sh"
 

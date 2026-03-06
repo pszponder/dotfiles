@@ -154,6 +154,7 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] Configure to launch fish shell by default
     - [ ] Configure quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
 - [ ] Install and configure Kitty Terminal
+    - [ ] Setup [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)
 - [ ] Configure Zed Editor
 - [ ] Configure Helium Browser with shortcuts (ex. yt for youtube)
 - [ ] Consider installing and using paru instead of yay for AUR package management

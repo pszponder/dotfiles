@@ -11,14 +11,14 @@ if command -v dbus-send &>/dev/null; then
     if dbus-send --session --dest=org.freedesktop.DBus --type=method_call \
         --print-reply /org/freedesktop/DBus org.freedesktop.DBus.ListActivatableNames 2>/dev/null \
         | grep -q "org.freedesktop.secrets"; then
-        echo "ℹ️  A secrets service (org.freedesktop.secrets) is already available, skipping."
+        echo "ℹ️ A secrets service (org.freedesktop.secrets) is already available, skipping."
         exit 0
     fi
 fi
 
 # Also skip if gnome-keyring-daemon is already installed and PAM is configured
 if command -v gnome-keyring-daemon &>/dev/null; then
-    echo "ℹ️  gnome-keyring-daemon is already installed."
+    echo "ℹ️ gnome-keyring-daemon is already installed."
     # We'll still fall through to verify PAM configuration below
 fi
 
@@ -121,7 +121,7 @@ install_packages() {
 if ! command -v gnome-keyring-daemon &>/dev/null; then
     install_packages "$FAMILY"
 else
-    echo "ℹ️  gnome-keyring packages already installed."
+    echo "ℹ️ gnome-keyring packages already installed."
 fi
 
 # ---------------------------------------------------------------------------
@@ -131,7 +131,7 @@ fi
 # Debian/Ubuntu handle PAM config automatically via pam-auth-update.
 # Other distros need manual PAM configuration.
 if [[ "$FAMILY" == "debian" ]]; then
-    echo "ℹ️  Debian-based systems configure PAM automatically via pam-auth-update."
+    echo "ℹ️ Debian-based systems configure PAM automatically via pam-auth-update."
     echo "==> Running pam-auth-update to ensure gnome-keyring is enabled..."
     sudo pam-auth-update --enable gnome-keyring
 else
@@ -151,7 +151,7 @@ else
     # Skip if already fully configured
     if grep -q "^auth.*pam_gnome_keyring\.so" "$PAM_FILE" \
         && grep -q "pam_gnome_keyring\.so auto_start" "$PAM_FILE"; then
-        echo "ℹ️  PAM is already configured for gnome-keyring, skipping."
+        echo "ℹ️ PAM is already configured for gnome-keyring, skipping."
     else
         TIMESTAMP="$(date +%Y%m%d%H%M%S)"
         BACKUP_FILE="${PAM_FILE}.bak.${TIMESTAMP}"

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if ! command -v podman &>/dev/null; then
-  echo "ℹ️  Podman not found, skipping storage driver setup."
+  echo "ℹ️ Podman not found, skipping storage driver setup."
   exit 0
 fi
 
@@ -45,7 +45,7 @@ EOF
 # Remove stale storage that may reference a different driver, since even
 # 'podman system reset' fails when the old driver is incompatible.
 if [[ -d "$STORAGE_DIR" ]]; then
-  echo "⚠️  Removing old storage directory to avoid driver mismatch..."
+  echo "⚠️ Removing old storage directory to avoid driver mismatch..."
   rm -rf "$STORAGE_DIR"
 fi
 

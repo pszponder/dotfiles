@@ -1,0 +1,11 @@
+# Taps
+# tap "homebrew/cask"
+
+# Formulae
+brew "git"
+brew "curl"
+brew "vim"
+
+# Casks (macOS only, automatically skipped on Linux)
+# cask "firefox"
+# cask "visual-studio-code"

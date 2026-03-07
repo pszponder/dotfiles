@@ -8,9 +8,7 @@ set -euo pipefail
 {{- end -}}
 {{- $machineType := .machine_type | default "workstation" -}}
 {{- $packages := list -}}
-{{- if eq .chezmoi.os "darwin" -}}
-{{-   $packages = dig "darwin" $machineType "items" (list) .packages -}}
-{{- else if eq .chezmoi.os "linux" -}}
+{{- if eq .chezmoi.os "linux" -}}
 {{-   $packages = dig "linux" $linuxID $machineType "items" (list) .packages -}}
 {{- end -}}
 {{- $flatpaks := dig "items" (list) .flatpaks }}
@@ -22,55 +20,58 @@ MACHINE_TYPE="{{ $machineType }}"
 command_exists() { command -v "$1" >/dev/null 2>&1; }
 
 # ===================================
-# Native packages
+# Native packages (Linux)
 # ===================================
 echo "🔧 Installing native packages..."
 
 packages=({{ range $packages }}{{ . | quote }} {{ end }})
 
-if [[ "${#packages[@]}" -eq 0 ]]; then
+if [[ "$OS" != "linux" ]]; then
+  echo "⏭ Skipping native packages (Linux only)."
+elif [[ "${#packages[@]}" -eq 0 ]]; then
   echo "⚠️ No packages for ${OS}/${LINUX_ID}/${MACHINE_TYPE}, skipping."
 else
   echo "📦 Installing: ${packages[*]}"
 
-  if [[ "$OS" == "darwin" ]]; then
-    if ! command_exists brew; then
-      echo "🍺 Installing Homebrew..."
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    fi
-    brew install "${packages[@]}"
+  case "$LINUX_ID" in
+    ubuntu|debian)
+      sudo apt-get update
+      sudo apt-get install -y "${packages[@]}"
+      ;;
+    fedora)
+      sudo dnf install -y "${packages[@]}"
+      ;;
+    arch)
+      # bootstrap yay if missing
+      if ! command_exists yay; then
+        echo "🛠 yay not found – bootstrapping from AUR..."
+        sudo pacman -S --noconfirm --needed git base-devel
+        tmpdir=$(mktemp -d)
+        git clone https://aur.archlinux.org/yay.git "$tmpdir/yay"
+        pushd "$tmpdir/yay" >/dev/null
+        makepkg -si --noconfirm
+        popd >/dev/null
+        rm -rf "$tmpdir"
+      fi
+      echo "📦 Installing packages with yay..."
+      yay -Syu --needed --noconfirm "${packages[@]}"
+      ;;
+    *)
+      echo "⚠️ Unsupported Linux distro: $LINUX_ID"
+      ;;
+  esac
+fi
 
-  elif [[ "$OS" == "linux" ]]; then
-    case "$LINUX_ID" in
-      ubuntu|debian)
-        sudo apt-get update
-        sudo apt-get install -y "${packages[@]}"
-        ;;
-      fedora)
-        sudo dnf install -y "${packages[@]}"
-        ;;
-      arch)
-        # bootstrap yay if missing
-        if ! command_exists yay; then
-          echo "🛠 yay not found – bootstrapping from AUR..."
-          sudo pacman -S --noconfirm --needed git base-devel
-          tmpdir=$(mktemp -d)
-          git clone https://aur.archlinux.org/yay.git "$tmpdir/yay"
-          pushd "$tmpdir/yay" >/dev/null
-          makepkg -si --noconfirm
-          popd >/dev/null
-          rm -rf "$tmpdir"
-        fi
-        echo "📦 Installing packages with yay..."
-        yay -Syu --needed --noconfirm "${packages[@]}"
-        ;;
-      *)
-        echo "⚠️ Unsupported Linux distro: $LINUX_ID"
-        ;;
-    esac
-  else
-    echo "⚠️ Unsupported OS: $OS"
-  fi
+# ===================================
+# Homebrew packages (via Brewfile)
+# ===================================
+if ! command_exists brew; then
+  echo "⏭ Homebrew is not installed, skipping Brewfile."
+elif [[ ! -f "$HOME/.Brewfile" ]]; then
+  echo "⚠️ No ~/.Brewfile found, skipping."
+else
+  echo "🍺 Installing Homebrew packages from Brewfile..."
+  brew bundle --global --no-lock
 fi
 
 # ===================================

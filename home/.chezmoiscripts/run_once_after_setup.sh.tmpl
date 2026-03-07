@@ -41,6 +41,9 @@ case "$response" in
     ;;
 esac
 
+# Setup Homebrew
+$SCRIPTS_DIR/setup_homebrew.sh
+
 # Switch chezmoi repo remote from HTTPS to SSH
 git2ssh -C "$(dirname "$CHEZMOI_SOURCE_DIR")"
 

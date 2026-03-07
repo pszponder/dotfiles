@@ -1,9 +1,3 @@
-[packages.darwin.server]
-items = ["git", "curl", "vim"]
-
-[packages.darwin.workstation]
-items = ["git", "curl", "vim"]
-
 [packages.linux.ubuntu.server]
 items = ["git", "curl", "vim"]
 

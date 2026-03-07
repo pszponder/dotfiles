@@ -1,6 +1,9 @@
 # Only configure in interactive shells
 if status is-interactive
 
+    # Supress Fish Greeting
+    set -U fish_greeting ""
+
     # Add directories to $fish_user_paths (avoid duplicates)
     for dir in ~/bin ~/.local/bin /usr/local/bin
         if not contains $dir $fish_user_paths
@@ -43,7 +46,7 @@ if status is-interactive
     alias zmux='zellij -l welcome'
 
     # Warpify subshells only when launched from Warp (and not inside tmux)
-    if test "$TERM_PROGRAM" = "WarpTerminal" -a -z "$TMUX"
+    if test "$TERM_PROGRAM" = WarpTerminal -a -z "$TMUX"
         printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "fish"}}\e\\'
     end
 

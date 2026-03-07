@@ -136,7 +136,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] VSCode
     - [ ] Discord
     - [ ] ...
-- [ ] Add catppuccin wallpaper to dotfiles and set it as the default wallpaper
 - [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
 - [ ] Review `~/.config` and add relevant configurations to the dotfiles repo (ex. alacritty, nvim, zsh, tmux, etc.)
 - [ ] Configure Warp Terminal

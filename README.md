@@ -124,16 +124,8 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 
 ## TODOs
 - [ ] Install applications
-    - [ ] Zen browser
     - [ ] global speech to text application (ex. whisper.cpp) for use in talking to ai assistants, taking notes, etc.
-    - [ ] password manager (ex. bitwarden cli + desktop app)
-    - [ ] Install screenshot tool (ex. Flameshot) and configure it with custom shortcuts
-        - [ ] Does cosmic have a screenshot tool that can be configured with custom shortcuts?
     - [ ] Devpod.sh
-- [ ] Flatpak
-    - [ ] VSCode
-    - [ ] Discord
-    - [ ] ...
 - [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
 - [ ] Review `~/.config` and add relevant configurations to the dotfiles repo (ex. alacritty, nvim, zsh, tmux, etc.)
 - [ ] Configure Warp Terminal

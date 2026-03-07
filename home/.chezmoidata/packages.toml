@@ -51,7 +51,7 @@ items = [
     "vim",
     "libreoffice-fresh",
     "obsidian",
-	"visual-studio-code-bin",
+    "visual-studio-code-bin",
     "zed",
 
     # Shells
@@ -79,8 +79,26 @@ items = [
 [flatpaks]
 items = [
     # Add Flatpak application IDs here
-    # Example:
-    # "com.spotify.Client",
+
+    # Browsers
+    "app.zen_browser.zen",
+
+    # Editors
+    "md.obsidian.Obsidian",
+    "dev.zed.Zed",
+
+    # Social Media
+    "com.discordapp.Discord",
+
+    # Security
+    "com.bitwarden.desktop",
+
+    # Utilities
+    "org.flameshot.Flameshot",
+    "io.github.getnf.embellish",
+    "dev.heppen.webapps",
+    "org.gnome.Evince",
+    "it.mijorus.gearlever",
 ]
 
 [nerdfonts]

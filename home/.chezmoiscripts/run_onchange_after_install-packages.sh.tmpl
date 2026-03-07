@@ -155,19 +155,36 @@ if [[ -f "$mise_cfg" ]]; then
 fi
 
 # ===================================
-# Warp install (workstations only)
+# Workstation-only terminal installs
 # ===================================
 if [[ "$MACHINE_TYPE" == "workstation" ]]; then
-  warp_script="${HOME}/.local/share/chezmoi/scripts/setup_warp_terminal.sh"
-
-  if [[ -x "$warp_script" ]]; then
-    echo "🚀 Workstation detected — installing Warp..."
-    bash "$warp_script"
+  # Warp
+  if command_exists warp-terminal; then
+    echo "✅ Warp is already installed, skipping."
   else
-    echo "⚠️ Warp setup script not found or not executable, skipping."
+    warp_script="${HOME}/.local/share/chezmoi/scripts/setup_warp_terminal.sh"
+    if [[ -x "$warp_script" ]]; then
+      echo "🚀 Installing Warp..."
+      bash "$warp_script"
+    else
+      echo "⚠️ Warp setup script not found or not executable, skipping."
+    fi
+  fi
+
+  # Kitty
+  if [[ -x "$HOME/.local/kitty.app/bin/kitty" ]]; then
+    echo "✅ Kitty is already installed, skipping."
+  else
+    kitty_script="${HOME}/.local/share/chezmoi/scripts/setup_kitty.sh"
+    if [[ -x "$kitty_script" ]]; then
+      echo "🐱 Installing Kitty..."
+      bash "$kitty_script"
+    else
+      echo "⚠️ Kitty setup script not found or not executable, skipping."
+    fi
   fi
 else
-  echo "🖥 Machine type is '$MACHINE_TYPE' — skipping Warp (workstation only)."
+  echo "🖥 Machine type is '$MACHINE_TYPE' — skipping terminal installs (workstation only)."
 fi
 
 echo "✅ Package installation complete."

@@ -123,7 +123,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
-- [ ] Install nerdfonts on linux
 - [ ] Install applications
     - [ ] Zen browser
     - [ ] global speech to text application (ex. whisper.cpp) for use in talking to ai assistants, taking notes, etc.

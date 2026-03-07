@@ -123,12 +123,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
-- [ ] Cosmic DE
-    - [ ] Add configuration for cosmic desktop to dotfiles repo
-    - [ ] Add shortcut to minimize current window (to compliment the existing shortcut to maximize current window)
-    - [ ] Review shortcuts to launch applications
-- [x] Cosmic Terminal
-    - [x] Add configuration for cosmic terminal to dotfiles repo
 - [ ] Install applications
     - [ ] Zen browser
     - [ ] global speech to text application (ex. whisper.cpp) for use in talking to ai assistants, taking notes, etc.

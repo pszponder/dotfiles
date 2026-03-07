@@ -36,10 +36,18 @@ theme = catppuccin-mocha.conf
 font-family = "CaskaydiaCove NF"
 background-opacity = 0.95
 
+# Cursor
+cursor-style = block
+cursor-style-blink = true
+
 # Change default shell
 command = /usr/bin/fish --login --interactive
 
-# Enable Quick Terminal on MacOS
+# Enable Quick Terminal
 # https://dbushell.com/2025/04/11/ghostty-macos-quick-terminal/
-keybind = global:cmd+option+comma=toggle_quick_terminal
-quick-terminal-position = bottom
+# Quick terminal (dropdown)
+quick-terminal-position = top
+# quick-terminal-height = 40%
+# quick-terminal-animation-duration = 0.12
+# keybind = global:cmd+option+comma=toggle_quick_terminal
+keybind = global:super+alt+comma=toggle_quick_terminal

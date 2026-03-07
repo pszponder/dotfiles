@@ -18,7 +18,8 @@ set -euo pipefail
 {{-   end -}}
 {{- end -}}
 {{- $packages := dig "linux" $linuxID $machineType "items" (list) .packages -}}
-{{- $flatpaks := dig "items" (list) .flatpaks }}
+{{- $flatpaks := dig "items" (list) .flatpaks -}}
+{{- $nerdfonts := dig "items" (list) .nerdfonts }}
 
 OS="{{ .chezmoi.os }}"
 LINUX_ID="{{ $linuxID }}"
@@ -106,6 +107,23 @@ else
     echo "  → $app"
     flatpak install --noninteractive flathub "$app" || echo "⚠️ Failed to install $app"
   done
+fi
+
+# ===================================
+# Nerd Fonts
+# ===================================
+nerdfonts=({{ range $nerdfonts }}{{ . | quote }} {{ end }})
+
+if [[ "${#nerdfonts[@]}" -eq 0 ]]; then
+  echo "⚠️ No Nerd Fonts configured, skipping."
+else
+  nerdfonts_script="${HOME}/.local/share/chezmoi/scripts/setup_nerdfonts.sh"
+  if [[ -x "$nerdfonts_script" ]]; then
+    echo "🔤 Installing Nerd Fonts..."
+    bash "$nerdfonts_script" "${nerdfonts[@]}"
+  else
+    echo "⚠️ Nerd Fonts setup script not found or not executable, skipping."
+  fi
 fi
 
 # ===================================

@@ -82,3 +82,11 @@ items = [
     # Example:
     # "com.spotify.Client",
 ]
+
+[nerdfonts]
+items = [
+    # Font names must match the GitHub release zip names
+    # See: https://www.nerdfonts.com/font-downloads
+    "CaskaydiaCove",
+    "CaskaydiaMono",
+]

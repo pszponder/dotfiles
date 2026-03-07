@@ -125,7 +125,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## TODOs
 - [ ] Install applications
     - [ ] global speech to text application (ex. whisper.cpp) for use in talking to ai assistants, taking notes, etc.
-    - [ ] Devpod.sh
 - [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
 - [ ] Review `~/.config` and add relevant configurations to the dotfiles repo (ex. alacritty, nvim, zsh, tmux, etc.)
 - [ ] Configure Warp Terminal

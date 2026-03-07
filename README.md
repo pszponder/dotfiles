@@ -123,6 +123,7 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
+- [ ] Install nerdfonts on linux
 - [ ] Install applications
     - [ ] Zen browser
     - [ ] global speech to text application (ex. whisper.cpp) for use in talking to ai assistants, taking notes, etc.
@@ -130,8 +131,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] Install screenshot tool (ex. Flameshot) and configure it with custom shortcuts
         - [ ] Does cosmic have a screenshot tool that can be configured with custom shortcuts?
     - [ ] Devpod.sh
-- [ ] Brewfile
-	- [ ] Add packages ...
 - [ ] Flatpak
     - [ ] VSCode
     - [ ] Discord

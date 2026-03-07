@@ -2,19 +2,27 @@
 set -euo pipefail
 
 {{- /* --- resolve template variables --- */ -}}
-{{- $linuxID := "" -}}
-{{- if eq .chezmoi.os "linux" -}}
-{{-   $linuxID = .chezmoi.osRelease.idLike | default .chezmoi.osRelease.id -}}
-{{- end -}}
 {{- $machineType := .machine_type | default "workstation" -}}
-{{- $packages := list -}}
+{{- $linuxID := "" -}}
+{{- $linuxFamily := "" -}}
 {{- if eq .chezmoi.os "linux" -}}
-{{-   $packages = dig "linux" $linuxID $machineType "items" (list) .packages -}}
+{{-   $linuxID = .chezmoi.osRelease.id -}}
+{{-   $linuxFamily = .chezmoi.osRelease.idLike | default .chezmoi.osRelease.id -}}
+{{-   /* Map immutable Fedora variants (Silverblue, Kinoite, Sway Atomic, etc.) to fedora_atomic */ -}}
+{{-   if and (eq $linuxFamily "fedora") (lookPath "rpm-ostree") -}}
+{{-     $linuxID = "fedora_atomic" -}}
+{{-   end -}}
+{{-   /* Fall back to idLike if no packages defined for exact id */ -}}
+{{-   if not (dig "linux" $linuxID $machineType "items" (list) .packages) -}}
+{{-     $linuxID = $linuxFamily -}}
+{{-   end -}}
 {{- end -}}
+{{- $packages := dig "linux" $linuxID $machineType "items" (list) .packages -}}
 {{- $flatpaks := dig "items" (list) .flatpaks }}
 
 OS="{{ .chezmoi.os }}"
 LINUX_ID="{{ $linuxID }}"
+LINUX_FAMILY="{{ $linuxFamily }}"
 MACHINE_TYPE="{{ $machineType }}"
 
 command_exists() { command -v "$1" >/dev/null 2>&1; }
@@ -33,13 +41,19 @@ elif [[ "${#packages[@]}" -eq 0 ]]; then
 else
   echo "📦 Installing: ${packages[*]}"
 
-  case "$LINUX_ID" in
+  case "$LINUX_FAMILY" in
     ubuntu|debian)
       sudo apt-get update
       sudo apt-get install -y "${packages[@]}"
       ;;
     fedora)
-      sudo dnf install -y "${packages[@]}"
+      if command_exists rpm-ostree; then
+        echo "📦 Immutable Fedora detected, using rpm-ostree..."
+        rpm-ostree install --idempotent --allow-inactive "${packages[@]}"
+        echo "⚠️ A reboot may be required for layered packages to take effect."
+      else
+        sudo dnf install -y "${packages[@]}"
+      fi
       ;;
     arch)
       # bootstrap yay if missing

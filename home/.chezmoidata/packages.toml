@@ -10,6 +10,12 @@ items = ["git", "curl", "vim"]
 [packages.linux.fedora.workstation]
 items = ["git", "curl", "vim"]
 
+[packages.linux.fedora_atomic.server]
+items = []
+
+[packages.linux.fedora_atomic.workstation]
+items = []
+
 [packages.linux.arch.server]
 items = [
     # Miscellaneous utilities

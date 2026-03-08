@@ -1,14 +1,14 @@
 [packages.linux.ubuntu.server]
-items = ["git", "curl", "vim"]
+items = []
 
 [packages.linux.ubuntu.workstation]
-items = ["git", "curl", "vim"]
+items = []
 
 [packages.linux.fedora.server]
-items = ["git", "curl", "vim"]
+items = []
 
 [packages.linux.fedora.workstation]
-items = ["git", "curl", "vim"]
+items = []
 
 [packages.linux.fedora_atomic.server]
 items = []
@@ -38,7 +38,7 @@ items = [
     "ttf-cascadia-mono-nerd",
 
     # Wayland clipboard utilities
-    "wl-clipboard",
+    # "wl-clipboard",
 ]
 
 [packages.linux.arch.workstation]
@@ -105,6 +105,6 @@ items = [
 items = [
     # Font names must match the GitHub release zip names
     # See: https://www.nerdfonts.com/font-downloads
-    "CaskaydiaCove",
-    "CaskaydiaMono",
+    "CascadiaCode",
+    "CascadiaMono",
 ]

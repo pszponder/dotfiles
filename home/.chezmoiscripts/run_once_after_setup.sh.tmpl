@@ -46,22 +46,3 @@ $SCRIPTS_DIR/setup_homebrew.sh
 
 # Switch chezmoi repo remote from HTTPS to SSH
 git2ssh -C "$(dirname "$CHEZMOI_SOURCE_DIR")"
-
-# ====================================
-# Workstation-only setup
-# ====================================
-if [[ "$MACHINE_TYPE" == "workstation" ]]; then
-  echo "🖥 Running workstation-specific setup..."
-
-  $SCRIPTS_DIR/setup_gnome_keyring.sh
-  $SCRIPTS_DIR/setup_kanata-linux.sh
-  $SCRIPTS_DIR/setup_flatpak.sh
-fi
-
-# ====================================
-# Server-only setup
-# ====================================
-if [[ "$MACHINE_TYPE" == "server" ]]; then
-  echo "🖧 Running server-specific setup..."
-  # Add server-specific tasks here
-fi

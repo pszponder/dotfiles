@@ -18,7 +18,6 @@ set -euo pipefail
 {{-   end -}}
 {{- end -}}
 {{- $packages := dig "linux" $linuxID $machineType "items" (list) .packages -}}
-{{- $flatpaks := dig "items" (list) .flatpaks -}}
 {{- $nerdfonts := dig "items" (list) .nerdfonts }}
 
 OS="{{ .chezmoi.os }}"
@@ -90,26 +89,6 @@ else
 fi
 
 # ===================================
-# Flatpak apps (Linux workstations)
-# ===================================
-flatpaks=({{ range $flatpaks }}{{ . | quote }} {{ end }})
-
-if [[ "$OS" != "linux" || "$MACHINE_TYPE" != "workstation" ]]; then
-  echo "⏭ Skipping Flatpak apps (Linux workstation only)."
-elif ! command_exists flatpak; then
-  echo "⚠️ Flatpak is not installed, skipping Flatpak apps."
-elif [[ "${#flatpaks[@]}" -eq 0 ]]; then
-  echo "⚠️ No Flatpak apps configured, skipping."
-else
-  echo "📦 Installing Flatpak apps..."
-  flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-  for app in "${flatpaks[@]}"; do
-    echo "  → $app"
-    flatpak install --noninteractive flathub "$app" || echo "⚠️ Failed to install $app"
-  done
-fi
-
-# ===================================
 # Nerd Fonts
 # ===================================
 nerdfonts=({{ range $nerdfonts }}{{ . | quote }} {{ end }})
@@ -152,39 +131,6 @@ if [[ -f "$mise_cfg" ]]; then
     mkdir -p "$(dirname "$hashfile")"
     echo "$newhash" > "$hashfile"
   fi
-fi
-
-# ===================================
-# Workstation-only terminal installs
-# ===================================
-if [[ "$MACHINE_TYPE" == "workstation" ]]; then
-  # Warp
-  if command_exists warp-terminal; then
-    echo "✅ Warp is already installed, skipping."
-  else
-    warp_script="${HOME}/.local/share/chezmoi/scripts/setup_warp_terminal.sh"
-    if [[ -x "$warp_script" ]]; then
-      echo "🚀 Installing Warp..."
-      bash "$warp_script"
-    else
-      echo "⚠️ Warp setup script not found or not executable, skipping."
-    fi
-  fi
-
-  # Kitty
-  if [[ -x "$HOME/.local/kitty.app/bin/kitty" ]]; then
-    echo "✅ Kitty is already installed, skipping."
-  else
-    kitty_script="${HOME}/.local/share/chezmoi/scripts/setup_kitty.sh"
-    if [[ -x "$kitty_script" ]]; then
-      echo "🐱 Installing Kitty..."
-      bash "$kitty_script"
-    else
-      echo "⚠️ Kitty setup script not found or not executable, skipping."
-    fi
-  fi
-else
-  echo "🖥 Machine type is '$MACHINE_TYPE' — skipping terminal installs (workstation only)."
 fi
 
 echo "✅ Package installation complete."

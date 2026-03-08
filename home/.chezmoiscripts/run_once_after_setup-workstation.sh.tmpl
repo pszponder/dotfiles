@@ -1,0 +1,12 @@
+{{- if eq (.machine_type | default "workstation") "workstation" -}}
+#!/usr/bin/env bash
+set -e
+
+echo "🖥 Running workstation-specific setup..."
+
+SCRIPTS_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")/scripts"
+
+$SCRIPTS_DIR/setup_gnome_keyring.sh
+$SCRIPTS_DIR/setup_kanata-linux.sh
+$SCRIPTS_DIR/setup_flatpak.sh
+{{- end }}

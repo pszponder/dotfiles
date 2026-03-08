@@ -233,7 +233,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] Configure quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
 - [ ] Setup Kitty [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)
 - [ ] Configure Zed Editor
-- [ ] Consider installing and using paru instead of yay for AUR package management
 - [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)
 - [ ] Checkout apps from [Charm](https://charm.land/apps/) such as Skate, Glow, Wishlist, Pop etc.
 - [ ] Investigate installing [limactl](https://www.youtube.com/watch?v=2SGyhd5OI-c)
@@ -242,7 +241,7 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 
 - [Arch Package Repository](https://aur.archlinux.org/packages)
 - [AUR - Arch User Repository](https://aur.archlinux.org/packages)
-- [Jguer/yay: Yet another Yogurt - An AUR Helper written in Go](https://github.com/Jguer/yay)
+- [Morganamilo/paru: Feature packed AUR helper](https://github.com/Morganamilo/paru)
 - [Home | mise-en-place](https://mise.jdx.dev/)
 - [Mise: The BEST Way to Manage Versions of Node, Python, Go (and Much More...)](https://www.youtube.com/watch?v=eKJCnc0t8V0)
 - [DevOps Toolbox - The Holy Grail of Developer CLIs - mise](https://www.youtube.com/watch?v=-_o1AS3q6xo)

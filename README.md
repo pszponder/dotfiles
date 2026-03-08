@@ -123,18 +123,23 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
-- [ ] Clone and copy useful parts from my previous dotfiles (ex. dotfiles_v1 and dotfiles_v2)
-- [ ] Review `~/.config` and add relevant configurations to the dotfiles repo (ex. alacritty, nvim, zsh, tmux, etc.)
+- [ ] Browsers
+    - [ ] Add script to install google chrome browser
+    - [ ] Add script to install helium browser
+        - [ ] Is the Helium Browser installed via Appimage auto-updating?
+        - [ ] Configure Helium Browser with shortcuts (ex. yt for youtube)
+    - [ ] Add [unduck](https://unduck.link/) to browsers
+- [ ] Clone and copy useful parts from my previous dotfiles
+    - [ ] dotfiles_v1
+    - [x] dotfiles_v2
 - [ ] Configure Warp Terminal
     - [ ] Is there a way to programatically / via config set the theme and font in warp terminal?
     - [ ] Configure global microphone hotkey in warp terminal for speech to text functionality
 - [ ] Configure Ghostty Terminal
     - [ ] Configure to launch fish shell by default
     - [ ] Configure quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
-- [ ] Install and configure Kitty Terminal
-    - [ ] Setup [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)
+- [ ] Setup Kitty [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)
 - [ ] Configure Zed Editor
-- [ ] Configure Helium Browser with shortcuts (ex. yt for youtube)
 - [ ] Consider installing and using paru instead of yay for AUR package management
 - [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)
 - [ ] Checkout apps from [Charm](https://charm.land/apps/) such as Skate, Glow, Wishlist, Pop etc.

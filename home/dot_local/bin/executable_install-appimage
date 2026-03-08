@@ -1,0 +1,200 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Script to install or update an AppImage and create/update a desktop entry for it.
+#
+# Usage:
+#   install-appimage /path/to/app.AppImage [optional_app_name] [optional_icon_path]
+#   install-appimage --help | -h
+#
+# If an AppImage with the same filename already exists in the destination, it will be replaced.
+
+# --- Configuration ---
+APPIMAGE_DEST_DIR="$HOME/Applications"
+DESKTOP_FILE_DIR="$HOME/.local/share/applications"
+ICONS_DIR="$HOME/.local/share/icons/hicolor/256x256/apps"
+
+# --- Logging ---
+log_info()  { echo -e "\e[32mINFO:\e[0m $1"; }
+log_error() { echo -e "\e[31mERROR:\e[0m $1" >&2; }
+log_warn()  { echo -e "\e[33mWARN:\e[0m $1"; }
+
+# --- Help ---
+show_help() {
+  cat <<EOF
+Usage: $(basename "$0") /path/to/app.AppImage [app_name] [icon_path]
+
+Install or update an AppImage and create a .desktop launcher entry.
+
+Arguments:
+  /path/to/app.AppImage  Path to the AppImage file
+  [app_name]             Custom application name (default: extracted from AppImage)
+  [icon_path]            Custom icon file path (default: extracted from AppImage)
+
+The AppImage will be moved to: $APPIMAGE_DEST_DIR
+Desktop entry created in:      $DESKTOP_FILE_DIR
+EOF
+  exit 0
+}
+
+# --- Extract name from AppImage ---
+extract_app_name() {
+  local appimage="$1"
+  local tmpdir
+  tmpdir=$(mktemp -d)
+  trap "rm -rf '$tmpdir'" RETURN
+
+  # Extract the embedded .desktop file from the AppImage
+  if "$appimage" --appimage-extract '*.desktop' &>/dev/null; then
+    local desktop_file
+    desktop_file=$(find squashfs-root -maxdepth 1 -name '*.desktop' -print -quit 2>/dev/null)
+    if [[ -n "$desktop_file" ]]; then
+      local name
+      name=$(grep -m 1 '^Name=' "$desktop_file" | cut -d'=' -f2-)
+      rm -rf squashfs-root
+      if [[ -n "$name" ]]; then
+        echo "$name"
+        return 0
+      fi
+    fi
+    rm -rf squashfs-root
+  fi
+
+  # Fallback: derive name from filename (strip version, arch, extension)
+  basename "$appimage" .AppImage \
+    | sed -E 's/[-_][0-9]+\..*//' \
+    | sed 's/[_-]/ /g' \
+    | sed 's/\b\(.\)/\u\1/g'
+}
+
+# --- Extract icon from AppImage ---
+extract_app_icon() {
+  local appimage="$1"
+  local app_name_sanitized="$2"
+
+  # Extract icon files from the AppImage
+  if "$appimage" --appimage-extract '*.png' &>/dev/null || \
+     "$appimage" --appimage-extract '*.svg' &>/dev/null; then
+    local icon_file
+    # Prefer larger icons (256x256, 128x128) or top-level icon
+    icon_file=$(find squashfs-root -type f \( -iname '*.png' -o -iname '*.svg' \) \
+      | grep -E '256x256|128x128' | head -1)
+    if [[ -z "$icon_file" ]]; then
+      icon_file=$(find squashfs-root -maxdepth 1 -type f \( -iname '*.png' -o -iname '*.svg' \) -print -quit)
+    fi
+    if [[ -z "$icon_file" ]]; then
+      icon_file=$(find squashfs-root -type f \( -iname '*.png' -o -iname '*.svg' \) -print -quit)
+    fi
+
+    if [[ -n "$icon_file" ]]; then
+      local ext="${icon_file##*.}"
+      local dest_icon="$ICONS_DIR/${app_name_sanitized}.${ext}"
+      mkdir -p "$ICONS_DIR"
+      cp "$icon_file" "$dest_icon"
+      rm -rf squashfs-root
+      echo "$dest_icon"
+      return 0
+    fi
+    rm -rf squashfs-root
+  fi
+
+  return 1
+}
+
+# --- Main ---
+
+# Help
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" || $# -eq 0 ]]; then
+  show_help
+fi
+
+APPIMAGE_PATH="$1"
+CUSTOM_APP_NAME="${2:-}"
+CUSTOM_ICON_PATH="${3:-}"
+
+# Validate input
+if [[ ! -f "$APPIMAGE_PATH" ]]; then
+  log_error "AppImage not found: $APPIMAGE_PATH"
+  exit 1
+fi
+
+# Ensure the AppImage is executable
+if [[ ! -x "$APPIMAGE_PATH" ]]; then
+  log_info "Making AppImage executable..."
+  chmod +x "$APPIMAGE_PATH"
+fi
+
+# Determine destination
+APPIMAGE_FILENAME=$(basename "$APPIMAGE_PATH")
+FINAL_APPIMAGE_PATH="$APPIMAGE_DEST_DIR/$APPIMAGE_FILENAME"
+
+# Create directories
+mkdir -p "$APPIMAGE_DEST_DIR" "$DESKTOP_FILE_DIR" "$ICONS_DIR"
+
+# Move AppImage (replace if exists)
+if [[ -f "$FINAL_APPIMAGE_PATH" ]]; then
+  log_info "Replacing existing AppImage at '$FINAL_APPIMAGE_PATH'..."
+fi
+mv -f "$APPIMAGE_PATH" "$FINAL_APPIMAGE_PATH"
+chmod +x "$FINAL_APPIMAGE_PATH"
+
+# Resolve app name
+if [[ -n "$CUSTOM_APP_NAME" ]]; then
+  APP_NAME="$CUSTOM_APP_NAME"
+else
+  log_info "Extracting app name from AppImage..."
+  APP_NAME=$(extract_app_name "$FINAL_APPIMAGE_PATH")
+fi
+log_info "Application name: $APP_NAME"
+
+# Sanitized name for filenames (lowercase for .desktop compatibility)
+APP_NAME_SANITIZED=$(echo "${APP_NAME// /_}" | tr '[:upper:]' '[:lower:]')
+
+# Resolve icon
+ICON_VALUE=""
+if [[ -n "$CUSTOM_ICON_PATH" ]]; then
+  if [[ -f "$CUSTOM_ICON_PATH" ]]; then
+    ext="${CUSTOM_ICON_PATH##*.}"
+    dest_icon="$ICONS_DIR/${APP_NAME_SANITIZED}.${ext}"
+    mkdir -p "$ICONS_DIR"
+    cp "$CUSTOM_ICON_PATH" "$dest_icon"
+    ICON_VALUE="$dest_icon"
+    log_info "Using custom icon: $dest_icon"
+  else
+    log_warn "Custom icon not found: $CUSTOM_ICON_PATH"
+  fi
+fi
+
+if [[ -z "$ICON_VALUE" ]]; then
+  log_info "Extracting icon from AppImage..."
+  if ICON_VALUE=$(extract_app_icon "$FINAL_APPIMAGE_PATH" "$APP_NAME_SANITIZED"); then
+    log_info "Extracted icon: $ICON_VALUE"
+  else
+    ICON_VALUE="$APP_NAME_SANITIZED"
+    log_warn "Could not extract icon. Desktop entry will use name '$ICON_VALUE' (theme lookup)."
+  fi
+fi
+
+# Create .desktop file
+DESKTOP_FILE="$DESKTOP_FILE_DIR/${APP_NAME_SANITIZED}.desktop"
+log_info "Creating desktop entry: $DESKTOP_FILE"
+
+cat > "$DESKTOP_FILE" <<EOF
+[Desktop Entry]
+Name=$APP_NAME
+Comment=Launch $APP_NAME
+Exec=$FINAL_APPIMAGE_PATH
+Icon=$ICON_VALUE
+Terminal=false
+Type=Application
+Categories=Utility;Application;
+EOF
+
+# Update desktop database
+if command -v update-desktop-database &>/dev/null; then
+  update-desktop-database "$DESKTOP_FILE_DIR" 2>/dev/null || true
+fi
+
+log_info "AppImage '$APP_NAME' installed successfully!"
+log_info "AppImage location: $FINAL_APPIMAGE_PATH"
+log_info "You should now find '$APP_NAME' in your application menu."

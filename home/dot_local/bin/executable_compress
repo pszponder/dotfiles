@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# compress.sh - Compress a directory or file into a tar.gz archive
+# Usage: ./compress.sh <directory_or_file>
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <directory_or_file>"
+    echo "Example: $0 my_folder"
+    exit 1
+fi
+
+tar -czf "${1%/}.tar.gz" "${1%/}"
+echo "Created ${1%/}.tar.gz"

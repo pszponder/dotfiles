@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Check dependencies
+command -v fd >/dev/null 2>&1 || { echo "fd is not installed"; exit 1; }
+command -v fzf >/dev/null 2>&1 || { echo "fzf is not installed"; exit 1; }
+
+# Find config using fd and fzf
+config=$(fd --max-depth 1 --glob 'nvim*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
+
+# If no selection, exit
+if [[ -z "$config" ]]; then
+    echo "No config selected"
+    exit 0
+fi
+
+# Open Neovim with the selected config
+NVIM_APPNAME=$(basename "$config") nvim "$@"

@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+# ~/.local/bin/restore
+# Usage:
+#   restore [OPTIONS] <file-or-directory>
+# Options:
+#   --local        Restore from .bak file next to the original
+#   --select       Prompt to select from multiple timestamped backups
+#   -h, --help     Show this help message
+
+set -euo pipefail
+
+show_help() {
+    cat << EOF
+Usage: restore [OPTIONS] <file-or-directory>
+
+Restores a previously backed up file or directory.
+
+Options:
+  --local        Restore from a .bak file next to the original
+  --select       Select from multiple timestamped backups (interactive)
+  -h, --help     Show this help message
+
+Examples:
+  restore ~/.bashrc
+  restore --select ~/.bashrc
+  restore --local ~/.bashrc
+EOF
+}
+
+# Show help if requested or no arguments
+if [[ $# -eq 0 ]] || [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    show_help
+    exit 0
+fi
+
+# Parse options
+LOCAL_RESTORE=0
+INTERACTIVE_SELECT=0
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --local)
+            LOCAL_RESTORE=1
+            shift
+            ;;
+        --select)
+            INTERACTIVE_SELECT=1
+            shift
+            ;;
+        -*)
+            echo "Unknown option: $1"
+            show_help
+            exit 1
+            ;;
+        *)
+            TARGET="$1"
+            shift
+            break
+            ;;
+    esac
+done
+
+# Ensure target argument is provided
+if [[ -z "${TARGET:-}" ]]; then
+    echo "Error: No target specified."
+    show_help
+    exit 1
+fi
+
+if [[ $LOCAL_RESTORE -eq 1 ]]; then
+    BACKUP_PATH="${TARGET}.bak"
+    if [[ ! -e "$BACKUP_PATH" ]]; then
+        echo "Error: Local backup '$BACKUP_PATH' does not exist."
+        exit 1
+    fi
+else
+    # Find timestamped backups
+    BACKUP_DIR="$HOME/.local/backups"
+    BASENAME="$(basename "$TARGET")"
+    BACKUPS=("$BACKUP_DIR"/"$BASENAME"_*)
+
+    if [[ ${#BACKUPS[@]} -eq 0 ]]; then
+        echo "Error: No backups found for '$TARGET' in $BACKUP_DIR"
+        exit 1
+    fi
+
+    # Sort backups by timestamp (ascending)
+    IFS=$'\n' BACKUPS=($(sort <<<"${BACKUPS[*]}"))
+    unset IFS
+
+    if [[ ${#BACKUPS[@]} -eq 1 ]]; then
+        BACKUP_PATH="${BACKUPS[0]}"
+    elif [[ $INTERACTIVE_SELECT -eq 1 ]]; then
+        echo "Multiple backups found for '$TARGET':"
+        select choice in "${BACKUPS[@]}"; do
+            if [[ -n "$choice" ]]; then
+                BACKUP_PATH="$choice"
+                break
+            fi
+        done
+    else
+        # Default: pick the most recent backup
+        BACKUP_PATH="${BACKUPS[-1]}"
+    fi
+fi
+
+# Restore
+if [[ -d "$BACKUP_PATH" ]]; then
+    cp -a "$BACKUP_PATH" "$TARGET"
+else
+    cp "$BACKUP_PATH" "$TARGET"
+fi
+
+echo "Restored '$TARGET' from '$BACKUP_PATH'"

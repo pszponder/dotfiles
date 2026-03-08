@@ -123,15 +123,9 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
-- [ ] Browsers
-    - [ ] Add script to install helium browser
-        - [ ] Is the Helium Browser installed via Appimage auto-updating?
-        - [ ] Configure Helium Browser with shortcuts (ex. yt for youtube)
-    - [ ] Add [unduck](https://unduck.link/) to browsers
-- [ ] Configure Ghostty Terminal
-    - [ ] Configure to launch fish shell by default
-    - [ ] Configure quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
-- [ ] Setup Kitty [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)
+- [ ] Terminals
+    - [ ] Configure Ghostty quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
+    - [ ] Setup Kitty [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)
 - [ ] Configure Zed Editor
 - [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)
 - [ ] Checkout apps from [Charm](https://charm.land/apps/) such as Skate, Glow, Wishlist, Pop etc.

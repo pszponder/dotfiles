@@ -1,10 +1,21 @@
-[data]
+{{- /* Prompt for Git username */ -}}
+{{- $git_name := promptStringOnce . "git_name" "❔ What is your Git username (full name)" -}}
+{{- writeToStdout (printf "✅ Git username set as '%s'\n" $git_name) -}}
 
-git_name = "{{ .git_name }}"
-git_email = "{{ .git_email }}"
-machine_type = "{{ .machine_type }}"
+{{- /* Prompt for Git email */ -}}
+{{- $git_email := promptStringOnce . "git_email" "❔ What is your Git email" -}}
+{{- writeToStdout (printf "✅ Git email set as '%s'\n" $git_email) -}}
+
+{{- /* Prompt for machine type */ -}}
+{{- $machine_type := promptChoiceOnce . "machine_type" "❔ What is your machine type" (list "workstation" "server") -}}
+{{- writeToStdout (printf "✅ Machine type set as '%s'\n" $machine_type) -}}
+
+[data]
+git_name = {{ $git_name | quote }}
+git_email = {{ $git_email | quote }}
+machine_type = {{ $machine_type | quote }}
 
 # automatic system values
-os = "{{ .chezmoi.os }}"
-hostname = "{{ .chezmoi.hostname }}"
-arch = "{{ .chezmoi.arch }}"
+os = {{ .chezmoi.os | quote }}
+hostname = {{ .chezmoi.hostname | quote }}
+arch = {{ .chezmoi.arch | quote }}

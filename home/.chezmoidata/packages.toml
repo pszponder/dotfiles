@@ -97,7 +97,7 @@ items = [
     "org.flameshot.Flameshot",
     "io.github.getnf.embellish",
     "dev.heppen.webapps",
-    "org.gnome.Evince",
+    # "org.gnome.Evince",
     "it.mijorus.gearlever",
 ]
 

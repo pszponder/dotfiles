@@ -1,9 +1,10 @@
 [data]
-# Prompt for machine type on first apply
-{{- if hasKey . "machine_type" }}
-    machine_type = "{{ .machine_type }}"
-{{- else }}
-    machine_type = "{{ promptChoice "Machine type (server/workstation)" (list "server" "workstation") }}"
-{{- end }}
-    git_name = {{ promptStringOnce . "git_name" "Git username" | quote }}
-    git_email = {{ promptStringOnce . "git_email" "Git email" | quote }}
+
+git_name = "{{ .git_name }}"
+git_email = "{{ .git_email }}"
+machine_type = "{{ .machine_type }}"
+
+# automatic system values
+os = "{{ .chezmoi.os }}"
+hostname = "{{ .chezmoi.hostname }}"
+arch = "{{ .chezmoi.arch }}"

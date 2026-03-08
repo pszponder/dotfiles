@@ -1,20 +1,22 @@
 # Dotfiles
 
-## Prerequisites
-
-- [chezmoi](https://www.chezmoi.io/)
-
 ## How to Run / Setup
 
 ### Clone and Apply Dotfiles (New Machine)
 
-On a fresh machine, install [chezmoi](https://www.chezmoi.io/install/) and then run:
+If you don't yet have [chezmoi](https://www.chezmoi.io/install/) installed:
+
+```sh
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply pszponder
+```
+
+If you already have [chezmoi](https://www.chezmoi.io/install/) installed, then run:
 
 ```sh
 chezmoi init --apply pszponder
 ```
 
-This clones the dotfiles repo into `~/.local/share/chezmoi` and applies the managed files to your home directory.
+Both of these commands clone this dotfiles repo into `~/.local/share/chezmoi` and applies the managed files to your home directory.
 
 To preview what would change without applying:
 

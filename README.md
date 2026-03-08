@@ -225,9 +225,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
         - [ ] Is the Helium Browser installed via Appimage auto-updating?
         - [ ] Configure Helium Browser with shortcuts (ex. yt for youtube)
     - [ ] Add [unduck](https://unduck.link/) to browsers
-- [ ] Configure Warp Terminal
-    - [ ] Is there a way to programatically / via config set the theme and font in warp terminal?
-    - [ ] Configure global microphone hotkey in warp terminal for speech to text functionality
 - [ ] Configure Ghostty Terminal
     - [ ] Configure to launch fish shell by default
     - [ ] Configure quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)

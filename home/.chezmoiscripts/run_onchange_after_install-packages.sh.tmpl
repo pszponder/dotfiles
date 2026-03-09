@@ -18,85 +18,41 @@ set -euo pipefail
 {{-   end -}}
 {{- end -}}
 {{- $packages := dig "linux" $linuxID $machineType "items" (list) .packages -}}
-{{- $nerdfonts := dig "items" (list) .nerdfonts }}
+{{- $nerdfonts := dig "items" (list) .nerdfonts -}}
+{{- $flatpaks := dig "items" (list) .flatpaks }}
 
 OS="{{ .chezmoi.os }}"
 LINUX_ID="{{ $linuxID }}"
 LINUX_FAMILY="{{ $linuxFamily }}"
 MACHINE_TYPE="{{ $machineType }}"
 
+SCRIPTS_DIR="${HOME}/.local/share/chezmoi/scripts"
+
 command_exists() { command -v "$1" >/dev/null 2>&1; }
 
-# ===================================
-# Native packages (Linux)
-# ===================================
-echo "🔧 Installing native packages..."
-
 packages=({{ range $packages }}{{ . | quote }} {{ end }})
-
-if [[ "$OS" != "linux" ]]; then
-  echo "⏭ Skipping native packages (Linux only)."
-elif [[ "${#packages[@]}" -eq 0 ]]; then
-  echo "⚠️ No packages for ${OS}/${LINUX_ID}/${MACHINE_TYPE}, skipping."
-else
-  echo "📦 Installing: ${packages[*]}"
-
-  case "$LINUX_FAMILY" in
-    ubuntu|debian)
-      sudo apt-get update
-      sudo apt-get install -y "${packages[@]}"
-      ;;
-    fedora)
-      if command_exists rpm-ostree; then
-        echo "📦 Immutable Fedora detected, using rpm-ostree..."
-        rpm-ostree install --idempotent --allow-inactive "${packages[@]}"
-        echo "⚠️ A reboot may be required for layered packages to take effect."
-      else
-        sudo dnf install -y "${packages[@]}"
-      fi
-      ;;
-    arch)
-      # bootstrap paru if missing
-      if ! command_exists paru; then
-        echo "🛠 paru not found – bootstrapping from AUR..."
-        sudo pacman -S --noconfirm --needed git base-devel
-        tmpdir=$(mktemp -d)
-        git clone https://aur.archlinux.org/paru.git "$tmpdir/paru"
-        pushd "$tmpdir/paru" >/dev/null
-        makepkg -si --noconfirm
-        popd >/dev/null
-        rm -rf "$tmpdir"
-      fi
-      echo "📦 Installing packages with paru..."
-      paru -Syu --needed --noconfirm "${packages[@]}"
-      ;;
-    *)
-      echo "⚠️ Unsupported Linux distro: $LINUX_ID"
-      ;;
-  esac
-fi
-
-# ===================================
-# Homebrew packages (via Brewfile)
-# ===================================
-if ! command_exists brew; then
-  echo "⏭ Homebrew is not installed, skipping Brewfile."
-elif [[ ! -f "$HOME/.Brewfile" ]]; then
-  echo "⚠️ No ~/.Brewfile found, skipping."
-else
-  echo "🍺 Installing Homebrew packages from Brewfile..."
-  brew bundle --global --no-lock
-fi
-
-# ===================================
-# Nerd Fonts
-# ===================================
 nerdfonts=({{ range $nerdfonts }}{{ . | quote }} {{ end }})
+flatpaks=({{ range $flatpaks }}{{ . | quote }} {{ end }})
 
+# ===================================
+# Common packages
+# ===================================
+
+# Native packages (Linux)
+if [[ "$OS" == "linux" ]]; then
+  bash "$SCRIPTS_DIR/install_packages_native.sh" "$LINUX_FAMILY" "${packages[@]}"
+else
+  echo "⏭ Skipping native packages (Linux only)."
+fi
+
+# Homebrew packages (via Brewfile)
+bash "$SCRIPTS_DIR/install_packages_brew.sh"
+
+# Nerd Fonts
 if [[ "${#nerdfonts[@]}" -eq 0 ]]; then
   echo "⚠️ No Nerd Fonts configured, skipping."
 else
-  nerdfonts_script="${HOME}/.local/share/chezmoi/scripts/setup_nerdfonts.sh"
+  nerdfonts_script="$SCRIPTS_DIR/install_nerdfonts-linux.sh"
   if [[ -x "$nerdfonts_script" ]]; then
     echo "🔤 Installing Nerd Fonts..."
     bash "$nerdfonts_script" "${nerdfonts[@]}"
@@ -105,32 +61,52 @@ else
   fi
 fi
 
-# ===================================
 # mise auto-install
-# ===================================
-mise_cfg="$HOME/.config/mise/config.toml"
-hashfile="$HOME/.cache/chezmoi/mise_config.hash"
+bash "$SCRIPTS_DIR/install_packages_mise.sh"
 
-if [[ -f "$mise_cfg" ]]; then
-  newhash=$(sha256sum "$mise_cfg" | awk '{print $1}')
-  oldhash=""
-  [[ -f "$hashfile" ]] && oldhash=$(<"$hashfile")
-  if [[ "$newhash" != "$oldhash" ]]; then
-    echo "🔁 mise config changed, running mise install..."
-    if command_exists mise; then
-      mise install || echo "⚠️ mise install failed"
-    else
-      echo "🛠 Installing mise..."
-      if curl -fsSL https://mise.run | sh; then
-        echo "✅ mise installed, running install"
-        mise install || echo "⚠️ mise install failed after bootstrap"
-      else
-        echo "⚠️ Failed to install mise, skipping"
-      fi
-    fi
-    mkdir -p "$(dirname "$hashfile")"
-    echo "$newhash" > "$hashfile"
+# ===================================
+# Workstation-specific packages
+# ===================================
+{{- if eq $machineType "workstation" }}
+
+# Flatpak apps
+bash "$SCRIPTS_DIR/install_packages_flatpak.sh" "${flatpaks[@]}"
+
+# Warp
+if command_exists warp-terminal; then
+  echo "✅ Warp is already installed, skipping."
+else
+  warp_script="$SCRIPTS_DIR/setup_warp_terminal.sh"
+  if [[ -x "$warp_script" ]]; then
+    echo "🚀 Installing Warp..."
+    bash "$warp_script"
+  else
+    echo "⚠️ Warp setup script not found or not executable, skipping."
   fi
 fi
+
+# Kitty
+if [[ -x "$HOME/.local/kitty.app/bin/kitty" ]]; then
+  echo "✅ Kitty is already installed, skipping."
+else
+  kitty_script="$SCRIPTS_DIR/setup_kitty.sh"
+  if [[ -x "$kitty_script" ]]; then
+    echo "🐱 Installing Kitty..."
+    bash "$kitty_script"
+  else
+    echo "⚠️ Kitty setup script not found or not executable, skipping."
+  fi
+fi
+
+{{- end }}
+
+# ===================================
+# Server-specific packages
+# ===================================
+{{- if eq $machineType "server" }}
+
+# Add server-specific package installations here
+
+{{- end }}
 
 echo "✅ Package installation complete."

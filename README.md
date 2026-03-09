@@ -125,6 +125,13 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
+- [ ] fresh install troubleshooting
+    - [ ] bat failed
+    - [ ] mise up failed
+        - [ ] install node before installing other tools with mise?
+    - [ ] After installation of dotfiles, do we have to re-source so that mise installs successfully?
+- [ ] Move package installation to a separate script. That way, we can run it separately and not have to worry about it when applying dotfiles on a new machine.
+- [ ] Get Atuin working with bash
 - [ ] Terminals
     - [ ] Configure Ghostty quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
     - [ ] Setup Kitty [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)

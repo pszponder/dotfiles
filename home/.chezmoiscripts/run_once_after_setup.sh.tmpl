@@ -1,30 +1,84 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-set -e  # Exit immediately on any error
+{{- /* --- resolve template variables --- */ -}}
+{{- $machineType := .machine_type | default "workstation" -}}
+{{- $linuxID := "" -}}
+{{- $linuxFamily := "" -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{-   $linuxID = .chezmoi.osRelease.id -}}
+{{-   $linuxFamily = .chezmoi.osRelease.idLike | default .chezmoi.osRelease.id -}}
+{{-   if and (eq $linuxFamily "fedora") (lookPath "rpm-ostree") -}}
+{{-     $linuxID = "fedora_atomic" -}}
+{{-   end -}}
+{{-   if not (dig "linux" $linuxID $machineType "items" (list) .packages) -}}
+{{-     $linuxID = $linuxFamily -}}
+{{-   end -}}
+{{- end -}}
+{{- $packages := dig "linux" $linuxID $machineType "items" (list) .packages -}}
+{{- $nerdfonts := dig "items" (list) .nerdfonts -}}
+{{- $flatpaks := dig "items" (list) .flatpaks }}
 
-echo "🔧 Running setup tasks after applying dotfiles..."
+echo "🔧 Running common setup tasks after applying dotfiles..."
 
-# Define the location of the scripts in the repo
-SCRIPTS_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")/scripts"
-{{- if .machine_type }}
-MACHINE_TYPE="{{ .machine_type }}"
-{{- else }}
-read -rp "❓ Is this machine a workstation or server? [workstation/server]: " MACHINE_TYPE
-if [[ "$MACHINE_TYPE" != "workstation" && "$MACHINE_TYPE" != "server" ]]; then
-  echo "⚠️ Invalid machine type '$MACHINE_TYPE'. Must be 'workstation' or 'server'."
-  exit 1
+# ===================================
+# Load environment
+# ===================================
+echo "🔧 Loading user environment..."
+
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.mise/bin:$PATH"
+
+[[ -f "$HOME/.profile" ]] && source "$HOME/.profile"
+[[ -f "$HOME/.bash_profile" ]] && source "$HOME/.bash_profile"
+
+hash -r
+
+SCRIPTS_DIR="$CHEZMOI_SOURCE_DIR/scripts"
+LINUX_FAMILY="{{ $linuxFamily }}"
+packages=({{ range $packages }}{{ . | quote }} {{ end }})
+nerdfonts=({{ range $nerdfonts }}{{ . | quote }} {{ end }})
+flatpaks=({{ range $flatpaks }}{{ . | quote }} {{ end }})
+
+# ===================================
+# Switch Git Remote from HTTPS to SSH
+# ===================================
+git2ssh -C "$(dirname "$CHEZMOI_SOURCE_DIR")"
+
+# ===================================
+# Core setup
+# ===================================
+"$SCRIPTS_DIR/setup_directories.sh"
+
+# Install Nerd Fonts
+if [[ "${#nerdfonts[@]}" -gt 0 ]]; then
+  bash "$SCRIPTS_DIR/install_nerdfonts-linux.sh" "${nerdfonts[@]}"
 fi
-{{- end }}
 
-# Rebuild bat's cache to ensure custom themes are recognized from dotfiles
-bat cache --build
+# Install native packages
+if [[ "{{ .chezmoi.os }}" == "linux" ]]; then
+  bash "$SCRIPTS_DIR/install_packages_native.sh" "$LINUX_FAMILY" "${packages[@]}"
+fi
 
-# Setup directories
-$SCRIPTS_DIR/setup_directories.sh
+# Install mise tools
+bash "$SCRIPTS_DIR/install_packages_mise.sh"
+
+# Install Homebrew packages
+bash "$SCRIPTS_DIR/install_packages_brew.sh"
 
 # Configure Podman storage driver based on filesystem type
-$SCRIPTS_DIR/setup_podman_storage.sh
+"$SCRIPTS_DIR/setup_podman_storage.sh"
 
+# Rebuild bat's cache to ensure custom themes are recognized from dotfiles
+if command -v bat &> /dev/null; then
+  echo "🔧 Rebuilding bat cache..."
+  bat cache --build
+else
+  echo "⚠️  Bat is not installed. Skipping bat cache rebuild."
+fi
+
+# ===================================
+# SSH Key Generation
+# ===================================
 # Setup SSH Keys
 read -rp "❓ Do you want to setup SSH Keys? [y/N]: " response
 case "$response" in
@@ -41,8 +95,33 @@ case "$response" in
     ;;
 esac
 
-# Setup Homebrew
-$SCRIPTS_DIR/setup_homebrew.sh
+# ============================================
+# Identify Machine Type
+# ============================================
+MACHINE_TYPE="{{ .machine_type }}"
+echo "🖥 Running setup for machine type: $MACHINE_TYPE"
 
-# Switch chezmoi repo remote from HTTPS to SSH
-git2ssh -C "$(dirname "$CHEZMOI_SOURCE_DIR")"
+# ============================================
+# Workstation-specific setup
+# ============================================
+{{ if eq .machine_type "workstation" }}
+echo "Running workstation-specific scripts..."
+"$SCRIPTS_DIR/setup_gnome_keyring.sh"
+"$SCRIPTS_DIR/setup_flatpak.sh"
+bash "$SCRIPTS_DIR/install_packages_flatpak.sh" "${flatpaks[@]}"
+"$SCRIPTS_DIR/setup_google_chrome.sh"
+"$SCRIPTS_DIR/setup_kitty.sh"
+"$SCRIPTS_DIR/setup_warp_terminal.sh"
+"$SCRIPTS_DIR/setup_kanata-linux.sh"
+{{ end }}
+
+# ============================================
+# Server-specific setup
+# ============================================
+{{ if eq .machine_type "server" }}
+echo "Running server-specific scripts..."
+# "$SCRIPTS_DIR/setup_fail2ban.sh"
+# "$SCRIPTS_DIR/setup_firewall.sh"
+{{ end }}
+
+echo "✅ Setup complete"

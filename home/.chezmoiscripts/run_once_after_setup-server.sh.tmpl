@@ -1,8 +1,0 @@
-{{- if eq (.machine_type | default "workstation") "server" -}}
-#!/usr/bin/env bash
-set -e
-
-echo "🖧 Running server-specific setup..."
-
-# Add server-specific setup tasks here
-{{- end }}

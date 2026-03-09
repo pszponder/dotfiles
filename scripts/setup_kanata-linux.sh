@@ -56,20 +56,22 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 # ---------------------------------------------------------------------------
 # 5. Load the uinput kernel module
 # ---------------------------------------------------------------------------
-if lsmod | grep -qw uinput; then
+if grep -qw '^CONFIG_INPUT_UINPUT=y' "/boot/config-$(uname -r)" 2>/dev/null; then
+  echo "ℹ️ uinput is built into the kernel, no module to load."
+elif lsmod | grep -qw uinput; then
   echo "ℹ️ Kernel module 'uinput' is already loaded."
 else
   echo "==> Loading kernel module 'uinput'..."
   sudo modprobe uinput
-fi
 
-# Ensure the module loads at boot
-MODULES_FILE="/etc/modules-load.d/uinput.conf"
-if [[ -f "$MODULES_FILE" ]] && grep -qw "uinput" "$MODULES_FILE"; then
-  echo "ℹ️ Module auto-load already configured in $MODULES_FILE."
-else
-  echo "==> Configuring 'uinput' to load at boot via $MODULES_FILE..."
-  echo "uinput" | sudo tee "$MODULES_FILE" > /dev/null
+  # Ensure the module loads at boot
+  MODULES_FILE="/etc/modules-load.d/uinput.conf"
+  if [[ -f "$MODULES_FILE" ]] && grep -qw "uinput" "$MODULES_FILE"; then
+    echo "ℹ️ Module auto-load already configured in $MODULES_FILE."
+  else
+    echo "==> Configuring 'uinput' to load at boot via $MODULES_FILE..."
+    echo "uinput" | sudo tee "$MODULES_FILE" > /dev/null
+  fi
 fi
 
 # ---------------------------------------------------------------------------

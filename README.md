@@ -143,6 +143,23 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 - [ ] Terminals
     - [ ] Configure Ghostty quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
     - [ ] Setup Kitty [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)
+    - [ ] When installing flatpak, kitty, warp, etc., check if those packages exist, if they don't ask the user if they want to install / reinstall them, otherwise, skip installation
+        - [ ] Don't install flatpak, ghostty, kitty, etc. if using arch?
+    - [ ] Ghostty
+        - [ ] Try manually installing the flatpak
+        - [ ] create a script which will build Ghostty from scratch
+    - [ ] try out github cli subscription
+    - [ ] Verify i'm installing [paru](https://github.com/Morganamilo/paru) correctly
+    - [ ] pacman.conf
+        - [ ] enable color
+        - [ ] enable "pacman" animations
+        - [ ] Ensure mirrorlist is correctly configured (should there be a script to do this?)
+    - [ ] Add a script which runs and updates packages once a day
+    - [ ] Try installing cachyos with cosmic again, do I still get the update issues?
+        - [ ] Use minimal install
+        - [ ] Install with ext4 for most reliable / stable / simple setup
+        - [ ] Maybe I broke my mirrorlist the 1st time
+    - [ ] For arch installs, isolate AUR package list from standard package repository?
 - [ ] Configure Zed Editor
 - [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)
 - [ ] Checkout apps from [Charm](https://charm.land/apps/) such as Skate, Glow, Wishlist, Pop etc.

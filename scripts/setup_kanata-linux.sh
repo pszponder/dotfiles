@@ -73,7 +73,22 @@ else
 fi
 
 # ---------------------------------------------------------------------------
-# 6. Enable and start the systemd user service
+# 6. Install kanata binary via cargo
+# ---------------------------------------------------------------------------
+if command -v kanata &>/dev/null || [[ -x "$HOME/.cargo/bin/kanata" ]]; then
+  echo "ℹ️ kanata binary already installed, skipping."
+else
+  if command -v cargo &>/dev/null; then
+    echo "==> Installing kanata via cargo..."
+    cargo install kanata
+  else
+    echo "⚠️ cargo not found, cannot install kanata. Ensure rust is installed via mise."
+    exit 1
+  fi
+fi
+
+# ---------------------------------------------------------------------------
+# 7. Enable and start the systemd user service
 # ---------------------------------------------------------------------------
 if systemctl --user is-enabled kanata.service &>/dev/null; then
   echo "ℹ️ kanata.service is already enabled."

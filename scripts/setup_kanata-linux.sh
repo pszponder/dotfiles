@@ -102,5 +102,5 @@ fi
 
 echo ""
 echo "✅ Kanata setup complete."
-echo "⚠️ You may need to log out and back in for group changes to take effect."
-echo "   After re-login, start the service with: systemctl --user start kanata.service"
+echo "⚠️ You may need to restart your machine for changes to take effect."
+echo "   After restart, you may also need to start the service with: systemctl --user start kanata.service"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-{{- /* --- resolve template variables --- */ -}}
+{{ /* --- resolve template variables --- */ -}}
 {{- $machineType := .machine_type | default "workstation" -}}
 
 echo "🔧 Running common setup tasks after applying dotfiles..."

@@ -53,7 +53,7 @@ for font_name in "${fonts[@]}"; do
       continue
     fi
   else
-    echo "📥 Installing $font_name Nerd Font..."
+    echo "📦 Installing $font_name Nerd Font..."
   fi
 
   tmpdir=$(mktemp -d)
@@ -65,7 +65,6 @@ for font_name in "${fonts[@]}"; do
     continue
   fi
 
-  echo "📦 Installing $font_name Nerd Font..."
   unzip -qo "$zip_file" -d "$FONT_DIR" '*.ttf' '*.otf' 2>/dev/null || true
 
   rm -rf "$tmpdir"

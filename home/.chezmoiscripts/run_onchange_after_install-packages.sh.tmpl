@@ -40,13 +40,13 @@ flatpaks=({{ range $flatpaks }}{{ . | quote }} {{ end }})
 
 # Native packages (Linux)
 if [[ "$OS" == "linux" ]]; then
-  bash "$SCRIPTS_DIR/install_packages_native.sh" "$LINUX_FAMILY" "${packages[@]}"
+  "$SCRIPTS_DIR/install_packages_native.sh" "$LINUX_FAMILY" "${packages[@]}"
 else
   echo "⏭ Skipping native packages (Linux only)."
 fi
 
 # Homebrew packages (via Brewfile)
-bash "$SCRIPTS_DIR/install_packages_brew.sh"
+"$SCRIPTS_DIR/install_packages_brew.sh"
 
 # Nerd Fonts
 if [[ "${#nerdfonts[@]}" -eq 0 ]]; then
@@ -55,14 +55,14 @@ else
   nerdfonts_script="$SCRIPTS_DIR/install_nerdfonts-linux.sh"
   if [[ -x "$nerdfonts_script" ]]; then
     echo "🔤 Installing Nerd Fonts..."
-    bash "$nerdfonts_script" "${nerdfonts[@]}"
+    "$nerdfonts_script" "${nerdfonts[@]}"
   else
     echo "⚠️ Nerd Fonts setup script not found or not executable, skipping."
   fi
 fi
 
 # mise auto-install
-bash "$SCRIPTS_DIR/install_packages_mise.sh"
+"$SCRIPTS_DIR/install_packages_mise.sh"
 
 # ===================================
 # Workstation-specific packages
@@ -70,7 +70,7 @@ bash "$SCRIPTS_DIR/install_packages_mise.sh"
 {{- if eq $machineType "workstation" }}
 
 # Flatpak apps
-bash "$SCRIPTS_DIR/install_packages_flatpak.sh" "${flatpaks[@]}"
+"$SCRIPTS_DIR/install_packages_flatpak.sh" "${flatpaks[@]}"
 
 # Warp
 if command_exists warp-terminal; then
@@ -79,7 +79,7 @@ else
   warp_script="$SCRIPTS_DIR/setup_warp_terminal.sh"
   if [[ -x "$warp_script" ]]; then
     echo "🚀 Installing Warp..."
-    bash "$warp_script"
+    "$warp_script"
   else
     echo "⚠️ Warp setup script not found or not executable, skipping."
   fi
@@ -92,7 +92,7 @@ else
   kitty_script="$SCRIPTS_DIR/setup_kitty.sh"
   if [[ -x "$kitty_script" ]]; then
     echo "🐱 Installing Kitty..."
-    bash "$kitty_script"
+    "$kitty_script"
   else
     echo "⚠️ Kitty setup script not found or not executable, skipping."
   fi

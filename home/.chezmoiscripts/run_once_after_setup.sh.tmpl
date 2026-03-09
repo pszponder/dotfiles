@@ -3,21 +3,6 @@ set -euo pipefail
 
 {{- /* --- resolve template variables --- */ -}}
 {{- $machineType := .machine_type | default "workstation" -}}
-{{- $linuxID := "" -}}
-{{- $linuxFamily := "" -}}
-{{- if eq .chezmoi.os "linux" -}}
-{{-   $linuxID = .chezmoi.osRelease.id -}}
-{{-   $linuxFamily = .chezmoi.osRelease.idLike | default .chezmoi.osRelease.id -}}
-{{-   if and (eq $linuxFamily "fedora") (lookPath "rpm-ostree") -}}
-{{-     $linuxID = "fedora_atomic" -}}
-{{-   end -}}
-{{-   if not (dig "linux" $linuxID $machineType "items" (list) .packages) -}}
-{{-     $linuxID = $linuxFamily -}}
-{{-   end -}}
-{{- end -}}
-{{- $packages := dig "linux" $linuxID $machineType "items" (list) .packages -}}
-{{- $nerdfonts := dig "items" (list) .nerdfonts -}}
-{{- $flatpaks := dig "items" (list) .flatpaks }}
 
 echo "🔧 Running common setup tasks after applying dotfiles..."
 
@@ -34,10 +19,6 @@ export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.mise/bin:$PATH"
 hash -r
 
 SCRIPTS_DIR="$CHEZMOI_SOURCE_DIR/scripts"
-LINUX_FAMILY="{{ $linuxFamily }}"
-packages=({{ range $packages }}{{ . | quote }} {{ end }})
-nerdfonts=({{ range $nerdfonts }}{{ . | quote }} {{ end }})
-flatpaks=({{ range $flatpaks }}{{ . | quote }} {{ end }})
 
 # ===================================
 # Switch Git Remote from HTTPS to SSH
@@ -48,22 +29,6 @@ git2ssh -C "$(dirname "$CHEZMOI_SOURCE_DIR")"
 # Core setup
 # ===================================
 "$SCRIPTS_DIR/setup_directories.sh"
-
-# Install Nerd Fonts
-if [[ "${#nerdfonts[@]}" -gt 0 ]]; then
-  bash "$SCRIPTS_DIR/install_nerdfonts-linux.sh" "${nerdfonts[@]}"
-fi
-
-# Install native packages
-if [[ "{{ .chezmoi.os }}" == "linux" ]]; then
-  bash "$SCRIPTS_DIR/install_packages_native.sh" "$LINUX_FAMILY" "${packages[@]}"
-fi
-
-# Install mise tools
-bash "$SCRIPTS_DIR/install_packages_mise.sh"
-
-# Install Homebrew packages
-bash "$SCRIPTS_DIR/install_packages_brew.sh"
 
 # Configure Podman storage driver based on filesystem type
 "$SCRIPTS_DIR/setup_podman_storage.sh"
@@ -108,10 +73,7 @@ echo "🖥 Running setup for machine type: $MACHINE_TYPE"
 echo "Running workstation-specific scripts..."
 "$SCRIPTS_DIR/setup_gnome_keyring.sh"
 "$SCRIPTS_DIR/setup_flatpak.sh"
-bash "$SCRIPTS_DIR/install_packages_flatpak.sh" "${flatpaks[@]}"
 "$SCRIPTS_DIR/setup_google_chrome.sh"
-"$SCRIPTS_DIR/setup_kitty.sh"
-"$SCRIPTS_DIR/setup_warp_terminal.sh"
 "$SCRIPTS_DIR/setup_kanata-linux.sh"
 {{ end }}
 

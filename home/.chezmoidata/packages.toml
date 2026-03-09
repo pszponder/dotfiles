@@ -1,14 +1,70 @@
 [packages.linux.ubuntu.server]
-items = []
+items = [
+    # Miscellaneous utilities
+    "git",
+    "curl",
+
+    # Editors
+    "vim",
+
+    # Shells
+    "fish",
+    "zsh",
+
+    # Containers
+    "podman",
+]
 
 [packages.linux.ubuntu.workstation]
-items = []
+items = [
+    # Miscellaneous utilities
+    "git",
+    "curl",
+
+    # Editors
+    "vim",
+
+    # Shells
+    "fish",
+    "zsh",
+
+    # Containers
+    "podman",
+
+    # Wayland clipboard utilities
+    "wl-clipboard",
+]
 
 [packages.linux.fedora.server]
-items = []
+items = [
+    # Miscellaneous utilities
+    "git",
+    "curl",
+
+    # Editors
+    "vim",
+
+    # Shells
+    "fish",
+    "zsh",
+]
 
 [packages.linux.fedora.workstation]
-items = []
+items = [
+    # Miscellaneous utilities
+    "git",
+    "curl",
+
+    # Editors
+    "vim",
+
+    # Shells
+    "fish",
+    "zsh",
+
+    # Wayland clipboard utilities
+    "wl-clipboard",
+]
 
 [packages.linux.fedora_atomic.server]
 items = []

@@ -130,8 +130,16 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] mise up failed
         - [ ] install node before installing other tools with mise?
     - [ ] After installation of dotfiles, do we have to re-source so that mise installs successfully?
-- [ ] Move package installation to a separate script. That way, we can run it separately and not have to worry about it when applying dotfiles on a new machine.
-- [ ] Get Atuin working with bash
+    - [ ] install and configure vscode
+    - [ ] install and configure vscode
+    - [ ] check if bat sync works or not
+    - [ ] install zed on cli
+    - [ ] n and v aliases in fish shell aren't working
+    - [ ] Make sure mise is installed
+    - [ ] get atuin to work correctly with .bashrc
+    - [ ] are there any ways to automate the ssh keys in the dotfiles anymore? (ex. can we create `~/.gitconfig_github_pszponder`)
+    - [ ] Are my neovim configs using the catppuccin color scheme correctly?
+    - [ ] Get Atuin working with bash
 - [ ] Terminals
     - [ ] Configure Ghostty quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
     - [ ] Setup Kitty [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)

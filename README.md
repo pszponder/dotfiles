@@ -125,6 +125,10 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 ## Troubleshooting
 
 ## TODOs
+
+- [ ] Install [prerequisites](https://code.claude.com/docs/en/sandboxing#prerequisites) to use claude code sandboxing features
+- [ ] Configure devpod to use podman instead of docker
+- [ ] Configure Claude code w/ catppuccin color scheme and save the global `.claude/setttings.json` to dotfiles
 - [ ] fresh install troubleshooting
     - [ ] bat failed
     - [ ] mise up failed
@@ -148,17 +152,17 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
     - [ ] Ghostty
         - [ ] Try manually installing the flatpak
         - [ ] create a script which will build Ghostty from scratch
-    - [ ] try out github cli subscription
-    - [ ] Verify i'm installing [paru](https://github.com/Morganamilo/paru) correctly
-    - [ ] pacman.conf
-        - [ ] enable color
-        - [ ] enable "pacman" animations
-        - [ ] Ensure mirrorlist is correctly configured (should there be a script to do this?)
-    - [ ] Add a script which runs and updates packages once a day
-    - [ ] Try installing cachyos with cosmic again, do I still get the update issues?
-        - [ ] Use minimal install
-        - [ ] Install with ext4 for most reliable / stable / simple setup
-        - [ ] Maybe I broke my mirrorlist the 1st time
+- [ ] try out github cli subscription
+- [ ] Verify i'm installing [paru](https://github.com/Morganamilo/paru) correctly
+- [ ] pacman.conf
+    - [ ] enable color
+    - [ ] enable "pacman" animations
+    - [ ] Ensure mirrorlist is correctly configured (should there be a script to do this?)
+- [ ] Add a script which runs and updates packages once a day
+- [ ] Try installing cachyos with cosmic again, do I still get the update issues?
+    - [ ] Use minimal install
+    - [ ] Install with ext4 for most reliable / stable / simple setup
+    - [ ] Maybe I broke my mirrorlist the 1st time
     - [ ] For arch installs, isolate AUR package list from standard package repository?
 - [ ] Configure Zed Editor
 - [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)

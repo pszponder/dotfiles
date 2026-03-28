@@ -1,0 +1,103 @@
+# Architecture
+
+## Plans
+
+## Unsorted TODOs
+
+- [ ] [The Only Neovim Basics You Need on Day 1](https://www.youtube.com/watch?v=wU3nNsfuVHs)
+- [ ] Redo dotfiles and simplify scripts
+    - [ ] on first setup, ask the user if they want to setup workstation-linux, workstation-mac, server-linux, server-linux-minimal, etc.
+    - [ ] Then for installing packages ex. brew, have separate files for installing brew on mac and linux
+    - [ ] Maybe even have a different folder for mac, linux, linux/arch, linux/ubuntu, linux/fedora, etc. so potentially also ask for an os variable (what is the system os you are installing on (MacOS, Ubuntu, Fedora, Arch, etc.))
+- [ ] Environmental variables
+    - [ ] What is this system's OS?
+    - [ ] Is this system a workstation or server?
+    - [ ] If it's a server, do you want a minimal install?
+    - [ ] What is your git username and email
+    - [ ] The user should have the option of pre-specifying these variables in an environment file
+- [ ] Ask user (or maybe via a configuration variable) if they only want to install dotfiles (no setup scripts)
+- [ ] setup scripts (like ssh setup) should be optional
+- [ ] Maybe add a config file where you set what you want to install (homebrew, docker, flatpak, etc.)
+    - [ ] Always ask the user if they want to install
+- [ ] Document how to use [distrobox](https://distrobox.it/) to containerize your dev environment, take a look at [this video for inspiration](https://www.youtube.com/watch?v=Q2PrISAOtbY)
+- [ ] Add a useful alias to activate a python .venv (`source .venv/bin/activate`) since I always forget
+- [ ] Add cheat sheets to my dotfiles (ex. tmux cheatsheet, vim cheatsheet, etc.)
+- [ ] Refactor dotfiles such that they are more minimal
+    - [ ] Only setup dotfiles
+    - [ ] Install minimal cli applications using mise
+        - [ ] How to install additional mise applications?
+    - [ ] Only install additional applications with mise if on a workstation
+    - [ ] Only install additional gui applications if on a workstation computer
+    - [ ] Should installation of other applications outside of dotfiles be automatic or just manually run a few scripts?
+    - [ ] Simplify and standardize scripts
+    - [ ] reorganize dotfiles so that they are more modular, they should be compatable with any major linux distro and macos
+    - [ ] In additional to workstation or server, add the option for "minimal" install
+    - [ ] Standardize logging messages to the console, the logging and use of emojis is all over the place
+    - [ ] Create a template file for the global mise config
+        - [ ] Always install the programming languages like python, golang, rust, bun (bun can fully replace node)
+        - [ ] If on linux, also install cli packages
+            - [ ] Further filter by server, server minimal, or workstation
+- [ ] Update starship prompt to indicate if I am inside a docker container on the 2nd line
+- [ ] For mac, use brew to manage GUI applications, keep using mise to manage cli tools?
+    - [ ] Or does brew manage mise and we just use mise to manage programming languages?
+- [ ] [Normie NeoVim Config: Mouse Support and Easy Binds](https://www.youtube.com/watch?v=G89oddoYZl4)
+- [ ] [The Greatest Minimal Shell Prompt Ever Existed | 2033 Starship](https://www.youtube.com/watch?v=oe3gadOQk44)
+- [ ] [The Forever Timeless Terminal Setup](https://www.youtube.com/watch?v=MHPRnM38Dyc)
+- [ ] [11 Amazing Terminal Tools Worth Knowing About](https://www.youtube.com/watch?v=b5SUAuQ69jU)
+- [ ] [Good old underrated Vim Tips that I can never remember](https://www.youtube.com/watch?v=M3IFhencXT8)
+- [ ] [Start Using Terminal like a CHAMP with Tmux | Full Config From Scratch](https://www.youtube.com/watch?v=fCD0OPLV9PE)
+- [ ] [The Ultimate Neovim Setup Guide From Scratch](https://www.youtube.com/watch?v=FGVY7gbaoQI)
+- [ ] [Why Capslock Key is the most valuable key on macOS](https://www.youtube.com/watch?v=rjMrRWzuXy0)
+- [ ] [My Simple Neovim Setup For MAXIMUM Productivity](https://www.youtube.com/watch?v=XRA5GeF2-GI)
+- [ ] [🎥 Effective Nerd Fonts in Multiple Terminals : r/commandline](https://www.reddit.com/r/commandline/comments/11wiwob/effective_nerd_fonts_in_multiple_terminals/)
+- [ ] [LazyVim for Ambitious Developers](https://lazyvim-ambitious-devs.phillips.codes/)
+- [ ] Test if installing docker cli on my popos / ubuntu system gives me access to thinks like `docker sandbox`, `docker ai` and `docker agent`
+    - [ ] Quickly install docker via [get.docker.com](https://get.docker.com/)
+    - [ ] Create a script to install docker in my dotfiles
+    - [ ] Docker will consume some resources even when idle
+- [ ] Vim and TMUX
+    - [ ] [Marco Peluso Playlists](https://www.youtube.com/@marco_peluso/playlists)
+
+- [ ] On first install, ask the user if they want to install only dotfiles, or dotfiles + tools / apps
+- [ ] Install [prerequisites](https://code.claude.com/docs/en/sandboxing#prerequisites) to use claude code sandboxing features
+- [ ] Configure devpod to use podman instead of docker
+- [ ] Configure Claude code w/ catppuccin color scheme and save the global `.claude/setttings.json` to dotfiles
+- [ ] fresh install troubleshooting
+    - [ ] bat failed
+    - [ ] mise up failed
+        - [ ] install node before installing other tools with mise?
+    - [ ] After installation of dotfiles, do we have to re-source so that mise installs successfully?
+    - [ ] install and configure vscode
+    - [ ] install and configure vscode
+    - [ ] check if bat sync works or not
+    - [ ] install zed on cli
+    - [ ] n and v aliases in fish shell aren't working
+    - [ ] Make sure mise is installed
+    - [ ] get atuin to work correctly with .bashrc
+    - [ ] are there any ways to automate the ssh keys in the dotfiles anymore? (ex. can we create `~/.gitconfig_github_pszponder`)
+    - [ ] Are my neovim configs using the catppuccin color scheme correctly?
+    - [ ] Get Atuin working with bash
+- [ ] Terminals
+    - [ ] Configure Ghostty quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
+    - [ ] Setup Kitty [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)
+    - [ ] When installing flatpak, kitty, warp, etc., check if those packages exist, if they don't ask the user if they want to install / reinstall them, otherwise, skip installation
+        - [ ] Don't install flatpak, ghostty, kitty, etc. if using arch?
+    - [ ] Ghostty
+        - [ ] Try manually installing the flatpak
+        - [ ] create a script which will build Ghostty from scratch
+- [ ] try out github cli subscription
+- [ ] Verify i'm installing [paru](https://github.com/Morganamilo/paru) correctly
+- [ ] pacman.conf
+    - [ ] enable color
+    - [ ] enable "pacman" animations
+    - [ ] Ensure mirrorlist is correctly configured (should there be a script to do this?)
+- [ ] Add a script which runs and updates packages once a day
+- [ ] Try installing cachyos with cosmic again, do I still get the update issues?
+    - [ ] Use minimal install
+    - [ ] Install with ext4 for most reliable / stable / simple setup
+    - [ ] Maybe I broke my mirrorlist the 1st time
+    - [ ] For arch installs, isolate AUR package list from standard package repository?
+- [ ] Configure Zed Editor
+- [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)
+- [ ] Checkout apps from [Charm](https://charm.land/apps/) such as Skate, Glow, Wishlist, Pop etc.
+- [ ] Investigate installing [limactl](https://www.youtube.com/watch?v=2SGyhd5OI-c)

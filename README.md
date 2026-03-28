@@ -124,51 +124,6 @@ Refer to `./docs/ssh_configuration.md` for more information on configuring SSH a
 
 ## Troubleshooting
 
-## TODOs
-
-- [ ] Install [prerequisites](https://code.claude.com/docs/en/sandboxing#prerequisites) to use claude code sandboxing features
-- [ ] Configure devpod to use podman instead of docker
-- [ ] Configure Claude code w/ catppuccin color scheme and save the global `.claude/setttings.json` to dotfiles
-- [ ] fresh install troubleshooting
-    - [ ] bat failed
-    - [ ] mise up failed
-        - [ ] install node before installing other tools with mise?
-    - [ ] After installation of dotfiles, do we have to re-source so that mise installs successfully?
-    - [ ] install and configure vscode
-    - [ ] install and configure vscode
-    - [ ] check if bat sync works or not
-    - [ ] install zed on cli
-    - [ ] n and v aliases in fish shell aren't working
-    - [ ] Make sure mise is installed
-    - [ ] get atuin to work correctly with .bashrc
-    - [ ] are there any ways to automate the ssh keys in the dotfiles anymore? (ex. can we create `~/.gitconfig_github_pszponder`)
-    - [ ] Are my neovim configs using the catppuccin color scheme correctly?
-    - [ ] Get Atuin working with bash
-- [ ] Terminals
-    - [ ] Configure Ghostty quickterminal (see this article for reference https://www.omgubuntu.co.uk/2025/10/ghostty-1-2-new-features-for-linux)
-    - [ ] Setup Kitty [quick access terminal](https://sw.kovidgoyal.net/kitty/kittens/quick-access-terminal/)
-    - [ ] When installing flatpak, kitty, warp, etc., check if those packages exist, if they don't ask the user if they want to install / reinstall them, otherwise, skip installation
-        - [ ] Don't install flatpak, ghostty, kitty, etc. if using arch?
-    - [ ] Ghostty
-        - [ ] Try manually installing the flatpak
-        - [ ] create a script which will build Ghostty from scratch
-- [ ] try out github cli subscription
-- [ ] Verify i'm installing [paru](https://github.com/Morganamilo/paru) correctly
-- [ ] pacman.conf
-    - [ ] enable color
-    - [ ] enable "pacman" animations
-    - [ ] Ensure mirrorlist is correctly configured (should there be a script to do this?)
-- [ ] Add a script which runs and updates packages once a day
-- [ ] Try installing cachyos with cosmic again, do I still get the update issues?
-    - [ ] Use minimal install
-    - [ ] Install with ext4 for most reliable / stable / simple setup
-    - [ ] Maybe I broke my mirrorlist the 1st time
-    - [ ] For arch installs, isolate AUR package list from standard package repository?
-- [ ] Configure Zed Editor
-- [ ] Investigate and copy interesting configuration / applications / dotfiles from [omarchy](https://github.com/basecamp/omarchy)
-- [ ] Checkout apps from [Charm](https://charm.land/apps/) such as Skate, Glow, Wishlist, Pop etc.
-- [ ] Investigate installing [limactl](https://www.youtube.com/watch?v=2SGyhd5OI-c)
-
 ## Resources / References
 
 - [Arch Package Repository](https://aur.archlinux.org/packages)

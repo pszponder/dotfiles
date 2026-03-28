@@ -9,12 +9,37 @@ alias ..4='cd ../../../..'
 alias ..5='cd ../../../../..'
 alias ..6='cd ../../../../../..'
 
-# File System Navigation (via lsd)
-alias l='lsd -l'
-alias la='lsd -a'
-alias ll='lsd -la'
-alias lla='lsd -la'
-alias lt='lsd --tree'
+# # File System Navigation (via lsd)
+# alias l='lsd -l'
+# alias la='lsd -a'
+# alias ll='lsd -la'
+# alias lla='lsd -la'
+# alias lt='lsd --tree'
+
+# File System Navigation (via eza)
+alias l "eza -1 --icons=auto"
+alias ls "eza --icons=auto --group-directories-first"
+alias ll "eza -lh --group-directories-first --icons=auto"
+alias la "eza -lha --group-directories-first --icons=auto"
+
+function lt
+    # default level = 2 if no argument provided
+    set level 2
+    if test (count $argv) -ge 1
+        set level $argv[1]
+    end
+
+    eza --tree --level=$level --long --icons=auto --git
+end
+
+function lta
+    set level 2
+    if test (count $argv) -ge 1
+        set level $argv[1]
+    end
+
+    eza --tree --level=$level --long --icons=auto --git --all
+end
 
 
 # alias fd='fdfind'

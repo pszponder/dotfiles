@@ -9,12 +9,26 @@ alias ..4='cd ../../../..'
 alias ..5='cd ../../../../..'
 alias ..6='cd ../../../../../..'
 
-# File System Navigation (via lsd)
-alias l='lsd -l'
-alias la='lsd -a'
-alias ll='lsd -la'
-alias lla='lsd -la'
-alias lt='lsd --tree'
+# # File System Navigation (via lsd)
+# alias l='lsd -l'
+# alias la='lsd -a'
+# alias ll='lsd -la'
+# alias lla='lsd -la'
+# alias lt='lsd --tree'
+
+# File System Navigation (via eza)
+alias l='eza -1 --icons=auto'
+alias ls='eza --icons=auto --group-directories-first'
+alias ll='eza -lh --group-directories-first --icons=auto'
+alias la='eza -lha --group-directories-first --icons=auto'
+lt() {
+  local level=${1:-2}  # default to 2 if no argument is passed
+  eza --tree --level="$level" --long --icons=auto --git
+}
+lta() {
+  local level=${1:-2}
+  eza --tree --level="$level" --long --icons=auto --git --all
+}
 
 # alias fd='fdfind'
 alias ff="fzf --preview 'bat --style=numbers --color=always {}'"

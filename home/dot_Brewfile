@@ -8,7 +8,6 @@
 # brew "clipboard"
 # brew "curl"
 # brew "direnv"
-# # brew "docker"
 # brew "eza"
 # brew "fd"
 # brew "figlet"
@@ -19,7 +18,6 @@
 # # brew "git"
 # brew "git-delta"
 # brew "gh"
-# brew "just"
 # brew "jq"
 # brew "lazydocker"
 # brew "lazygit"
@@ -41,7 +39,7 @@
 # brew "yazi"
 # brew "zellij"
 # brew "zoxide"
-# # brew "zsh"
+# brew "zsh"
 
 # # AI / coding assistants
 # brew "aider"
@@ -63,42 +61,102 @@ end
 ########################################
 if OS.mac?
 
-  # Fonts
-  # https://formulae.brew.sh/cask-font/
-  # tap  "homebrew/cask-fonts"
-  # cask "font-blex-mono-nerd-font"
-  cask "font-caskaydia-cove-nerd-font"
-  cask "font-caskaydia-mono-nerd-font"
-  cask "font-fira-code-nerd-font"
-  cask "font-fira-mono-nerd-font"
-  cask "font-hack-nerd-font"
-  cask "font-jetbrains-mono-nerd-font"
-  cask "font-meslo-lg-nerd-font"
-  # cask "font-terminess-ttf-nerd-font"
+  # AI / Coding Assistants
+  brew "block-goose-cli"
+  tap  "charmbracelet/tap"
+  brew "charmbracelet/tap/crush"
+  cask "claude-code"
+  brew "codex"
+  brew "copilot-cli"
+  brew "gemini-cli"
+  brew "opencode"
 
-  cask "raycast"
-  # cask "alfred"
-
-  cask "alt-tab"
-  cask "karabiner-elements"
-  cask "hiddenbar"
-  brew "dockutil"
-
-  cask "discord"
-
+  # Browsers
+  # cask "google-chrome"
   cask "helium-browser"
   cask "zen"
 
-  cask "ghostty"
-  cask "warp"
+  # Build Tools
+  brew "gcc"
+  brew "just"
+  brew "cmake"
+  brew "make"
 
+  # Communication & Chat
+  cask "discord"
+
+  # Containers & VMs
+  cask "docker-desktop"
+  cask "devpod"
+  brew "lazydocker"
+  # brew "colima"
+  # brew "docker"
+  # brew "docker-compose"
+  # cask "podman-desktop"
+
+  # Editors
+  brew "neovim"
   cask "obsidian"
+  brew "tree-sitter-cli"
   cask "visual-studio-code"
   cask "zed"
 
-  brew "colima"
-  brew "docker"
-  brew "docker-compose"
-  # cask "podman-desktop"
-  # cask "orbstack"
+  # File & Search Utilities
+  brew "bat"
+  brew "clipboard"
+  brew "eza"
+  brew "fd"
+  brew "fzf"
+  brew "jq"
+  brew "ripgrep"
+  brew "yazi"
+
+  # Fonts
+  # https://formulae.brew.sh/cask-font/
+  cask "font-caskaydia-cove-nerd-font"
+  cask "font-caskaydia-mono-nerd-font"
+  cask "font-jetbrains-mono-nerd-font"
+
+  # Git & VCS
+  brew "git"
+  brew "git-delta"
+  brew "gh"
+  brew "jj"
+  brew "lazygit"
+  brew "worktrunk"
+
+  # Python Tools
+  brew "ruff"
+  brew "ty"
+  brew "uv"
+
+  # Terminal and Shell
+  brew "atuin"
+  brew "fish"
+  cask "ghostty"
+  brew "nushell"
+  brew "starship"
+  brew "tmux"
+  cask "warp"
+  brew "zellij"
+  brew "zoxide"
+
+  # System
+  brew "btop"
+  brew "curl"
+  brew "direnv"
+  brew "gawk"
+  brew "gum"
+  brew "openssl"
+  brew "topgrade"
+  brew "wget"
+
+  # Misc Applications
+  cask "alfred"
+  # cask "alt-tab"
+  # cask "raycast"
+  brew "kanata"
+  cask "karabiner-elements"
+  cask "hiddenbar"
+  # brew "dockutil"
 end

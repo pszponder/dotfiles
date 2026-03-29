@@ -7,15 +7,10 @@
 {{- writeToStdout (printf "✅ Git email set as '%s'\n" $git_email) -}}
 
 {{- /* Prompt for machine type */ -}}
-{{- $machine_type := promptChoiceOnce . "machine_type" "❔ What is your machine type" (list "workstation" "server") -}}
+{{- $machine_type := promptChoiceOnce . "machine_type" "❔ What is your machine type" (list "workstation" "server" "server-minimal") -}}
 {{- writeToStdout (printf "✅ Machine type set as '%s'\n" $machine_type) -}}
 
 [data]
 git_name = {{ $git_name | quote }}
 git_email = {{ $git_email | quote }}
 machine_type = {{ $machine_type | quote }}
-
-# automatic system values
-os = {{ .chezmoi.os | quote }}
-hostname = {{ .chezmoi.hostname | quote }}
-arch = {{ .chezmoi.arch | quote }}

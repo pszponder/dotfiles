@@ -1,0 +1,265 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+########################################
+# Load Logging Utilities
+########################################
+LOG_LIB="${HOME}/.local/lib/utils_logging.sh"
+
+if [[ -f "$LOG_LIB" ]]; then
+  # shellcheck source=/dev/null
+  source "$LOG_LIB"
+else
+  echo "❌ Logging library not found at $LOG_LIB" >&2
+  exit 1
+fi
+
+########################################
+# Helper Functions
+########################################
+confirm() {
+  local prompt="${1:-Are you sure?}"
+  local default="${2:-N}"
+
+  local suffix
+  [[ "$default" == "Y" ]] && suffix="[Y/n]" || suffix="[y/N]"
+
+  while true; do
+    # Use logging for the question (no newline issues)
+    printf "❓ %s %s: " "$prompt" "$suffix"
+
+    read -r response
+    response="${response:-$default}"
+
+    case "$response" in
+      [yY][eE][sS]|[yY])
+        log_info "User selected: yes"
+        return 0
+        ;;
+      [nN][oO]|[nN])
+        log_info "User selected: no"
+        return 1
+        ;;
+      *)
+        log_warn "Please answer yes or no."
+        ;;
+    esac
+  done
+}
+
+run_if_confirmed() {
+  local prompt="$1"
+  local default="${2:-N}"
+  shift 2  # Remove prompt + default; remaining args are the command and arguments
+
+  # Confirm with the user
+  if confirm "$prompt" "$default"; then
+    # Validate that the command exists
+    if command -v "$1" >/dev/null 2>&1 || [[ -f "$1" ]]; then
+      log_info "Running: $*"
+      "$@"  # Execute the command with all arguments
+    else
+      log_error "Command not found: $1"
+      return 1
+    fi
+  else
+    log_info "Skipped: $*"
+  fi
+}
+
+########################################
+# Load Minimal environment
+########################################
+log_info "Setting up temporary PATH for setup..."
+
+export PATH="$HOME/.cargo/bin:$HOME/.mise/bin:$PATH"
+hash -r
+
+SCRIPTS_DIR="$(dirname "$CHEZMOI_SOURCE_DIR")/scripts"
+
+########################################
+# Switch Git Remote from HTTPS to SSH
+########################################
+git2ssh -C "$(dirname "$CHEZMOI_SOURCE_DIR")"
+
+########################################
+# Core Setup
+########################################
+# "N" means that if user just presses ENTER, "N" is sent by default
+# If you want the command to be accepted by default, either change to "Y" or don't include this second argument
+run_if_confirmed "Setup Directories?" "N" "$SCRIPTS_DIR/setup_directories.sh"
+
+setup_ssh_keys() {
+  log_info "Setting up SSH keys..."
+
+  run_if_confirmed \
+    "Setup SSH config?" "Y" \
+    "$SCRIPTS_DIR/setup_ssh_config.sh"
+
+  run_if_confirmed \
+    "Generate SSH key?" "Y" \
+    sshkeygen
+}
+
+run_if_confirmed \
+  "Do you want to setup SSH keys?" "N" \
+  setup_ssh_keys
+
+########################################
+# Detect OS and Machine Type
+########################################
+log_info "Detecting system environment..."
+
+# Load OS from chezmoi data
+CHEZMOI_OS="{{ .chezmoi.os | default "unknown" }}"
+case "$CHEZMOI_OS" in
+  darwin) OS_TYPE="mac" ;;
+  linux)  OS_TYPE="linux" ;;
+  windows) OS_TYPE="windows" ;;  # just in case
+  *) OS_TYPE="unknown" ;;
+esac
+log_info "Detected OS: $OS_TYPE"
+
+# Load machine type from chezmoi data
+MACHINE_TYPE="{{ .data.machine_type | default "server-minimal" }}"
+log_info "Machine type: $MACHINE_TYPE"
+
+#########################################
+# Branch setup based on OS + Machine Type
+#########################################
+if [[ "$OS_TYPE" == "mac" ]]; then
+  # ------------------------------
+  # Scripts that always run on Mac
+  # ------------------------------
+  log_info "Running Mac common setup..."
+  # TODO: Add Script to setup Homebrew
+
+  # -----------------------------
+  # Machine type specific scripts
+  # -----------------------------
+  case "$MACHINE_TYPE" in
+    workstation)
+      log_info "Running Mac workstation setup..."
+      # TODO: Run scripts for Mac Workstation
+      ;;
+    server)
+      log_info "Running Mac server setup..."
+      # TODO: Run scripts for Mac Server
+      ;;
+    server-minimal)
+      log_info "Running Mac minimal server setup..."
+      # TODO: Run scripts for Minimal Mac Server
+      ;;
+  esac
+
+elif [[ "$OS_TYPE" == "linux" ]]; then
+  log_info "Running Linux setup for machine type: $MACHINE_TYPE"
+
+  # --------------------------
+  # Detect Linux distribution
+  # --------------------------
+  LINUX_DISTRO="unknown"
+  if [[ -f /etc/os-release ]]; then
+      # shellcheck disable=SC1091
+      source /etc/os-release
+      LINUX_DISTRO="$ID"
+
+      # Normalize Fedora Silverblue
+      if [[ "$ID" == "fedora" && -n "${OSTREE_VERSION:-}" ]]; then
+          LINUX_DISTRO="fedora-silverblue"
+      fi
+  fi
+  log_info "Detected Linux distro: $LINUX_DISTRO"
+
+  # --------------------------------
+  # Scripts that always run on Linux
+  # --------------------------------
+  log_info "Running Linux common setup..."
+  # TODO: Run scripts which run on Linux, regardless of Distro
+
+  # ----------------------------
+  # Branch based on machine type
+  # ----------------------------
+  case "$MACHINE_TYPE" in
+    workstation)
+      log_info "Setting up Linux workstation..."
+      case "$LINUX_DISTRO" in
+        ubuntu)
+          # TODO: Run Scripts for Ubuntu workstation
+          ;;
+        fedora)
+          # TODO: Run Scripts for Fedora workstation
+          ;;
+        fedora-silverblue)
+          # TODO: Run Scripts for Fedora Silverblue workstation
+          ;;
+        arch)
+          # TODO: Run Scripts for Arch workstation
+          ;;
+        *)
+          log_warn "No workstation scripts available for $LINUX_DISTRO"
+          ;;
+      esac
+      ;;
+
+    server)
+      log_info "Setting up full Linux server..."
+      case "$LINUX_DISTRO" in
+        ubuntu)
+          # TODO: Run scripts for Ubuntu Server
+          ;;
+        fedora)
+          # TODO: Run scripts for Fedora Server
+          ;;
+        fedora-silverblue)
+          # TODO: Run scripts for Fedora Silverblue Server
+          ;;
+        arch)
+          # TODO: Run scripts for Arch Server
+          ;;
+        *)
+          log_warn "No full server scripts available for $LINUX_DISTRO"
+          ;;
+      esac
+      ;;
+
+    server-minimal)
+      log_info "Setting up minimal Linux server..."
+      case "$LINUX_DISTRO" in
+        ubuntu)
+          # TODO: Run scripts for minimal Ubuntu Server
+          ;;
+        fedora)
+          # TODO: Run scripts for minimal Fedora Server
+          ;;
+        fedora-silverblue)
+          # TODO: Run scripts for minimal Fedora Silverblue Server
+          ;;
+        arch)
+          # TODO: Run scripts for minimal Arch Server
+          ;;
+        *)
+          log_warn "No minimal server scripts available for $LINUX_DISTRO"
+          ;;
+      esac
+      ;;
+
+    *)
+      log_warn "Unknown machine type: $MACHINE_TYPE"
+      ;;
+  esac
+
+else
+  log_warn "Unknown OS type ($CHEZMOI_OS). Skipping OS-specific setup."
+fi
+
+########################################
+# Post Tool Install Setup
+########################################
+# Rebuild bat's cache to ensure custom themes are recognized from dotfiles
+if command -v bat >/dev/null 2>&1; then
+  log_info "Rebuilding bat cache..."
+  bat cache --build
+else
+  log_warn "Bat is not installed. Skipping bat cache rebuild."
+fi

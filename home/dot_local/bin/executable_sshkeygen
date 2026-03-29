@@ -2,6 +2,19 @@
 set -euo pipefail
 
 ########################################
+# Load Logging Utilities
+########################################
+LOG_LIB="${HOME}/.local/lib/utils_logging.sh"
+
+if [[ -f "$LOG_LIB" ]]; then
+  # shellcheck source=/dev/null
+  source "$LOG_LIB"
+else
+  echo "❌ Logging library not found at $LOG_LIB" >&2
+  exit 1
+fi
+
+########################################
 # Defaults
 ########################################
 KEY_TYPE="ed25519"
@@ -37,9 +50,7 @@ EOF
 ########################################
 while getopts ":t:d:n:c:ah" opt; do
   case ${opt} in
-    t)
-      KEY_TYPE="${OPTARG,,}"
-      ;;
+    t) KEY_TYPE="${OPTARG,,}" ;;
     d)
       KEY_DIR="${OPTARG/#\~/$HOME}"
       DIR_PROVIDED=true
@@ -52,15 +63,9 @@ while getopts ":t:d:n:c:ah" opt; do
       KEY_COMMENT="$OPTARG"
       COMMENT_PROVIDED=true
       ;;
-    a)
-      ADD_AGENT="yes"
-      ;;
-    h)
-      usage
-      ;;
-    *)
-      usage
-      ;;
+    a) ADD_AGENT="yes" ;;
+    h) usage ;;
+    *) usage ;;
   esac
 done
 
@@ -68,20 +73,17 @@ done
 # Validate Key Type
 ########################################
 if [[ "$KEY_TYPE" != "ed25519" && "$KEY_TYPE" != "rsa" ]]; then
-  echo "❌ Unsupported key type: $KEY_TYPE"
-  echo "Only 'ed25519' and 'rsa' are supported."
+  log_error "Unsupported key type: $KEY_TYPE"
+  log_info "Only 'ed25519' and 'rsa' are supported."
   exit 1
 fi
 
 ########################################
-# Interactive Prompts (only if missing)
+# Interactive Prompts
 ########################################
-
 if [[ "$DIR_PROVIDED" == false ]]; then
   read -rp "Enter SSH key directory [default: $KEY_DIR]: " input_dir
-  if [[ -n "$input_dir" ]]; then
-    KEY_DIR="${input_dir/#\~/$HOME}"
-  fi
+  [[ -n "$input_dir" ]] && KEY_DIR="${input_dir/#\~/$HOME}"
 fi
 
 if [[ "$NAME_PROVIDED" == false ]]; then
@@ -96,10 +98,10 @@ fi
 KEY_PATH="${KEY_DIR}/${KEY_NAME}"
 
 ########################################
-# Ensure Directory Exists Securely
+# Ensure Directory Exists
 ########################################
 if [[ ! -d "$KEY_DIR" ]]; then
-  echo "📁 Creating directory: $KEY_DIR"
+  log_info "Creating directory: $KEY_DIR"
   mkdir -p "$KEY_DIR"
 fi
 
@@ -109,10 +111,10 @@ chmod 700 "$KEY_DIR"
 # Handle Existing Key
 ########################################
 if [[ -f "$KEY_PATH" ]]; then
-  echo "❗ A key already exists at $KEY_PATH"
+  log_warn "A key already exists at $KEY_PATH"
   read -rp "Overwrite it? [y/N]: " overwrite
   if [[ ! "$overwrite" =~ ^[Yy]$ ]]; then
-    echo "Aborting."
+    log_info "Aborting."
     exit 1
   fi
 fi
@@ -120,7 +122,7 @@ fi
 ########################################
 # Generate Key
 ########################################
-echo "🔐 Generating $KEY_TYPE key..."
+log_info "Generating $KEY_TYPE key..."
 
 if [[ "$KEY_TYPE" == "rsa" ]]; then
   ssh-keygen -t rsa -b 4096 -f "$KEY_PATH" -C "$KEY_COMMENT"
@@ -131,10 +133,9 @@ fi
 chmod 600 "$KEY_PATH"
 chmod 644 "${KEY_PATH}.pub"
 
-echo ""
-echo "✅ SSH key generated:"
-echo "  Private: $KEY_PATH"
-echo "  Public:  ${KEY_PATH}.pub"
+log_success "SSH key generated"
+log_info "Private: $KEY_PATH"
+log_info "Public:  ${KEY_PATH}.pub"
 
 ########################################
 # Add to ssh-agent
@@ -148,44 +149,46 @@ else
 fi
 
 if [[ "$add_agent_input" == "y" ]]; then
-  echo "🚀 Adding key to ssh-agent..."
+  log_info "Adding key to ssh-agent..."
 
-  # Start agent only if not running
   if [[ -z "${SSH_AUTH_SOCK:-}" ]]; then
     eval "$(ssh-agent -s)" >/dev/null
   fi
 
   if [[ "$OSTYPE" == "darwin"* ]]; then
     ssh-add --apple-use-keychain "$KEY_PATH"
-    echo "✅ Added with macOS Keychain support"
+    log_success "Added with macOS Keychain support"
   else
     ssh-add "$KEY_PATH"
-    echo "✅ Key added"
+    log_success "Key added"
   fi
 fi
 
 ########################################
 # Clipboard Copy
 ########################################
-echo "📋 Attempting to copy public key to clipboard..."
+log_info "Attempting to copy public key to clipboard..."
 
-if command -v pbcopy &>/dev/null; then
+if command -v cb &>/dev/null; then
+  cb copy < "${KEY_PATH}.pub"
+  log_success "Copied to clipboard (cb)"
+elif command -v pbcopy &>/dev/null; then
   pbcopy < "${KEY_PATH}.pub"
-  echo "✅ Copied to clipboard (macOS)"
+  log_success "Copied to clipboard (macOS)"
 elif command -v xclip &>/dev/null; then
   xclip -selection clipboard < "${KEY_PATH}.pub"
-  echo "✅ Copied to clipboard (xclip)"
+  log_success "Copied to clipboard (xclip)"
 elif command -v xsel &>/dev/null; then
   xsel --clipboard < "${KEY_PATH}.pub"
-  echo "✅ Copied to clipboard (xsel)"
+  log_success "Copied to clipboard (xsel)"
 elif command -v wl-copy &>/dev/null; then
   wl-copy < "${KEY_PATH}.pub"
-  echo "✅ Copied to clipboard (Wayland)"
+  log_success "Copied to clipboard (Wayland)"
 elif command -v clip.exe &>/dev/null; then
   clip.exe < "${KEY_PATH}.pub"
-  echo "✅ Copied to clipboard (Windows/WSL)"
+  log_success "Copied to clipboard (Windows/WSL)"
 else
-  echo "⚠️ Clipboard utility not found."
+  log_warn "Clipboard utility not found."
   echo "🔓 Public key:"
   echo "----------------------------------------"
   cat "${KEY_PATH}.pub"

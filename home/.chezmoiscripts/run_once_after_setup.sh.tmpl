@@ -177,6 +177,17 @@ elif [[ "$OS_TYPE" == "linux" ]]; then
   log_info "Running Linux common setup..."
   # TODO: Run scripts which run on Linux, regardless of Distro
 
+# Install Nerd Fonts
+  # Font names must match the GitHub release zip names
+  # See: https://www.nerdfonts.com/font-downloads
+  nerd_fonts=(
+    "CascadiaCode",
+    "CascadiaMono",
+  )
+  run_if_confirmed \
+    "Do you want to install Nerd Fonts?" "Y" \
+    "$SCRIPTS_DIR/linux/install_nerdfonts.sh" --force "${nerd_fonts[@]}"
+
   # ----------------------------
   # Branch based on machine type
   # ----------------------------

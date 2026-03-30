@@ -132,7 +132,7 @@ if [[ "$OS_TYPE" == "mac" ]]; then
   # Scripts that always run on Mac
   # ------------------------------
   log_info "Running Mac common setup..."
-  # TODO: Add Script to setup Homebrew
+  "$SCRIPTS_DIR/macos/install_brew.sh"
 
   # -----------------------------
   # Machine type specific scripts
@@ -177,7 +177,7 @@ elif [[ "$OS_TYPE" == "linux" ]]; then
   log_info "Running Linux common setup..."
   # TODO: Run scripts which run on Linux, regardless of Distro
 
-# Install Nerd Fonts
+  # Install Nerd Fonts
   # Font names must match the GitHub release zip names
   # See: https://www.nerdfonts.com/font-downloads
   nerd_fonts=(

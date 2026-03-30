@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=../common/utils_logging.sh
+source "$SCRIPT_DIR/../common/utils_logging.sh"
+
 # ===================================
 # Only run on Linux
 # ===================================
 OS_NAME="$(uname -s)"
 if [[ "$OS_NAME" == "Darwin" ]]; then
-  echo "⏭ macOS detected, skipping Nerd Fonts installation (use Homebrew instead)."
+  log_info "macOS detected, skipping Nerd Fonts installation (use Homebrew instead)."
   exit 0
 fi
 
@@ -33,7 +37,7 @@ for arg in "$@"; do
 done
 
 if [[ "${#fonts[@]}" -eq 0 ]]; then
-  echo "⚠️ No font names provided, skipping."
+  log_warn "No font names provided, skipping."
   exit 0
 fi
 
@@ -47,20 +51,20 @@ for font_name in "${fonts[@]}"; do
   # Check if font is already installed
   if fc-list 2>/dev/null | grep -qi "$font_name"; then
     if [[ "$FORCE_INSTALL" == true ]]; then
-      echo "♻️ Reinstalling $font_name Nerd Font due to --force flag..."
+      log_info "Reinstalling $font_name Nerd Font due to --force flag..."
     else
-      echo "✅ $font_name Nerd Font is already installed."
+      log_success "$font_name Nerd Font is already installed."
       continue
     fi
   else
-    echo "📦 Installing $font_name Nerd Font..."
+    log_info "Installing $font_name Nerd Font..."
   fi
 
   tmpdir=$(mktemp -d)
   zip_file="$tmpdir/${font_name}.zip"
 
   if ! curl -fsSL -o "$zip_file" "${NERD_FONTS_BASE_URL}/${font_name}.zip"; then
-    echo "⚠️ Failed to download $font_name, skipping."
+    log_warn "Failed to download $font_name, skipping."
     rm -rf "$tmpdir"
     continue
   fi
@@ -69,13 +73,13 @@ for font_name in "${fonts[@]}"; do
 
   rm -rf "$tmpdir"
   installed_any=true
-  echo "✅ $font_name Nerd Font installed."
+  log_success "$font_name Nerd Font installed."
 done
 
 # Rebuild font cache if any fonts were installed
 if [[ "$installed_any" == true ]] && command -v fc-cache >/dev/null 2>&1; then
-  echo "🔄 Rebuilding font cache..."
+  log_info "Rebuilding font cache..."
   fc-cache -f
 fi
 
-echo "✅ Nerd Fonts setup complete."
+log_success "Nerd Fonts setup complete."

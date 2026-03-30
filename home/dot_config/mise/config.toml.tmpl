@@ -1,11 +1,27 @@
+[settings]
+npm.package_manager = "bun"
+
 [tools]
+#---------------------------------
+# Cross-platform Tools
+#---------------------------------
 # Languages & runtimes
 bun = "latest"
 go = "latest"
 node = "latest"
+pnpm = "latest"
 python = "latest"
 rust = "latest"
 
+#---------------------------------
+# OS-specific Tools
+#---------------------------------
+
+{{- if eq .chezmoi.os "darwin" }}
+# macOS only tools
+{{- end }}
+
+{{- if eq .chezmoi.os "linux" }}
 # Build tools
 just = "latest"
 
@@ -60,7 +76,11 @@ chezmoi = "latest"
 direnv = "latest"
 gum = "latest"
 "aqua:topgrade-rs/topgrade" = "latest"
+{{- end }}
 
+#---------------------------------
+# Machine Type
+#---------------------------------
 {{- if eq .machine_type "workstation" }}
 # Add workstation specific packages here...
 {{- end }}

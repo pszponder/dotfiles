@@ -1,0 +1,4 @@
+# mise.toml for bootstrapping process
+
+[tools]
+stow = "latest"

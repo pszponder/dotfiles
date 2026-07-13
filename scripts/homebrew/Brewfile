@@ -1,0 +1,37 @@
+########################################
+# macOS Only
+########################################
+if OS.mac?
+
+  # AI / Coding Assistants
+
+  # Browsers
+  cask "helium-browser"
+  cask "zen"
+
+  # Communication & Chat
+  cask "discord"
+
+  # Containers & VMs
+  cask "orbstack"
+
+  # Editors
+  cask "obsidian"
+  cask "visual-studio-code"
+  cask "zed"
+
+  # Fonts
+  # https://formulae.brew.sh/cask-font/
+  cask "font-caskaydia-cove-nerd-font"
+  cask "font-caskaydia-mono-nerd-font"
+  cask "font-jetbrains-mono-nerd-font"
+
+  # Terminal and Shell
+  cask "ghostty"
+  cask "warp"
+
+  # System
+  cask "raycast"
+  cask "karabiner-elements"
+  cask "hiddenbar"
+end

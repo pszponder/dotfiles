@@ -6,17 +6,19 @@ This repository manages home-directory configuration with chezmoi. `chezmoi appl
 
 On first run, chezmoi prompts for the Git identity used by the managed Git configuration:
 
-| Variable | Description |
-|---|---|
-| `git_name` | Your full name for Git commits |
-| `git_email` | Your email for Git commits |
+| Variable    | Description                    |
+| ----------- | ------------------------------ |
+| `git_name`  | Your full name for Git commits |
+| `git_email` | Your email for Git commits     |
 
 For interactive setup:
 
 ```sh
 # Without chezmoi installed
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply pszponder
+```
 
+```sh
 # With chezmoi already installed
 chezmoi init --apply pszponder
 ```

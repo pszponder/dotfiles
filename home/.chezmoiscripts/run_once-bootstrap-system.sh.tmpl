@@ -1,0 +1,10 @@
+{{- if not .is_devcontainer -}}
+#!/bin/sh
+set -eu
+
+SCRIPTS="{{ .chezmoi.workingTree }}/scripts/bootstrap"
+
+sh "$SCRIPTS/create-directories.sh"
+sh "$SCRIPTS/link-dotfiles-repo.sh"
+sh "$SCRIPTS/bootstrap-ssh-keys.sh"
+{{- end -}}

@@ -1,0 +1,22 @@
+{{- /* ------------------------------------------------------------------ */ -}}
+{{- /* Inputs: env vars take precedence; prompts fire only on first run.  */ -}}
+{{- /* ------------------------------------------------------------------ */ -}}
+{{- $git_name := env "GIT_NAME" -}}
+{{- $git_email := env "GIT_EMAIL" -}}
+{{- if not $git_name }}
+  {{- $git_name = promptStringOnce . "git_name" "What is your Git username (full name)" -}}
+{{- end }}
+
+{{- if not $git_email }}
+  {{- $git_email = promptStringOnce . "git_email" "What is your Git email" -}}
+{{- end }}
+
+{{- /* ------------------------------------------------------------------ */ -}}
+{{- /* Container detection: gates host-level bootstrap out of containers. */ -}}
+{{- /* ------------------------------------------------------------------ */ -}}
+{{- $is_devcontainer := or (env "REMOTE_CONTAINERS") (env "CODESPACES") (env "DEVCONTAINER") (env "DEVCONTAINER_CONFIG") (stat "/.dockerenv") (stat "/run/.containerenv") | not | not -}}
+
+[data]
+git_name        = {{ $git_name | quote }}
+git_email       = {{ $git_email | quote }}
+is_devcontainer = {{ $is_devcontainer }}

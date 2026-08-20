@@ -1,0 +1,113 @@
+########################################
+# Base
+# Installed on every machine
+########################################
+
+# Formulae
+brew "atuin"
+brew "bash-completion@2" # tab-completion for bash (git, docker, etc.)
+brew "bat"
+brew "btop"
+# brew "clipboard" -- Currently broken on Wayland
+brew "cmake"
+brew "direnv"
+brew "eza"
+brew "fd"
+# brew "flox"
+brew "fzf"
+brew "gawk"
+brew "gcc"
+brew "gh"
+brew "git"
+brew "git-delta"
+brew "gum"
+brew "herdr"
+brew "jj"
+brew "jq"
+brew "just"
+brew "kanata"
+brew "lazydocker"
+brew "lazygit"
+brew "make"
+brew "mise"
+brew "neovim"
+brew "opencode"
+brew "openssl"
+brew "pass"
+brew "pi-coding-agent"
+# brew "pnpm"
+brew "ripgrep"
+brew "ruff"
+brew "starship"
+# brew "stow"
+brew "tmux"
+brew "topgrade"
+brew "tree"
+brew "tree-sitter"
+brew "tree-sitter-cli"
+brew "ty"
+brew "unzip"
+brew "uv"
+brew "worktrunk"
+brew "yazi"
+# brew "zellij"
+brew "zoxide"
+
+# Casks
+cask "claude-code"
+# https://formulae.brew.sh/cask-font/
+cask "font-caskaydia-cove-nerd-font"
+cask "font-caskaydia-mono-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
+
+########################################
+# MacOS Only
+########################################
+if OS.mac?
+  brew "wget"
+end
+
+########################################
+# Linux Only
+########################################
+if OS.linux?
+    brew "wl-clipboard"
+end
+
+########################################
+# Flatpak applications (Linux)
+########################################
+flatpak "com.discordapp.Discord"
+flatpak "md.obsidian.Obsidian"
+flatpak "app.zen_browser.zen"
+
+########################################
+# GUI applications
+########################################
+if OS.mac?
+  cask "discord"
+  cask "ghostty"
+  cask "helium-browser"
+  cask "hiddenbar"
+  cask "obsidian"
+  cask "orbstack"
+  cask "raycast"
+  cask "zed"
+  cask "zen"
+
+  # Optional
+  # cask "google-chrome"
+  # cask "karabiner-elements"
+  # brew "colima"
+  # cask "devpod"
+  # brew "docker"
+  # brew "docker-compose"
+  # cask "docker-desktop"
+  # cask "podman-desktop"
+  # cask "visual-studio-code"
+  # cask "warp"
+end
+
+########################################
+# macOS defaults management
+########################################

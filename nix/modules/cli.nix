@@ -42,7 +42,9 @@ in
         bash-completion
         bat
         btop
-        clipboard-jh # Slackadays/Clipboard CLI
+        bun
+        chezmoi
+        # clipboard-jh # Slackadays/Clipboard CLI
         cmake
         curl
         delta # provides the `delta` binary the gitconfig's core.pager uses

@@ -20,10 +20,12 @@ alias dots='cd $HOME/.local/share/dotfiles'
 # alias lt='lsd --tree'
 
 # File System Navigation (via eza)
-alias l='eza -1 --icons=auto'
-alias ls='eza --icons=auto --group-directories-first'
-alias ll='eza -lh --group-directories-first --icons=auto'
-alias la='eza -lha --group-directories-first --icons=auto'
+if command -v eza >/dev/null 2>&1; then
+  alias l='eza -1 --icons=auto'
+  alias ls='eza --icons=auto --group-directories-first'
+  alias ll='eza -lh --group-directories-first --icons=auto'
+  alias la='eza -lha --group-directories-first --icons=auto'
+fi
 
 lt() {
   local level=${1:-2}  # default to 2 if no argument is passed
@@ -38,7 +40,10 @@ lta() {
 # alias fd='fdfind'
 alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
 alias mkdir='mkdir -pv'
-alias cd='z'
+
+if command -v zoxide >/dev/null 2>&1; then
+  alias cd='z'
+fi
 
 # Clipboard helpers: `echo foo | copy`, `copy < file.txt`, `paste`
 copy() {
@@ -292,9 +297,11 @@ alias podman-clean=' \
   podman volume prune -f '
 
 # ⚙️ Miscellaneous
-alias cat='bat --paging=never'
-alias catp='bat --paging=never --plain'
-alias less='bat --paging=always'
+if command -v bat >/dev/null 2>&1; then
+  alias cat='bat --paging=never'
+  alias catp='bat --paging=never --plain'
+  alias less='bat --paging=always'
+fi
 alias reload='exec $SHELL -l'
 alias c='clear'
 alias cl='clear'

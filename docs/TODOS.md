@@ -7,6 +7,7 @@
     - [ ] [Claude Powerline](https://www.npmjs.com/package/@owloops/claude-powerline)
   - [ ] [postcard - email client](https://postcard.gxanshu.in/)
 - Review comments in codebase, the comments seem pretty wordy, can they be simplified in places without loosing meaning?
+- [ ] Add a utility script into ./scripts directory for logging (copy the logging template in `.chezmoitemplates`)
 
 ## Omarchy
 
@@ -16,6 +17,20 @@
 - [ ] Add Omarchy Debloat script(s)
 - [ ] Use AI to review [TheBlackDon - Bazzite: You are WRONG its not Restricted at all!](https://gitlab.com/theblackdon/dcli-bootc) and extract how to create a custom image (make my own version so that I understand it) should this be part of my dotfiles / justfiles?
 
+- [ ] Create a bootstrap script for omarchy and use the `omarchy pkg add` or `omarchy pkg-aur-add` to install  system level / global packages
+- [ ] Think about installing system level / global packages (like eza, fzf, just, etc.) using the system package manager and mise on project-level packages
+    - [ ] Should we add another `config.omarchy.toml.tmpl` file to only run if Omarchy is detected? This would allow us to have Omarchy-specific configuration that only runs when Omarchy is detected, and not on other systems. Or maybe if not omarchy-specific, arch-specific
+- [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
+
+```
+chezmoi has no built-in "is this Omarchy" detection — Omarchy isn't a distro, it's an Arch layer, so .chezmoi.osRelease will just report Arch (ID=arch), not Omarchy. But you can easily detect it yourself in a chezmoi template or script, since Omarchy leaves clear markers:
+
+- Env var: {{ if env "OMARCHY_PATH" }} — set by the uwsm session, present whenever you're actually in an Omarchy session.
+- Filesystem: check for /usr/share/omarchy or run test -d /usr/share/omarchy in a run_onchange_/template — works even outside a live session (e.g. during provisioning before login).
+- Command presence: {{ if lookPath "omarchy" }} (chezmoi template function) or shell out to omarchy-cmd-present omarchy.
+
+Most practical pattern for your dotfiles repo: use .chezmoi.toml.tmpl to set a custom template variable like {{ $isOmarchy := (stat "/usr/share/omarchy") }} or check the env var, then gate Omarchy-specific config blocks (hyprland, waybar/quickshell configs, theme templates, etc.) behind that variable so the same chezmoi source works on non-Omarchy machines too.
+```
 
 ## NixOS
 
@@ -23,6 +38,7 @@
 - [ ] Maybe I should just install mise as a CLI tool and then use mise to manage the rest of my CLI tools via `mise install` and `mise sync`? This would allow me to manage all my CLI tools in one place, and also allow me to easily switch between different versions of the same tool if needed.
 - [ ] Add instructions on adding git and chezmoi temporarily to `/etc/nixos/configuration.nix` under the `environment.systemPackages` on a new NixOS system before being able to install the dotfiles and flake.
     - [ ] Also add to `configration.nix` => `programs.nix-ld.enable = true;`
+- [ ] Refactor `nix-host-init class hostname` in justfile to point to a shell script
 
 ```
 I get an error when trying to install chezmoi in NixOS

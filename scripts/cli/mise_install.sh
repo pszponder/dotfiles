@@ -1,8 +1,11 @@
 #!/bin/sh
 set -eu
 
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+. "$SCRIPT_DIR/../utils/utils_logging.sh"
+
 if command -v mise >/dev/null 2>&1; then
-  printf '%s\n' 'mise already available in PATH, skipping'
+  log_info 'mise already available in PATH, skipping'
   exit 0
 fi
 
@@ -19,13 +22,13 @@ if [ -n "$BREW_BIN" ]; then
 fi
 
 if ! command -v curl >/dev/null 2>&1; then
-  printf '%s\n' 'curl is required to install mise when Homebrew is unavailable' >&2
+  log_error 'curl is required to install mise when Homebrew is unavailable'
   exit 1
 fi
 
 curl -fsSL https://mise.run | sh
 
 if [ ! -x "$HOME/.local/bin/mise" ]; then
-  printf '%s\n' "mise installer completed but $HOME/.local/bin/mise was not found" >&2
+  log_error "mise installer completed but $HOME/.local/bin/mise was not found"
   exit 1
 fi

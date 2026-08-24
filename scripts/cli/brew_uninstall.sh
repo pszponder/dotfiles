@@ -1,6 +1,9 @@
 #!/bin/sh
 set -eu
 
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+. "$SCRIPT_DIR/../utils/utils_logging.sh"
+
 BREW_BIN=$(command -v brew 2>/dev/null || true)
 for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
   if [ -z "$BREW_BIN" ] && [ -x "$brew_path" ]; then
@@ -9,9 +12,9 @@ for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
 done
 
 if [ -z "$BREW_BIN" ]; then
-  printf '%s\n' 'Homebrew is not installed, skipping'
+  log_info 'Homebrew is not installed, skipping'
   exit 0
 fi
 
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
-printf '%s\n' 'Homebrew uninstalled'
+log_success 'Homebrew uninstalled'

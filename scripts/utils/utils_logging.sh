@@ -1,3 +1,7 @@
+#!/bin/sh
+# Shared logging helpers for scripts/. Keep in sync with
+# home/.chezmoitemplates/shell/logging.sh.tmpl.
+
 log_info() {
   printf '%b\n' "ℹ️ [INFO] $*"
 }

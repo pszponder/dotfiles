@@ -1,12 +1,15 @@
 #!/bin/sh
 set -eu
 
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+. "$SCRIPT_DIR/../utils/utils_logging.sh"
+
 if [ "$(uname -s)" != "Linux" ]; then
   exit 0
 fi
 
 if ! command -v flatpak >/dev/null 2>&1; then
-  printf '%s\n' 'Flatpak is not installed, skipping'
+  log_info 'Flatpak is not installed, skipping'
   exit 0
 fi
 
@@ -18,8 +21,8 @@ if command -v apt-get >/dev/null 2>&1; then
 elif command -v pacman >/dev/null 2>&1; then
   sudo pacman -Rns --noconfirm flatpak
 else
-  printf '%s\n' 'Flatpak applications removed, but no supported package manager was found to remove Flatpak' >&2
+  log_error 'Flatpak applications removed, but no supported package manager was found to remove Flatpak'
   exit 1
 fi
 
-printf '%s\n' 'Flatpak uninstalled'
+log_success 'Flatpak uninstalled'

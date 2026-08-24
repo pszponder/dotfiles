@@ -1,8 +1,11 @@
 #!/bin/sh
 set -eu
 
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+. "$SCRIPT_DIR/../utils/utils_logging.sh"
+
 if command -v brew >/dev/null 2>&1; then
-  printf '%s\n' 'Homebrew already installed, skipping'
+  log_info 'Homebrew already installed, skipping'
   exit 0
 fi
 
@@ -23,10 +26,10 @@ case "$(uname -s)" in
     elif command -v pacman >/dev/null 2>&1; then
       sudo pacman -S --noconfirm --needed base-devel procps-ng curl file git
     else
-      printf '%s\n' 'Unknown package manager; Homebrew prerequisites were not installed' >&2
+      log_warn 'Unknown package manager; Homebrew prerequisites were not installed'
     fi
     ;;
 esac
 
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-printf '%s\n' 'Homebrew installed'
+log_success 'Homebrew installed'

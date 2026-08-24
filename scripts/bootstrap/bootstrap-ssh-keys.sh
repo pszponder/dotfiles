@@ -1,10 +1,13 @@
 #!/bin/sh
 set -eu
 
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+. "$SCRIPT_DIR/../utils/utils_logging.sh"
+
 SSHKEYGEN="$HOME/.local/bin/sshkeygen"
 
 if [ ! -x "$SSHKEYGEN" ]; then
-  printf '%s\n' "$SSHKEYGEN not found. Ensure it has been applied by chezmoi." >&2
+  log_error "$SSHKEYGEN not found. Ensure it has been applied by chezmoi."
   exit 1
 fi
 
@@ -18,7 +21,7 @@ printf '%s\n' "$DEFAULT_KEYS" | while IFS='|' read -r key_type key_dir key_name 
   key_path="${key_dir}/${key_name}"
 
   if [ -f "$key_path" ]; then
-    printf '%s\n' "Skipping existing key: $key_path"
+    log_info "Skipping existing key: $key_path"
     continue
   fi
 

@@ -5,17 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
 NIX_DIR="$ROOT_DIR/nix"
 
-log_info() {
-    printf '%b\n' "ℹ️ [INFO] $*"
-}
-
-log_success() {
-    printf '%b\n' "✅ [OK] $*"
-}
-
-log_error() {
-    printf '%b\n' "❌ [ERROR] $*" >&2
-}
+. "$SCRIPT_DIR/../utils/utils_logging.sh"
 
 if command -v scutil >/dev/null 2>&1; then
     hostname="$(scutil --get LocalHostName 2>/dev/null || hostname -s 2>/dev/null || hostname)"

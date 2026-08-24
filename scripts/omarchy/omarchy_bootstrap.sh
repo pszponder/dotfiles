@@ -1,4 +1,7 @@
 #!/bin/sh
 set -eu
 
-echo "Bootstrapping Omarchy..."
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+. "$SCRIPT_DIR/../utils/utils_logging.sh"
+
+log_info "Bootstrapping Omarchy..."

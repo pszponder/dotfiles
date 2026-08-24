@@ -1,18 +1,21 @@
 #!/bin/sh
 set -eu
 
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+. "$SCRIPT_DIR/../utils/utils_logging.sh"
+
 if command -v brew >/dev/null 2>&1 || [ -x /opt/homebrew/bin/brew ] || [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
-  printf '%s\n' 'Homebrew detected; Nerd Fonts are managed by the Brewfile, skipping'
+  log_info 'Homebrew detected; Nerd Fonts are managed by the Brewfile, skipping'
   exit 0
 fi
 
 if ! command -v curl >/dev/null 2>&1; then
-  printf '%s\n' 'curl is required to install Nerd Fonts' >&2
+  log_error 'curl is required to install Nerd Fonts'
   exit 1
 fi
 
 if ! command -v tar >/dev/null 2>&1; then
-  printf '%s\n' 'tar with XZ support is required to install Nerd Fonts' >&2
+  log_error 'tar with XZ support is required to install Nerd Fonts'
   exit 1
 fi
 
@@ -20,14 +23,14 @@ case "$(uname -s)" in
   Darwin) FONT_DIR="$HOME/Library/Fonts" ;;
   Linux) FONT_DIR="$HOME/.local/share/fonts" ;;
   *)
-    printf '%s\n' 'Nerd Fonts installation is supported only on macOS and Linux' >&2
+    log_error 'Nerd Fonts installation is supported only on macOS and Linux'
     exit 1
     ;;
 esac
 
 MANIFEST="$HOME/.config/nerd-fonts/fonts"
 if [ ! -f "$MANIFEST" ]; then
-  printf '%s\n' "$MANIFEST not found; run chezmoi apply first" >&2
+  log_error "$MANIFEST not found; run chezmoi apply first"
   exit 1
 fi
 

@@ -1,6 +1,9 @@
 #!/bin/sh
 set -eu
 
+SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+. "$SCRIPT_DIR/../utils/utils_logging.sh"
+
 MISE_BIN=$(command -v mise 2>/dev/null || true)
 if [ -z "$MISE_BIN" ] && [ -x "$HOME/.local/bin/mise" ]; then
   MISE_BIN="$HOME/.local/bin/mise"
@@ -13,13 +16,13 @@ for mise_path in /opt/homebrew/bin/mise /home/linuxbrew/.linuxbrew/bin/mise; do
 done
 
 if [ -z "$MISE_BIN" ]; then
-  printf '%s\n' 'mise not available; run just mise-install first' >&2
+  log_error 'mise not available; run just mise-install first'
   exit 1
 fi
 
 MISE_CONFIG="$HOME/.config/mise/config.toml"
 if [ ! -f "$MISE_CONFIG" ]; then
-  printf '%s\n' 'mise config not found; run chezmoi apply first' >&2
+  log_error 'mise config not found; run chezmoi apply first'
   exit 1
 fi
 

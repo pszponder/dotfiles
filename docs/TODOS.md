@@ -16,7 +16,6 @@
     - [ ] [typecraft-dev/omarchy-supplement](https://github.com/typecraft-dev/omarchy-supplement)
 - [ ] Add Omarchy Debloat script(s)
 - [ ] Use AI to review [TheBlackDon - Bazzite: You are WRONG its not Restricted at all!](https://gitlab.com/theblackdon/dcli-bootc) and extract how to create a custom image (make my own version so that I understand it) should this be part of my dotfiles / justfiles?
-
 - [ ] Create a bootstrap script for omarchy and use the `omarchy pkg add` or `omarchy pkg-aur-add` to install  system level / global packages
 - [ ] Think about installing system level / global packages (like eza, fzf, just, etc.) using the system package manager and mise on project-level packages
     - [ ] Should we add another `config.omarchy.toml.tmpl` file to only run if Omarchy is detected? This would allow us to have Omarchy-specific configuration that only runs when Omarchy is detected, and not on other systems. Or maybe if not omarchy-specific, arch-specific
@@ -31,6 +30,19 @@ chezmoi has no built-in "is this Omarchy" detection — Omarchy isn't a distro, 
 
 Most practical pattern for your dotfiles repo: use .chezmoi.toml.tmpl to set a custom template variable like {{ $isOmarchy := (stat "/usr/share/omarchy") }} or check the env var, then gate Omarchy-specific config blocks (hyprland, waybar/quickshell configs, theme templates, etc.) behind that variable so the same chezmoi source works on non-Omarchy machines too.
 ```
+
+- [ ] Review the omarchy update script, how does it update mise?
+- [ ] Omarchy CLI commands can be found here: [omarchy/bin at quattro](https://github.com/basecamp/omarchy/tree/quattro/bin)
+- [ ] Omarchy config files (copied to `~/.config`) can be found here: [omarchy/config at quattro](https://github.com/basecamp/omarchy/tree/quattro/config)
+- [ ] Review omarchy `~/.local/bin/` to understand mise stubs [AI — The Omarchy Manual](https://omarchy.org/manual/ai/)
+- [ ] Understand what `omarchy-mise-install <package> [command-name]` works
+    - [ ] Omarchy's `omarchy-mise-install` creates a script which will install a package using mise with `MISE_MINIMUM_RELEASE_AGE=0`. This actually is removing a safety built into mise so when di want to install packages with mise, it's better to just run `mise install -g ...` or `mise install` and reference a `~/.config/mise/config.toml`
+- [ ] Search omarchy repo and find the agent skills for omarchy to add to my dotfiles repo
+- [ ] omawrite, add line numbers?
+- [ ] Bug in Omawrite, when opening or saving, the file explorer is opened on the side, with part of the explorer not even on the screen, and I have to use the mouse to move it to the center
+- [ ] Invert mouse scrolling
+- [ ] Get rid of spacing between windows
+- [ ] Rounded corners?
 
 ## NixOS
 

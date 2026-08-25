@@ -8,18 +8,30 @@
   - [ ] [postcard - email client](https://postcard.gxanshu.in/)
 - Review comments in codebase, the comments seem pretty wordy, can they be simplified in places without loosing meaning?
 - [ ] Add a utility script into ./scripts directory for logging (copy the logging template in `.chezmoitemplates`)
+- [ ] Add Ghostty [Quick Terminal](https://dbushell.com/2025/04/11/ghostty-macos-quick-terminal/) (do I need quick terminal If using hyprland, can I just toggle a floating scratchpad terminal instead?)
 
 ## Omarchy
 
+- [ ] Install nerd fonts
+- [ ] Configure window switching with alt-tab
 - [ ] Are my dotfiles compatible with Omarchy? If not, what changes are needed to make them compatible?
 - [ ] [typecraft - You installed Omarchy, Now What?](https://www.youtube.com/watch?v=d23jFJmcaMI)
     - [ ] [typecraft-dev/omarchy-supplement](https://github.com/typecraft-dev/omarchy-supplement)
 - [ ] Add Omarchy Debloat script(s)
-- [ ] Use AI to review [TheBlackDon - Bazzite: You are WRONG its not Restricted at all!](https://gitlab.com/theblackdon/dcli-bootc) and extract how to create a custom image (make my own version so that I understand it) should this be part of my dotfiles / justfiles?
 - [ ] Create a bootstrap script for omarchy and use the `omarchy pkg add` or `omarchy pkg-aur-add` to install  system level / global packages
 - [ ] Think about installing system level / global packages (like eza, fzf, just, etc.) using the system package manager and mise on project-level packages
-    - [ ] Should we add another `config.omarchy.toml.tmpl` file to only run if Omarchy is detected? This would allow us to have Omarchy-specific configuration that only runs when Omarchy is detected, and not on other systems. Or maybe if not omarchy-specific, arch-specific
+  - [ ] Should we add another `config.omarchy.toml.tmpl` file to only run if Omarchy is detected? This would allow us to have Omarchy-specific configuration that only runs when Omarchy is detected, and not on other systems. Or maybe if not omarchy-specific, arch-specific
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
+  - [ ] ghostty
+    - [ ] Turn config into config.tmpl and check if on omarchy or not to set color theme
+  - [ ] git
+  - [ ] herdr
+  - [ ] hypr (should we overwrite or merge with our own hyprland config?)
+  - [ ] lazygit
+  - [ ] obsidian
+  - [ ] opencode
+  - [ ] tmux
+  - [ ] starship
 
 ```
 chezmoi has no built-in "is this Omarchy" detection — Omarchy isn't a distro, it's an Arch layer, so .chezmoi.osRelease will just report Arch (ID=arch), not Omarchy. But you can easily detect it yourself in a chezmoi template or script, since Omarchy leaves clear markers:
@@ -94,6 +106,7 @@ If you just want the quick one-off fix, programs.nix-ld.enable = true; is simple
 
 ## Uncategorized
 
+- [ ] Use AI to review [TheBlackDon - Bazzite: You are WRONG its not Restricted at all!](https://gitlab.com/theblackdon/dcli-bootc) and extract how to create a custom image (make my own version so that I understand it) should this be part of my dotfiles / justfiles?
 - [ ] https://cadu.dev/running-neovim-on-devcontainers/
 - [ ] https://www.youtube.com/watch?v=rqpiVgWZBOg&t=130s
 - [ ] https://github.com/rio/dotfiles

@@ -27,6 +27,7 @@
   - [ ] git
   - [ ] herdr
   - [ ] hypr (should we overwrite or merge with our own hyprland config?)
+  - [ ] kitty
   - [ ] lazygit
   - [ ] obsidian
   - [ ] opencode

@@ -1,11 +1,12 @@
-# TODO: test if this doesn't overwrite dynamic omarchy theme by trying to change the theme in omarchy
-# TODO: Turn this config into a `.tmpl` file and set either theme or config-file depending whether or not the system is omarchy
-theme = catppuccin-mocha
-
-# Dynamic theme colors (for omarchy)
+{{- if .is_omarchy }}
+# Dynamic theme colors (managed by omarchy's theme switcher)
 config-file = ?"~/.local/state/omarchy/current/theme/ghostty.conf"
+{{- else }}
+theme = catppuccin-mocha
+{{- end }}
 
 # Font (CaskaydiaCove is primary, JetBrainsMono is backup/secondary)
+# TODO: Only set if not on omarchy?
 font-family = "CaskaydiaCove Nerd Font"
 font-family = "JetBrainsMono Nerd Font"
 font-size = 10

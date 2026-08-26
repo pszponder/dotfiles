@@ -16,7 +16,14 @@
 {{- /* ------------------------------------------------------------------ */ -}}
 {{- $is_devcontainer := or (env "REMOTE_CONTAINERS") (env "CODESPACES") (env "DEVCONTAINER") (env "DEVCONTAINER_CONFIG") (stat "/.dockerenv") (stat "/run/.containerenv") | not | not -}}
 
+{{- /* ------------------------------------------------------------------ */ -}}
+{{- /* Omarchy detection: OMARCHY_PATH is only set in a live session, but */ -}}
+{{- /* the install directory persists regardless (e.g. during setup).    */ -}}
+{{- /* ------------------------------------------------------------------ */ -}}
+{{- $is_omarchy := or (env "OMARCHY_PATH") (stat "/usr/share/omarchy") | not | not -}}
+
 [data]
 git_name        = {{ $git_name | quote }}
 git_email       = {{ $git_email | quote }}
 is_devcontainer = {{ $is_devcontainer }}
+is_omarchy      = {{ $is_omarchy }}

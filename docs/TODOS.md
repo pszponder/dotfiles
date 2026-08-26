@@ -11,7 +11,17 @@
 - [ ] Add Ghostty [Quick Terminal](https://dbushell.com/2025/04/11/ghostty-macos-quick-terminal/) (do I need quick terminal If using hyprland, can I just toggle a floating scratchpad terminal instead?)
 
 ## Omarchy
-
+- [ ] Changing the Global Omarchy Font changes the `font-family` in Ghostty config (this is due to `bin/omarchy-font-set` script from omarchy)
+  - [ ] This maybe is ok? I can set the global font to anything I want (it also works for fonts installed through pacman)
+  - [ ] How will this dynamic overwrite affect my chezmoi dotfiles though? Maybe if on omarchy, just don't set the font?
+- [ ] Changing the Global Omarchy Text Size also changes the Ghostty config's `font-size` (this is due to `bin/omarchy-display-text-size` script from omarchy)
+- [ ] [Dotfiles — The Omarchy Manual](https://omarchy.org/manual/dotfiles/)
+- [ ] [Common tweaks — The Omarchy Manual](https://omarchy.org/manual/common-tweaks/)
+- [ ] [Branding — The Omarchy Manual](https://omarchy.org/manual/branding/)
+- [ ] [Web Apps — The Omarchy Manual](https://omarchy.org/manual/web-apps/)
+- [ ] [Commercial apps/services — The Omarchy Manual](https://omarchy.org/manual/commercial-apps-services/)
+- [ ] [GUIs — The Omarchy Manual](https://omarchy.org/manual/guis/)
+- [ ] [Browsers — The Omarchy Manual](https://omarchy.org/manual/browsers/)
 - [ ] Install nerd fonts
 - [ ] Configure window switching with alt-tab
 - [ ] Are my dotfiles compatible with Omarchy? If not, what changes are needed to make them compatible?
@@ -22,6 +32,8 @@
 - [ ] Think about installing system level / global packages (like eza, fzf, just, etc.) using the system package manager and mise on project-level packages
   - [ ] Should we add another `config.omarchy.toml.tmpl` file to only run if Omarchy is detected? This would allow us to have Omarchy-specific configuration that only runs when Omarchy is detected, and not on other systems. Or maybe if not omarchy-specific, arch-specific
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
+  - [ ] [bashrc](https://github.com/basecamp/omarchy/blob/quattro/default/bashrc)
+  - [ ] btop
   - [ ] ghostty
     - [ ] Turn config into config.tmpl and check if on omarchy or not to set color theme
   - [ ] git
@@ -33,6 +45,7 @@
   - [ ] opencode
   - [ ] tmux
   - [ ] starship
+  - [ ]
 
 ```
 chezmoi has no built-in "is this Omarchy" detection — Omarchy isn't a distro, it's an Arch layer, so .chezmoi.osRelease will just report Arch (ID=arch), not Omarchy. But you can easily detect it yourself in a chezmoi template or script, since Omarchy leaves clear markers:

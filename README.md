@@ -56,8 +56,6 @@ just mise-install
 
 Install commands also synchronize the managed package configuration. Run `just brew-sync`, `just flatpak-sync`, or `just mise-sync` separately when you want to reapply a managed package configuration without reinstalling the package manager.
 
-`just nix-install` only installs the Nix package manager itself — it does not synchronize any package configuration. Setting up NixOS or macOS system configuration (packages, OS settings, per-host configs) is a separate, multi-step workflow; see [docs/nix_configuration.md](docs/nix_configuration.md).
-
 ## Adding / Modifying Files
 
 When using `chezmoi`, you generally *edit the chezmoi source files* in `~/.local/share/chezmoi` and then apply the changes to `$HOME` rather than editing the file directly in `$HOME`.
@@ -136,8 +134,6 @@ chezmoi apply
 - [Dreams of Autonomy - This ZSH config is perhaps my favorite one yet](https://youtu.be/ud7YxC33Z3w?si=27kOpHT6xNCeLBx4)
 - [Configure your Git](https://www.youtube.com/watch?v=G3NJzFX6XhY)
 - [Catppuccin Color Pallete](https://catppuccin.com/palette/)
-- [NixOS](https://nixos.org/download/)
-- [Nix Installer](https://github.com/nixOS/nix-installer)
 - [Homebrew](https://brew.sh/)
 - [Flatpak](https://flatpak.org/)
 - [Nerd Fonts](https://www.nerdfonts.com/)
@@ -147,13 +143,3 @@ chezmoi apply
 
 AI
 - [Matt Pocock - AIHero - AI Skills for Real Engineers](https://www.aihero.dev/skills)
-
-Nix
-- [Zero to Nix - Install Nix](https://zero-to-nix.com/)
-- [nix-darwin](https://github.com/nix-darwin/nix-darwin)
-- [Kun Chen - L8 Principal's Agentic Dev Environment From Scratch](https://www.youtube.com/watch?v=5N-okeDdIuI)
-- [kunchenguid/dotfiles](https://github.com/kunchenguid/dotfiles)
-- [MCP-NixOS](https://mcp-nixos.io/)
-- [Nix Packages](https://search.nixos.org/packages)
-- [llm-agents.nix - A Nix flake for LLM agents and development tools](https://github.com/numtide/llm-agents.nix)
-- [New Default Nix Flake Template](https://nixcademy.com/posts/new-default-nix-flake-template/)

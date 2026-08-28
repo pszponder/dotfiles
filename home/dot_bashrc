@@ -39,13 +39,6 @@ fi
 # VIM mode
 set -o vi
 
-# Determinate Nix (only if installed and not already on PATH — the installer
-# normally wires this into /etc/bash.bashrc itself, but only for shells present
-# at install time, so this is a portable fallback)
-if ! command -v nix &> /dev/null && [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
-
 # bash-completion (tab-complete for git, docker, etc. — zsh's compinit
 # equivalent). Installed via Homebrew as bash-completion@2.
 if [[ -n $BASH_VERSION ]]; then

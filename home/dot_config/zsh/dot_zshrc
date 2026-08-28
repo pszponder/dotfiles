@@ -7,13 +7,6 @@ if [[ -f ~/.config/aliases ]]; then
   source ~/.config/aliases
 fi
 
-# Determinate Nix (only if installed and not already on PATH — the installer
-# normally wires this into /etc/zshrc itself, but only for shells present at
-# install time, so this is a portable fallback)
-if ! command -v nix &> /dev/null && [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-fi
-
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 

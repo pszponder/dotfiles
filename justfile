@@ -53,38 +53,3 @@ mise-uninstall:
 # Install and reshim the runtimes in the managed mise configuration.
 mise-sync:
     sh scripts/cli/mise_sync.sh
-
-# Install Nix with nix-command and flakes enabled.
-nix-install:
-    @just _confirm Nix
-    sh scripts/cli/nix_install.sh
-
-# Copy a class-specific example host without overwriting an existing host.
-nix-host-init class hostname:
-    #!/bin/sh
-    set -eu
-    case "{{ class }}" in
-        nixos|darwin) ;;
-        *) printf '%s\n' 'Usage: just nix-host-init nixos|darwin <hostname>' >&2; exit 1 ;;
-    esac
-    host_dir="nix/hosts/{{ hostname }}"
-    if [ -e "$host_dir" ]; then
-        printf 'Host directory already exists: %s\n' "$host_dir" >&2
-        exit 1
-    fi
-    cp -R "nix/hosts/example-{{ class }}" "$host_dir"
-    printf 'Created %s\n' "$host_dir"
-    printf 'Edit %s/default.nix and configuration.nix before rebuilding.\n' "$host_dir"
-
-# Rebuild the detected Nix system configuration.
-nix-rebuild:
-    bash scripts/nix/nix_rebuild.sh
-
-# Update the inputs in the managed Nix flake.
-nix-update:
-    bash scripts/nix/nix_update.sh
-
-# Remove Nix installed by the NixOS Nix installer.
-nix-uninstall:
-    @just _confirm Nix
-    sh scripts/cli/nix_uninstall.sh

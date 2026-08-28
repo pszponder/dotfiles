@@ -309,9 +309,7 @@ alias da='date "+%Y-%m-%d %A %T %Z"'
 alias rm='rm -v'
 alias ps='ps auxf'
 
-# System update via topgrade. On Nix-managed hosts, bump flake inputs and
-# apply the running config separately with `nixup`
-# (home/dot_local/bin/executable_nixup).
+# System update via topgrade.
 alias up='topgrade -y'
 
 #######################################################

@@ -69,6 +69,36 @@ Most practical pattern for your dotfiles repo: use .chezmoi.toml.tmpl to set a c
 - [ ] Invert mouse scrolling
 - [ ] Get rid of spacing between windows
 - [ ] Rounded corners?
+- [ ] [omarchy/bin/omarchy-remove-preinstalls](https://github.com/basecamp/omarchy/blob/quattro/bin/omarchy-remove-preinstalls)
+    - [ ] which items are uninstalled?
+        - [ ] Uninstalls all TUIs ([TUIs — The Omarchy Manual](https://omarchy.org/manual/tuis/))
+        - [ ] Uninstalls all Webapps ([Web Apps — The Omarchy Manual](https://omarchy.org/manual/web-apps/))
+    - [ ] I could also use this as a base for my debloat script (only remove things that I really don't want)
+        - [ ] HEY
+        - [ ] Basecamp
+        - [ ] WhatsApp
+        - [ ] OBS Studio
+        - [ ] Kdenlive
+- [ ] [The Top Bar — The Omarchy Manual](https://omarchy.org/manual/the-top-bar/)
+    - [ ] Auto-hide top menu bar?
+    - [ ] Add currently active window description in top menu bar
+    - [ ] Enable transparency
+- [ ] add "omarchy update" to the "up" alias?
+- [ ] Setup night light to turn on [automatically](https://omarchy.org/manual/toggles-idle-screensaver/#night-light)?
+- [ ] Change direction of scrolling (natural scrolling?) [Keyboard, Mouse, Trackpad — The Omarchy Manual](https://omarchy.org/manual/keyboard-mouse-trackpad/)
+- [ ] Incoporate Tmux layout functions into dotfiles
+- [ ] Set nvim alias as n
+    - [ ] only use one nvim config
+- [ ] Port omarchy nvim into dotfiles?
+- [ ] Figure out how to use [Neovim for sudo edits](https://omarchy.org/manual/neovim/#using-neovim-for-sudo-edits)
+- [ ] alias fzf to ff
+- [ ] review eza aliases
+    - [ ] lt for 2-level tree
+    - [ ] lsa for listing everything, including hidden files
+    - [ ] lta for nested listing with hidden files
+- [ ] Install [GitHub - tobi/try: fresh directories for every vibe · GitHub](https://github.com/tobi/try)
+- [ ] Add shell functions to dotfiles: [Shell Functions — The Omarchy Manual](https://omarchy.org/manual/shell-functions/)
+- [ ] [Common tweaks — The Omarchy Manual](https://omarchy.org/manual/common-tweaks/)
 
 ## NixOS
 

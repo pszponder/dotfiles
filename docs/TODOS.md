@@ -9,6 +9,7 @@
 - Review comments in codebase, the comments seem pretty wordy, can they be simplified in places without loosing meaning?
 - [ ] Add a utility script into ./scripts directory for logging (copy the logging template in `.chezmoitemplates`)
 - [ ] Add Ghostty [Quick Terminal](https://dbushell.com/2025/04/11/ghostty-macos-quick-terminal/) (do I need quick terminal If using hyprland, can I just toggle a floating scratchpad terminal instead?)
+  - [ ] Only add the quick terminal for non-omarchy setups
 
 ## Omarchy
 - [ ] Changing the Global Omarchy Text Size also changes the Ghostty config's `font-size` (this is due to `bin/omarchy-display-text-size` script from omarchy)

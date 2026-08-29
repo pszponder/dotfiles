@@ -62,6 +62,7 @@
 - [ ] Incoporate Tmux layout functions into dotfiles
 - [ ] Install [GitHub - tobi/try: fresh directories for every vibe · GitHub](https://github.com/tobi/try)
 - [ ] Setup [CLIAMP — Terminal Music Player](https://www.cliamp.stream/) with my preferred youtube / youtube music / spotify channels, etc.
+- [ ] Flip `super + f` and `super + alt + f` keybindings for full screen modes
 
 ## Bugfixes
 

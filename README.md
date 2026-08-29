@@ -143,3 +143,7 @@ chezmoi apply
 
 AI
 - [Matt Pocock - AIHero - AI Skills for Real Engineers](https://www.aihero.dev/skills)
+
+Omarchy
+- [Omarchy](https://omarchy.org/)
+- [Omarchy Manual](https://omarchy.org/manual/)

@@ -21,7 +21,6 @@
 - [ ] [Commercial apps/services — The Omarchy Manual](https://omarchy.org/manual/commercial-apps-services/)
 - [ ] [GUIs — The Omarchy Manual](https://omarchy.org/manual/guis/)
 - [ ] [Browsers — The Omarchy Manual](https://omarchy.org/manual/browsers/)
-- [ ] Configure window switching with alt-tab
 - [ ] Are my dotfiles compatible with Omarchy? If not, what changes are needed to make them compatible?
 - [ ] [typecraft - You installed Omarchy, Now What?](https://www.youtube.com/watch?v=d23jFJmcaMI)
     - [ ] [typecraft-dev/omarchy-supplement](https://github.com/typecraft-dev/omarchy-supplement)
@@ -63,6 +62,8 @@
 - [ ] Install [GitHub - tobi/try: fresh directories for every vibe · GitHub](https://github.com/tobi/try)
 - [ ] Setup [CLIAMP — Terminal Music Player](https://www.cliamp.stream/) with my preferred youtube / youtube music / spotify channels, etc.
 - [ ] Flip `super + f` and `super + alt + f` keybindings for full screen modes
+- [ ] Install / Configure Plugins
+  - [ ] Configure window switching with alt-tab (https://omarchyplugins.com/plugin.html?id=vbrosseau.alttab)
 
 ## Bugfixes
 

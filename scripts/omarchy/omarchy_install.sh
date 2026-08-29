@@ -8,3 +8,4 @@ log_info "Installing apps and tools for Omarchy..."
 
 "$SCRIPT_DIR/.omarchy_install_tui.sh"
 "$SCRIPT_DIR/omarchy_install_webapp.sh"
+"$SCRIPT_DIR/omarchy_install_plugins.sh"

@@ -2,7 +2,9 @@
 
 # ─── Default Editors ───────────────────────────────
 export EDITOR="nvim"
+# To edit a file which requires sudo, use "sudoedit <file>" instead of "sudo nvim <file>"
 export SUDO_EDITOR="$EDITOR"
+# export SUDO_EDITOR='env NVIM_APPNAME=nvim-custom nvim'
 export VISUAL="$EDITOR"
 
 # ─── Pager ─────────────────────────────────────────

@@ -22,9 +22,9 @@ alias dots='cd $HOME/.local/share/dotfiles'
 # File System Navigation (via eza)
 if command -v eza >/dev/null 2>&1; then
   alias l='eza -1 --icons=auto'
-  alias ls='eza --icons=auto --group-directories-first'
+  alias ls='eza --group-directories-first --icons=auto'
   alias ll='eza -lh --group-directories-first --icons=auto'
-  alias la='eza -lha --group-directories-first --icons=auto'
+  alias lla='eza -lha --group-directories-first --icons=auto'
 fi
 
 lt() {
@@ -33,12 +33,15 @@ lt() {
 }
 
 lta() {
-  local level=${1:-2}
+  local level=${1:-2}  # default to 2 if no argument is passed
   eza --tree --level="$level" --long --icons=auto --git --all
 }
 
 # alias fd='fdfind'
-alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+ff() {
+    local query="$*"
+    fzf --query="$query" --preview 'bat --style=numbers --color=always {}'
+}
 alias mkdir='mkdir -pv'
 
 if command -v zoxide >/dev/null 2>&1; then
@@ -98,14 +101,14 @@ _nv() {
   NVIM_APPNAME="$1" command nvim "${@:2}"
 }
 
-nvim() {
-  _nv nvim-custom "$@"
-}
+# nvim() {
+#   _nv nvim-custom "$@"
+# }
 
 alias nl='_nv nvim-lazyvim'
 alias nk='_nv nvim-kickstart'
 alias n='nvim'
-alias v='nvim'
+# alias v='nvim'
 
 # Yazi (file manager) — cd the shell to wherever yazi was left on quit
 y() {
@@ -309,8 +312,14 @@ alias da='date "+%Y-%m-%d %A %T %Z"'
 alias rm='rm -v'
 alias ps='ps auxf'
 
-# System update via topgrade.
-alias up='topgrade -y'
+# System update
+up() {
+  if command -v omarchy >/dev/null 2>&1; then
+    omarchy update
+  else
+    topgrade -y
+  fi
+}
 
 #######################################################
 # SPECIAL FUNCTIONS

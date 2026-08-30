@@ -12,9 +12,6 @@
   - [ ] Only add the quick terminal for non-omarchy setups
 
 ## Omarchy
-- [ ] Changing the Global Omarchy Text Size also changes the Ghostty config's `font-size` (this is due to `bin/omarchy-display-text-size` script from omarchy)
-- [ ] Install nerd fonts
-- [ ] Set global font (`bin/omarchy-font-set`)
 - [ ] [Dotfiles — The Omarchy Manual](https://omarchy.org/manual/dotfiles/)
 - [ ] [Common tweaks — The Omarchy Manual](https://omarchy.org/manual/common-tweaks/)
 - [ ] [Branding — The Omarchy Manual](https://omarchy.org/manual/branding/)
@@ -46,7 +43,6 @@
   - [ ] starship
 - [ ] Search omarchy repo and find the agent skills for omarchy to add to my dotfiles repo
 - [ ] Bug in Omawrite, when opening or saving, the file explorer is opened on the side, with part of the explorer not even on the screen, and I have to use the mouse to move it to the center
-- [ ] Invert mouse scrolling
 - [ ] Get rid of spacing between windows
 - [ ] Rounded corners?
 - [ ] [The Top Bar — The Omarchy Manual](https://omarchy.org/manual/the-top-bar/)

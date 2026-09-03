@@ -32,6 +32,14 @@ for brew_bin in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew "$(co
 		break
 	fi
 done
+
+# Select mise's environment based on Homebrew availability.
+if command -v brew >/dev/null 2>&1; then
+	unset MISE_ENV
+else
+	export MISE_ENV=no-brew
+fi
+
 unset brew_bin brew_prefix
 
 # Some terminals can start zsh with rc files disabled (`zsh -f` / `setopt norcs`).

@@ -19,6 +19,13 @@ for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
 done
 unset brew_path
 
+# Select mise's environment based on Homebrew availability.
+if command -v brew >/dev/null 2>&1; then
+  unset MISE_ENV
+else
+  export MISE_ENV=no-brew
+fi
+
 # Only continue if the shell is interactive
 [[ $- != *i* ]] && return
 

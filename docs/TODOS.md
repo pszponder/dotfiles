@@ -5,6 +5,7 @@
     - [ ] [nubjs](https://nubjs.com/)
     - [ ] Ghostty terminal on linux
     - [ ] [Claude Powerline](https://www.npmjs.com/package/@owloops/claude-powerline)
+    - [ ] Install distrobox?
   - [ ] [postcard - email client](https://postcard.gxanshu.in/)
 - Review comments in codebase, the comments seem pretty wordy, can they be simplified in places without loosing meaning?
 - [ ] Add a utility script into ./scripts directory for logging (copy the logging template in `.chezmoitemplates`)
@@ -12,6 +13,22 @@
   - [ ] Only add the quick terminal for non-omarchy setups
 
 ## Omarchy
+- [ ] Set the computer to [sleep after 15 minutes](https://omarchy.org/manual/system-sleep/) -> https://github.com/omacom/omarchy/issues/9931
+- [ ] Chromium (automate below)
+    - [ ] Install Plugins 
+        - [ ] Bitwarden
+        - [ ] Dark Reader
+        - [ ] Enhancer for YouTube
+        - [ ] uBlock Origin Lite
+    - [ ] Set Experimental Flags (chrome://flags)
+        - [ ] Vertical Tabs -> Enabled
+        - [ ] Vertical Tabs Expand On Hover -> Enabled
+        - [ ] Vertical Tabs Grab Handle Removal -> Enabled
+        - [ ] Side Panel Flyover Animation -> Enabled
+    - [ ] On startup -> Continue Where you left off
+    - [ ] Security
+        - [ ] Always use secure connections
+    - [ ] Add custom search engines (ex. yt, gh, amazon, ebay)
 - [ ] [Dotfiles — The Omarchy Manual](https://omarchy.org/manual/dotfiles/)
 - [ ] [Common tweaks — The Omarchy Manual](https://omarchy.org/manual/common-tweaks/)
 - [ ] [Branding — The Omarchy Manual](https://omarchy.org/manual/branding/)
@@ -37,10 +54,12 @@
   - [ ] lazygit
   - [ ] nvim (omarchy's implementation of lazyvim)
     - [ ] Determine which version of nvim to use, then update the nvim aliases in `aliases` and the EDITORS defined in `executable_env.sh`
+    - [ ] Perhaps use Omarchy's default when on omarchy, and lazynvim when not on omarchy? (can omarchy lazynvim work for non-omarchy installs)
   - [ ] obsidian
   - [ ] opencode
   - [ ] tmux
-  - [ ] starship
+  - [ ] VSCode
+  - [ ] Zed Editor
 - [ ] Search omarchy repo and find the agent skills for omarchy to add to my dotfiles repo
 - [ ] Bug in Omawrite, when opening or saving, the file explorer is opened on the side, with part of the explorer not even on the screen, and I have to use the mouse to move it to the center
 - [ ] Get rid of spacing between windows
@@ -50,11 +69,13 @@
     - [ ] Add currently active window description in top menu bar
     - [ ] Enable transparency
 - [ ] Setup tailscale
+- [ ] Setup dropbox
 - [ ] Add something like ujust to my dotfiles which will be a globally available binary which points to and executes the justfile in my chezmoi dotfiles repo
   - [ ] Use gum for configuration (if installed)
 - [ ] Setup night light to turn on [automatically](https://omarchy.org/manual/toggles-idle-screensaver/#night-light)?
 - [ ] Change direction of scrolling (natural scrolling?) [Keyboard, Mouse, Trackpad — The Omarchy Manual](https://omarchy.org/manual/keyboard-mouse-trackpad/)
 - [ ] Incoporate Tmux layout functions into dotfiles
+- [ ] Incorporate herdr layout functions into dotfiles
 - [ ] Install [GitHub - tobi/try: fresh directories for every vibe · GitHub](https://github.com/tobi/try)
 - [ ] Setup [CLIAMP — Terminal Music Player](https://www.cliamp.stream/) with my preferred youtube / youtube music / spotify channels, etc.
 - [ ] Flip `super + f` and `super + alt + f` keybindings for full screen modes

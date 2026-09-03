@@ -30,18 +30,26 @@
         - [ ] Always use secure connections
     - [ ] Add custom search engines (ex. yt, gh, amazon, ebay)
 - [ ] [Dotfiles — The Omarchy Manual](https://omarchy.org/manual/dotfiles/)
-- [ ] [Common tweaks — The Omarchy Manual](https://omarchy.org/manual/common-tweaks/)
 - [ ] [Branding — The Omarchy Manual](https://omarchy.org/manual/branding/)
 - [ ] [Commercial apps/services — The Omarchy Manual](https://omarchy.org/manual/commercial-apps-services/)
 - [ ] [GUIs — The Omarchy Manual](https://omarchy.org/manual/guis/)
 - [ ] [Browsers — The Omarchy Manual](https://omarchy.org/manual/browsers/)
 - [ ] Are my dotfiles compatible with Omarchy? If not, what changes are needed to make them compatible?
+- [ ] [The Top Bar — The Omarchy Manual](https://omarchy.org/manual/the-top-bar/)
+    - [ ] Auto-hide top menu bar?
+    - [ ] Add currently active window description in top menu bar
+    - [ ] Enable transparency
 - [ ] [typecraft - You installed Omarchy, Now What?](https://www.youtube.com/watch?v=d23jFJmcaMI)
     - [ ] [typecraft-dev/omarchy-supplement](https://github.com/typecraft-dev/omarchy-supplement)
 - [ ] Add shell functions to dotfiles: [Shell Functions — The Omarchy Manual](https://omarchy.org/manual/shell-functions/)
 - [ ] Create a bootstrap script for omarchy and use the `omarchy pkg add` or `omarchy pkg-aur-add` to install  system level / global packages
 - [ ] Think about installing system level / global packages (like eza, fzf, just, etc.) using the system package manager and mise on project-level packages
   - [ ] Should we add another `config.omarchy.toml.tmpl` file to only run if Omarchy is detected? This would allow us to have Omarchy-specific configuration that only runs when Omarchy is detected, and not on other systems. Or maybe if not omarchy-specific, arch-specific
+- [ ] Inspect how omarchy sets up mise stubs (should I do something similar with the tools in my mise config?)
+    - [ ] Ex. should nvim be managed by mise or by the system?
+    - [ ] Maybe I should use mise bootstrap for system-level tools?
+    - [ ] On a server, mise can manage everything
+    - [ ] On a workstation, what should mise manage vs the system package manager?
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
   - [ ] [bashrc](https://github.com/basecamp/omarchy/blob/quattro/default/bashrc)
   - [ ] btop
@@ -62,12 +70,6 @@
   - [ ] Zed Editor
 - [ ] Search omarchy repo and find the agent skills for omarchy to add to my dotfiles repo
 - [ ] Bug in Omawrite, when opening or saving, the file explorer is opened on the side, with part of the explorer not even on the screen, and I have to use the mouse to move it to the center
-- [ ] Get rid of spacing between windows
-- [ ] Rounded corners?
-- [ ] [The Top Bar — The Omarchy Manual](https://omarchy.org/manual/the-top-bar/)
-    - [ ] Auto-hide top menu bar?
-    - [ ] Add currently active window description in top menu bar
-    - [ ] Enable transparency
 - [ ] Setup tailscale
 - [ ] Setup dropbox
 - [ ] Add something like ujust to my dotfiles which will be a globally available binary which points to and executes the justfile in my chezmoi dotfiles repo
@@ -81,7 +83,17 @@
 - [ ] Flip `super + f` and `super + alt + f` keybindings for full screen modes
 - [ ] Install / Configure Plugins
   - [ ] Configure window switching with alt-tab (https://omarchyplugins.com/plugin.html?id=vbrosseau.alttab)
-
+- [ ] Aliases
+    - [ ] cc for claude code
+    - [ ] cx for codex
+- [ ] [The first plugin competition winners — Omarchy News](https://omarchy.org/news/2026/08/the-first-plugin-competition-winners/)
+- [ ] [What Happened to Omarchy in Two Weeks? - YouTube](https://www.youtube.com/watch?v=8P9qqnso5Ro)
+- [ ] I installed gh cli using mise on omarchy, why do agents have a hard time finding it, it's in the path (maybe I need to try to use an agent from the cli, instead of built-in VSCode since there's some sandboxing happening)
+- [ ] Maybe create another config file for mise for server and have chezmoi track an is_server or is_workstation variable which is selected by the user
+- [ ] VSCode Settings and VIM Keybinds
+    - [ ] Compare my configuration with omarchy and merge together
+    - [ ] `~/.config/Code/User/keybindings.json`
+    - [ ] `~/.config/Code/User/settings.json`
 ## Bugfixes
 
 ## Uncategorized

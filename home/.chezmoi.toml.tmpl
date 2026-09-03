@@ -11,6 +11,8 @@
   {{- $git_email = promptStringOnce . "git_email" "What is your Git email" -}}
 {{- end }}
 
+{{- $machine_type := promptChoiceOnce . "machine_type" "Is this machine a workstation or a server" (list "workstation" "server") -}}
+
 {{- /* ------------------------------------------------------------------ */ -}}
 {{- /* Container detection: gates host-level bootstrap out of containers. */ -}}
 {{- /* ------------------------------------------------------------------ */ -}}
@@ -25,5 +27,6 @@
 [data]
 git_name        = {{ $git_name | quote }}
 git_email       = {{ $git_email | quote }}
+machine_type    = {{ $machine_type | quote }}
 is_devcontainer = {{ $is_devcontainer }}
 is_omarchy      = {{ $is_omarchy }}

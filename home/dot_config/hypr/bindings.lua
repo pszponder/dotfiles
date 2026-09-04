@@ -38,25 +38,25 @@ o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
 o.bind("SUPER + K", "Focus on above window", hl.dsp.focus({ direction = "u" }))
 o.bind("SUPER + J", "Focus on below window", hl.dsp.focus({ direction = "d" }))
 
--- TODO: Super + Shift + numbers moves windows across workspaces, maybe we either use that or use Super + Alt + numbers to move windows across workspaces. Otherwise use super + shift + h/j/k/l to move swap windows as well.
--- Move windows with vim keys. SUPER + SHIFT remains available for applications.
--- SUPER + ALT + K is Omarchy's default Tmux keybindings binding.
-hl.unbind("SUPER + ALT + K")
-o.bind("SUPER + ALT + H", "Move window left", hl.dsp.window.swap({ direction = "l" }))
-o.bind("SUPER + ALT + L", "Move window right", hl.dsp.window.swap({ direction = "r" }))
-o.bind("SUPER + ALT + K", "Move window up", hl.dsp.window.swap({ direction = "u" }))
-o.bind("SUPER + ALT + J", "Move window down", hl.dsp.window.swap({ direction = "d" }))
+-- Move windows with vim keys. SUPER + SHIFT + numbers remains Omarchy's
+-- binding for moving windows to explicit workspaces.
+o.bind("SUPER + SHIFT + H", "Swap window left", hl.dsp.window.swap({ direction = "l" }))
+o.bind("SUPER + SHIFT + L", "Swap window right", hl.dsp.window.swap({ direction = "r" }))
+o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
+o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
+
+-- Workspace Layout
+o.bind("SUPER + ALT + J", "Toggle window split", hl.dsp.layout("togglesplit"))
+o.bind("SUPER + ALT + L", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
+
+-- Window management
+o.bind("SUPER + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))
 
 -- Open the launcher with Super alone.
 -- hl.unbind("SUPER + SPACE")
 -- o.bind("SUPER + SUPER_L", "Omarchy menu", "omarchy-menu toggle", { release = true })
 
 -- Learning/keybinding menus and workspace layout.
-o.bind("SUPER + CTRL + SHIFT + J", "Toggle window split", hl.dsp.layout("togglesplit"))
-o.bind("SUPER + CTRL + SHIFT + L", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
 o.bind("SUPER + CTRL + SHIFT + K", "Keybindings", "omarchy-menu-keybindings")
 o.bind("SUPER + CTRL + SHIFT + T", "Tmux keybindings", "omarchy-menu-tmux-keybindings")
 o.bind("SUPER + CTRL + SHIFT + H", "Herdr keybindings", "omarchy-menu-herdr-keybindings")
-
--- Window management
-o.bind("SUPER + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))

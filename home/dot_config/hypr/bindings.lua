@@ -48,7 +48,7 @@ o.bind("SUPER + ALT + J", "Move window down", hl.dsp.window.swap({ direction = "
 
 -- Open the launcher with Super alone.
 -- hl.unbind("SUPER + SPACE")
-o.bind("SUPER + SUPER_L", "Omarchy menu", "omarchy-menu toggle", { release = true })
+-- o.bind("SUPER + SUPER_L", "Omarchy menu", "omarchy-menu toggle", { release = true })
 
 -- Learning/keybinding menus and workspace layout.
 o.bind("SUPER + CTRL + SHIFT + J", "Toggle window split", hl.dsp.layout("togglesplit"))

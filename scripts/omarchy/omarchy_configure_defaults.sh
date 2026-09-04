@@ -8,5 +8,18 @@ log_info "Configuring Omarchy defaults..."
 
 "$SCRIPT_DIR/omarchy_set_nerdfonts.sh"
 
+# Install Ghostty and use it for Omarchy-launched terminals.
+if command -v omarchy >/dev/null 2>&1; then
+  if command -v ghostty >/dev/null 2>&1; then
+    if [ "$(omarchy default terminal)" != "ghostty" ]; then
+      omarchy default terminal ghostty
+    fi
+  else
+    omarchy install terminal ghostty
+  fi
+else
+  log_warn "Omarchy is not available; leaving the default terminal unchanged."
+fi
+
 # Set the default color theme
 omarchy theme set Catppuccin

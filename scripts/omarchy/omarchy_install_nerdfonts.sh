@@ -17,5 +17,5 @@ for font in "${fonts[@]}"; do
   omarchy pkg add "${font%%:*}"
 done
 
-# Set the last configured font as the system font.
-omarchy font set "${fonts[-1]#*:}"
+# # Set the last configured font as the system font.
+# omarchy font set "${fonts[-1]#*:}"

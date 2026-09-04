@@ -38,6 +38,7 @@ o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
 o.bind("SUPER + K", "Focus on above window", hl.dsp.focus({ direction = "u" }))
 o.bind("SUPER + J", "Focus on below window", hl.dsp.focus({ direction = "d" }))
 
+-- TODO: Super + Shift + numbers moves windows across workspaces, maybe we either use that or use Super + Alt + numbers to move windows across workspaces. Otherwise use super + shift + h/j/k/l to move swap windows as well.
 -- Move windows with vim keys. SUPER + SHIFT remains available for applications.
 -- SUPER + ALT + K is Omarchy's default Tmux keybindings binding.
 hl.unbind("SUPER + ALT + K")

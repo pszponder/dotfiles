@@ -13,6 +13,8 @@
   - [ ] Only add the quick terminal for non-omarchy setups
 
 ## Omarchy
+- [ ] Keybinings
+  - [ ] -- TODO: Super + Shift + numbers moves windows across workspaces, maybe we either use that or use Super + Alt + numbers to move windows across workspaces. Otherwise use super + shift + h/j/k/l to move swap windows as well.
 - [ ] Set the computer to [sleep after 15 minutes](https://omarchy.org/manual/system-sleep/) -> https://github.com/omacom/omarchy/issues/9931
 - [ ] Chromium (automate below)
     - [ ] Install Plugins 

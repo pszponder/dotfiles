@@ -11,20 +11,19 @@ fi
 
 log_info "Configuring Omarchy defaults..."
 
-log_info "Setting the default terminal to Ghostty..."
-omarchy default terminal ghostty
-
 # Set the default color theme
 log_info "Setting the default color theme to Catppuccin..."
 omarchy theme set Catppuccin
 
-# TODO: Set default background image
+log_info "Setting the default background image to catppuccin-mocha.png..."
+omarchy theme bg set "$HOME/Pictures/wallpapers/catppuccin-mocha.png"
 
 # Set the default font
 log_info "Setting the default font to CaskaydiaCove Nerd Font..."
 omarchy font set "CaskaydiaCove Nerd Font"
 
-# TODO: Set default Terminal
+log_info "Setting the default terminal to Ghostty..."
+omarchy default terminal ghostty
 
 # TODO: Set default Editor
 

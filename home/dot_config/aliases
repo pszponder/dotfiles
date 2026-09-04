@@ -94,6 +94,7 @@ alias drink='brew update && brew upgrade && brew cleanup'
 
 # CLI tools
 alias cc='claude'
+alias cx='codex'
 alias oc='opencode'
 
 # Editors

@@ -80,20 +80,16 @@
 - [ ] Incorporate herdr layout functions into dotfiles
 - [ ] Install [GitHub - tobi/try: fresh directories for every vibe · GitHub](https://github.com/tobi/try)
 - [ ] Setup [CLIAMP — Terminal Music Player](https://www.cliamp.stream/) with my preferred youtube / youtube music / spotify channels, etc.
-- [ ] Flip `super + f` and `super + alt + f` keybindings for full screen modes
 - [ ] Install / Configure Plugins
   - [ ] Configure window switching with alt-tab (https://omarchyplugins.com/plugin.html?id=vbrosseau.alttab)
-- [ ] Aliases
-    - [ ] cc for claude code
-    - [ ] cx for codex
 - [ ] [The first plugin competition winners — Omarchy News](https://omarchy.org/news/2026/08/the-first-plugin-competition-winners/)
 - [ ] [What Happened to Omarchy in Two Weeks? - YouTube](https://www.youtube.com/watch?v=8P9qqnso5Ro)
-- [ ] I installed gh cli using mise on omarchy, why do agents have a hard time finding it, it's in the path (maybe I need to try to use an agent from the cli, instead of built-in VSCode since there's some sandboxing happening)
-- [ ] Maybe create another config file for mise for server and have chezmoi track an is_server or is_workstation variable which is selected by the user
 - [ ] VSCode Settings and VIM Keybinds
     - [ ] Compare my configuration with omarchy and merge together
     - [ ] `~/.config/Code/User/keybindings.json`
     - [ ] `~/.config/Code/User/settings.json`
+- [ ] Set ZSH as shell [set-shell.sh](https://github.com/typecraft-dev/omarchy-supplement/blob/main/set-shell.sh)
+
 ## Bugfixes
 
 ## Uncategorized

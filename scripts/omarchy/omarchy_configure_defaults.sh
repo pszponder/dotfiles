@@ -28,3 +28,5 @@ omarchy default terminal ghostty
 # TODO: Set default Editor
 
 # TODO: Set default Browser
+
+"$SCRIPT_DIR/omarchy_configure_browsers.sh" --experimental-flags

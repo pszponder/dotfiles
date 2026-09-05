@@ -47,8 +47,7 @@ configure_state() {
   log_success "Enabled experimental flags for $browser (backup: $backup)."
 }
 
+# These labs are specifically for Omarchy's Chromium setup. Chrome now ships
+# vertical tabs as a normal browser feature, and other Chromium-family
+# browsers may expose different implementations or defaults.
 configure_state "Chromium" "$HOME/.config/chromium/Local State" chromium
-configure_state "Google Chrome" "$HOME/.config/google-chrome/Local State" google-chrome
-configure_state "Brave" "$HOME/.config/BraveSoftware/Brave-Browser/Local State" brave
-configure_state "Microsoft Edge" "$HOME/.config/microsoft-edge/Local State" microsoft-edge-stable
-configure_state "Helium" "$HOME/.config/net.imput.helium/Local State" helium-browser

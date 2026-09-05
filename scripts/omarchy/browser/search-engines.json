@@ -1,0 +1,28 @@
+{
+  "SiteSearchSettings": [
+    {
+      "name": "YouTube",
+      "shortcut": "yt",
+      "url": "https://www.youtube.com/results?search_query={searchTerms}",
+      "allow_user_override": true
+    },
+    {
+      "name": "GitHub",
+      "shortcut": "gh",
+      "url": "https://github.com/search?q={searchTerms}",
+      "allow_user_override": true
+    },
+    {
+      "name": "Amazon",
+      "shortcut": "amazon",
+      "url": "https://www.amazon.com/s?k={searchTerms}",
+      "allow_user_override": true
+    },
+    {
+      "name": "eBay",
+      "shortcut": "ebay",
+      "url": "https://www.ebay.com/sch/i.html?_nkw={searchTerms}",
+      "allow_user_override": true
+    }
+  ]
+}

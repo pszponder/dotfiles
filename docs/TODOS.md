@@ -1,6 +1,6 @@
 ## Features
+- [ ] Codex add a visual indicator of context usage in the cli
 - [ ] Add applications
-    - [ ] handy (speech to text)
     - [ ] [sbx](https://www.docker.com/products/docker-sandboxes/)
     - [ ] [nubjs](https://nubjs.com/)
     - [ ] Ghostty terminal on linux
@@ -13,24 +13,8 @@
   - [ ] Only add the quick terminal for non-omarchy setups
 
 ## Omarchy
-- [ ] Keybinings
-  - [ ] -- TODO: Super + Shift + numbers moves windows across workspaces, maybe we either use that or use Super + Alt + numbers to move windows across workspaces. Otherwise use super + shift + h/j/k/l to move swap windows as well.
+- [ ] Fix error message on system login: `Hyprland was started without start-hyprland. This is strongly discouraged unless you are in a debugging environment.`
 - [ ] Set the computer to [sleep after 15 minutes](https://omarchy.org/manual/system-sleep/) -> https://github.com/omacom/omarchy/issues/9931
-- [ ] Chromium (automate below)
-    - [ ] Install Plugins 
-        - [ ] Bitwarden
-        - [ ] Dark Reader
-        - [ ] Enhancer for YouTube
-        - [ ] uBlock Origin Lite
-    - [ ] Set Experimental Flags (chrome://flags)
-        - [ ] Vertical Tabs -> Enabled
-        - [ ] Vertical Tabs Expand On Hover -> Enabled
-        - [ ] Vertical Tabs Grab Handle Removal -> Enabled
-        - [ ] Side Panel Flyover Animation -> Enabled
-    - [ ] On startup -> Continue Where you left off
-    - [ ] Security
-        - [ ] Always use secure connections
-    - [ ] Add custom search engines (ex. yt, gh, amazon, ebay)
 - [ ] [Dotfiles — The Omarchy Manual](https://omarchy.org/manual/dotfiles/)
 - [ ] [Branding — The Omarchy Manual](https://omarchy.org/manual/branding/)
 - [ ] [Commercial apps/services — The Omarchy Manual](https://omarchy.org/manual/commercial-apps-services/)
@@ -39,7 +23,6 @@
 - [ ] Are my dotfiles compatible with Omarchy? If not, what changes are needed to make them compatible?
 - [ ] [The Top Bar — The Omarchy Manual](https://omarchy.org/manual/the-top-bar/)
     - [ ] Auto-hide top menu bar?
-    - [ ] Add currently active window description in top menu bar
     - [ ] Enable transparency
 - [ ] [typecraft - You installed Omarchy, Now What?](https://www.youtube.com/watch?v=d23jFJmcaMI)
     - [ ] [typecraft-dev/omarchy-supplement](https://github.com/typecraft-dev/omarchy-supplement)
@@ -84,13 +67,12 @@
 - [ ] Setup [CLIAMP — Terminal Music Player](https://www.cliamp.stream/) with my preferred youtube / youtube music / spotify channels, etc.
 - [ ] Install / Configure Plugins
   - [ ] Configure window switching with alt-tab (https://omarchyplugins.com/plugin.html?id=vbrosseau.alttab)
-- [ ] [The first plugin competition winners — Omarchy News](https://omarchy.org/news/2026/08/the-first-plugin-competition-winners/)
-- [ ] [What Happened to Omarchy in Two Weeks? - YouTube](https://www.youtube.com/watch?v=8P9qqnso5Ro)
+  - [ ] [The first plugin competition winners — Omarchy News](https://omarchy.org/news/2026/08/the-first-plugin-competition-winners/)
+  - [ ] [What Happened to Omarchy in Two Weeks? - YouTube](https://www.youtube.com/watch?v=8P9qqnso5Ro)
 - [ ] VSCode Settings and VIM Keybinds
     - [ ] Compare my configuration with omarchy and merge together
     - [ ] `~/.config/Code/User/keybindings.json`
     - [ ] `~/.config/Code/User/settings.json`
-- [ ] Set ZSH as shell [set-shell.sh](https://github.com/typecraft-dev/omarchy-supplement/blob/main/set-shell.sh)
 
 ## Bugfixes
 

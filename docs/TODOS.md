@@ -28,13 +28,14 @@
     - [ ] [typecraft-dev/omarchy-supplement](https://github.com/typecraft-dev/omarchy-supplement)
 - [ ] Add shell functions to dotfiles: [Shell Functions — The Omarchy Manual](https://omarchy.org/manual/shell-functions/)
 - [ ] Create a bootstrap script for omarchy and use the `omarchy pkg add` or `omarchy pkg-aur-add` to install  system level / global packages
-- [ ] Think about installing system level / global packages (like eza, fzf, just, etc.) using the system package manager and mise on project-level packages
-  - [ ] Should we add another `config.omarchy.toml.tmpl` file to only run if Omarchy is detected? This would allow us to have Omarchy-specific configuration that only runs when Omarchy is detected, and not on other systems. Or maybe if not omarchy-specific, arch-specific
-- [ ] Inspect how omarchy sets up mise stubs (should I do something similar with the tools in my mise config?)
-    - [ ] Ex. should nvim be managed by mise or by the system?
-    - [ ] Maybe I should use mise bootstrap for system-level tools?
-    - [ ] On a server, mise can manage everything
-    - [ ] On a workstation, what should mise manage vs the system package manager?
+- [ ] Install Arch/Omarchy global packages (like eza, fzf, and just) through the system package manager and keep language runtimes/project tools in mise.
+  - [ ] Use an Arch-specific mise environment rather than a separate Omarchy config; Omarchy-specific dotfiles can continue to use `.is_omarchy`.
+  - [ ] how does omarchy separate installing packages via mise or via the arch packages or aur
+  - [ ] Inspect how omarchy sets up mise stubs (should I do something similar with the tools in my mise config?)
+      - [ ] Ex. should nvim be managed by mise or by the system?
+      - [ ] Maybe I should use mise bootstrap for system-level tools?
+      - [ ] On a server, mise can manage everything
+      - [ ] On a workstation, what should mise manage vs the system package manager?
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
   - [ ] [bashrc](https://github.com/basecamp/omarchy/blob/quattro/default/bashrc)
   - [ ] btop

@@ -11,15 +11,14 @@ if ! command -v omarchy >/dev/null 2>&1; then
 fi
 
 remove_webapps() {
+  if [ "$#" -eq 0 ]; then
+    log_info "No web apps to remove."
+    return 0
+  fi
+
   log_info "Removing unwanted web apps..."
 
-  webapps="
-Basecamp
-Hey
-WhatsApp
-"
-
-  for webapp in $webapps; do
+  for webapp do
     log_info "Removing web app: $webapp"
 
     if omarchy webapp remove "$webapp"; then
@@ -33,7 +32,10 @@ WhatsApp
 debloat_omarchy() {
   log_info "Debloating Omarchy installation..."
 
-  remove_webapps
+  remove_webapps \
+    "Basecamp" \
+    "Hey" \
+    "WhatsApp"
 
   # Add additional debloating operations here.
   # remove_packages

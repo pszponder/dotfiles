@@ -38,20 +38,28 @@ o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
 o.bind("SUPER + K", "Focus on above window", hl.dsp.focus({ direction = "u" }))
 o.bind("SUPER + J", "Focus on below window", hl.dsp.focus({ direction = "d" }))
 
--- Move windows with vim keys. SUPER + SHIFT + numbers remains Omarchy's
+-- Move windows with vim keys. SUPER + ALT + numbers remains Omarchy's
 -- binding for moving windows to explicit workspaces.
-o.bind("SUPER + SHIFT + H", "Swap window left", hl.dsp.window.swap({ direction = "l" }))
-o.bind("SUPER + SHIFT + L", "Swap window right", hl.dsp.window.swap({ direction = "r" }))
-o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
-o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
+hl.unbind("SUPER + ALT + K")
+o.bind("SUPER + ALT + H", "Swap window left", hl.dsp.window.swap({ direction = "l" }))
+o.bind("SUPER + ALT + L", "Swap window right", hl.dsp.window.swap({ direction = "r" }))
+o.bind("SUPER + ALT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
+o.bind("SUPER + ALT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
 
 -- Workspace Layout
-o.bind("SUPER + ALT + J", "Toggle window split", hl.dsp.layout("togglesplit"))
-o.bind("SUPER + ALT + L", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
--- o.bind("SUPER + ALT + L", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
+-- Keep SUPER + ALT + H/J/K/L reserved for moving windows.
+hl.unbind("SUPER + CTRL + J")
+hl.unbind("SUPER + CTRL + L")
+hl.unbind("SUPER + ALT + T")
+hl.unbind("SUPER + ALT + O")
+o.bind("SUPER + ALT + T", "Toggle window split", hl.dsp.layout("togglesplit"))
+o.bind("SUPER + ALT + O", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
 
 -- Window management
-o.bind("SUPER + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))
+hl.unbind("SUPER + M")
+hl.unbind("SUPER + ALT + M")
+o.bind("SUPER + M", "Full screen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+o.bind("SUPER + ALT + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))
 
 -- Open the launcher with Super alone.
 -- hl.unbind("SUPER + SPACE")
@@ -61,3 +69,20 @@ o.bind("SUPER + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" 
 o.bind("SUPER + CTRL + SHIFT + K", "Keybindings", "omarchy-menu-keybindings")
 o.bind("SUPER + CTRL + SHIFT + T", "Tmux keybindings", "omarchy-menu-tmux-keybindings")
 o.bind("SUPER + CTRL + SHIFT + H", "Herdr keybindings", "omarchy-menu-herdr-keybindings")
+
+-- Applications
+hl.unbind("SUPER + B")
+hl.unbind("SUPER + F")
+hl.unbind("SUPER + E")
+hl.unbind("SUPER + O")
+o.bind("SUPER + B", "Browser", { omarchy = "browser" })
+o.bind("SUPER + F", "File manager", { omarchy = "nautilus" })
+o.bind("SUPER + E", "Editor", { omarchy = "editor" })
+o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "obsidian" })
+
+-- Push-to-talk dictation. Match Omarchy's default press/release behavior.
+if o.cmd_present("voxtype") then
+  hl.unbind("SUPER + R")
+  o.bind("SUPER + R", "Start dictation (push-to-talk)", "voxtype record start")
+  o.bind("SUPER + R", "Stop dictation (push-to-talk)", "voxtype record stop", { release = true })
+end

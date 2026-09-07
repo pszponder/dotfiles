@@ -49,7 +49,8 @@ o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction =
 hl.unbind("SUPER + SHIFT + T")
 hl.unbind("SUPER + SHIFT + R")
 o.bind("SUPER + SHIFT + T", "Toggle window split", hl.dsp.layout("togglesplit"))
-o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
+o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
+-- o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
 
 -- Window management
 hl.unbind("SUPER + M")

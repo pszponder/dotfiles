@@ -56,6 +56,7 @@ hl.config({
 -- })
 
 -- https://wiki.hypr.land/Configuring/Layouts/Master-Layout/
+-- Only available if using the hyprland-workspace-layout-toggle script.
 hl.config({
   master = {
     -- Give the master and slave areas equal width.

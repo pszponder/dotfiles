@@ -12,6 +12,8 @@
 {{- end }}
 
 {{- $machine_type := promptChoiceOnce . "machine_type" "Is this machine a workstation or a server" (list "workstation" "server") -}}
+{{- $uses_brew := promptBoolOnce . "uses_brew" "Should Homebrew own shared CLI tools on this machine" false -}}
+{{- $is_workstation := eq $machine_type "workstation" -}}
 
 {{- /* ------------------------------------------------------------------ */ -}}
 {{- /* Container detection: gates host-level bootstrap out of containers. */ -}}
@@ -28,5 +30,7 @@
 git_name        = {{ $git_name | quote }}
 git_email       = {{ $git_email | quote }}
 machine_type    = {{ $machine_type | quote }}
+is_workstation  = {{ $is_workstation }}
+uses_brew       = {{ $uses_brew }}
 is_devcontainer = {{ $is_devcontainer }}
 is_omarchy      = {{ $is_omarchy }}

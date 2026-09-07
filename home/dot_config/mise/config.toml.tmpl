@@ -6,13 +6,58 @@ MISE_RUSTUP_HOME = "{{ .chezmoi.homeDir }}/.local/share/rustup"
 MISE_CARGO_HOME = "{{ .chezmoi.homeDir }}/.local/share/cargo"
 
 [tools]
-# Language runtimes and mise-exclusive tools: always managed by mise,
-# regardless of whether Homebrew is installed. CLI tools also available in
-# Brewfile.tmpl live in config.no-brew.toml.tmpl instead, and are only
-# loaded (via MISE_ENV=no-brew, see scripts/cli/mise_sync.sh) when Homebrew is not installed.
+# Language runtimes are always managed by mise.
 # "github:devsy-org/devsy" = "latest"
 bun = "latest"
 go = "latest"
 node = "latest"
 python = "latest"
 rust = "latest"
+
+{{- if .is_omarchy }}
+# Omarchy owns common CLI tools through pacman/omarchy pkg. Keep only tools
+# that are not supplied by Omarchy and are intentionally managed by mise.
+nub = "latest"
+ruff = "latest"
+ty = "latest"
+uv = "latest"
+{{- else if or (not .is_workstation) (not .uses_brew) }}
+# Servers and workstations without Homebrew use mise for common CLI tools.
+atuin = "latest"
+bat = "latest"
+btop = "latest"
+codex = "latest"
+claude = "latest"
+cmake = "latest"
+delta = "latest"
+direnv = "latest"
+eza = "latest"
+fd = "latest"
+fzf = "latest"
+github-cli = "latest"
+gum = "latest"
+herdr = "latest"
+jj = "latest"
+jq = "latest"
+just = "latest"
+# TODO: Install Kanata???
+lazydocker = "latest"
+lazygit = "latest"
+make = "latest"
+neovim = "latest"
+nub = "latest"
+opencode = "latest"
+pi = "latest"
+ripgrep = "latest"
+ruff = "latest"
+starship = "latest"
+tmux = "latest"
+topgrade = "latest"
+tree-sitter = "latest"
+# "cargo:tree-sitter-cli" = "latest"
+ty = "latest"
+uv = "latest"
+worktrunk = "latest"
+yazi = "latest"
+zoxide = "latest"
+{{- end }}

@@ -20,17 +20,6 @@ done
 unset brew_path
 {{- end }}
 
-{{- if .is_omarchy }}
-export MISE_ENV=omarchy
-{{- else }}
-# Select mise's environment based on Homebrew availability.
-if command -v brew >/dev/null 2>&1; then
-  unset MISE_ENV
-else
-  export MISE_ENV=no-brew
-fi
-{{- end }}
-
 # Only continue if the shell is interactive
 [[ $- != *i* ]] && return
 

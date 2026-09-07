@@ -38,22 +38,18 @@ o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
 o.bind("SUPER + K", "Focus on above window", hl.dsp.focus({ direction = "u" }))
 o.bind("SUPER + J", "Focus on below window", hl.dsp.focus({ direction = "d" }))
 
--- Move windows with vim keys. SUPER + ALT + numbers remains Omarchy's
--- binding for moving windows to explicit workspaces.
-hl.unbind("SUPER + ALT + K")
-o.bind("SUPER + ALT + H", "Swap window left", hl.dsp.window.swap({ direction = "l" }))
-o.bind("SUPER + ALT + L", "Swap window right", hl.dsp.window.swap({ direction = "r" }))
-o.bind("SUPER + ALT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
-o.bind("SUPER + ALT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
+-- Move windows with vim keys and SUPER + SHIFT + numbers to explicit workspaces.
+hl.unbind("SUPER + SHIFT + K")
+o.bind("SUPER + SHIFT + H", "Swap window left", hl.dsp.window.swap({ direction = "l" }))
+o.bind("SUPER + SHIFT + L", "Swap window right", hl.dsp.window.swap({ direction = "r" }))
+o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
+o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
 
 -- Workspace Layout
--- Keep SUPER + ALT + H/J/K/L reserved for moving windows.
-hl.unbind("SUPER + CTRL + J")
-hl.unbind("SUPER + CTRL + L")
-hl.unbind("SUPER + ALT + T")
-hl.unbind("SUPER + ALT + O")
-o.bind("SUPER + ALT + T", "Toggle window split", hl.dsp.layout("togglesplit"))
-o.bind("SUPER + ALT + O", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
+hl.unbind("SUPER + SHIFT + T")
+hl.unbind("SUPER + SHIFT + R")
+o.bind("SUPER + SHIFT + T", "Toggle window split", hl.dsp.layout("togglesplit"))
+o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
 
 -- Window management
 hl.unbind("SUPER + M")

@@ -25,7 +25,8 @@ omarchy font set "CaskaydiaCove Nerd Font"
 log_info "Setting the default terminal to Ghostty..."
 omarchy default terminal ghostty
 
-# TODO: Set default Editor
+log_info "Setting the default editor to VS Code..."
+omarchy default editor code
 
 log_info "Setting the default browser to Brave Origin..."
 omarchy default browser brave-origin

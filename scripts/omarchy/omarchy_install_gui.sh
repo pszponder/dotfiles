@@ -14,6 +14,12 @@ log_info "Installing GUI application(s) for Omarchy..."
 log_info "Installing Ghostty..."
 omarchy install terminal ghostty
 
+log_info "Installing VS Code..."
+omarchy install editor vscode
+
+log_info "Installing Bitwarden..."
+omarchy install app 'Bitwarden' bitwarden
+
 log_info "Installing Brave Origin..."
 omarchy install browser brave-origin
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 set -eu
 
-SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+SCRIPT_DIR={{ .chezmoi.sourceDir | quote }}/../scripts/cli
 . "$SCRIPT_DIR/../utils/utils_logging.sh"
 
 MISE_BIN=$(command -v mise 2>/dev/null || true)

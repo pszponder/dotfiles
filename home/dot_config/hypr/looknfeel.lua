@@ -41,6 +41,12 @@ hl.config({
 --   },
 -- })
 
+-- -- https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/
+-- hl.config({
+--   dwindle = {
+--   },
+-- })
+
 -- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
 -- hl.config({
 --   scrolling = {
@@ -48,3 +54,13 @@ hl.config({
 --     column_width = 0.97,
 --   },
 -- })
+
+-- https://wiki.hypr.land/Configuring/Layouts/Master-Layout/
+hl.config({
+  master = {
+    -- Keep the focused/new windows in the slave stack by default.
+    new_status = "slave",
+    -- Put the master area on the left, with slave windows stacked on the right.
+    orientation = "left",
+  },
+})

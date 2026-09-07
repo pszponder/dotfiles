@@ -47,7 +47,8 @@ o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction =
 
 -- Workspace Layout
 o.bind("SUPER + ALT + J", "Toggle window split", hl.dsp.layout("togglesplit"))
-o.bind("SUPER + ALT + L", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
+o.bind("SUPER + ALT + L", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
+-- o.bind("SUPER + ALT + L", "Toggle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
 
 -- Window management
 o.bind("SUPER + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))

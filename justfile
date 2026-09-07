@@ -52,4 +52,4 @@ mise-uninstall:
 
 # Install and reshim the runtimes in the managed mise configuration.
 mise-sync:
-    sh scripts/cli/mise_sync.sh
+    chezmoi execute-template --file scripts/cli/mise_sync.sh.tmpl | sh

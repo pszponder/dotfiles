@@ -26,8 +26,14 @@ if [ ! -f "$MISE_CONFIG" ]; then
   exit 1
 fi
 
-"$MISE_BIN" trust "$MISE_CONFIG"
-
+{{- if .is_omarchy }}
+# Omarchy has its own mise environment. It is independent of Homebrew because
+# Omarchy's system-owned CLI tools have already been removed from this profile.
+export MISE_ENV=omarchy
+MISE_ENV_CONFIG="$HOME/.config/mise/config.omarchy.toml"
+{{- else }}
+# Homebrew owns the shared CLI tools when it is installed. Without Homebrew,
+# load the fallback mise environment containing those tools.
 BREW_BIN=$(command -v brew 2>/dev/null || true)
 for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
   if [ -z "$BREW_BIN" ] && [ -x "$brew_path" ]; then
@@ -35,13 +41,23 @@ for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
   fi
 done
 
-# Homebrew owns the shared CLI tools in config.no-brew.toml; only load that
-# file (via MISE_ENV) when Homebrew isn't installed, so mise install picks
-# up just the runtimes in config.toml when Homebrew is present.
-NO_BREW_CONFIG="$HOME/.config/mise/config.no-brew.toml"
-if [ -z "$BREW_BIN" ] && [ -f "$NO_BREW_CONFIG" ]; then
+if [ -n "$BREW_BIN" ]; then
+  unset MISE_ENV
+  MISE_ENV_CONFIG=""
+else
   export MISE_ENV=no-brew
-  "$MISE_BIN" trust "$NO_BREW_CONFIG"
+  MISE_ENV_CONFIG="$HOME/.config/mise/config.no-brew.toml"
+fi
+{{- end }}
+
+"$MISE_BIN" trust "$MISE_CONFIG"
+
+if [ -n "$MISE_ENV_CONFIG" ]; then
+  if [ ! -f "$MISE_ENV_CONFIG" ]; then
+    log_error "mise environment config not found: $MISE_ENV_CONFIG; run chezmoi apply first"
+    exit 1
+  fi
+  "$MISE_BIN" trust "$MISE_ENV_CONFIG"
 fi
 
 "$MISE_BIN" install

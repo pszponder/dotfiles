@@ -19,6 +19,7 @@ for dir in "$HOME/bin" "$HOME/.local/bin" "$HOME/scripts" "/usr/local/bin" "$HOM
 done
 unset dir
 
+{{- if not .is_omarchy }}
 # Homebrew (macOS + Linuxbrew): make its commands available in every shell
 # mode, but only evaluate `shellenv` for interactive shells. Non-interactive
 # commands do not need the extra Homebrew variables or man/info path setup.
@@ -32,13 +33,18 @@ for brew_bin in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew "$(co
 		break
 	fi
 done
+{{- end }}
 
+{{- if .is_omarchy }}
+export MISE_ENV=omarchy
+{{- else }}
 # Select mise's environment based on Homebrew availability.
 if command -v brew >/dev/null 2>&1; then
 	unset MISE_ENV
 else
 	export MISE_ENV=no-brew
 fi
+{{- end }}
 
 unset brew_bin brew_prefix
 

@@ -10,7 +10,7 @@
 # to pick these up.)
 [ -f "$HOME/.config/env.sh" ] && source "$HOME/.config/env.sh"
 
-# Homebrew (macOS & Linux) — before interactive guard for parity with zsh's .zshenv
+{{- if not .is_omarchy }}
 for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
     if [ -x "$brew_path" ]; then
         eval "$("$brew_path" shellenv)"
@@ -18,13 +18,18 @@ for brew_path in /opt/homebrew/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
     fi
 done
 unset brew_path
+{{- end }}
 
+{{- if .is_omarchy }}
+export MISE_ENV=omarchy
+{{- else }}
 # Select mise's environment based on Homebrew availability.
 if command -v brew >/dev/null 2>&1; then
   unset MISE_ENV
 else
   export MISE_ENV=no-brew
 fi
+{{- end }}
 
 # Only continue if the shell is interactive
 [[ $- != *i* ]] && return

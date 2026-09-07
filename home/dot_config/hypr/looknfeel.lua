@@ -58,6 +58,8 @@ hl.config({
 -- https://wiki.hypr.land/Configuring/Layouts/Master-Layout/
 hl.config({
   master = {
+    -- Give the master and slave areas equal width.
+    mfact = 0.50,
     -- Keep the focused/new windows in the slave stack by default.
     new_status = "slave",
     -- Put the master area on the left, with slave windows stacked on the right.

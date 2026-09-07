@@ -72,10 +72,16 @@ hl.unbind("SUPER + B")
 hl.unbind("SUPER + F")
 hl.unbind("SUPER + E")
 hl.unbind("SUPER + O")
+hl.unbind("SUPER + SHIFT + E")
+hl.unbind("SUPER + SHIFT + M")
+hl.unbind("SUPER + SHIFT + ALT + E")
 o.bind("SUPER + B", "Browser", { omarchy = "browser" })
 o.bind("SUPER + F", "File manager", { omarchy = "nautilus" })
 o.bind("SUPER + E", "Editor", { omarchy = "editor" })
 o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "obsidian" })
+o.bind("SUPER + SHIFT + M", "Youtube Music", { webapp = "https://music.youtube.com/" })
+o.bind("SUPER + SHIFT + E", "Gmail", { webapp = "https://mail.google.com/" })
+o.bind("SUPER + SHIFT + ALT + E", "New email", { webapp = "https://mail.google.com/mail/u/0/#compose" })
 
 -- Push-to-talk dictation. Match Omarchy's default press/release behavior.
 if o.cmd_present("voxtype") then

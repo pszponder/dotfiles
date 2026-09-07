@@ -27,6 +27,7 @@ omarchy default terminal ghostty
 
 # TODO: Set default Editor
 
-# TODO: Set default Browser
+log_info "Setting the default browser to Brave Origin..."
+omarchy default browser brave-origin
 
 # "$SCRIPT_DIR/omarchy_configure_browsers.sh" --experimental-flags

@@ -14,6 +14,9 @@ log_info "Installing GUI application(s) for Omarchy..."
 log_info "Installing Ghostty..."
 omarchy install terminal ghostty
 
+log_info "Installing Brave Origin..."
+omarchy install browser brave-origin
+
 install_aur_packages() {
   if [ "$#" -eq 0 ]; then
     return 0

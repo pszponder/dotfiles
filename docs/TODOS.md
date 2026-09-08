@@ -38,7 +38,6 @@
   - [ ] tmux
     - [ ] Incoporate Tmux layout functions into dotfiles
   - [ ] Zed Editor
-- [ ] Change direction of scrolling (natural scrolling?) [Keyboard, Mouse, Trackpad — The Omarchy Manual](https://omarchy.org/manual/keyboard-mouse-trackpad/)
 - [ ] Setup [CLIAMP — Terminal Music Player](https://www.cliamp.stream/) with my preferred youtube / youtube music / spotify channels, etc.
 
 ## Bugfixes

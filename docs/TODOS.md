@@ -19,9 +19,6 @@
   - [ ] Install [toolboxes](https://github.com/ublue-os/toolboxes) / [distrobox](https://wiki.archlinux.org/title/Distrobox)
 - [ ] Set the computer to [sleep after 15 minutes](https://omarchy.org/manual/system-sleep/) -> https://github.com/omacom/omarchy/issues/9931
 - [ ] [Dotfiles — The Omarchy Manual](https://omarchy.org/manual/dotfiles/)
-- [ ] [Branding — The Omarchy Manual](https://omarchy.org/manual/branding/)
-- [ ] [Commercial apps/services — The Omarchy Manual](https://omarchy.org/manual/commercial-apps-services/)
-- [ ] Are my dotfiles compatible with Omarchy? If not, what changes are needed to make them compatible?
 - [ ] Add shell functions to dotfiles: [Shell Functions — The Omarchy Manual](https://omarchy.org/manual/shell-functions/)
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
   - [ ] [bashrc](https://github.com/basecamp/omarchy/blob/quattro/default/bashrc)

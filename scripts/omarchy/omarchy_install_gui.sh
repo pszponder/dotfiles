@@ -18,7 +18,7 @@ log_info "Installing VS Code..."
 omarchy install editor vscode
 
 log_info "Installing Bitwarden..."
-omarchy install app 'Bitwarden' bitwarden
+omarchy install app 'Bitwarden' 'bitwarden bitwarden-cli'
 
 log_info "Installing Brave Origin..."
 omarchy install browser brave-origin

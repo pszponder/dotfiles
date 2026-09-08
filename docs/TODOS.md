@@ -12,7 +12,6 @@
 - [ ] Add Ghostty [Quick Terminal](https://dbushell.com/2025/04/11/ghostty-macos-quick-terminal/) (do I need quick terminal If using hyprland, can I just toggle a floating scratchpad terminal instead?)
   - [ ] Only add the quick terminal for non-omarchy setups
 - [ ] Add jujutsu [dynamic completions](https://docs.jj-vcs.dev/latest/install-and-setup/#dynamic-completions) to bash and zshrc
-- [ ] Update X in starship to be red on an error (instead of green)
 
 ## Omarchy
 - [ ] Install Apps

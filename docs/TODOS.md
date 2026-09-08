@@ -21,7 +21,6 @@
 - [ ] [Dotfiles — The Omarchy Manual](https://omarchy.org/manual/dotfiles/)
 - [ ] [Branding — The Omarchy Manual](https://omarchy.org/manual/branding/)
 - [ ] [Commercial apps/services — The Omarchy Manual](https://omarchy.org/manual/commercial-apps-services/)
-- [ ] [GUIs — The Omarchy Manual](https://omarchy.org/manual/guis/)
 - [ ] Are my dotfiles compatible with Omarchy? If not, what changes are needed to make them compatible?
 - [ ] Add shell functions to dotfiles: [Shell Functions — The Omarchy Manual](https://omarchy.org/manual/shell-functions/)
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
@@ -42,16 +41,9 @@
   - [ ] opencode
   - [ ] tmux
     - [ ] Incoporate Tmux layout functions into dotfiles
-  - [ ] VSCode
   - [ ] Zed Editor
-- [ ] Add something like ujust to my dotfiles which will be a globally available binary which points to and executes the justfile in my chezmoi dotfiles repo
-  - [ ] Use gum for configuration (if installed)
 - [ ] Change direction of scrolling (natural scrolling?) [Keyboard, Mouse, Trackpad — The Omarchy Manual](https://omarchy.org/manual/keyboard-mouse-trackpad/)
 - [ ] Setup [CLIAMP — Terminal Music Player](https://www.cliamp.stream/) with my preferred youtube / youtube music / spotify channels, etc.
-- [ ] VSCode Settings and VIM Keybinds
-    - [ ] Compare my configuration with omarchy and merge together
-    - [ ] `~/.config/Code/User/keybindings.json`
-    - [ ] `~/.config/Code/User/settings.json`
 
 ## Bugfixes
 

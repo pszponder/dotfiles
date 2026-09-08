@@ -63,6 +63,7 @@ o.bind("SUPER + ALT + M", "Full width", hl.dsp.window.fullscreen({ mode = "maxim
 -- o.bind("SUPER + SUPER_L", "Omarchy menu", "omarchy-menu toggle", { release = true })
 
 -- Learning/keybinding menus and workspace layout.
+hl.unbind("SUPER + ALT + K")
 o.bind("SUPER + CTRL + SHIFT + K", "Keybindings", "omarchy-menu-keybindings")
 o.bind("SUPER + CTRL + SHIFT + T", "Tmux keybindings", "omarchy-menu-tmux-keybindings")
 o.bind("SUPER + CTRL + SHIFT + H", "Herdr keybindings", "omarchy-menu-herdr-keybindings")

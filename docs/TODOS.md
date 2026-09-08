@@ -1,4 +1,5 @@
 ## Features
+- [ ] Add docker install script to Justfile and Makefile in case docker needs to be installed on system
 - [ ] Codex add a visual indicator of context usage in the cli
 - [ ] Add applications
     - [ ] [sbx](https://www.docker.com/products/docker-sandboxes/)
@@ -8,34 +9,21 @@
     - [ ] Install distrobox?
   - [ ] [postcard - email client](https://postcard.gxanshu.in/)
 - Review comments in codebase, the comments seem pretty wordy, can they be simplified in places without loosing meaning?
-- [ ] Add a utility script into ./scripts directory for logging (copy the logging template in `.chezmoitemplates`)
 - [ ] Add Ghostty [Quick Terminal](https://dbushell.com/2025/04/11/ghostty-macos-quick-terminal/) (do I need quick terminal If using hyprland, can I just toggle a floating scratchpad terminal instead?)
   - [ ] Only add the quick terminal for non-omarchy setups
+- [ ] Add jujutsu [dynamic completions](https://docs.jj-vcs.dev/latest/install-and-setup/#dynamic-completions) to bash and zshrc
+- [ ] Update X in starship to be red on an error (instead of green)
 
 ## Omarchy
-- [ ] Fix error message on system login: `Hyprland was started without start-hyprland. This is strongly discouraged unless you are in a debugging environment.`
+- [ ] Install Apps
+  - [ ] Install [toolboxes](https://github.com/ublue-os/toolboxes) / [distrobox](https://wiki.archlinux.org/title/Distrobox)
 - [ ] Set the computer to [sleep after 15 minutes](https://omarchy.org/manual/system-sleep/) -> https://github.com/omacom/omarchy/issues/9931
 - [ ] [Dotfiles — The Omarchy Manual](https://omarchy.org/manual/dotfiles/)
 - [ ] [Branding — The Omarchy Manual](https://omarchy.org/manual/branding/)
 - [ ] [Commercial apps/services — The Omarchy Manual](https://omarchy.org/manual/commercial-apps-services/)
 - [ ] [GUIs — The Omarchy Manual](https://omarchy.org/manual/guis/)
-- [ ] [Browsers — The Omarchy Manual](https://omarchy.org/manual/browsers/)
 - [ ] Are my dotfiles compatible with Omarchy? If not, what changes are needed to make them compatible?
-- [ ] [The Top Bar — The Omarchy Manual](https://omarchy.org/manual/the-top-bar/)
-    - [ ] Auto-hide top menu bar?
-    - [ ] Enable transparency
-- [ ] [typecraft - You installed Omarchy, Now What?](https://www.youtube.com/watch?v=d23jFJmcaMI)
-    - [ ] [typecraft-dev/omarchy-supplement](https://github.com/typecraft-dev/omarchy-supplement)
 - [ ] Add shell functions to dotfiles: [Shell Functions — The Omarchy Manual](https://omarchy.org/manual/shell-functions/)
-- [ ] Create a bootstrap script for omarchy and use the `omarchy pkg add` or `omarchy pkg-aur-add` to install  system level / global packages
-- [ ] Install Arch/Omarchy global packages (like eza, fzf, and just) through the system package manager and keep language runtimes/project tools in mise.
-  - [ ] Use an Arch-specific mise environment rather than a separate Omarchy config; Omarchy-specific dotfiles can continue to use `.is_omarchy`.
-  - [ ] how does omarchy separate installing packages via mise or via the arch packages or aur
-  - [ ] Inspect how omarchy sets up mise stubs (should I do something similar with the tools in my mise config?)
-      - [ ] Ex. should nvim be managed by mise or by the system?
-      - [ ] Maybe I should use mise bootstrap for system-level tools?
-      - [ ] On a server, mise can manage everything
-      - [ ] On a workstation, what should mise manage vs the system package manager?
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
   - [ ] [bashrc](https://github.com/basecamp/omarchy/blob/quattro/default/bashrc)
   - [ ] btop
@@ -43,6 +31,7 @@
   - [ ] cliamp
   - [ ] git
   - [ ] herdr
+    - [ ] Incorporate herdr layout functions into dotfiles
   - [ ] hypr (should we overwrite or merge with our own hyprland config?)
   - [ ] kitty
   - [ ] lazygit
@@ -52,24 +41,13 @@
   - [ ] obsidian
   - [ ] opencode
   - [ ] tmux
+    - [ ] Incoporate Tmux layout functions into dotfiles
   - [ ] VSCode
   - [ ] Zed Editor
-- [ ] Search omarchy repo and find the agent skills for omarchy to add to my dotfiles repo
-- [ ] Bug in Omawrite, when opening or saving, the file explorer is opened on the side, with part of the explorer not even on the screen, and I have to use the mouse to move it to the center
-- [ ] Setup tailscale
-- [ ] Setup dropbox
 - [ ] Add something like ujust to my dotfiles which will be a globally available binary which points to and executes the justfile in my chezmoi dotfiles repo
   - [ ] Use gum for configuration (if installed)
-- [ ] Setup night light to turn on [automatically](https://omarchy.org/manual/toggles-idle-screensaver/#night-light)?
 - [ ] Change direction of scrolling (natural scrolling?) [Keyboard, Mouse, Trackpad — The Omarchy Manual](https://omarchy.org/manual/keyboard-mouse-trackpad/)
-- [ ] Incoporate Tmux layout functions into dotfiles
-- [ ] Incorporate herdr layout functions into dotfiles
-- [ ] Install [GitHub - tobi/try: fresh directories for every vibe · GitHub](https://github.com/tobi/try)
 - [ ] Setup [CLIAMP — Terminal Music Player](https://www.cliamp.stream/) with my preferred youtube / youtube music / spotify channels, etc.
-- [ ] Install / Configure Plugins
-  - [ ] Configure window switching with alt-tab (https://omarchyplugins.com/plugin.html?id=vbrosseau.alttab)
-  - [ ] [The first plugin competition winners — Omarchy News](https://omarchy.org/news/2026/08/the-first-plugin-competition-winners/)
-  - [ ] [What Happened to Omarchy in Two Weeks? - YouTube](https://www.youtube.com/watch?v=8P9qqnso5Ro)
 - [ ] VSCode Settings and VIM Keybinds
     - [ ] Compare my configuration with omarchy and merge together
     - [ ] `~/.config/Code/User/keybindings.json`

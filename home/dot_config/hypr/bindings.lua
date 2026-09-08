@@ -48,7 +48,23 @@ o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction =
 -- Workspace Layout
 hl.unbind("SUPER + SHIFT + T")
 hl.unbind("SUPER + SHIFT + R")
-o.bind("SUPER + SHIFT + T", "Toggle window split", hl.dsp.layout("togglesplit"))
+
+-- Run the appropriate layout action while keeping SUPER + J/K/L available for navigation.
+local function layout_bind(bindings)
+  return function()
+    local workspace =
+      hl.get_active_special_workspace() or hl.get_active_workspace()
+
+    if workspace and bindings[workspace.tiled_layout] then
+      hl.dispatch(bindings[workspace.tiled_layout])
+    end
+  end
+end
+
+o.bind("SUPER + SHIFT + T", "Toggle split / stack column", layout_bind({
+  dwindle = hl.dsp.layout("togglesplit"),
+  scrolling = hl.dsp.layout("consume_or_expel prev"),
+}))
 o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
 -- o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
 

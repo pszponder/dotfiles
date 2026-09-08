@@ -48,12 +48,12 @@ hl.config({
 -- })
 
 -- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
--- hl.config({
---   scrolling = {
---     -- See only one column per screen instead of two.
---     column_width = 0.97,
---   },
--- })
+hl.config({
+  scrolling = {
+    -- Make each column occupy half the screen, without showing the next one at the edge.
+    column_width = 0.50,
+  },
+})
 
 -- https://wiki.hypr.land/Configuring/Layouts/Master-Layout/
 -- Only available if using the hyprland-workspace-layout-toggle script.

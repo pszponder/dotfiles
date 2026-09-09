@@ -28,26 +28,26 @@
 -- o.bind("SUPER + H", nil, "voxtype record toggle")
 -- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
 
--- Move focus with vim keys. SUPER + J/K/L are bound by Omarchy's defaults
--- (toggle split, keybindings menu, toggle workspace layout).
-hl.unbind("SUPER + J")
-hl.unbind("SUPER + K")
-hl.unbind("SUPER + L")
-o.bind("SUPER + H", "Focus on left window", hl.dsp.focus({ direction = "l" }))
-o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
-o.bind("SUPER + K", "Focus on above window", hl.dsp.focus({ direction = "u" }))
-o.bind("SUPER + J", "Focus on below window", hl.dsp.focus({ direction = "d" }))
+-- -- Move focus with vim keys. SUPER + J/K/L are bound by Omarchy's defaults
+-- -- (toggle split, keybindings menu, toggle workspace layout).
+-- hl.unbind("SUPER + J")
+-- hl.unbind("SUPER + K")
+-- hl.unbind("SUPER + L")
+-- o.bind("SUPER + H", "Focus on left window", hl.dsp.focus({ direction = "l" }))
+-- o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
+-- o.bind("SUPER + K", "Focus on above window", hl.dsp.focus({ direction = "u" }))
+-- o.bind("SUPER + J", "Focus on below window", hl.dsp.focus({ direction = "d" }))
 
--- Move windows with vim keys and SUPER + SHIFT + numbers to explicit workspaces.
-hl.unbind("SUPER + SHIFT + K")
-o.bind("SUPER + SHIFT + H", "Swap window left", hl.dsp.window.swap({ direction = "l" }))
-o.bind("SUPER + SHIFT + L", "Swap window right", hl.dsp.window.swap({ direction = "r" }))
-o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
-o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
+-- -- Move windows with vim keys and SUPER + SHIFT + numbers to explicit workspaces.
+-- hl.unbind("SUPER + SHIFT + K")
+-- o.bind("SUPER + SHIFT + H", "Swap window left", hl.dsp.window.swap({ direction = "l" }))
+-- o.bind("SUPER + SHIFT + L", "Swap window right", hl.dsp.window.swap({ direction = "r" }))
+-- o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
+-- o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
 
--- Workspace Layout
-hl.unbind("SUPER + SHIFT + T")
-hl.unbind("SUPER + SHIFT + R")
+-- -- Workspace Layout
+-- hl.unbind("SUPER + SHIFT + T")
+-- hl.unbind("SUPER + SHIFT + R")
 
 -- Run the appropriate layout action while keeping SUPER + J/K/L available for navigation.
 local function layout_bind(bindings)
@@ -61,41 +61,47 @@ local function layout_bind(bindings)
   end
 end
 
-o.bind("SUPER + SHIFT + T", "Toggle split / stack column", layout_bind({
+-- o.bind("SUPER + SHIFT + T", "Toggle split / stack column", layout_bind({
+--   dwindle = hl.dsp.layout("togglesplit"),
+--   scrolling = hl.dsp.layout("consume_or_expel prev"),
+-- }))
+-- o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
+-- -- o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
+
+hl.unbind("SUPER + J")
+o.bind("SUPER + J", "Toggle split / stack column", layout_bind({
   dwindle = hl.dsp.layout("togglesplit"),
   scrolling = hl.dsp.layout("consume_or_expel prev"),
 }))
-o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
--- o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
 
--- Window management
-hl.unbind("SUPER + M")
-hl.unbind("SUPER + ALT + M")
-o.bind("SUPER + M", "Full screen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
-o.bind("SUPER + ALT + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))
+-- -- Window management
+-- hl.unbind("SUPER + M")
+-- hl.unbind("SUPER + ALT + M")
+-- o.bind("SUPER + M", "Full screen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+-- o.bind("SUPER + ALT + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))
 
--- Open the launcher with Super alone.
--- hl.unbind("SUPER + SPACE")
--- o.bind("SUPER + SUPER_L", "Omarchy menu", "omarchy-menu toggle", { release = true })
+-- -- Open the launcher with Super alone.
+-- -- hl.unbind("SUPER + SPACE")
+-- -- o.bind("SUPER + SUPER_L", "Omarchy menu", "omarchy-menu toggle", { release = true })
 
--- Learning/keybinding menus and workspace layout.
-hl.unbind("SUPER + ALT + K")
-o.bind("SUPER + CTRL + SHIFT + K", "Keybindings", "omarchy-menu-keybindings")
-o.bind("SUPER + CTRL + SHIFT + T", "Tmux keybindings", "omarchy-menu-tmux-keybindings")
-o.bind("SUPER + CTRL + SHIFT + H", "Herdr keybindings", "omarchy-menu-herdr-keybindings")
+-- -- Learning/keybinding menus and workspace layout.
+-- hl.unbind("SUPER + ALT + K")
+-- o.bind("SUPER + CTRL + SHIFT + K", "Keybindings", "omarchy-menu-keybindings")
+-- o.bind("SUPER + CTRL + SHIFT + T", "Tmux keybindings", "omarchy-menu-tmux-keybindings")
+-- o.bind("SUPER + CTRL + SHIFT + H", "Herdr keybindings", "omarchy-menu-herdr-keybindings")
 
--- Applications
-hl.unbind("SUPER + B")
-hl.unbind("SUPER + F")
-hl.unbind("SUPER + E")
-hl.unbind("SUPER + O")
+-- -- Applications
+-- hl.unbind("SUPER + B")
+-- hl.unbind("SUPER + F")
+-- hl.unbind("SUPER + E")
+-- hl.unbind("SUPER + O")
 hl.unbind("SUPER + SHIFT + E")
 hl.unbind("SUPER + SHIFT + M")
 hl.unbind("SUPER + SHIFT + ALT + E")
-o.bind("SUPER + B", "Browser", { omarchy = "browser" })
-o.bind("SUPER + F", "File manager", { omarchy = "nautilus" })
-o.bind("SUPER + E", "Editor", { omarchy = "editor" })
-o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "obsidian" })
+-- o.bind("SUPER + B", "Browser", { omarchy = "browser" })
+-- o.bind("SUPER + F", "File manager", { omarchy = "nautilus" })
+-- o.bind("SUPER + E", "Editor", { omarchy = "editor" })
+-- o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "obsidian" })
 o.bind("SUPER + SHIFT + M", "Youtube Music", { webapp = "https://music.youtube.com/" })
 o.bind("SUPER + SHIFT + E", "Gmail", { webapp = "https://mail.google.com/" })
 o.bind("SUPER + SHIFT + ALT + E", "New email", { webapp = "https://mail.google.com/mail/u/0/#compose" })

@@ -63,6 +63,7 @@ path = ~/.config/git/github_pszponder
 [diff]
     colorMoved = default
     algorithm = histogram
+    mnemonicPrefix = true # use clearer a/, b/, index, and worktree prefixes
     interHunkContext = 3
     renames = copies # detect renames and copies
     context = 5 # show 5 lines of context
@@ -126,6 +127,9 @@ path = ~/.config/git/github_pszponder
 
 [tag]
     sort = -taggerdate # sort tags by tag date
+
+[column]
+    ui = auto # use columns for compact list output when appropriate
 
 [alias]
     # stage updates to tracked files (either globally or for a specific path(s)/regex) and show status

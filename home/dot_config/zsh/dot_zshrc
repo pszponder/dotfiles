@@ -7,6 +7,11 @@ if [[ -f ~/.config/aliases ]]; then
   source ~/.config/aliases
 fi
 
+# Shared portable and Omarchy-specific shell functions.
+if [[ -f ~/.config/shell/functions.sh ]]; then
+  source ~/.config/shell/functions.sh
+fi
+
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 

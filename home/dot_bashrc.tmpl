@@ -37,6 +37,11 @@ if [[ -f ~/.config/aliases ]]; then
   source ~/.config/aliases
 fi
 
+# Shared portable and Omarchy-specific shell functions.
+if [[ -f ~/.config/shell/functions.sh ]]; then
+  source ~/.config/shell/functions.sh
+fi
+
 # VIM mode
 set -o vi
 

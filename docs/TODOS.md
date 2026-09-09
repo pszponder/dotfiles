@@ -14,11 +14,18 @@
 - [ ] Add jujutsu [dynamic completions](https://docs.jj-vcs.dev/latest/install-and-setup/#dynamic-completions) to bash and zshrc
 
 ## Omarchy
+- [ ] Should I just use the default keybindings with the arrow keys?
+- [ ] Add a minimize keybinding?
+- [ ] How to add a visual alt-tab and app doc?
+- [ ] Toggling a window to floating should set it in the middle of the screen by default
+- [ ] Jokabi and gamechops (add to my youtube playlists)
+- [ ] CLIAMP
+    - [ ] How to add Jokabi, gamechops and other lofi music
 - [ ] Install Apps
+  - [ ] Add github copilot cli
   - [ ] Install [toolboxes](https://github.com/ublue-os/toolboxes) / [distrobox](https://wiki.archlinux.org/title/Distrobox)
 - [ ] Set the computer to [sleep after 15 minutes](https://omarchy.org/manual/system-sleep/) -> https://github.com/omacom/omarchy/issues/9931
 - [ ] [Dotfiles — The Omarchy Manual](https://omarchy.org/manual/dotfiles/)
-- [ ] Add shell functions to dotfiles: [Shell Functions — The Omarchy Manual](https://omarchy.org/manual/shell-functions/)
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
   - [ ] [bashrc](https://github.com/basecamp/omarchy/blob/quattro/default/bashrc)
   - [ ] btop

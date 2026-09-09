@@ -2,6 +2,12 @@
 # (env vars are sourced from ~/.zshenv, which runs for non-interactive shells too)
 [[ $- != *i* ]] && return
 
+{{- if .is_omarchy }}
+# Use Omarchy's browser launcher for CLI tools while respecting an explicit
+# user override.
+export BROWSER="${BROWSER:-omarchy-launch-browser}"
+{{- end }}
+
 # 🧩 Source aliases
 if [[ -f ~/.config/aliases ]]; then
   source ~/.config/aliases
@@ -163,7 +169,7 @@ fi
 _zsh_state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/zsh"
 mkdir -p "$_zsh_state_dir"
 HISTFILE="$_zsh_state_dir/history"
-HISTSIZE=10000
+HISTSIZE=32768
 SAVEHIST=$HISTSIZE
 HISTDUP=erase
 setopt APPEND_HISTORY              # Append to the history file, don't overwrite it

@@ -26,6 +26,13 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+{{- if .is_omarchy }}
+# Omarchy environment (OMARCHY_PATH + PATH), needed even for non-interactive
+# shells such as SSH commands and `bash -lc`/`zsh -c`.
+[ -r /usr/share/omarchy/default/bash/env-bootstrap ] &&
+  source /usr/share/omarchy/default/bash/env-bootstrap
+{{- end }}
+
 # ─── GitHub CLI ────────────────────────────────────
 export GH_EDITOR="$EDITOR"
 
@@ -50,4 +57,3 @@ export FZF_DEFAULT_OPTS=" \
 --color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
 --color=selected-bg:#45475A \
 --color=border:#6C7086,label:#CDD6F4"
-

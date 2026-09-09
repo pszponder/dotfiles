@@ -23,6 +23,12 @@ unset brew_path
 # Only continue if the shell is interactive
 [[ $- != *i* ]] && return
 
+{{- if .is_omarchy }}
+# Use Omarchy's browser launcher for CLI tools while respecting an explicit
+# user override.
+export BROWSER="${BROWSER:-omarchy-launch-browser}"
+{{- end }}
+
 # ✨ Update PATH with common user script/tool locations
 # mise's shims dir is included here so tools like zoxide resolve synchronously
 # on the very first prompt — `mise activate` itself is deferred below.
@@ -45,6 +51,9 @@ fi
 # VIM mode
 set -o vi
 
+# Prevent stale Bash command hashes from bypassing mise-managed executables.
+set +h
+
 # bash-completion (tab-complete for git, docker, etc. — zsh's compinit
 # equivalent). Installed via Homebrew as bash-completion@2.
 if [[ -n $BASH_VERSION ]]; then
@@ -55,12 +64,19 @@ if [[ -n $BASH_VERSION ]]; then
   fi
 fi
 
+{{- if .is_omarchy }}
+# Omarchy's dispatcher-aware completion.
+if [[ -r /usr/share/omarchy/default/bash/completions ]]; then
+  source /usr/share/omarchy/default/bash/completions
+fi
+{{- end }}
+
 # 🔄 History control (set before starship/mise/zoxide below so they each chain
 # onto PROMPT_COMMAND instead of one overwriting the others)
 _bash_state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/bash"
 mkdir -p "$_bash_state_dir"
 HISTFILE="$_bash_state_dir/history"
-HISTSIZE=10000
+HISTSIZE=32768
 HISTFILESIZE=$HISTSIZE
 HISTCONTROL=ignoreboth:erasedups # ignore space-prefixed + dup commands, erase old dups
 HISTTIMEFORMAT='%F %T '          # record command timestamp
@@ -139,4 +155,11 @@ fi
 if [[ $TERM_PROGRAM == "WarpTerminal" && -z $TMUX ]]; then
   printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash"}}\e\\'
 fi
+
+{{- if .is_omarchy }}
+# Omarchy Readline defaults: history-prefix navigation and menu completion.
+if [[ -r /usr/share/omarchy/default/bash/inputrc ]]; then
+  bind -f /usr/share/omarchy/default/bash/inputrc
+fi
+{{- end }}
 # End of interactive Bash configuration.

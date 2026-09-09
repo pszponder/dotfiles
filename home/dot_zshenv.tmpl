@@ -6,6 +6,9 @@ export ZDOTDIR="$HOME/.config/zsh"
 # non-interactive shells (ssh host cmd, `zsh -c`, cron).
 [ -f "$HOME/.config/env.sh" ] && . "$HOME/.config/env.sh"
 
+# Prevent stale Zsh command hashes from bypassing mise-managed executables.
+unsetopt HASH_CMDS
+
 # Keep PATH entries unique when multiple startup files prepend directories.
 typeset -U path PATH
 

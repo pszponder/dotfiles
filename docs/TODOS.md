@@ -22,10 +22,7 @@
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
   - [ ] [CLIAMP — Terminal Music Player](https://www.cliamp.stream/)
     - [ ] How to add Jokabi, gamechops and other lofi music
-  - [ ] herdr
-    - [ ] Incorporate herdr layout functions into dotfiles
-  - [ ] tmux
-    - [ ] Incoporate Tmux layout functions into dotfiles
+- [ ] Set default editor to nvim
 
 ## Bugfixes
 

@@ -2,6 +2,8 @@
 - [ ] Add docker install script to Justfile and Makefile in case docker needs to be installed on system
 - [ ] Codex add a visual indicator of context usage in the cli
 - [ ] Add applications
+    - [ ] Add github copilot cli
+    - [ ] Install [toolboxes](https://github.com/ublue-os/toolboxes) / [distrobox](https://wiki.archlinux.org/title/Distrobox)
     - [ ] [sbx](https://www.docker.com/products/docker-sandboxes/)
     - [ ] [nubjs](https://nubjs.com/)
     - [ ] Ghostty terminal on linux
@@ -14,38 +16,16 @@
 - [ ] Add jujutsu [dynamic completions](https://docs.jj-vcs.dev/latest/install-and-setup/#dynamic-completions) to bash and zshrc
 
 ## Omarchy
-- [ ] Should I just use the default keybindings with the arrow keys?
-- [ ] Add a minimize keybinding?
+- [ ] [Create custom image on background](https://omarchy.org/manual/branding/) (maybe pokemon / studio ghibli or something fun!)
 - [ ] How to add a visual alt-tab and app doc?
-- [ ] Toggling a window to floating should set it in the middle of the screen by default
-- [ ] Jokabi and gamechops (add to my youtube playlists)
-- [ ] CLIAMP
-    - [ ] How to add Jokabi, gamechops and other lofi music
-- [ ] Install Apps
-  - [ ] Add github copilot cli
-  - [ ] Install [toolboxes](https://github.com/ublue-os/toolboxes) / [distrobox](https://wiki.archlinux.org/title/Distrobox)
 - [ ] Set the computer to [sleep after 15 minutes](https://omarchy.org/manual/system-sleep/) -> https://github.com/omacom/omarchy/issues/9931
-- [ ] [Dotfiles — The Omarchy Manual](https://omarchy.org/manual/dotfiles/)
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
-  - [ ] [bashrc](https://github.com/basecamp/omarchy/blob/quattro/default/bashrc)
-  - [ ] btop
-  - [ ] ghostty
-  - [ ] cliamp
-  - [ ] git
+  - [ ] [CLIAMP — Terminal Music Player](https://www.cliamp.stream/)
+    - [ ] How to add Jokabi, gamechops and other lofi music
   - [ ] herdr
     - [ ] Incorporate herdr layout functions into dotfiles
-  - [ ] hypr (should we overwrite or merge with our own hyprland config?)
-  - [ ] kitty
-  - [ ] lazygit
-  - [ ] nvim (omarchy's implementation of lazyvim)
-    - [ ] Determine which version of nvim to use, then update the nvim aliases in `aliases` and the EDITORS defined in `executable_env.sh`
-    - [ ] Perhaps use Omarchy's default when on omarchy, and lazynvim when not on omarchy? (can omarchy lazynvim work for non-omarchy installs)
-  - [ ] obsidian
-  - [ ] opencode
   - [ ] tmux
     - [ ] Incoporate Tmux layout functions into dotfiles
-  - [ ] Zed Editor
-- [ ] Setup [CLIAMP — Terminal Music Player](https://www.cliamp.stream/) with my preferred youtube / youtube music / spotify channels, etc.
 
 ## Bugfixes
 

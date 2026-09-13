@@ -1,14 +1,6 @@
 -- Personal Hyprland keybindings. Omarchy defaults are disabled in hyprland.lua.
 -- Print the active bindings with: omarchy menu keybindings --print
 
--- Media-layer volume controls (Omarchy defaults are disabled in hyprland.lua).
-o.bind("XF86AudioRaiseVolume", "Volume up", "omarchy-audio-output-volume raise", { locked = true, repeating = true })
-o.bind("XF86AudioLowerVolume", "Volume down", "omarchy-audio-output-volume lower", { locked = true, repeating = true })
-o.bind("XF86AudioPlay", "Play", "omarchy-shell media playPause", { locked = true })
-o.bind("XF86AudioPause", "Pause", "omarchy-shell media playPause", { locked = true })
-o.bind("XF86AudioNext", "Next track", "omarchy-shell media next", { locked = true })
-o.bind("XF86AudioPrev", "Previous track", "omarchy-shell media previous", { locked = true })
-
 -- Menus and window controls
 o.bind("SUPER + SPACE", "Omarchy menu", "omarchy-menu toggle root")
 o.bind("SUPER + W", "Close window", hl.dsp.window.close())
@@ -55,9 +47,12 @@ o.bind("SUPER + ALT + J", "Toggle split / consume previous column", column_layou
 o.bind("SUPER + ALT + T", "Toggle window floating/tiling", hl.dsp.window.float({ action = "toggle" }))
 o.bind("SUPER + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))
 o.bind("SUPER + ALT + M", "Fullscreen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
-o.bind("SUPER + S", "Toggle scratchpad", hl.dsp.workspace.toggle_special("scratchpad"))
 o.bind("SUPER + TAB", "Focus next window", hl.dsp.window.cycle_next())
 o.bind("SUPER + SHIFT + TAB", "Focus previous window", hl.dsp.window.cycle_next({ next = false }))
+
+-- Scratchpad
+o.bind("SUPER + S", "Toggle scratchpad", hl.dsp.workspace.toggle_special("scratchpad"))
+o.bind("SUPER + SHIFT + S", "Move window to scratchpad", hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }))
 
 -- Workspace switching and moving windows to workspaces
   -- Move to workspaces 1-10 with Super + 1-0
@@ -81,7 +76,9 @@ o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "obsidian" })
 o.bind("SUPER + SHIFT + D", "Docker (LazyDocker)", { tui = "lazydocker" })
 o.bind("SUPER + SHIFT + ALT + M", "Music (cliamp)", { tui = "cliamp", focus = true })
 o.bind("SUPER + SHIFT + B", "Activity (btop)", { tui = "btop" })
+o.bind("SUPER + SHIFT + Q", "Calculator", "omacalc")
 o.bind("SUPER + SHIFT + W", "Omawrite", { launch = "omawrite" })
+o.bind("SUPER + CTRL + E", "Emojis", "omarchy-shell shell toggle omarchy.emojis")
 
 -- Web apps
 o.bind("SUPER + SHIFT + A", "ChatGPT", { webapp = "https://chatgpt.com" })
@@ -157,3 +154,18 @@ if o.cmd_present("voxtype") then
   o.bind("F9", "Start dictation (push-to-talk)", "voxtype record start")
   o.bind("F9", "Stop dictation (push-to-talk)", "voxtype record stop", { release = true })
 end
+
+-- Media-layer volume controls (Omarchy defaults are disabled in hyprland.lua).
+o.bind("XF86AudioRaiseVolume", "Volume up", "omarchy-audio-output-volume raise", { locked = true, repeating = true })
+o.bind("XF86AudioLowerVolume", "Volume down", "omarchy-audio-output-volume lower", { locked = true, repeating = true })
+o.bind("XF86AudioMute", "Mute", "omarchy-audio-output-volume mute-toggle", { locked = true })
+o.bind("XF86AudioMicMute", "Mute microphone", "omarchy-audio-input-mute", { locked = true })
+o.bind("XF86AudioPlay", "Play", "omarchy-shell media playPause", { locked = true })
+o.bind("XF86AudioPause", "Pause", "omarchy-shell media playPause", { locked = true })
+o.bind("XF86AudioNext", "Next track", "omarchy-shell media next", { locked = true })
+o.bind("XF86AudioPrev", "Previous track", "omarchy-shell media previous", { locked = true })
+o.bind("XF86MonBrightnessUp", "Brightness up", "omarchy-brightness-display +5%", { locked = true, repeating = true })
+o.bind("XF86MonBrightnessDown", "Brightness down", "omarchy-brightness-display 5%-", { locked = true, repeating = true })
+o.bind("XF86KbdBrightnessUp", "Keyboard brightness up", "omarchy-brightness-keyboard up", { locked = true, repeating = true })
+o.bind("XF86KbdBrightnessDown", "Keyboard brightness down", "omarchy-brightness-keyboard down", { locked = true, repeating = true })
+o.bind("XF86KbdLightOnOff", "Keyboard backlight cycle", "omarchy-brightness-keyboard cycle", { locked = true })

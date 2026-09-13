@@ -1,6 +1,10 @@
 -- Personal Hyprland keybindings. Omarchy defaults are disabled in hyprland.lua.
 -- Print the active bindings with: omarchy menu keybindings --print
 
+-- Media-layer volume controls (Omarchy defaults are disabled in hyprland.lua).
+o.bind("XF86AudioRaiseVolume", "Volume up", "omarchy-audio-output-volume raise", { locked = true, repeating = true })
+o.bind("XF86AudioLowerVolume", "Volume down", "omarchy-audio-output-volume lower", { locked = true, repeating = true })
+
 -- Menus and window controls
 o.bind("SUPER + SPACE", "Omarchy menu", "omarchy-menu toggle root")
 o.bind("SUPER + W", "Close window", hl.dsp.window.close())

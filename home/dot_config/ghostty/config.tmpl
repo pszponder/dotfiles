@@ -52,3 +52,10 @@ mouse-scroll-multiplier = 0.95
 
 # Fix general slowness on Hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
 async-backend = epoll
+
+{{- if not .is_omarchy }}
+# Quick terminal, toggled globally with Super+grave (Cmd+` on macOS).
+quick-terminal-position = top
+quick-terminal-size = 40%
+keybind = global:super+backquote=toggle_quick_terminal
+{{- end }}

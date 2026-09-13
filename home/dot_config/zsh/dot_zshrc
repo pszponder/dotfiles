@@ -197,6 +197,11 @@ else
   compinit -C -i
 fi
 
+# Jujutsu dynamic completions (bookmarks, revisions, files, etc.).
+if command -v jj &> /dev/null; then
+  source <(COMPLETE=zsh jj)
+fi
+
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"

@@ -64,6 +64,11 @@ if [[ -n $BASH_VERSION ]]; then
   fi
 fi
 
+# Jujutsu dynamic completions (bookmarks, revisions, files, etc.).
+if command -v jj &> /dev/null; then
+  source <(COMPLETE=bash jj)
+fi
+
 {{- if .is_omarchy }}
 # Omarchy's dispatcher-aware completion.
 if [[ -r /usr/share/omarchy/default/bash/completions ]]; then

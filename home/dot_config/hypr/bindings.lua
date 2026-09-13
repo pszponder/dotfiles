@@ -4,6 +4,10 @@
 -- Media-layer volume controls (Omarchy defaults are disabled in hyprland.lua).
 o.bind("XF86AudioRaiseVolume", "Volume up", "omarchy-audio-output-volume raise", { locked = true, repeating = true })
 o.bind("XF86AudioLowerVolume", "Volume down", "omarchy-audio-output-volume lower", { locked = true, repeating = true })
+o.bind("XF86AudioPlay", "Play", "omarchy-shell media playPause", { locked = true })
+o.bind("XF86AudioPause", "Pause", "omarchy-shell media playPause", { locked = true })
+o.bind("XF86AudioNext", "Next track", "omarchy-shell media next", { locked = true })
+o.bind("XF86AudioPrev", "Previous track", "omarchy-shell media previous", { locked = true })
 
 -- Menus and window controls
 o.bind("SUPER + SPACE", "Omarchy menu", "omarchy-menu toggle root")

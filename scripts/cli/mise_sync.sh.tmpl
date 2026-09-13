@@ -4,6 +4,15 @@ set -eu
 SCRIPT_DIR={{ .chezmoi.sourceDir | quote }}/../scripts/cli
 . "$SCRIPT_DIR/../utils/utils_logging.sh"
 
+MISE_ENV_FILE="$HOME/.config/env.sh"
+if [ ! -r "$MISE_ENV_FILE" ]; then
+  log_error 'mise environment file not found; run chezmoi apply first'
+  exit 1
+fi
+set +u
+. "$MISE_ENV_FILE"
+set -u
+
 MISE_BIN=$(command -v mise 2>/dev/null || true)
 if [ -z "$MISE_BIN" ] && [ -x "$HOME/.local/bin/mise" ]; then
   MISE_BIN="$HOME/.local/bin/mise"
@@ -27,5 +36,13 @@ if [ ! -f "$MISE_CONFIG" ]; then
 fi
 
 "$MISE_BIN" trust "$MISE_CONFIG"
+if [ -n "${MISE_ENV:-}" ]; then
+  MISE_PROFILE_CONFIG="$HOME/.config/mise/config.$MISE_ENV.toml"
+  if [ ! -f "$MISE_PROFILE_CONFIG" ]; then
+    log_error "mise profile config not found: $MISE_PROFILE_CONFIG"
+    exit 1
+  fi
+  "$MISE_BIN" trust "$MISE_PROFILE_CONFIG"
+fi
 "$MISE_BIN" install
 "$MISE_BIN" reshim

@@ -1,0 +1,7 @@
+[tools]
+# Omarchy owns common CLI tools through pacman/omarchy pkg. Keep only tools
+# that are not supplied by Omarchy and are intentionally managed by mise.
+nub = "latest"
+ruff = "latest"
+ty = "latest"
+uv = "latest"

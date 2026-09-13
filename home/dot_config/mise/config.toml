@@ -1,0 +1,15 @@
+[settings]
+python.uv_venv_auto = "create|source"
+
+[env]
+MISE_RUSTUP_HOME = "$HOME/.local/share/rustup"
+MISE_CARGO_HOME = "$HOME/.local/share/cargo"
+
+[tools]
+# Language runtimes are always managed by mise.
+# "github:devsy-org/devsy" = "latest"
+bun = "latest"
+go = "latest"
+node = "latest"
+python = "latest"
+rust = "latest"

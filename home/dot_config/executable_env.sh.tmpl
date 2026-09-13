@@ -27,10 +27,19 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 {{- if .is_omarchy }}
+# Select the Omarchy-specific mise configuration overlay.
+export MISE_ENV="omarchy"
+
 # Omarchy environment (OMARCHY_PATH + PATH), needed even for non-interactive
 # shells such as SSH commands and `bash -lc`/`zsh -c`.
 [ -r /usr/share/omarchy/default/bash/env-bootstrap ] &&
-  source /usr/share/omarchy/default/bash/env-bootstrap
+  . /usr/share/omarchy/default/bash/env-bootstrap
+{{- else if or (not .is_workstation) (not .uses_brew) }}
+# Servers and workstations without Homebrew use the common CLI tool overlay.
+export MISE_ENV="server"
+{{- else }}
+# Homebrew workstations use only mise's base configuration.
+unset MISE_ENV
 {{- end }}
 
 # ─── GitHub CLI ────────────────────────────────────

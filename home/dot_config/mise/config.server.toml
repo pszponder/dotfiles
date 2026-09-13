@@ -1,27 +1,4 @@
-[settings]
-python.uv_venv_auto = "create|source"
-
-[env]
-MISE_RUSTUP_HOME = "{{ .chezmoi.homeDir }}/.local/share/rustup"
-MISE_CARGO_HOME = "{{ .chezmoi.homeDir }}/.local/share/cargo"
-
 [tools]
-# Language runtimes are always managed by mise.
-# "github:devsy-org/devsy" = "latest"
-bun = "latest"
-go = "latest"
-node = "latest"
-python = "latest"
-rust = "latest"
-
-{{- if .is_omarchy }}
-# Omarchy owns common CLI tools through pacman/omarchy pkg. Keep only tools
-# that are not supplied by Omarchy and are intentionally managed by mise.
-nub = "latest"
-ruff = "latest"
-ty = "latest"
-uv = "latest"
-{{- else if or (not .is_workstation) (not .uses_brew) }}
 # Servers and workstations without Homebrew use mise for common CLI tools.
 atuin = "latest"
 bat = "latest"
@@ -60,4 +37,3 @@ uv = "latest"
 worktrunk = "latest"
 yazi = "latest"
 zoxide = "latest"
-{{- end }}

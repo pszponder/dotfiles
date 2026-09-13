@@ -20,9 +20,10 @@
 - [ ] How to add a visual alt-tab and app doc?
 - [ ] Set the computer to [sleep after 15 minutes](https://omarchy.org/manual/system-sleep/) -> https://github.com/omacom/omarchy/issues/9931
 - [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
+  - [ ] Herdr
   - [ ] [CLIAMP — Terminal Music Player](https://www.cliamp.stream/)
     - [ ] How to add Jokabi, gamechops and other lofi music
-- [ ] Set default editor to nvim
+- [ ] Set default editor to nvim?
 
 ## Bugfixes
 

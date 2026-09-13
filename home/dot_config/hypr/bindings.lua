@@ -1,114 +1,151 @@
--- Keep only your personal keybinding overrides here. Add new bindings or
--- unbind defaults before replacing them.
+-- Personal Hyprland keybindings. Omarchy defaults are disabled in hyprland.lua.
+-- Print the active bindings with: omarchy menu keybindings --print
 
--- See current bindings and descriptions:
---   omarchy menu keybindings --print
+-- Menus and window controls
+o.bind("SUPER + SPACE", "Omarchy menu", "omarchy-menu toggle root")
+o.bind("SUPER + W", "Close window", hl.dsp.window.close())
+o.bind("CTRL + ALT + DELETE", "Close all windows", "omarchy-hyprland-window-close-all")
 
--- To disable every Omarchy default binding, set this in
--- ~/.config/hypr/hyprland.lua before require("default.hypr.omarchy"), then add
--- only the bindings you want below:
---   omarchy_default_bindings = false
+-- Keybinding help
+o.bind("SUPER + SHIFT + SLASH", "Keybindings", "omarchy-menu-keybindings")
+-- o.bind("SUPER + CTRL + SHIFT + K", "Keybindings", "omarchy-menu-keybindings")
+o.bind("SUPER + CTRL + SHIFT + T", "Tmux keybindings", "omarchy-menu-tmux-keybindings")
+o.bind("SUPER + CTRL + SHIFT + H", "Herdr keybindings", "omarchy-menu-herdr-keybindings")
 
--- To disable all preinstalled app/webapp bindings, set:
---   omarchy_preinstalled_bindings = false
+-- Focus and move windows with vim keys
+o.bind("SUPER + H", "Focus on left window", hl.dsp.focus({ direction = "l" }))
+o.bind("SUPER + J", "Focus on below window", hl.dsp.focus({ direction = "d" }))
+o.bind("SUPER + K", "Focus on above window", hl.dsp.focus({ direction = "u" }))
+o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
 
--- Add a new binding.
--- o.bind("SUPER + SHIFT + R", "SSH", "alacritty -e ssh your-server")
+o.bind("SUPER + SHIFT + H", "Swap window left", hl.dsp.window.swap({ direction = "l" }))
+o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
+o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
+o.bind("SUPER + SHIFT + L", "Swap window right", hl.dsp.window.swap({ direction = "r" }))
 
--- Change an existing binding by unbinding it first, then binding the key again.
--- This example changes SUPER+SPACE from the launcher to the Omarchy root menu.
--- hl.unbind("SUPER + SPACE")
--- o.bind("SUPER + SPACE", "Omarchy menu", "omarchy-menu toggle root")
-
--- Disable a default binding without replacing it.
--- hl.unbind("SUPER + SHIFT + B")
-
--- Logitech MX Keys examples:
--- o.bind("SUPER + SHIFT + S", nil, "omarchy-capture-screenshot")
--- o.bind("SUPER + H", nil, "voxtype record toggle")
--- o.bind("SUPER + PERIOD", nil, "omarchy-shell shell toggle omarchy.emojis")
-
--- -- Move focus with vim keys. SUPER + J/K/L are bound by Omarchy's defaults
--- -- (toggle split, keybindings menu, toggle workspace layout).
--- hl.unbind("SUPER + J")
--- hl.unbind("SUPER + K")
--- hl.unbind("SUPER + L")
--- o.bind("SUPER + H", "Focus on left window", hl.dsp.focus({ direction = "l" }))
--- o.bind("SUPER + L", "Focus on right window", hl.dsp.focus({ direction = "r" }))
--- o.bind("SUPER + K", "Focus on above window", hl.dsp.focus({ direction = "u" }))
--- o.bind("SUPER + J", "Focus on below window", hl.dsp.focus({ direction = "d" }))
-
--- -- Move windows with vim keys and SUPER + SHIFT + numbers to explicit workspaces.
--- hl.unbind("SUPER + SHIFT + K")
--- o.bind("SUPER + SHIFT + H", "Swap window left", hl.dsp.window.swap({ direction = "l" }))
--- o.bind("SUPER + SHIFT + L", "Swap window right", hl.dsp.window.swap({ direction = "r" }))
--- o.bind("SUPER + SHIFT + K", "Swap window up", hl.dsp.window.swap({ direction = "u" }))
--- o.bind("SUPER + SHIFT + J", "Swap window down", hl.dsp.window.swap({ direction = "d" }))
-
--- -- Workspace Layout
--- hl.unbind("SUPER + SHIFT + T")
--- hl.unbind("SUPER + SHIFT + R")
-
--- Run the appropriate layout action while keeping SUPER + J/K/L available for navigation.
+-- Layout and workspace controls
 local function layout_bind(bindings)
   return function()
-    local workspace =
-      hl.get_active_special_workspace() or hl.get_active_workspace()
-
+    local workspace = hl.get_active_special_workspace() or hl.get_active_workspace()
     if workspace and bindings[workspace.tiled_layout] then
       hl.dispatch(bindings[workspace.tiled_layout])
     end
   end
 end
 
--- o.bind("SUPER + SHIFT + T", "Toggle split / stack column", layout_bind({
---   dwindle = hl.dsp.layout("togglesplit"),
---   scrolling = hl.dsp.layout("consume_or_expel prev"),
--- }))
--- o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "omarchy-hyprland-workspace-layout-toggle")
--- -- o.bind("SUPER + SHIFT + R", "Cycle workspace layout", "hyprland-workspace-layout-toggle")
+o.bind("SUPER + ALT + R", "Toggle dwindle/scrolling layout", "omarchy-hyprland-workspace-layout-toggle")
+local function column_layout_bind(scrolling_direction)
+  return layout_bind({
+    dwindle = hl.dsp.layout("togglesplit"),
+    scrolling = hl.dsp.layout("consume_or_expel " .. scrolling_direction),
+  })
+end
 
-hl.unbind("SUPER + J")
-o.bind("SUPER + J", "Toggle split / stack column", layout_bind({
-  dwindle = hl.dsp.layout("togglesplit"),
-  scrolling = hl.dsp.layout("consume_or_expel prev"),
-}))
+o.bind("SUPER + bracketleft", "Toggle split / consume previous column", column_layout_bind("prev"))
+o.bind("SUPER + bracketright", "Toggle split / consume next column", column_layout_bind("next"))
+o.bind("SUPER + ALT + J", "Toggle split / consume previous column", column_layout_bind("prev"))
+o.bind("SUPER + ALT + T", "Toggle window floating/tiling", hl.dsp.window.float({ action = "toggle" }))
+o.bind("SUPER + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))
+o.bind("SUPER + ALT + M", "Fullscreen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+o.bind("SUPER + S", "Toggle scratchpad", hl.dsp.workspace.toggle_special("scratchpad"))
+o.bind("SUPER + TAB", "Focus next window", hl.dsp.window.cycle_next())
+o.bind("SUPER + SHIFT + TAB", "Focus previous window", hl.dsp.window.cycle_next({ next = false }))
 
--- -- Window management
--- hl.unbind("SUPER + M")
--- hl.unbind("SUPER + ALT + M")
--- o.bind("SUPER + M", "Full screen", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
--- o.bind("SUPER + ALT + M", "Full width", hl.dsp.window.fullscreen({ mode = "maximized" }))
+-- Workspace switching and moving windows to workspaces
+  -- Move to workspaces 1-10 with Super + 1-0
+  -- Move windows to workspaces 1-10 with Super + Shift + 1-0
+for workspace = 1, 10 do
+  local key = "code:" .. tostring(workspace + 9)
+  o.bind("SUPER + " .. key, "Switch to workspace " .. workspace, hl.dsp.focus({ workspace = tostring(workspace) }))
+  o.bind("SUPER + SHIFT + " .. key, "Move window to workspace " .. workspace, hl.dsp.window.move({ workspace = tostring(workspace) }))
+end
 
--- -- Open the launcher with Super alone.
--- -- hl.unbind("SUPER + SPACE")
--- -- o.bind("SUPER + SUPER_L", "Omarchy menu", "omarchy-menu toggle", { release = true })
+-- Applications
+o.bind("SUPER + RETURN", "Terminal", { omarchy = "terminal" })
+o.bind("SUPER + ALT + RETURN", "Tmux terminal", { omarchy = "terminal-tmux" })
+o.bind("SUPER + CTRL + RETURN", "Herdr terminal", { omarchy = "terminal-herdr" })
+o.bind("SUPER + SHIFT + RETURN", "Browser", { omarchy = "browser" })
+o.bind("SUPER + B", "Browser", { omarchy = "browser" })
+o.bind("SUPER + F", "File manager", { omarchy = "nautilus" })
+o.bind("SUPER + SHIFT + F", "File manager (terminal cwd)", { omarchy = "nautilus-cwd" })
+o.bind("SUPER + E", "Editor", { omarchy = "editor" })
+o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "obsidian" })
+o.bind("SUPER + SHIFT + D", "Docker (LazyDocker)", { tui = "lazydocker" })
+o.bind("SUPER + SHIFT + ALT + M", "Music (cliamp)", { tui = "cliamp", focus = true })
+o.bind("SUPER + SHIFT + B", "Activity (btop)", { tui = "btop" })
+o.bind("SUPER + SHIFT + W", "Omawrite", { launch = "omawrite" })
 
--- -- Learning/keybinding menus and workspace layout.
--- hl.unbind("SUPER + ALT + K")
--- o.bind("SUPER + CTRL + SHIFT + K", "Keybindings", "omarchy-menu-keybindings")
--- o.bind("SUPER + CTRL + SHIFT + T", "Tmux keybindings", "omarchy-menu-tmux-keybindings")
--- o.bind("SUPER + CTRL + SHIFT + H", "Herdr keybindings", "omarchy-menu-herdr-keybindings")
-
--- -- Applications
--- hl.unbind("SUPER + B")
--- hl.unbind("SUPER + F")
--- hl.unbind("SUPER + E")
--- hl.unbind("SUPER + O")
-hl.unbind("SUPER + SHIFT + E")
-hl.unbind("SUPER + SHIFT + M")
-hl.unbind("SUPER + SHIFT + ALT + E")
--- o.bind("SUPER + B", "Browser", { omarchy = "browser" })
--- o.bind("SUPER + F", "File manager", { omarchy = "nautilus" })
--- o.bind("SUPER + E", "Editor", { omarchy = "editor" })
--- o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "obsidian" })
-o.bind("SUPER + SHIFT + M", "Youtube Music", { webapp = "https://music.youtube.com/" })
+-- Web apps
+o.bind("SUPER + SHIFT + A", "ChatGPT", { webapp = "https://chatgpt.com" })
+o.bind("SUPER + SHIFT + G", "Grok", { webapp = "https://grok.com" })
+o.bind("SUPER + SHIFT + Y", "YouTube", { webapp = "https://youtube.com/" })
+o.bind("SUPER + SHIFT + M", "YouTube Music", { webapp = "https://music.youtube.com/" })
 o.bind("SUPER + SHIFT + E", "Gmail", { webapp = "https://mail.google.com/" })
 o.bind("SUPER + SHIFT + ALT + E", "New email", { webapp = "https://mail.google.com/mail/u/0/#compose" })
 
--- Push-to-talk dictation. Match Omarchy's default press/release behavior.
+-- Clipboard. Use terminal-native shortcuts in terminal windows and conventional
+-- shortcuts elsewhere. Split key presses avoid leaving a synthetic key held.
+local function send_shortcut_once(mods, key)
+  return function()
+    hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "down" }))
+    hl.timer(function()
+      hl.dispatch(hl.dsp.send_key_state({ mods = mods, key = key, state = "up" }))
+    end, { timeout = 50, type = "oneshot" })
+  end
+end
+
+local function active_window_is_terminal()
+  local window = hl.get_active_window()
+  if not window then
+    return false
+  end
+
+  for _, tag in ipairs(window.tags or {}) do
+    if tag:gsub("%*$", "") == "terminal" then
+      return true
+    end
+  end
+
+  return false
+end
+
+local function universal_clipboard_shortcut(default_mods, default_key, terminal_mods, terminal_key)
+  return function()
+    if active_window_is_terminal() then
+      send_shortcut_once(terminal_mods, terminal_key)()
+    else
+      send_shortcut_once(default_mods, default_key)()
+    end
+  end
+end
+
+o.bind("SUPER + C", "Universal copy", universal_clipboard_shortcut("CTRL", "C", "CTRL", "Insert"))
+o.bind("SUPER + X", "Universal cut", function()
+  if not active_window_is_terminal() then
+    send_shortcut_once("CTRL", "X")()
+  end
+end)
+o.bind("SUPER + V", "Universal paste", universal_clipboard_shortcut("CTRL", "V", "SHIFT", "Insert"))
+o.bind("SUPER + CTRL + V", "Clipboard manager", "omarchy-shell shell toggle omarchy.clipboard")
+
+-- Capture and screen recording
+o.bind("SUPER + CTRL + C", "Capture menu", "omarchy-menu toggle capture")
+o.bind("PRINT", "Screenshot", "omarchy-capture-screenshot")
+o.bind("ALT + PRINT", "Screen recording", "omarchy-capture-screenrecording --stop-recording || omarchy-menu toggle trigger.capture.screenrecord")
+o.bind("SUPER + PRINT", "Color picker", "pkill hyprpicker || hyprpicker -a")
+o.bind("SUPER + CTRL + PRINT", "Extract text from screenshot", "omarchy-capture-text")
+o.bind("SUPER + ALT + code:34", "Make webcam overlay smaller", "omarchy-capture-webcam-resize smaller")
+o.bind("SUPER + ALT + code:35", "Make webcam overlay larger", "omarchy-capture-webcam-resize larger")
+
+-- Chromium's Omarchy extensions handle these browser shortcuts:
+-- Alt + Shift + L copies the current URL; Alt + Shift + D downloads page video.
+
+-- Dictation shortcuts are available when Voxtype is installed.
 if o.cmd_present("voxtype") then
   hl.unbind("SUPER + R")
   o.bind("SUPER + R", "Start dictation (push-to-talk)", "voxtype record start")
   o.bind("SUPER + R", "Stop dictation (push-to-talk)", "voxtype record stop", { release = true })
+  o.bind("SUPER + CTRL + X", "Toggle dictation", "voxtype record toggle")
+  o.bind("F9", "Start dictation (push-to-talk)", "voxtype record start")
+  o.bind("F9", "Stop dictation (push-to-talk)", "voxtype record stop", { release = true })
 end

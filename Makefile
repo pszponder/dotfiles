@@ -1,6 +1,7 @@
 .DEFAULT_GOAL := help
 
 .PHONY: help \
+	docker-install \
 	brew-install brew-uninstall brew-sync \
 	flatpak-install flatpak-uninstall flatpak-sync \
 	nerd-fonts-install \
@@ -17,6 +18,16 @@ _confirm:
 		[yY]|[yY][eE][sS]) ;; \
 		*) printf '%s\n' 'Installation cancelled' >&2; exit 1 ;; \
 	esac
+
+docker-install: ## Install Docker Engine on Linux with Docker's official convenience script.
+	@$(MAKE) _confirm PACKAGE=Docker
+	@if [ "$$(uname -s)" != Linux ]; then echo 'Docker install script supports Linux only' >&2; exit 1; fi
+	curl -fsSL https://get.docker.com | sudo sh
+	@echo
+	@echo 'Docker is installed in rootful mode. To run docker without sudo, add your user to the docker group:'
+	@echo '  sudo usermod -aG docker "$$USER"'
+	@echo 'Then log out and back in (or run: newgrp docker).'
+	@echo 'Warning: membership in the docker group grants root-level privileges.'
 
 brew-install: ## Install Homebrew and its required system prerequisites.
 	@$(MAKE) _confirm PACKAGE=Homebrew

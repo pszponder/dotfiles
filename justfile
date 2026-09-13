@@ -4,6 +4,17 @@ _default:
 _confirm PACKAGE:
     @printf 'Install {{ PACKAGE }}? [y/N] ' >&2; read -r response; case "$response" in [yY]|[yY][eE][sS]) ;; *) printf '%s\n' 'Installation cancelled' >&2; exit 1;; esac
 
+# Install Docker Engine on Linux with Docker's official convenience script.
+docker-install:
+    @just _confirm Docker
+    @if [ "$(uname -s)" != Linux ]; then echo 'Docker install script supports Linux only' >&2; exit 1; fi
+    curl -fsSL https://get.docker.com | sudo sh
+    @echo
+    @echo 'Docker is installed in rootful mode. To run docker without sudo, add your user to the docker group:'
+    @echo '  sudo usermod -aG docker "$USER"'
+    @echo 'Then log out and back in (or run: newgrp docker).'
+    @echo 'Warning: membership in the docker group grants root-level privileges.'
+
 # Install Homebrew and its required system prerequisites.
 brew-install:
     @just _confirm Homebrew

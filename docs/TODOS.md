@@ -1,6 +1,4 @@
 ## Features
-- [ ] Add docker install script to Justfile and Makefile in case docker needs to be installed on system
-- [ ] Codex add a visual indicator of context usage in the cli
 - [ ] Add applications
     - [ ] Add github copilot cli
     - [ ] Install [toolboxes](https://github.com/ublue-os/toolboxes) / [distrobox](https://wiki.archlinux.org/title/Distrobox)
@@ -9,21 +7,20 @@
     - [ ] Ghostty terminal on linux
     - [ ] [Claude Powerline](https://www.npmjs.com/package/@owloops/claude-powerline)
     - [ ] Install distrobox?
-  - [ ] [postcard - email client](https://postcard.gxanshu.in/)
+    - [ ] [postcard - email client](https://postcard.gxanshu.in/)
 - Review comments in codebase, the comments seem pretty wordy, can they be simplified in places without loosing meaning?
-- [ ] Add Ghostty [Quick Terminal](https://dbushell.com/2025/04/11/ghostty-macos-quick-terminal/) (do I need quick terminal If using hyprland, can I just toggle a floating scratchpad terminal instead?)
-  - [ ] Only add the quick terminal for non-omarchy setups
-- [ ] Add jujutsu [dynamic completions](https://docs.jj-vcs.dev/latest/install-and-setup/#dynamic-completions) to bash and zshrc
+- [ ] [5 underrated cli tools that made my terminal experience better](https://www.youtube.com/watch?v=II17TPAb4AQ)
+- [ ] Should we use Podman instead of Docker (Podman runs as rootless)
 
 ## Omarchy
-- [ ] [Create custom image on background](https://omarchy.org/manual/branding/) (maybe pokemon / studio ghibli or something fun!)
 - [ ] How to add a visual alt-tab and app doc?
 - [ ] Set the computer to [sleep after 15 minutes](https://omarchy.org/manual/system-sleep/) -> https://github.com/omacom/omarchy/issues/9931
-- [ ] Review the default dotfiles omarchy adds to `~/.config` and determine if I want to incorporate them into my dotfiles
-  - [ ] Herdr
-  - [ ] [CLIAMP — Terminal Music Player](https://www.cliamp.stream/)
-    - [ ] How to add Jokabi, gamechops and other lofi music
-- [ ] Set default editor to nvim?
+
+## NixOS
+
+- [ ] Start incorporating NixOS flakes in dotfiles (review the nix branch of this repo)
+- [ ] Dendritic Nix
+- [ ] We should try to setup hyprland or Niri and custom quickshell in NixOS
 
 ## Bugfixes
 

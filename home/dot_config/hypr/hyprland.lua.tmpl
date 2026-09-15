@@ -1,0 +1,6 @@
+-- Profile selected by chezmoi's is_omarchy data value.
+{{ if .is_omarchy -}}
+dofile(os.getenv("HOME") .. "/.config/hypr/omarchy/config.lua")
+{{ else -}}
+dofile(os.getenv("HOME") .. "/.config/hypr/custom/config.lua")
+{{ end -}}

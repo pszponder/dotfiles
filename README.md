@@ -96,6 +96,25 @@ chezmoi edit ~/.bashrc --apply
 
 > **Note:** This repo uses `.chezmoiroot` set to `home/`, so all managed source files live under the `home/` directory in the repo.
 
+## Hyprland Profiles
+
+`home/dot_config/hypr/hyprland.lua.tmpl` selects the profile using the existing
+`is_omarchy` chezmoi data value. Omarchy detection is defined in
+`home/.chezmoi.toml.tmpl` and saved during `chezmoi init`.
+
+- **Omarchy:** `omarchy/config.lua` loads the packaged defaults, personal settings
+  in `omarchy/modules/`, and dynamic toggles. Edit these modules for input,
+  bindings, decoration, window rules, animations, and layouts.
+- **Custom:** `custom/config.lua` and `custom/modules/` are placeholders for a
+  future non-Omarchy setup. This profile currently configures no desktop behavior.
+
+Machine-local `~/.config/hypr/monitors.lua` and `autostart.lua` remain untracked
+at the config root and are loaded only by the Omarchy profile. Keep both files
+present on Omarchy machines. Neither profile currently has shared modules.
+
+After applying Hyprland changes, run `hyprctl reload` followed by
+`hyprctl configerrors` to validate the active configuration.
+
 ## Managing the Git Repo
 
 chezmoi provides a `cd` command that opens a shell in the source directory, and a `git` passthrough for running git commands directly:

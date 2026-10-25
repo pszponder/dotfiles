@@ -1,52 +1,71 @@
 {
   pkgs,
   lib,
-  config,
   inputs,
   ...
 }:
 
+let
+  bashFiles = "\\.(sh|bash)$|^dots/\\.(bashrc|bash_profile|profile)$|^dots/\\.config/aliases$|^dots/\\.local/bin/";
+in
 {
-  # https://devenv.sh/basics/
-  env.GREET = "devenv";
-
   # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  packages = [
+    pkgs.betterleaks
+    inputs.llm-agents.packages.${pkgs.system}.codex
+    pkgs.deadnix
+    pkgs.git
+    pkgs.just
+    pkgs.nixfmt
+    pkgs.prettier
+    pkgs.shellcheck
+    pkgs.shfmt
+    pkgs.statix
+    pkgs.stow
+    pkgs.taplo
+  ];
 
-  # https://devenv.sh/languages/
-  # languages.rust.enable = true;
-
-  # https://devenv.sh/processes/
-  # processes.dev.exec = "${lib.getExe pkgs.watchexec} -n -- ls -la";
-
-  # https://devenv.sh/services/
-  # services.postgres.enable = true;
-
-  # https://devenv.sh/scripts/
-  scripts.hello.exec = ''
-    echo hello from $GREET
-  '';
-
-  # https://devenv.sh/basics/
-  enterShell = ''
-    hello         # Run scripts directly
-    git --version # Use packages
-  '';
-
-  # https://devenv.sh/tasks/
-  # tasks = {
-  #   "myproj:setup".exec = "mytool build";
-  #   "devenv:enterShell".after = [ "myproj:setup" ];
-  # };
-
-  # https://devenv.sh/tests/
-  enterTest = ''
-    echo "Running tests"
-    git --version | grep --color=auto "${pkgs.git.version}"
-  '';
-
-  # https://devenv.sh/git-hooks/
-  # git-hooks.hooks.shellcheck.enable = true;
-
-  # See full reference at https://devenv.sh/reference/options/
+  git-hooks.hooks = {
+    nixfmt.enable = true;
+    statix.enable = true;
+    deadnix.enable = true;
+    prettier = {
+      enable = true;
+      files = "\\.(md|json|ya?ml)$";
+    };
+    taplo.enable = true;
+    shfmt = {
+      enable = true;
+      files = bashFiles;
+      types = lib.mkForce [ "file" ];
+      args = [
+        "-ln"
+        "bash"
+      ];
+    };
+    shellcheck = {
+      enable = true;
+      files = bashFiles;
+      types = lib.mkForce [ "file" ];
+      args = [ "--shell=bash" ];
+    };
+    betterleaks-commit = {
+      enable = true;
+      name = "Betterleaks staged secrets";
+      entry = "${pkgs.betterleaks}/bin/betterleaks git --pre-commit --staged --redact --no-banner .";
+      stages = [ "pre-commit" ];
+      pass_filenames = false;
+      always_run = true;
+    };
+    betterleaks-push = {
+      enable = true;
+      name = "Betterleaks pushed history";
+      entry = "${pkgs.writeShellScript "check-pushed-secrets" ''
+        exec ${pkgs.betterleaks}/bin/betterleaks git --redact --no-banner --log-opts="''${PRE_COMMIT_TO_REF:?Missing pushed commit}" .
+      ''}";
+      stages = [ "pre-push" ];
+      pass_filenames = false;
+      always_run = true;
+    };
+  };
 }

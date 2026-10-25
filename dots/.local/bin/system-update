@@ -2,23 +2,8 @@
 # Update the host and the applied dotfiles profile from any directory.
 set -uo pipefail
 
-# Copied from scripts/utils/utils_logging.sh so the deployed command is standalone.
-
-log_info() {
-  printf '%s\n' "ℹ️ [INFO] $*"
-}
-
-log_success() {
-  printf '%s\n' "✅ [OK] $*"
-}
-
-log_warn() {
-  printf '%s\n' "⚠️ [WARN] $*"
-}
-
-log_error() {
-  printf '%s\n' "❌ [ERROR] $*" >&2
-}
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+source "$script_dir/../lib/logging.sh"
 
 
 run() {

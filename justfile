@@ -4,24 +4,17 @@ set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
 default:
     @just --list
 
-# Create the default home directory layout from docs/home-directory-structure.md.
+# Create the default home directory layout.
 bootstrap-dirs:
-    mkdir -p ~/repos/github ~/resources ~/scratch
+    scripts/bootstrap-dirs.sh
 
 # Generate the default SSH keys without replacing any existing key files.
 bootstrap-ssh:
-    mkdir -p ~/.ssh/github/pszponder
-    chmod 700 ~/.ssh ~/.ssh/github ~/.ssh/github/pszponder
-    if [[ ! -e ~/.ssh/default && ! -e ~/.ssh/default.pub ]]; then \
-        ssh-keygen -t ed25519 -f ~/.ssh/default -C "default"; \
-    else \
-        echo "Skipping ~/.ssh/default: a key file already exists"; \
-    fi
-    if [[ ! -e ~/.ssh/github/pszponder/personal && ! -e ~/.ssh/github/pszponder/personal.pub ]]; then \
-        ssh-keygen -t ed25519 -f ~/.ssh/github/pszponder/personal -C "personal-github"; \
-    else \
-        echo "Skipping ~/.ssh/github/pszponder/personal: a key file already exists"; \
-    fi
+    scripts/bootstrap-ssh.sh
 
 # Set up the home directories and SSH keys.
 bootstrap: bootstrap-dirs bootstrap-ssh
+
+# Back up conflicting home paths, then create the dotfile symlinks.
+stow:
+    scripts/stow-dots-backup.sh

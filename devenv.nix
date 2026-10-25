@@ -12,7 +12,7 @@ in
   # https://devenv.sh/packages/
   packages = [
     pkgs.betterleaks
-    inputs.llm-agents.packages.${pkgs.system}.codex
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
     pkgs.deadnix
     pkgs.git
     pkgs.just

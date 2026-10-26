@@ -18,3 +18,11 @@ bootstrap: bootstrap-dirs bootstrap-ssh
 # Back up conflicting home paths, then create the dotfile symlinks.
 stow:
     scripts/stow-dots-backup.sh
+
+# Recreate symlinks for the files in "dots".
+restow:
+    stow -R dots
+
+# Unlink all files in the "dots" directory.
+unstow:
+    stow -D dots

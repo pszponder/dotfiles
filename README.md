@@ -63,13 +63,13 @@ cd dotfiles
 Create symlinks for the files in `dots`:
 
 ```sh
-stow dots
+just stow
 ```
 
 ### Restow Dotfiles
 
 ```sh
-stow -R dots
+just restow
 ```
 
 ### Undo / Unstow
@@ -77,7 +77,7 @@ stow -R dots
 Unlink all files in the "dots" directory.
 
 ```sh
-stow -D dots
+just unstow
 ```
 
 ## Development checks

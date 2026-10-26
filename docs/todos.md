@@ -2,6 +2,10 @@
 
 ## TODOS
 
+- [ ] Use custom neovim config instead of lazyvim
+- [ ] Add basic vim configuration
+- [ ] Create a bootstrap script (bootstrap.sh) which will install prerequisites if they aren't available (this will help with installation on non-nix systems)
+
 ## Done
 
 - [x] Add a justfile script to change the repo from http to ssh in case it's cloned down with http instead of ssh

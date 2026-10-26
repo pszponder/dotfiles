@@ -4,6 +4,10 @@ set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
 default:
     @just --list
 
+# Switch origin from HTTP(S) to SSH.
+remote-ssh:
+    scripts/remote-ssh.sh
+
 # Create the default home directory layout.
 bootstrap-dirs:
     scripts/bootstrap-dirs.sh

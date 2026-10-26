@@ -51,12 +51,27 @@ Apply the NixOS configuration with `sudo nixos-rebuild switch` before running
 
 ### Clone the Repository
 
-Clone the repository and enter it:
+Clone the repository over HTTPS and enter it:
 
 ```sh
 git clone https://github.com/pszponder/dotfiles.git
 cd dotfiles
 ```
+
+Or, if you have SSH authentication configured for GitHub, clone using SSH directly:
+
+```sh
+git clone git@github.com:pszponder/dotfiles.git
+cd dotfiles
+```
+
+If you cloned over HTTP or HTTPS, switch the `origin` remote to SSH:
+
+```sh
+just remote-ssh
+```
+
+This uses your existing SSH authentication setup.
 
 ### Create Symlinks w/ Stow
 

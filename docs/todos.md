@@ -4,6 +4,7 @@
 
 ## Done
 
+- [x] Add a justfile script to change the repo from http to ssh in case it's cloned down with http instead of ssh
 - [x] add devenv environment
 - [x] How does stow work if a file which needs to be symlinked already exits on the host?
 - [x] Use file structure from [dotfiles_v4](https://github.com/pszponder/dotfiles_v4) and migrate over dotfiles from [dots](https://github.com/pszponder/dotfiles_v2)

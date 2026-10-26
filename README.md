@@ -97,6 +97,18 @@ just unstow
 
 ## Development checks
 
+The Bash and Zsh configs include [devenv auto-activation hooks](https://devenv.sh/auto-activation/)
+when `devenv` is installed (version 2.1 or later). After installing the dotfiles,
+restart your shell and trust this repository once from its directory:
+
+```sh
+devenv allow
+```
+
+Entering the repository will then activate its development environment
+automatically. Leaving it deactivates the environment. Run `devenv revoke` from
+the repository to disable auto-activation for it.
+
 Run `devenv shell` to install the pre-commit and pre-push hooks and enter the
 development environment. Pre-commit runs Nix, shell, Markdown, JSON, YAML, and
 TOML checks and scans staged changes for secrets. Pre-push scans the history

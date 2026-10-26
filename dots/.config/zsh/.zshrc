@@ -222,12 +222,17 @@ if [[ $TERM_PROGRAM == "WarpTerminal" && -z $TMUX ]]; then
   printf '\eP$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh"}}\e\\'
 fi
 
-# 🚀 Zoxide (better cd) — keep synchronous so `z` is available immediately
-if command -v zoxide &> /dev/null; then
-  _cache_init zoxide "zoxide --version" "zoxide init zsh"
-fi
-
 # Activate the default environment as recommended by Flox.
 if command -v flox >/dev/null 2>&1; then
   eval "$(flox activate -D -m run)"
+fi
+
+# Automatically activate trusted devenv projects.
+if command -v devenv >/dev/null 2>&1; then
+  eval "$(devenv hook zsh)"
+fi
+
+# Keep Zoxide last so other initialization cannot overwrite its shell hooks.
+if command -v zoxide &> /dev/null; then
+  _cache_init zoxide "zoxide --version" "zoxide init zsh"
 fi

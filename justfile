@@ -6,7 +6,7 @@ default:
 
 # Switch origin from HTTP(S) to SSH.
 remote-ssh:
-    scripts/remote-ssh.sh
+    git remote set-url origin git@github.com:pszponder/dotfiles.git
 
 # Create the default home directory layout.
 bootstrap-dirs:

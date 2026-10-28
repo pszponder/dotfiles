@@ -81,6 +81,13 @@ Create symlinks for the files in `dots`:
 just stow
 ```
 
+### Codex Preferences
+
+Codex preferences live in `dots/.codex/preferences.config.toml`. The `codex` and
+`cx` shell aliases select this profile with `--profile preferences` (Codex 0.134.0
+or later). Each machine keeps its own untracked `~/.codex/config.toml` for trusted
+projects and other settings written by Codex.
+
 ### Restow Dotfiles
 
 ```sh

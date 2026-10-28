@@ -8,3 +8,6 @@ devenv.local.yaml
 
 # pre-commit
 .pre-commit-config.yaml
+
+# Codex manages machine-specific settings in this file.
+/dots/.codex/config.toml

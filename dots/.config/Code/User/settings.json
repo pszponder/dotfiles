@@ -22,7 +22,7 @@
   "editor.formatOnSave": true,
   "editor.suggest.insertMode": "replace",
   "editor.linkedEditing": true,
-//   "editor.minimap.autohide": true,
+  //   "editor.minimap.autohide": true,
   "editor.mouseWheelZoom": true,
   "editor.codeActionsOnSave": {
     // "source.fixAll": "explicit",
@@ -47,7 +47,7 @@
   // =============================================
   "terminal.integrated.fontSize": 16,
   "terminal.integrated.shellIntegration.enabled": true,
-//   "terminal.integrated.enableMultiLinePasteWarning": false,
+  //   "terminal.integrated.enableMultiLinePasteWarning": false,
   "terminal.integrated.scrollback": 10000, // Amount of lines to keep in terminal
   "terminal.integrated.smoothScrolling": true,
   "terminal.integrated.profiles.linux": {
@@ -60,7 +60,7 @@
       "icon": "terminal-bash"
     }
   },
-//   "terminal.external.linuxExec": "which $ZSH",
+  //   "terminal.external.linuxExec": "which $ZSH",
   "terminal.integrated.defaultProfile.linux": "bash",
   // =============================================
   // ================ WORKBENCH ==================
@@ -68,6 +68,7 @@
   "workbench.colorTheme": "Catppuccin Mocha",
   "workbench.iconTheme": "catppuccin-mocha",
   "workbench.activityBar.location": "top",
+  "@azure.argTenant": "",
   "workbench.editor.titleScrollbarSizing": "large",
   //   "workbench.statusBar.visible": false,
   //   "workbench.activityBar.visible": false,
@@ -94,10 +95,10 @@
   // =============================================
   "notebook.formatOnSave.enabled": true,
   "notebook.output.wordWrap": true,
-//   "notebook.codeActionsOnSave": {
-//     "notebook.source.fixAll": true,
-//     "notebook.source.organizeImports": true
-//   },
+  //   "notebook.codeActionsOnSave": {
+  //     "notebook.source.fixAll": true,
+  //     "notebook.source.organizeImports": true
+  //   },
 
   // =============================================
   // ============= GITHUB COPILOT ================
@@ -513,9 +514,9 @@
     "#_",
     "#_("
   ],
-  "cSpell.userWords": [
-  ],
+  "cSpell.userWords": [],
   "[jsonc]": {
     // "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "githubPullRequests.createOnPublishBranch": "never"
 }

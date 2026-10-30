@@ -9,6 +9,7 @@ Install the following:
 - [git](https://git-scm.com/)
 - [GNU Stow](https://www.gnu.org/software/stow/)
 - [just](https://github.com/casey/just)
+- [Taplo](https://taplo.tamasfe.dev/) for Codex preferences (included in `devenv shell`).
 
 ### Optional Prerequisites
 
@@ -83,10 +84,21 @@ just stow
 
 ### Codex Preferences
 
-Codex preferences live in `dots/.codex/preferences.config.toml`. The `codex` and
-`cx` shell aliases select this profile with `--profile preferences` (Codex 0.134.0
-or later). Each machine keeps its own untracked `~/.codex/config.toml` for trusted
-projects and other settings written by Codex.
+Codex preferences live in `config/codex-preferences.toml`, outside the Stow tree.
+Run `just bootstrap-codex-preferences` inside the development shell when setting
+up a machine. `just bootstrap` also runs this step.
+
+The Bash script adds `tui.status_line` to `$CODEX_HOME/config.toml` (default:
+`~/.codex/config.toml`) only if that key is missing. Existing values, including an
+empty array, are left untouched, along with comments, permissions, trusted
+projects, and other local settings. Changes to the tracked defaults do not
+overwrite an existing status bar configuration; remove the local key to use the
+defaults again. Taplo validates the TOML before any replacement. The destination
+remains a regular, untracked file; the script refuses to modify a symlink.
+Close Codex before applying preferences to avoid concurrent configuration writes.
+
+Launch with `codex` or `cx`, without a profile. After migrating from the old
+aliases, open a new shell or run `unalias codex cx` before sourcing your aliases.
 
 ### Restow Dotfiles
 

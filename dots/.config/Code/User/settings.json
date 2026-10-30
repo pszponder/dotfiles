@@ -7,7 +7,6 @@
   "files.trimTrailingWhitespace": true,
   "security.workspace.trust.untrustedFiles": "open",
   "workbench.sideBar.location": "right",
-
   // =============================================
   // ================ EDITOR =====================
   // =============================================
@@ -41,7 +40,6 @@
   "editor.stickyScroll.enabled": true,
   "editor.cursorSurroundingLines": 8,
   // SEE LANGUAGE SPECIFIC SETTINGS FOR TAB SIZE
-
   // =============================================
   // ================ TERMINAL ===================
   // =============================================
@@ -72,24 +70,20 @@
   "workbench.editor.titleScrollbarSizing": "large",
   //   "workbench.statusBar.visible": false,
   //   "workbench.activityBar.visible": false,
-
   // =============================================
   // ================ EXPLORER ===================
   // =============================================
   "explorer.confirmDragAndDrop": true,
-
   // =============================================
   // ================== GIT ======================
   // =============================================
   "git.autofetch": true,
-
   // =============================================
   // ================ WINDOW =====================
   // =============================================
   "window.menuBarVisibility": "toggle",
   "window.commandCenter": true,
   "window.titleBarStyle": "custom",
-
   // =============================================
   // ================ NOTEBOOK ====================
   // =============================================
@@ -99,7 +93,6 @@
   //     "notebook.source.fixAll": true,
   //     "notebook.source.organizeImports": true
   //   },
-
   // =============================================
   // ============= GITHUB COPILOT ================
   // =============================================
@@ -109,7 +102,6 @@
     "markdown": false,
     "scminput": false
   },
-
   // =============================================
   // ================ VIM SETTINGS ===============
   // =============================================
@@ -118,7 +110,6 @@
     // "<C-w>": false, // Disable VIM binding for "Close Window"
     "<C-f>": false // Disable VIM binding for "Find in File"
   },
-
   "vim.leader": "<Space>",
   "vim.hlsearch": true,
   "vim.useSystemClipboard": true,
@@ -127,7 +118,6 @@
   "vim.highlightedyank.enable": true,
   "vim.highlightedyank.color": "#a9dc7660",
   "vim.highlightedyank.duration": 250,
-
   "vim.insertModeKeyBindings": [
     // "jj" in Insert Mode => Go to Normal Mode
     {
@@ -145,21 +135,36 @@
     //   "after": ["<Esc>"]
     // }
   ],
-
   "vim.normalModeKeyBindingsNonRecursive": [
     // NAVIGATION
     // switch b/w buffers
-    { "before": ["<S-h>"], "commands": [":bprevious"] },
-    { "before": ["<S-l>"], "commands": [":bnext"] },
-
+    {
+      "before": ["<S-h>"],
+      "commands": [":bprevious"]
+    },
+    {
+      "before": ["<S-l>"],
+      "commands": [":bnext"]
+    },
     // splits
     // { "before": ["leader", "v"], "commands": [":vsplit"] },
     // { "before": ["leader", "s"], "commands": [":split"] },
-    { "before": ["leader", "\\"], "commands": [":vsplit"] },
-    { "before": ["leader", "-"], "commands": [":split"] },
-    { "before": ["leader", "w", "v"], "commands": [":vsplit"] },
-    { "before": ["leader", "w", "h"], "commands": [":split"] },
-
+    {
+      "before": ["leader", "\\"],
+      "commands": [":vsplit"]
+    },
+    {
+      "before": ["leader", "-"],
+      "commands": [":split"]
+    },
+    {
+      "before": ["leader", "w", "v"],
+      "commands": [":vsplit"]
+    },
+    {
+      "before": ["leader", "w", "h"],
+      "commands": [":split"]
+    },
     // panes / window navigation
     {
       // "before": ["leader", "h"],
@@ -181,50 +186,54 @@
       "before": ["<C-l>"],
       "commands": ["workbench.action.focusRightGroup"]
     },
-
     // Close active editor
     {
       "before": ["<leader>", "w", "d"],
       "commands": ["workbench.action.closeActiveEditor"]
     },
-
     // Save file
-    { "before": ["leader", "w"], "commands": [":w!"] },
-
+    {
+      "before": ["leader", "w"],
+      "commands": [":w!"]
+    },
     // Quit without saving
-    { "before": ["leader", "q"], "commands": [":q!"] },
-
+    {
+      "before": ["leader", "q"],
+      "commands": [":q!"]
+    },
     // Save file and quit
-    { "before": ["leader", "x"], "commands": [":x!"] },
-
+    {
+      "before": ["leader", "x"],
+      "commands": [":x!"]
+    },
     // Go to Previous Error or Warning
     {
       "before": ["[", "d"],
       "commands": ["editor.action.marker.prev"]
     },
-
     // Go to Previous Error or Warning
     {
       "before": ["]", "d"],
       "commands": ["editor.action.marker.next"]
     },
-
     // Code Actions / Quick Fix
     {
       "before": ["<leader>", "c", "a"],
       "commands": ["editor.action.quickFix"]
     },
-
     // File Quick Open
-    { "before": ["leader", "f"], "commands": ["workbench.action.quickOpen"] },
-
+    {
+      "before": ["leader", "f"],
+      "commands": ["workbench.action.quickOpen"]
+    },
     // Format the whole document
-    { "before": ["leader", "p"], "commands": ["editor.action.formatDocument"] }
+    {
+      "before": ["leader", "p"],
+      "commands": ["editor.action.formatDocument"]
+    }
   ],
-
   "vim.normalModeKeyBindings": [
     // https://dev.to/ansonh/10-vs-code-vim-tricks-to-boost-your-productivity-1b0n
-
     // Go to Definition
     {
       "before": ["g", "d"],
@@ -237,69 +246,72 @@
       "commands": ["editor.action.peekDefinition"],
       "when": "editorHasDefinitionProvider && editorTextFocus && !inReferenceSearchEditor && !isInEmbeddedEditor"
     },
-
     // Show Hover
     {
       "before": ["g", "h"],
       "commands": ["editor.action.showDefinitionPreviewHover"]
     },
-
     // Go to Implementations
     {
       "before": ["g", "i"],
       "commands": ["editor.action.revealDeclaration"]
     },
-
     // Peek Implementations
     {
       "before": ["g", "p", "i"],
       "commands": ["editor.action.peekDeclaration"]
     },
-
     // Quick Fix (open the code action lightbulb menu)
     {
       "before": ["g", "q"],
       "commands": ["editor.action.quickFix"]
     },
-
     // Go to References
     {
       "before": ["g", "r"],
       "commands": ["editor.action.referenceSearch.trigger"]
     },
-
     // Go to Type Definition
     {
       "before": ["g", "t"],
       "commands": ["editor.action.goToTypeDefinition"]
     },
-
     // Peek Type Definition
     {
       "before": ["g", "p", "t"],
       "commands": ["editor.action.peekTypeDefinition"]
     },
-
     // Open File Explorer
     {
       "before": ["<leader>", "e"],
       "commands": ["workbench.view.explorer"]
     }
   ],
-
   "vim.visualModeKeyBindings": [
     // Stay in visual mode while indenting
-    { "before": ["<"], "commands": ["editor.action.outdentLines"] },
-    { "before": [">"], "commands": ["editor.action.indentLines"] },
-
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    },
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
     // Move selected lines while staying in visual mode
-    { "before": ["J"], "commands": ["editor.action.moveLinesDownAction"] },
-    { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
-
+    {
+      "before": ["J"],
+      "commands": ["editor.action.moveLinesDownAction"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["editor.action.moveLinesUpAction"]
+    },
     // toggle comment selection
-    { "before": ["leader", "c"], "commands": ["editor.action.commentLine"] }
+    {
+      "before": ["leader", "c"],
+      "commands": ["editor.action.commentLine"]
+    }
   ],
-
   "vim.visualModeKeyBindingsNonRecursive": [
     // Add current selection to next find match
     {
@@ -307,45 +319,36 @@
       "commands": ["editor.action.addSelectionToNextFindMatch"]
     }
   ],
-
   // VIM PLUGINS
   "vim.surround": true, // Enable surround.vim -- https://github.com/VSCodeVim/Vim#vim-surround
   "vim.surround.suppressSurroundingSpaces": true, // Don't add spaces when surrounding with quotes
   "vim.commentary": true, // Enable commentary.vim -- https://github.com/VSCodeVim/Vim#vim-commentary
-
   // =============================================
   // ============== LANGUAGE SPECIFIC ============
   // =============================================
   "editor.insertSpaces": true, // Default to tabs
   "editor.tabSize": 4, // Default to 4 spaces
   "editor.detectIndentation": true, // Auto detect indentation
-
   "[javascript]": {
     // "editor.tabSize": 4
   },
   "js/ts.updateImportsOnFileMove.enabled": "always",
-
   "[typescriptreact]": {
     // "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-
   "[typescript]": {
     // "editor.tabSize": 4
   },
-
   "[css]": {
     "editor.suggest.insertMode": "replace"
   },
-
   "[json]": {
     // "editor.tabSize": 4
   },
-
   "[csharp]": {
     // "editor.defaultFormatter": "ms-dotnettools.csharp"
     // "editor.tabSize": 4
   },
-
   "[python]": {
     "editor.tabSize": 4,
     "editor.insertSpaces": true,
@@ -359,7 +362,6 @@
   "python.analysis.typeCheckingMode": "strict",
   "python.analysis.autoImportCompletions": true,
   // "python.defaultInterpreterPath": "${env:HOME}/.pixi/bin/python",
-
   "[go]": {
     "editor.tabSize": 4,
     "editor.insertSpaces": false
@@ -367,7 +369,6 @@
   "go.toolsManagement.autoUpdate": true,
   "go.lintTool": "golangci-lint",
   "go.lintFlags": ["--fast"],
-
   "[markdown]": {
     "editor.tabSize": 4,
     "editor.unicodeHighlight.ambiguousCharacters": false,
@@ -381,7 +382,6 @@
     },
     "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
-
   // =============================================
   // ================ EXTENSIONS =================
   // =============================================
@@ -518,5 +518,6 @@
   "[jsonc]": {
     // "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "githubPullRequests.createOnPublishBranch": "never"
+  "githubPullRequests.createOnPublishBranch": "never",
+  "redhat.telemetry.enabled": true
 }

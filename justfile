@@ -16,8 +16,12 @@ bootstrap-dirs:
 bootstrap-ssh:
     scripts/bootstrap-ssh.sh
 
-# Set up the home directories and SSH keys.
-bootstrap: bootstrap-dirs bootstrap-ssh
+# Add missing Codex preferences while preserving local settings.
+bootstrap-codex-preferences:
+    bash scripts/bootstrap-codex-preferences.sh
+
+# Set up the home directories, SSH keys, and Codex preferences.
+bootstrap: bootstrap-dirs bootstrap-ssh bootstrap-codex-preferences
 
 # Back up conflicting home paths, then create the dotfile symlinks.
 stow:

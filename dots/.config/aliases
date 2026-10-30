@@ -93,8 +93,7 @@ alias tf='terraform'
 
 # CLI tools
 alias cc='claude'
-alias codex='command codex --profile preferences'
-alias cx='command codex --profile preferences'
+alias cx='command codex'
 alias oc='opencode'
 
 # Editors

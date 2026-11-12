@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  inputs,
+  # inputs,
   ...
 }:
 
@@ -13,7 +13,7 @@ in
   packages = [
     pkgs.betterleaks
     pkgs.bubblewrap
-    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
+    # inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
     pkgs.deadnix
     pkgs.git
     pkgs.just

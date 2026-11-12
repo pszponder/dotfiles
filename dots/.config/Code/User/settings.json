@@ -519,5 +519,10 @@
     // "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "githubPullRequests.createOnPublishBranch": "never",
-  "redhat.telemetry.enabled": true
+  "redhat.telemetry.enabled": true,
+  "mermaid.vscode.aiExportName": false,
+  "mermaidChart.createDiagramFromStage.enabled": false,
+  "mermaidChart.enableTelemetry": false,
+  "mermaidChart.showGenerateDiagramCodeLens": false,
+  "mermaidChart.preCommitSync.enabled": false
 }

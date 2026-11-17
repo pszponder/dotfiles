@@ -27,11 +27,12 @@ up() {
 			echo "up: nix is not installed or not in PATH" >&2
 			return 1
 		fi
-		if ! command -v nh >/dev/null 2>&1; then
-			echo "up: nh is not installed or not in PATH" >&2
+		if ! command -v nixos-rebuild >/dev/null 2>&1; then
+			echo "up: nixos-rebuild is not installed or not in PATH" >&2
 			return 1
 		fi
-		nh os switch "$flake_dir" -H "$hostname" --update --ask "$@"
+		nix flake update --flake "$flake_dir" || return $?
+		sudo nixos-rebuild switch --flake "$flake_dir#$hostname" "$@"
 	else
 		if ! command -v topgrade >/dev/null 2>&1; then
 			echo "up: topgrade is not installed or not in PATH" >&2

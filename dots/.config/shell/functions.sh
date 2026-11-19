@@ -383,3 +383,22 @@ _ssh_interactive() {
 	resolved="$(command ssh -G "${argv[@]}" 2>/dev/null)" || return 1
 	! grep -i '^remotecommand ' <<<"$resolved" | grep -qvi '^remotecommand none$'
 }
+
+gh() {
+	local style="${GLAMOUR_STYLE:-}"
+	if [ -z "$style" ]; then
+		case "$(busctl --user --timeout=1s call org.freedesktop.portal.Desktop \
+			/org/freedesktop/portal/desktop org.freedesktop.portal.Settings \
+			ReadOne ss org.freedesktop.appearance color-scheme 2>/dev/null)" in
+		"v u 1") style=dark ;;
+		"v u 2") style=light ;;
+		*)
+			case "$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null)" in
+			"'default'" | "'prefer-light'") style=light ;;
+			*) style=dark ;;
+			esac
+			;;
+		esac
+	fi
+	GLAMOUR_STYLE="$style" command gh "$@"
+}
